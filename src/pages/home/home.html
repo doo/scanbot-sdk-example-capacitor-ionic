@@ -7,7 +7,17 @@
 </ion-header>
 
 <ion-content padding>
-  <p>
-    Scanbot SDK Capacitor Example
-  </p>
+
+  <button ion-button block (click)="startDocumentScanner()">
+    Open Document Scanner
+  </button>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col padding col-4 *ngFor='let page of pages'>
+        <img [src]='convertFileUri(page.documentPreviewImageFileUri)'/>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>
