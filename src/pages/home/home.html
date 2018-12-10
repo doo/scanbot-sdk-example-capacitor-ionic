@@ -8,6 +8,7 @@
 
 <ion-content padding>
 
+  <!--
   <button ion-button block (click)="startDocumentScanner()">
     Open Document Scanner
   </button>
@@ -19,5 +20,42 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  -->
+
+  <ion-list>
+    <ion-list-header text-uppercase>
+      Document Scanning
+    </ion-list-header>
+    <button ion-item (click)="startDocumentScanner()">
+      Scan a Document
+    </button>
+    <button ion-item (click)="importImage()">
+      Import an Image
+    </button>
+    <button ion-item (click)="gotoImageResults()">
+      Show Image Results
+    </button>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header text-uppercase>
+      Data Extraction
+    </ion-list-header>
+    <button ion-item (click)="startBarcodeScanner()">
+      QR-/Barcode Scanner
+    </button>
+    <button ion-item (click)="startMrzScanner()">
+      MRZ Scanner
+    </button>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header text-uppercase>
+      About
+    </ion-list-header>
+    <button ion-item>
+      Scanbot SDK
+    </button>
+  </ion-list>
 
 </ion-content>

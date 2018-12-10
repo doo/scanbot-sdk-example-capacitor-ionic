@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Image Results
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="saveImages()">
+        Save
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col padding col-4 *ngFor='let page of pages' (tap)="startCroppingScreen(page)">
+        <img [src]='convertFileUri(page.documentPreviewImageFileUri)'/>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
