@@ -14,7 +14,7 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col padding col-4 *ngFor='let page of pages'>
+      <ion-col padding col-4 *ngFor='let page of pages' (tap)="startCroppingScreen(page)">
         <img [src]='convertFileUri(page.documentPreviewImageFileUri)'/>
       </ion-col>
     </ion-row>

@@ -51,7 +51,39 @@ export class HomePage {
   }
 
   convertFileUri(fileUri) {
+    // see https://beta.ionicframework.com/docs/building/webview/
     return (<any>window).Ionic.WebView.convertFileSrc(fileUri);
+  }
+
+  async startCroppingScreen(page: Page) {
+    const result = await this.SBSDK.UI.startCroppingScreen({
+      page: page,
+      uiConfigs: {
+        // Customize colors, text resources, behavior, etc..
+        doneButtonTitle: 'Save',
+        orientationLockMode: 'PORTRAIT'
+        // ...
+      }
+    });
+
+    if (result.status == 'CANCELED') { return; }
+
+    // handle the updated page object:
+    this.updatePage(result.page);
+  }
+
+  private updatePage(page: Page) {
+    let replaced = false;
+    for (let i = 0; i < this.pages.length; ++i) {
+      if (this.pages[i].pageId == page.pageId) {
+        this.pages[i] = page;
+        replaced = true;
+        break;
+      }
+    }
+    if (!replaced) {
+      this.pages.push(page);
+    }
   }
 
 }
