@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Image View
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <img [src]='page.sanitizedDocumentPreviewImage' />
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons start>
+      <button ion-button icon-start (click)="startCroppingScreen()">
+        <ion-icon name="crop"></ion-icon>
+        Crop / Rotate
+      </button>
+      <button ion-button icon-start (click)="showFilterSelection()">
+        <ion-icon name="contrast"></ion-icon>
+        Filter
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button icon-start (click)="deletePage()">
+        <ion-icon name="trash"></ion-icon>
+        Delete
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

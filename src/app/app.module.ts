@@ -7,12 +7,17 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ImageResultsPage } from '../pages/image-results/image-results';
+import { ImageResultsProvider } from '../providers/image-results-provider';
+import { ScanbotSdkProvider } from '../providers/scanbot-sdk-provider';
+import { UiService } from '../providers/ui-service';
+import { ImageViewPage } from "../pages/image-view/image-view";
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ImageResultsPage
+    ImageResultsPage,
+    ImageViewPage
   ],
   imports: [
     BrowserModule,
@@ -22,11 +27,15 @@ import { ImageResultsPage } from '../pages/image-results/image-results';
   entryComponents: [
     MyApp,
     HomePage,
-    ImageResultsPage
+    ImageResultsPage,
+    ImageViewPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    ScanbotSdkProvider,
+    ImageResultsProvider,
+    UiService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

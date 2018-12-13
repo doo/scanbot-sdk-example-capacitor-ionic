@@ -1,13 +1,17 @@
-import { Component } from '@angular/core';
-import {
-  NavController,
-  Platform,
-  AlertController
-} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController, Platform} from 'ionic-angular';
 
-import ScanbotSDK, { Page, MrzScannerConfiguration } from 'cordova-plugin-scanbot-sdk';
+import {CameraResultType, CameraSource, Plugins} from '@capacitor/core';
 
-import { ImageResultsPage } from "../image-results/image-results";
+import {MrzScannerConfiguration} from 'cordova-plugin-scanbot-sdk';
+
+import {ScanbotSdkProvider} from '../../providers/scanbot-sdk-provider';
+import {ImageResultsProvider} from '../../providers/image-results-provider';
+import {ImageResultsPage} from '../image-results/image-results';
+import {UiService} from "../../providers/ui-service";
+
+// We use the the Capacitor Camera API just to pick a photo from the Photo Library (photo album).
+const { Camera } = Plugins;
 
 @Component({
   selector: 'page-home',
@@ -15,69 +19,61 @@ import { ImageResultsPage } from "../image-results/image-results";
 })
 export class HomePage {
 
-  // Add Scanbot SDK (trial) license key here.
-  private myLicenseKey = "";
-
-  private SBSDK = ScanbotSDK.promisify();
-
-  public pages: Page[] = [];
-
   constructor(private navCtrl: NavController,
               private platform: Platform,
-              private alertCtrl: AlertController) {
-    this.platform.ready().then(() => this.initScanbotSDK());
-  }
-
-  private async initScanbotSDK() {
-    await this.SBSDK.initializeSdk({
-      loggingEnabled: true,
-      licenseKey: this.myLicenseKey,
-      storageImageFormat: 'JPG',
-      storageImageQuality: 80
-    }).then((result) => {
-      console.log(result);
-    }).catch((err) => {
-      console.error(err);
+              private uiService: UiService,
+              private scanbot: ScanbotSdkProvider,
+              private imageResultsProvider: ImageResultsProvider
+  ) {
+    scanbot.onInitialize(error => {
+      if (error) {
+        this.uiService.showAlert(error.message);
+      }
     });
-  }
-
-  private async checkLicense() {
-    const result = await this.SBSDK.isLicenseValid();
-    if (result.isLicenseValid == true) {
-      // OK - trial session, valid trial license or valid production license.
-      return true;
-    }
-    this.showAlert("Scanbot SDK (trial) license has expired!");
-    return false;
   }
 
   async startDocumentScanner() {
-    if (!(await this.checkLicense())) { return; }
+    if (!(await this.scanbot.checkLicense())) { return; }
 
-    const result = await this.SBSDK.UI.startDocumentScanner({
-      uiConfigs: {
-        // Customize colors, text resources, behavior, etc..
-        cameraPreviewMode: 'FIT_IN',
-        orientationLockMode: 'PORTRAIT',
-        pageCounterButtonTitle: '%d Page(s)',
-        multiPageEnabled: true
-        // ...
-      }
-    });
+    const configs = this.scanbot.globalDocScannerConfigs();
+    const result = await this.scanbot.SDK.UI.startDocumentScanner({uiConfigs: configs});
 
     if (result.status === 'CANCELED') {
       // user has canceled the scanning operation
       return;
     }
 
-    // Get the scanned pages from result:
-    this.pages = result.pages;
+    this.imageResultsProvider.addPages(result.pages);
+    this.gotoImageResults();
   }
 
-  async importImage() {
-    if (!(await this.checkLicense())) { return; }
-    // TODO
-    // import an image from photo library and run auto doc-detection on it...
+  async pickImageFromGallery() {
+    // Import an image from Photo Library and run auto document detection on it.
+
+    const image = await Camera.getPhoto({
+      quality: 80,
+      allowEditing: false,
+      source: CameraSource.Photos,
+      resultType: CameraResultType.Uri
+    });
+    const originalImageFileUri = image.path;
+
+    if (!(await this.scanbot.checkLicense())) { return; }
+
+    const loading = this.uiService.createLoading('Auto-detecting and cropping...');
+    try {
+      loading.present();
+      // First create a new SDK page with the selected original image file:
+      const createResult = await this.scanbot.SDK.createPage({originalImageFileUri});
+      // and then run auto document detection and cropping on this new page:
+      const docResult = await this.scanbot.SDK.detectDocumentOnPage({page: createResult.page});
+
+      this.imageResultsProvider.addPages([docResult.page]);
+      this.gotoImageResults();
+    }
+    finally {
+      loading.dismiss();
+    }
   }
 
   gotoImageResults() {
@@ -85,9 +81,9 @@ export class HomePage {
   }
 
   async startBarcodeScanner() {
-    if (!(await this.checkLicense())) { return; }
+    if (!(await this.scanbot.checkLicense())) { return; }
 
-    const result = await this.SBSDK.UI.startBarcodeScanner({
+    const result = await this.scanbot.SDK.UI.startBarcodeScanner({
       uiConfigs: {
         // Customize colors, text resources, behavior, etc..
         finderTextHint: 'Please align the barcode or QR code in the frame above to scan it.'
@@ -95,12 +91,12 @@ export class HomePage {
     });
 
     if (result.status == 'OK') {
-      this.showAlert(result.barcodeResult.textValue, `Barcode: ${result.barcodeResult.barcodeFormat}`);
+      this.uiService.showAlert(result.barcodeResult.textValue, `Barcode: ${result.barcodeResult.barcodeFormat}`);
     }
   }
 
   async startMrzScanner() {
-    if (!(await this.checkLicense())) { return; }
+    if (!(await this.scanbot.checkLicense())) { return; }
 
     let config: MrzScannerConfiguration = {
       // Customize colors, text resources, etc..
@@ -113,64 +109,10 @@ export class HomePage {
       config.finderHeight = widthPx * 0.18;
     }
 
-    const result = await this.SBSDK.UI.startMrzScanner({uiConfigs: config});
+    const result = await this.scanbot.SDK.UI.startMrzScanner({uiConfigs: config});
     if (result.status == 'OK') {
       const fields = result.mrzResult.fields.map(f => `<div>${f.name}: ${f.value} (${f.confidence.toFixed(2)})</div>`);
-      this.showAlert(fields.join(''), 'MRZ Result');
-    }
-  }
-
-  private showAlert(message: string, title: string = "Info") {
-    const prompt = this.alertCtrl.create({
-      title,
-      message,
-      buttons: [
-        {
-          text: 'OK',
-        }
-      ]
-    });
-    prompt.present();
-  }
-
-
-
-  // TODO remove
-  convertFileUri(fileUri) {
-    // see https://beta.ionicframework.com/docs/building/webview/
-    return (<any>window).Ionic.WebView.convertFileSrc(fileUri);
-  }
-
-  // TODO remove
-  async startCroppingScreen(page: Page) {
-    const result = await this.SBSDK.UI.startCroppingScreen({
-      page: page,
-      uiConfigs: {
-        // Customize colors, text resources, behavior, etc..
-        doneButtonTitle: 'Save',
-        orientationLockMode: 'PORTRAIT'
-        // ...
-      }
-    });
-
-    if (result.status == 'CANCELED') { return; }
-
-    // handle the updated page object:
-    this.updatePage(result.page);
-  }
-
-  // TODO remove
-  private updatePage(page: Page) {
-    let replaced = false;
-    for (let i = 0; i < this.pages.length; ++i) {
-      if (this.pages[i].pageId == page.pageId) {
-        this.pages[i] = page;
-        replaced = true;
-        break;
-      }
-    }
-    if (!replaced) {
-      this.pages.push(page);
+      this.uiService.showAlert(fields.join(''), 'MRZ Result');
     }
   }
 

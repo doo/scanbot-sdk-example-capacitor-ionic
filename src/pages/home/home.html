@@ -6,56 +6,48 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
 
-  <!--
-  <button ion-button block (click)="startDocumentScanner()">
-    Open Document Scanner
-  </button>
+  <div padding>
+    <ion-list>
+      <ion-list-header text-uppercase>
+        Document Scanner
+      </ion-list-header>
+      <button ion-item (click)="startDocumentScanner()">
+        Scan Document
+      </button>
+      <button ion-item (click)="pickImageFromGallery()">
+        Import Image
+      </button>
+      <button ion-item (click)="gotoImageResults()">
+        View Image Results
+      </button>
+    </ion-list>
 
-  <ion-grid>
-    <ion-row>
-      <ion-col padding col-4 *ngFor='let page of pages' (tap)="startCroppingScreen(page)">
-        <img [src]='convertFileUri(page.documentPreviewImageFileUri)'/>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  -->
+    <ion-list>
+      <ion-list-header text-uppercase>
+        Data Detectors
+      </ion-list-header>
+      <button ion-item (click)="startBarcodeScanner()">
+        Scan QR-/Barcode
+      </button>
+      <button ion-item (click)="startMrzScanner()">
+        Scan MRZ
+      </button>
+    </ion-list>
 
-  <ion-list>
-    <ion-list-header text-uppercase>
-      Document Scanning
-    </ion-list-header>
-    <button ion-item (click)="startDocumentScanner()">
-      Scan a Document
-    </button>
-    <button ion-item (click)="importImage()">
-      Import an Image
-    </button>
-    <button ion-item (click)="gotoImageResults()">
-      Show Image Results
-    </button>
-  </ion-list>
+    <ion-list>
+      <ion-list-header text-uppercase>
+        About
+      </ion-list-header>
+      <a ion-item href="https://scanbot.io/sdk" target="_blank">
+        Learn More About the SDK
+      </a>
+    </ion-list>
+  </div>
 
-  <ion-list>
-    <ion-list-header text-uppercase>
-      Data Extraction
-    </ion-list-header>
-    <button ion-item (click)="startBarcodeScanner()">
-      QR-/Barcode Scanner
-    </button>
-    <button ion-item (click)="startMrzScanner()">
-      MRZ Scanner
-    </button>
-  </ion-list>
-
-  <ion-list>
-    <ion-list-header text-uppercase>
-      About
-    </ion-list-header>
-    <button ion-item>
-      Scanbot SDK
-    </button>
-  </ion-list>
+  <div class="copyright-label">
+    Copyright (c) 2018 doo GmbH. All rights reserved.
+  </div>
 
 </ion-content>

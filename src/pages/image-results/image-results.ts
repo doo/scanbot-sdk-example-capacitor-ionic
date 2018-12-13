@@ -1,6 +1,15 @@
 import { Component } from '@angular/core';
-import { NavController, Platform } from 'ionic-angular';
-import ScanbotSDK, { Page } from 'cordova-plugin-scanbot-sdk';
+
+import { NavController } from "ionic-angular";
+
+import { Plugins } from '@capacitor/core';
+
+import { ScanbotSdkProvider } from "../../providers/scanbot-sdk-provider";
+import { ImageResultsProvider, SanitizedPage } from "../../providers/image-results-provider";
+import { UiService } from "../../providers/ui-service";
+import { ImageViewPage } from "../image-view/image-view";
+
+const { Share } = Plugins;
 
 @Component({
   selector: 'page-image-results',
@@ -8,54 +17,73 @@ import ScanbotSDK, { Page } from 'cordova-plugin-scanbot-sdk';
 })
 export class ImageResultsPage {
 
-  private SBSDK = ScanbotSDK.promisify();
+  public pages: SanitizedPage[] = [];
 
-  // TODO manage pages in a global service/provider
-  public pages: Page[] = [];
-
-  constructor(public navCtrl: NavController, public platform: Platform) {
-    //
+  constructor(private navCtrl: NavController,
+              private scanbot: ScanbotSdkProvider,
+              private imageResultsProvider: ImageResultsProvider,
+              private uiService: UiService
+  ) {
+    this.reloadPages();
   }
 
-  convertFileUri(fileUri) {
-    // see https://beta.ionicframework.com/docs/building/webview/
-    return (<any>window).Ionic.WebView.convertFileSrc(fileUri);
+  private reloadPages() {
+    this.pages = this.imageResultsProvider.getPages();
   }
 
-  async startCroppingScreen(page: Page) {
-    const result = await this.SBSDK.UI.startCroppingScreen({
-      page: page,
-      uiConfigs: {
-        // Customize colors, text resources, behavior, etc..
-        doneButtonTitle: 'Save',
-        orientationLockMode: 'PORTRAIT'
-        // ...
-      }
-    });
-
-    if (result.status == 'CANCELED') { return; }
-
-    // handle the updated page object:
-    this.updatePage(result.page);
+  gotoImageView(page: SanitizedPage) {
+    this.navCtrl.push(ImageViewPage, {page: page});
   }
 
-  private updatePage(page: Page) {
-    let replaced = false;
-    for (let i = 0; i < this.pages.length; ++i) {
-      if (this.pages[i].pageId == page.pageId) {
-        this.pages[i] = page;
-        replaced = true;
-        break;
-      }
+  async saveAsPdf() {
+    if (!(await this.scanbot.checkLicense())) { return; }
+    if (!this.checkImages()) { return; }
+
+    const loading = this.uiService.createLoading('Creating PDF ...');
+    try {
+      loading.present();
+      const result = await this.scanbot.SDK.createPdf({
+        images: this.pages.map(p => p.documentImageFileUri)
+      });
+
+      //this.uiService.showAlert(result.pdfFileUri, "PDF created");
+      Share.share({url: result.pdfFileUri});
     }
-    if (!replaced) {
-      this.pages.push(page);
+    finally {
+      loading.dismiss();
     }
   }
 
-  async saveImages() {
-    // TODO store images as PDF
-    //this.SBSDK.createPdf(...)
+  private checkImages(): boolean {
+    if (this.pages.length > 0) {
+      return true;
+    }
+    this.uiService.showAlert(
+      "Please scan some images via Document Scanner or import from Photo Library.",
+      "Images Required");
+    return false;
+  }
+
+  async addScan() {
+    if (!(await this.scanbot.checkLicense())) { return; }
+
+    const configs = this.scanbot.globalDocScannerConfigs();
+    // for demo purposes we want to add only one page here.
+    configs.multiPageEnabled = false;
+    configs.multiPageButtonHidden = true;
+
+    const result = await this.scanbot.SDK.UI.startDocumentScanner({uiConfigs: configs});
+
+    if (result.status === 'CANCELED') { return; }
+
+    this.imageResultsProvider.addPages(result.pages);
+    this.reloadPages();
+  }
+
+  async removeAll() {
+    await this.scanbot.SDK.cleanup();
+    this.imageResultsProvider.removeAll();
+    this.reloadPages();
   }
 
 }
