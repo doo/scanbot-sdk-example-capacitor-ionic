@@ -1,8 +1,8 @@
 {
   "name": "scanbot-sdk-example-capacitor-ionic",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "author": "doo GmbH",
+  "homepage": "https://scanbot.io/sdk",
   "private": true,
   "scripts": {
     "start": "ionic-app-scripts serve",
@@ -39,5 +39,5 @@
     "@ionic/app-scripts": "3.2.1",
     "typescript": "~2.6.2"
   },
-  "description": "An Ionic project"
+  "description": "Example App for Scanbot SDK Cordova Plugin with Capacitor and Ionic"
 }
