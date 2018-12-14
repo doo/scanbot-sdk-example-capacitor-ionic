@@ -77,4 +77,5 @@ The Scanbot SDK will run without a license for one minute per session!
 After the trial period is over all Scanbot SDK functions as well as the UI components (like Document Scanner UI) will stop working or may be terminated.
 You have to restart the app to get another trial period.
 
-To get an unrestricted "no-strings-attached" 30 day trial license, please submit the [Trial License Form](https://scanbot.io/sdk/trial.html) on our website.
+To get an unrestricted "no-strings-attached" 30 day trial license, please submit the [Trial License Form](https://scanbot.io/sdk/trial.html) on our website 
+by using the App Identifier `io.scanbot.example.sdk.capacitor.ionic` of this example app or of your app.
