@@ -1,4 +1,6 @@
-# Example App for Scanbot SDK Cordova Plugin with Capacitor and Ionic
+# Read QR codes, barcodes and MRZ. Document scanner. Text recognition
+
+## Scanbot SDK example app for Capacitor with Ionic
 
 This example app shows how to integrate the Scanbot SDK Cordova Plugin in a [Capacitor](https://capacitor.ionicframework.com/) App with [Ionic](https://ionicframework.com). 
 
@@ -10,7 +12,7 @@ For more details about the Cordova Plugin please see this [documentation](https:
 ## What is Scanbot SDK?
 The Scanbot SDK brings scanning and document creation capabilities to your mobile apps. 
 It contains modules which are individually licensable as license packages. 
-For more details visit our website [https://scanbot.io/sdk.html](https://scanbot.io/sdk.html)
+For more details visit our website https://scanbot.io/sdk
 
 
 ## How to run this app
