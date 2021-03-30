@@ -4,7 +4,7 @@
 
 This example app shows how to integrate the Scanbot SDK Cordova Plugin in a [Capacitor](https://capacitor.ionicframework.com/) App with [Ionic](https://ionicframework.com).
 
-The Scanbot SDK Cordova Plugin is available as [npm package](https://www.npmjs.com/package/cordova-plugin-scanbot-sdk).
+The Scanbot SDK Cordova Plugin is available as an [npm package](https://www.npmjs.com/package/cordova-plugin-scanbot-sdk).
 
 For more details about the Cordova Plugin please see this [documentation](https://scanbotsdk.github.io/documentation/cordova/).
 
