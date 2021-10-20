@@ -1,0 +1,114 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Scanbot SDK Capacitor Example
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div padding>
+    <ion-list>
+      <ion-list-header>
+        <ion-label text-uppercase>
+          <h1>
+            Document Scanner
+          </h1>
+        </ion-label>
+      </ion-list-header>
+      <ion-item (click)="startDocumentScanner()">
+        <ion-label>Scan Document</ion-label>
+      </ion-item>
+      <ion-item (click)="pickImageFromPhotoLibrary()">
+        <ion-label>Import Image & Detect Document</ion-label>
+      </ion-item>
+      <ion-item (click)="gotoImageResults()" detail>
+        <ion-label>View Image Results</ion-label>
+      </ion-item>
+    </ion-list>
+
+    <ion-list>
+      <ion-list-header>
+        <ion-label text-uppercase>
+          <h1>
+            Barcode Detector
+          </h1>
+        </ion-label>
+      </ion-list-header>
+      <ion-item (click)="startBarcodeScanner()">
+        <ion-label>Scan QR-/Barcode</ion-label>
+      </ion-item>
+      <ion-item (click)="startBatchBarcodeScanner()">
+        <ion-label>Scan a Batch of Barcodes</ion-label>
+      </ion-item>
+      <ion-item (click)="importAndDetectBarcodes()">
+        <ion-label>Import Image & Detect Barcodes</ion-label>
+      </ion-item>
+      <ion-item (click)="setAcceptedBarcodeFormats()">
+        <ion-label>Set Barcode Formats Filter</ion-label>
+      </ion-item>
+      <ion-item (click)="setAcceptedBarcodeDocumentFormats()">
+        <ion-label>Set Barcode Document Formats Filter</ion-label>
+      </ion-item>
+    </ion-list>
+
+    <ion-list>
+      <ion-list-header>
+        <ion-label text-uppercase>
+          <h1>
+            Data Detectors
+          </h1>
+        </ion-label>
+      </ion-list-header>
+      <ion-item (click)="startMrzScanner()">
+        <ion-label>Scan MRZ on ID Card</ion-label>
+      </ion-item>
+      <ion-item (click)="startEHICScanner()">
+        <ion-label>Scan Health Insurance Card</ion-label>
+      </ion-item>
+      <ion-item (click)="startLicensePlateScanner('ML_BASED')">
+        <ion-label>Scan License Plate (ML)</ion-label>
+      </ion-item>
+      <ion-item (click)="startLicensePlateScanner('CLASSIC')">
+        <ion-label>Scan License Plate (CLASSIC)</ion-label>
+      </ion-item>
+      <ion-item (click)="startLcDisplayScanner()">
+        <ion-label>Scan LC Dot-Matrix Display</ion-label>
+      </ion-item>
+      <ion-item (click)="startIdCardScanner()">
+        <ion-label>Scan German ID Card</ion-label>
+      </ion-item>
+    </ion-list>
+
+    <ion-list>
+      <ion-list-header>
+        <ion-label text-uppercase>
+          <h1>
+            Miscellaneous
+          </h1>
+        </ion-label>
+      </ion-list-header>
+      <ion-item *ngIf="hasHtml5CameraSupport()" (click)="openHTMLCameraPage()">
+        <ion-label>HTML5 Camera</ion-label>
+      </ion-item>
+      <ion-item (click)="viewLicenseInfo()">
+        <ion-label>View License Info</ion-label>
+      </ion-item>
+      <ion-item (click)="viewOcrConfigs()">
+        <ion-label>View OCR Configs</ion-label>
+      </ion-item>
+      <ion-item>
+        <a ion-item href="https://scanbot.io" target="_blank" rel="noopener">
+          Learn More About the Scanbot SDK
+        </a>
+      </ion-item>
+    </ion-list>
+
+  </div>
+
+  <div class="copyright-label">
+    Copyright (c) 2020 doo GmbH. All rights reserved.
+  </div>
+
+</ion-content>

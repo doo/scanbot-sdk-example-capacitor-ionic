@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Scanbot SDK Capacitor Example</string>
+    <string name="title_activity_main">Scanbot SDK Capacitor Examplescanbot-sdk-example-capacitor-ionic</string>
+    <string name="package_name">io.scanbot.example.sdk.capacitor.ionic</string>
+    <string name="custom_url_scheme">io.scanbot.example.sdk.capacitor.ionic</string>
+</resources>
