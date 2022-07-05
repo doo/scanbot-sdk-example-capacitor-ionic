@@ -7,7 +7,7 @@ For more details about the Scanbot SDK Cordova Plugin please refer to the [docum
 
 ## What is Scanbot SDK?
 
-The Scanbot SDK for Cordova brings [document scanning](https://scanbot.io/developer/ionic-document-scanner/) and [barcode scanning](https://scanbot.io/developer/ionic-barcode-scanner/) features to your mobile Android and iOS apps. 
+The Scanbot SDK for Cordova brings [document scanning](https://scanbot.io/developer/cordova-document-scanner/) and [barcode scanning](https://scanbot.io/developer/cordova-barcode-scanner-plugin/) features to your mobile Android and iOS apps. 
 It contains various modules that are part of different license packages. For more details visit our [website](https://scanbot.io).
 
 
