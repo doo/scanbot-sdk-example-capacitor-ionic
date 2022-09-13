@@ -10,7 +10,6 @@ import ScanbotSdk, {
     LicensePlateScannerConfiguration,
     MrzScannerConfiguration,
     TextDataScannerStep,
-    IdCardScannerConfiguration,
     BatchBarcodeScannerConfiguration
 } from 'cordova-plugin-scanbot-sdk';
 
@@ -18,7 +17,6 @@ import { DialogsService } from '../services/dialogs.service';
 import { ScanbotSdkDemoService } from '../services/scanbot-sdk-demo.service';
 import { ImageResultsRepository } from '../services/image-results.repository';
 import { BarcodeListService } from '../services/barcode-list.service';
-import { IdCardScanResultsService } from '../services/idcard-scan-results.service';
 import { BarcodeDocumentListService } from '../services/barcode-document-list.service';
 
 @Component({
@@ -104,7 +102,7 @@ export class HomePage {
                 barcodeFormats: BarcodeListService.getAcceptedTypes(),
                 acceptedDocumentFormats: BarcodeDocumentListService.getAcceptedFormats(),
                 barcodeImageGenerationType: 'VIDEO_FRAME',
-                orientationLockMode: 'PORTRAIT',
+                interfaceOrientation: 'PORTRAIT',
                 finderLineColor: '#0000ff',
                 finderAspectRatio: { width: 2, height: 1 },
                 topBarBackgroundColor: '#c8193c',
@@ -132,7 +130,7 @@ export class HomePage {
             barcodeFormats: BarcodeListService.getAcceptedTypes(),
             acceptedDocumentFormats: BarcodeDocumentListService.getAcceptedFormats(),
             finderAspectRatio: { width: 1, height: 1 },
-            orientationLockMode: 'PORTRAIT',
+            interfaceOrientation: 'PORTRAIT',
             useButtonsAllCaps: false,
             // msiPlesseyChecksumAlgorithm: 'Mod1110NCR',
             // see further configs ...
@@ -149,27 +147,13 @@ export class HomePage {
         }
     }
 
-    async startIdCardScanner() {
-        if (!(await this.scanbotService.checkLicense())) { return; }
-
-        const config: IdCardScannerConfiguration = {
-            shouldSavePhotoImageInStorage: true
-        };
-        const result = await this.scanbotService.SDK.UI.startIdCardScanner({uiConfigs: config});
-
-        if (result.status === 'OK') {
-            IdCardScanResultsService.fields = result.fields;
-            await this.router.navigateByUrl('/idcard-scan-results');
-        }
-    }
-
     async startMrzScanner() {
         if (!(await this.scanbotService.checkLicense())) { return; }
 
         const config: MrzScannerConfiguration = {
             // Customize colors, text resources, etc..
             finderTextHint: 'Please hold your phone over the 2- or 3-line MRZ code at the front of your passport.',
-            orientationLockMode: 'PORTRAIT',
+            interfaceOrientation: 'PORTRAIT',
             // see further configs ...
         };
 
@@ -194,7 +178,7 @@ export class HomePage {
 
         const config: HealthInsuranceCardScannerConfiguration = {
             finderTextHint: 'Please hold your phone over the back of your Health Insurance Card.',
-            orientationLockMode: 'PORTRAIT',
+            interfaceOrientation: 'PORTRAIT',
             // see further configs ...
         };
         const result = await this.scanbotService.SDK.UI.startEHICScanner({uiConfigs: config});
@@ -265,7 +249,7 @@ export class HomePage {
             finderLineColor: '#c8193c',
             finderLineWidth: 5,
             guidanceText: 'Place the whole license plate in the frame to scan it',
-            orientationLockMode: 'PORTRAIT',
+            interfaceOrientation: 'PORTRAIT',
             confirmationDialogConfirmButtonFilled: true,
             // see further configs...
         };
@@ -290,7 +274,7 @@ export class HomePage {
             topBarBackgroundColor: '#c8193c',
             topBarButtonsColor: '#ffffff',
             finderLineColor: '#c8193c',
-            orientationLockMode: 'PORTRAIT',
+            interfaceOrientation: 'PORTRAIT',
             // see further configs...
         };
 
