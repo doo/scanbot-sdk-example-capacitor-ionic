@@ -10,7 +10,8 @@ import ScanbotSdk, {
     LicensePlateScannerConfiguration,
     MrzScannerConfiguration,
     TextDataScannerStep,
-    BatchBarcodeScannerConfiguration
+    BatchBarcodeScannerConfiguration,
+    CheckRecognizerConfiguration
 } from 'cordova-plugin-scanbot-sdk';
 
 import { DialogsService } from '../services/dialogs.service';
@@ -18,6 +19,7 @@ import { ScanbotSdkDemoService } from '../services/scanbot-sdk-demo.service';
 import { ImageResultsRepository } from '../services/image-results.repository';
 import { BarcodeListService } from '../services/barcode-list.service';
 import { BarcodeDocumentListService } from '../services/barcode-document-list.service';
+import { CheckRecognizerResultsService } from '../services/check-recognizer-results.service';
 
 @Component({
     selector: 'app-home',
@@ -32,7 +34,7 @@ export class HomePage {
         private platform: Platform,
         private router: Router
     ) {
-        document.addEventListener('deviceready', function() {
+        document.addEventListener('deviceready', () => {
             /*
             * Register a vanilla javascript callback, as setLicenseFailure registers a continuous callback
             * that does not adhere to the standards of promisified API.
@@ -54,7 +56,7 @@ export class HomePage {
         if (!(await this.scanbotService.checkLicense())) { return; }
 
         const configs = this.scanbotService.globalDocScannerConfigs();
-        const result = await this.scanbotService.SDK.UI.startDocumentScanner({uiConfigs: configs});
+        const result = await this.scanbotService.SDK.UI.startDocumentScanner({ uiConfigs: configs });
 
         if (result.status === 'CANCELED') {
             // user has canceled the scanning operation
@@ -65,28 +67,28 @@ export class HomePage {
         await this.gotoImageResults();
     }
 
-  async pickImageFromPhotoLibrary() {
-    // Import an image from Photo Library and run auto document detection on it.
-    try{
-    const image = await Camera.getPhoto({
-      resultType: CameraResultType.Uri,
-      source: CameraSource.Photos,
-    });
+    async pickImageFromPhotoLibrary() {
+        // Import an image from Photo Library and run auto document detection on it.
+        try {
+            const image = await Camera.getPhoto({
+                resultType: CameraResultType.Uri,
+                source: CameraSource.Photos,
+            });
 
-    const originalImageFileUri = image.path;
+            const originalImageFileUri = image.path;
 
-    if (!(await this.scanbotService.checkLicense())) { return; }
+            if (!(await this.scanbotService.checkLicense())) { return; }
 
-      // First create a new SDK page with the selected original image file:
-      const createResult = await this.scanbotService.SDK.createPage({originalImageFileUri});
-      // and then run auto document detection and cropping on this new page:
-      const docResult = await this.scanbotService.SDK.detectDocumentOnPage({page: createResult.page});
-      await this.imageResultsRepository.addPages([docResult.page]);
-      await this.gotoImageResults();
-    }catch (e) {
-      console.log(e);
+            // First create a new SDK page with the selected original image file:
+            const createResult = await this.scanbotService.SDK.createPage({ originalImageFileUri });
+            // and then run auto document detection and cropping on this new page:
+            const docResult = await this.scanbotService.SDK.detectDocumentOnPage({ page: createResult.page });
+            await this.imageResultsRepository.addPages([docResult.page]);
+            await this.gotoImageResults();
+        } catch (e) {
+            console.log(e);
+        }
     }
-  }
 
     async gotoImageResults() {
         await this.router.navigateByUrl('/image-results');
@@ -136,7 +138,7 @@ export class HomePage {
             // see further configs ...
         };
 
-        const result = await this.scanbotService.SDK.UI.startBatchBarcodeScanner({uiConfigs: configs});
+        const result = await this.scanbotService.SDK.UI.startBatchBarcodeScanner({ uiConfigs: configs });
 
         if (result.status === 'OK') {
             BarcodeListService.detectedBarcodes = [{
@@ -163,10 +165,27 @@ export class HomePage {
             config.finderHeight = widthPx * 0.18;
         }
 
-        const result = await this.scanbotService.SDK.UI.startMrzScanner({uiConfigs: config});
+        const result = await this.scanbotService.SDK.UI.startMrzScanner({ uiConfigs: config });
         if (result.status === 'OK') {
             const fields = result.mrzResult.fields.map(f => `<div>${f.name}: ${f.value} (${f.confidence.toFixed(2)})</div>`);
             await this.dialogsService.showAlert(fields.join(''), 'MRZ Result');
+        }
+    }
+
+    async startCheckRecognizer() {
+        if (!(await this.scanbotService.checkLicense())) { return; }
+
+        const config: CheckRecognizerConfiguration = {
+        };
+        const result = await this.scanbotService.SDK.UI.startCheckRecognizer({ uiConfigs: config });
+
+        console.log(JSON.stringify(result));
+
+        if (result.status === 'SUCCESS') {
+            CheckRecognizerResultsService.checkRecognizerResult = result;
+            await this.router.navigateByUrl('/check-recognizer-results');
+        } else {
+            await this.dialogsService.showAlert(result.status, 'Check Recognition Failed');
         }
     }
 
@@ -181,7 +200,7 @@ export class HomePage {
             interfaceOrientation: 'PORTRAIT',
             // see further configs ...
         };
-        const result = await this.scanbotService.SDK.UI.startEHICScanner({uiConfigs: config});
+        const result = await this.scanbotService.SDK.UI.startEHICScanner({ uiConfigs: config });
         if (result.status === 'OK') {
             const fields = result.ehicResult.fields.map(f => `<div>${f.type}: ${f.value} (${f.confidence.toFixed(2)})</div>`);
             await this.dialogsService.showAlert(fields.join(''), 'EHIC Result');
@@ -216,22 +235,22 @@ export class HomePage {
     }
 
     async importAndDetectBarcodes() {
-      const image = await Camera.getPhoto({
-        resultType: CameraResultType.Uri,
-        source: CameraSource.Photos,
-      });
-      const originalImageFileUri = image.path;
-      if (!(await this.scanbotService.checkLicense())) { return; }
+        const image = await Camera.getPhoto({
+            resultType: CameraResultType.Uri,
+            source: CameraSource.Photos,
+        });
+        const originalImageFileUri = image.path;
+        if (!(await this.scanbotService.checkLicense())) { return; }
 
-      const result = await this.scanbotService.SDK.detectBarcodesOnImage({imageFileUri:originalImageFileUri});
+        const result = await this.scanbotService.SDK.detectBarcodesOnImage({ imageFileUri: originalImageFileUri });
 
-      if (result.status === 'OK') {
-        BarcodeListService.detectedBarcodes = [{
-          barcodes: result.barcodes || [],
-          snappedImage: result.imageFileUri
-        }];
-        await this.router.navigateByUrl('/barcode-result-list');
-      }
+        if (result.status === 'OK') {
+            BarcodeListService.detectedBarcodes = [{
+                barcodes: result.barcodes || [],
+                snappedImage: result.imageFileUri
+            }];
+            await this.router.navigateByUrl('/barcode-result-list');
+        }
     }
 
     hasHtml5CameraSupport() {
@@ -254,7 +273,7 @@ export class HomePage {
             // see further configs...
         };
 
-        const result = await this.scanbotService.SDK.UI.startLicensePlateScanner({uiConfigs: config});
+        const result = await this.scanbotService.SDK.UI.startLicensePlateScanner({ uiConfigs: config });
 
         if (result.status === 'OK') {
             await this.dialogsService.showAlert(
@@ -283,7 +302,7 @@ export class HomePage {
             textFilterStrategy: 'LC_DOT_MATRIX_DISPLAY',
         };
 
-        const result = await this.scanbotService.SDK.UI.startDataScanner({uiConfigs, scannerStep});
+        const result = await this.scanbotService.SDK.UI.startDataScanner({ uiConfigs, scannerStep });
         if (result.status === 'OK') {
             await this.dialogsService.showAlert(`Value: ${result.dataResult.textValue}`, 'Scanner Result');
         }
