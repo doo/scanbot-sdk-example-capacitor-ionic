@@ -189,6 +189,31 @@ export class HomePage {
         }
     }
 
+    async importAndRecognizeCheck() {
+
+        if (!(await this.scanbotService.checkLicense())) { return; }
+        const image = await Camera.getPhoto({
+            resultType: CameraResultType.Uri,
+            source: CameraSource.Photos,
+        });
+
+        const imageUri = image.path;
+        const loading = await this.dialogsService.createLoading('Recognizing check...');
+        await loading.present();
+        const result = await this.scanbotService.SDK.recognizeCheckOnImage({
+            imageFileUri: imageUri
+        });
+
+        await loading.dismiss();
+
+        if (result.status === 'SUCCESS') {
+            CheckRecognizerResultsService.checkRecognizerResult = result;
+            await this.router.navigateByUrl('/check-recognizer-results');
+        } else {
+            await this.dialogsService.showAlert(result.status, 'Check Recognition Failed');
+        }
+    }
+
     async startEHICScanner() {
 
         if (!(await this.scanbotService.checkLicense())) {
