@@ -24,7 +24,6 @@ It contains various modules that are part of different license packages. For mor
 
 Please check the full [requirements for Capacitor](https://capacitorjs.com/docs/getting-started/environment-setup).
 
-
 ### Install
 
 Install [Ionic](https://ionicframework.com):
@@ -38,6 +37,19 @@ Install the node modules of this project:
 ```
 cd scanbot-sdk-example-capacitor-ionic/
 npm install
+```
+
+## Important
+When using Node 17+ you might face this known Ionic issue: 
+
+```
+Error: error:0308010C:digital envelope routines::unsupported
+```
+
+Before proceeding, please execute this in your terminal to prevent the issue from happening:
+
+```bash
+export NODE_OPTIONS=--openssl-legacy-provider
 ```
 
 ### Build
