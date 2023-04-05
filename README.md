@@ -1,6 +1,6 @@
 # Scanbot Barcode & Document Scanning Example App for Capacitor with Ionic
 
-This example app shows how to integrate the [Scanbot Barcode Scanner SDK](https://scanbot.io/developer/android-barcode-scanner/), [Scanbot Document Scanner SDK](https://scanbot.io/developer/android-document-scanner-sdk/), and [Scanbot Data Capture SDK](https://scanbot.io/developer/android-data-capture/) for Capacitor.
+This example app shows how to integrate the [Scanbot Barcode Scanner SDK](https://scanbot.io/developer/ionic-barcode-scanner/), [Scanbot Document Scanner SDK](https://scanbot.io/developer/ionic-document-scanner/), and [Scanbot Data Capture SDK](https://scanbot.io/developer/ionic-data-capture/) for Capacitor.
 
 The Scanbot SDK Cordova Plugin is available as an [npm package](https://www.npmjs.com/package/cordova-plugin-scanbot-sdk).
 
