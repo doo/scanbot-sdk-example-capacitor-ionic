@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Injectable } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { Filesystem, Directory } from '@capacitor/filesystem';
@@ -54,6 +55,39 @@ export class ScanbotSdkDemoService {
         return this.sdkReady;
     }
 
+    public async checkLicense() {
+        const result = await this.SDK.getLicenseInfo();
+        if (result.info.isLicenseValid) {
+            // OK - we have a trial session, a valid trial license or valid production license.
+            return true;
+        }
+        await this.dialogsService.showAlert('Scanbot SDK (trial) license has expired!');
+        return false;
+    }
+
+    public globalDocScannerConfigs(): DocumentScannerConfiguration {
+        return {
+            // Customize colors, text resources, behavior, etc..
+            cameraPreviewMode: 'FIT_IN',
+            interfaceOrientation: 'PORTRAIT',
+            pageCounterButtonTitle: '%d Page(s)',
+            multiPageEnabled: true,
+            ignoreBadAspectRatio: true,
+            topBarBackgroundColor: '#c8193c',
+            bottomBarBackgroundColor: '#c8193c',
+            // maxNumberOfPages: 3,
+            // documentImageSizeLimit: { width: 2000, height: 3000 },
+            // see further configs ...
+        };
+    }
+
+    public async fetchDataFromUri(path: string): Promise<string> {
+        const result = await this.SDK.getImageData({ imageFileUri: path });
+        const extension = ScanbotSdkDemoService.IMAGE_FILE_FORMAT === 'JPG' ? 'jpeg' : 'png';
+        // ScanbotSDK return the raw base64 data. Add prefix to convert it to a dataUri
+        return `data:image/${extension};base64,` + result.base64ImageData;
+    }
+
     private async initScanbotSdk() {
         const config: ScanbotSDKConfiguration = {
             loggingEnabled: !environment.production, // Disable logging in production builds for security and performance reasons!
@@ -99,38 +133,5 @@ export class ScanbotSdkDemoService {
           return (await Filesystem.getUri({path: 'my-custom-storage', directory: Directory.Documents})).uri;
         }
         return null;
-    }
-
-    public async checkLicense() {
-        const result = await this.SDK.getLicenseInfo();
-        if (result.info.isLicenseValid) {
-            // OK - we have a trial session, a valid trial license or valid production license.
-            return true;
-        }
-        await this.dialogsService.showAlert('Scanbot SDK (trial) license has expired!');
-        return false;
-    }
-
-    public globalDocScannerConfigs(): DocumentScannerConfiguration {
-        return {
-            // Customize colors, text resources, behavior, etc..
-            cameraPreviewMode: 'FIT_IN',
-            interfaceOrientation: 'PORTRAIT',
-            pageCounterButtonTitle: '%d Page(s)',
-            multiPageEnabled: true,
-            ignoreBadAspectRatio: true,
-            topBarBackgroundColor: '#c8193c',
-            bottomBarBackgroundColor: '#c8193c',
-            // maxNumberOfPages: 3,
-            // documentImageSizeLimit: { width: 2000, height: 3000 },
-            // see further configs ...
-        };
-    }
-
-    public async fetchDataFromUri(path: string): Promise<string> {
-        const result = await this.SDK.getImageData({ imageFileUri: path });
-        const extension = ScanbotSdkDemoService.IMAGE_FILE_FORMAT === 'JPG' ? 'jpeg' : 'png';
-        // ScanbotSDK return the raw base64 data. Add prefix to convert it to a dataUri
-        return `data:image/${extension};base64,` + result.base64ImageData;
     }
 }

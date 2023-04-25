@@ -52,11 +52,6 @@ export class ImageViewPage implements OnInit {
         });
     }
 
-    private async sanitizePreviewImage() {
-        const data = await this.scanbotService.fetchDataFromUri(this.page.documentPreviewImageFileUri);
-        this.sanitizedPreviewImage = this.imageResultsRepository.sanitizeBase64(data);
-    }
-
     async startCroppingScreen() {
         if (!(await this.scanbotService.checkLicense())) { return; }
 
@@ -85,12 +80,6 @@ export class ImageViewPage implements OnInit {
         await this.router.navigate(['/image-results']);
     }
 
-    private async updatePage(page: Page) {
-        await this.imageResultsRepository.updatePage(page);
-        this.page = page;
-        this.sanitizePreviewImage();
-    }
-
     async showFilterSelection() {
         const buttons = [];
         this.imageFilterList.forEach(f => {
@@ -108,24 +97,10 @@ export class ImageViewPage implements OnInit {
 
         const actionSheet = await this.actionSheetController.create({
             header: 'Select an Image Filter',
-            buttons: buttons,
-            cssClass: "image-filters-action-sheet"
+            buttons,
+            cssClass: 'image-filters-action-sheet'
         });
         await actionSheet.present();
-    }
-
-    private async applyImageFilter(filter: ImageFilter) {
-        if (!(await this.scanbotService.checkLicense())) { return; }
-
-        const loading = await this.dialogsService.createLoading('Applying image filter ...');
-        try {
-            await loading.present();
-            const result = await this.scanbotService.SDK.applyImageFilterOnPage({page: this.page, imageFilter: filter});
-            await this.updatePage(result.page);
-        }
-        finally {
-            await loading.dismiss();
-        }
     }
 
     async estimateBlurriness() {
@@ -151,5 +126,30 @@ export class ImageViewPage implements OnInit {
         finally {
             await loading.dismiss();
         }
+    }
+
+    private async sanitizePreviewImage() {
+        const data = await this.scanbotService.fetchDataFromUri(this.page.documentPreviewImageFileUri);
+        this.sanitizedPreviewImage = this.imageResultsRepository.sanitizeBase64(data);
+    }
+
+    private async applyImageFilter(filter: ImageFilter) {
+        if (!(await this.scanbotService.checkLicense())) { return; }
+
+        const loading = await this.dialogsService.createLoading('Applying image filter ...');
+        try {
+            await loading.present();
+            const result = await this.scanbotService.SDK.applyImageFilterOnPage({page: this.page, imageFilter: filter});
+            await this.updatePage(result.page);
+        }
+        finally {
+            await loading.dismiss();
+        }
+    }
+
+    private async updatePage(page: Page) {
+        await this.imageResultsRepository.updatePage(page);
+        this.page = page;
+        this.sanitizePreviewImage();
     }
 }
