@@ -18,10 +18,7 @@ export class BarcodeDocumentListPage {
     onChange($event: CustomEvent) {
         const key = $event.detail.value;
         const value = $event.detail.checked;
-        BarcodeDocumentListService.update({
-            key: key,
-            value: value
-        });
+        BarcodeDocumentListService.update({key,value});
     }
 
     onEnabledChange($event: CustomEvent) {

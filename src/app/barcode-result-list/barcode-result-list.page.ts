@@ -13,16 +13,16 @@ export class BarcodeResultListPage {
 
   constructor(public sanitizer: DomSanitizer) {
     let detectedBarcodes = BarcodeListService.detectedBarcodes || [];
-    
+
     detectedBarcodes = detectedBarcodes.map((item) => {
       if (item.snappedImage) {
         item.snappedImage = this.sanitizeFileUri(item.snappedImage);
       }
 
       return item;
-    })
+    });
 
-    this.detectedBarcodes = detectedBarcodes
+    this.detectedBarcodes = detectedBarcodes;
   }
 
   private sanitizeFileUri(fileUri: string): string {

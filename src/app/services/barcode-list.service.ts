@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 export interface BarcodesDetectionViewModel {
     snappedImage?: string;
     barcodes: {
-        text: string,
-        type: string
+        text: string;
+        type: string;
     }[];
 }
 
@@ -34,23 +34,21 @@ export class BarcodeListService {
         { key: 'MSI_PLESSEY',  value: false }
     ];
 
-    public static update(format, isChecked) {
-        for (let i = 0; i < BarcodeListService.items.length; i++) {
-            if (BarcodeListService.items[i].key === format) {
-                BarcodeListService.items[i].value = isChecked;
+    public static update(format: string, isChecked: boolean) {
+        for (const item of BarcodeListService.items) {
+            if (item.key === format) {
+                item.value = isChecked;
             }
         }
     }
 
     public static getAcceptedTypes() {
         const result = [];
-
-        for (let i = 0; i < BarcodeListService.items.length; i++) {
-            if (BarcodeListService.items[i].value) {
-                result.push(BarcodeListService.items[i].key);
+        for (const item of BarcodeListService.items) {
+            if (item.value) {
+                result.push(item.key);
             }
         }
-
         return result;
     }
 }

@@ -27,7 +27,7 @@ export class BarcodeDocumentListService {
         const result: BarcodeDocumentFormat[] = [];
         BarcodeDocumentListService.list.forEach((format) => {
           if (format.value) {
-            result.push(<BarcodeDocumentFormat>format.key);
+            result.push(format.key as BarcodeDocumentFormat);
           }
         });
         return result;

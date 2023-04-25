@@ -9,9 +9,9 @@ export class DialogsService {
 
     public async showAlert(message: string, header: string = 'Info', subHeader: string = '') {
         const alert = await this.alertController.create({
-            header: header,
-            subHeader: subHeader,
-            message: message,
+            header,
+            subHeader,
+            message,
             buttons: ['OK']
         });
 
@@ -20,7 +20,7 @@ export class DialogsService {
 
     public async createLoading(message: string) {
         return await this.loadingController.create({
-            message: message,
+            message,
         });
     }
 }
