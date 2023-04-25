@@ -7,7 +7,8 @@ import ScanbotSdk, {
     CameraImageFormat,
     DocumentScannerConfiguration,
     FileEncryptionMode,
-    ScanbotSDKConfiguration
+    ScanbotSDKConfiguration,
+    FinderDocumentScannerConfiguration
 } from 'cordova-plugin-scanbot-sdk';
 
 import { environment } from '../../environments/environment';
@@ -77,6 +78,19 @@ export class ScanbotSdkDemoService {
             bottomBarBackgroundColor: '#c8193c',
             // maxNumberOfPages: 3,
             // documentImageSizeLimit: { width: 2000, height: 3000 },
+            // see further configs ...
+        };
+    }
+
+    public globalFinderDocScannerConfigs(): FinderDocumentScannerConfiguration {
+        return {
+            // Customize colors, text resources, behavior, etc..
+            cameraPreviewMode: 'FILL_IN',
+            interfaceOrientation: 'PORTRAIT',
+            ignoreBadAspectRatio: true,
+            topBarBackgroundColor: '#c8193c',
+            finderEnabled: true,
+            finderAspectRatio: { width: 4, height: 3 }
             // see further configs ...
         };
     }
