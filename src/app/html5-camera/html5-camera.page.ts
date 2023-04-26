@@ -18,7 +18,7 @@ export class Html5CameraPage implements OnInit {
   public container: HTMLElement;
   public camera: ScanbotHTMLCamera;
 
-  constructor(private sdk: ScanbotSdkDemoService, private alert: DialogsService, private _ngZone: NgZone) {
+  constructor(private sdk: ScanbotSdkDemoService, private alert: DialogsService, private ngZone: NgZone) {
       this.showDetectionResult();
   }
 
@@ -27,7 +27,7 @@ export class Html5CameraPage implements OnInit {
     // If already have your own logic (e.g. another plugin) to request permission, feel free to do that
     const permissionResult = await this.sdk.SDK.requestCameraPermission();
     if (permissionResult.status !== 'OK') {
-      await this._ngZone.run(async () => {
+      await this.ngZone.run(async () => {
         await this.alert.showAlert('Camera permission is required to capture video stream', 'Oops!');
       });
       return;
@@ -72,7 +72,7 @@ export class Html5CameraPage implements OnInit {
   }
 
   showDetectionResult(format = '-', text = '-') {
-    this._ngZone.run(() => {
+    this.ngZone.run(() => {
       this.barcodeFormat = format;
       this.barcodeText = text;
     });

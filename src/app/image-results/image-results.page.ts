@@ -30,23 +30,6 @@ export class ImageResultsPage {
         this.reloadPages();
     }
 
-    private async reloadPages() {
-        this.pages = this.imageResultsRepository.getPages();
-        // build sanitizes preview image file URIs
-        for (const page of this.pages) {
-            // this.sanitizedPreviewImages.set(page.pageId,
-            //     this.imageResultsRepository.sanitizeFileUri(page.documentPreviewImageFileUri));
-
-            const data = await this.scanbotService.fetchDataFromUri(page.documentPreviewImageFileUri);
-            this.sanitizedPreviewImages.set(page.pageId, this.imageResultsRepository.sanitizeBase64(data));
-        }
-        // build rows
-        this.rows = [];
-        for (let i = 0; i < this.pages.length; i += 3) {
-            this.rows.push({ pages: this.pages.slice(i, i + 3) });
-        }
-    }
-
     async gotoImageView(page: Page) {
         await this.router.navigate(['/image-view', page.pageId]);
     }
@@ -150,17 +133,6 @@ export class ImageResultsPage {
         await actionSheet.present();
     }
 
-
-    private checkImages(): boolean {
-        if (this.pages.length > 0) {
-            return true;
-        }
-        this.dialogsService.showAlert(
-            'Please scan some images via Document Scanner or import from Photo Library.',
-            'Images Required');
-        return false;
-    }
-
     async addScan() {
         if (!(await this.scanbotService.checkLicense())) { return; }
 
@@ -181,5 +153,32 @@ export class ImageResultsPage {
         await this.scanbotService.SDK.cleanup();
         await this.imageResultsRepository.removeAllPages();
         this.reloadPages();
+    }
+
+    private checkImages(): boolean {
+        if (this.pages.length > 0) {
+            return true;
+        }
+        this.dialogsService.showAlert(
+            'Please scan some images via Document Scanner or import from Photo Library.',
+            'Images Required');
+        return false;
+    }
+
+    private async reloadPages() {
+        this.pages = this.imageResultsRepository.getPages();
+        // build sanitizes preview image file URIs
+        for (const page of this.pages) {
+            // this.sanitizedPreviewImages.set(page.pageId,
+            //     this.imageResultsRepository.sanitizeFileUri(page.documentPreviewImageFileUri));
+
+            const data = await this.scanbotService.fetchDataFromUri(page.documentPreviewImageFileUri);
+            this.sanitizedPreviewImages.set(page.pageId, this.imageResultsRepository.sanitizeBase64(data));
+        }
+        // build rows
+        this.rows = [];
+        for (let i = 0; i < this.pages.length; i += 3) {
+            this.rows.push({ pages: this.pages.slice(i, i + 3) });
+        }
     }
 }

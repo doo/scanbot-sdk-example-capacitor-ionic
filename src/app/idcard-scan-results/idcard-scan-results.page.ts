@@ -10,7 +10,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class IdCardScanResultsPage {
 
     fields: any;
-    displayFields: {};
+    displayFields: any;
     photoUri: string;
 
     constructor(public sanitizer: DomSanitizer) {
@@ -31,11 +31,11 @@ export class IdCardScanResultsPage {
             const value = this.fields[key];
             let out;
 
-            if (value["text"]) {
-                out = value["text"];
-                if (value["confidence"]) {
-                    let percentage = Math.round(value["confidence"] * 100);
-                    out += "\n(confidence: " + percentage + "%)";
+            if (value.text) {
+                out = value.text;
+                if (value.confidence) {
+                    const percentage = Math.round(value.confidence * 100);
+                    out += '\n(confidence: ' + percentage + '%)';
                 }
             } else if (typeof value === 'string' || value instanceof String) {
                 out = value;

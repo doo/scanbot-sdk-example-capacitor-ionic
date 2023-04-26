@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+/* eslint-disable max-len */
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomePageModule) },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'idcard-scan-results', loadChildren: () => import('./idcard-scan-results/idcard-scan-results.module').then(m => m.IdCardScanResultsPageModule) },
   { path: 'check-recognizer-results', loadChildren: () => import('./check-recognizer-results/check-recognizer-results.module').then(m => m.CheckRecognizerResultsPageModule) },
 ];
+/* eslint-enable max-len */
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
