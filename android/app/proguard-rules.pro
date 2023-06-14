@@ -19,3 +19,35 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keeppackagenames io.scanbot.sdk.plugin.cordova.**
+-keep public class io.scanbot.sdk.plugin.cordova.**{ *; }
+-keep public class io.scanbot.sdk.ui.** { *; }
+
+-keep class com.getcapacitor.** { *; }
+-keep class com.capacitorjs.** { *; }
+
+-dontwarn org.apache.commons.logging.**
+
+-keep class * implements org.apache.cordova.CordovaPlugin {
+    <methods>;
+}
+
+-keep class * extends org.apache.cordova.CordovaWebViewClient {
+    <methods>;
+}
+
+-keep class * extends org.apache.cordova.CordovaActivity {
+    <fields>;
+    <methods>;
+}
+
+-keep class * extends org.apache.cordova.CordovaInterfaceImpl {
+    <methods>;
+}
+
+-keepattributes *Annotation*
+-keepattributes InnerClasses
+
+-dontoptimize
+-dontpreverify
