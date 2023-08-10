@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>medical-certificate-scanner</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<div className="buttons-toolbar">
+		<div className="left-group">
+			<ion-button [routerLink]="['/mainpage']">&lt;- Back</ion-button>
+		</div>
+	</div>
+	<ion-button (click)="openMedScanner()">Open Medical Certificate Scanner</ion-button>
+	<ion-modal [isOpen]="isResultModalOpen">
+		<ng-template>
+			<ion-header>
+				<ion-toolbar>
+					<ion-title>Barcode Results</ion-title>
+					<ion-buttons slot="end">
+						<ion-button (click)="setOpen(false)">Close</ion-button>
+					</ion-buttons>
+				</ion-toolbar>
+			</ion-header>
+			<ion-content class="ion-padding">
+				<h2>Form Type: {{ medCertResult?.formType }}</h2>
+				<ion-label>
+					<h3>Image File URI: {{ medCertResult?.imageFileUri | json }}</h3>
+				</ion-label>
+				<h2>Patient Data:</h2>
+				<ion-label>
+					<h2>Insurance Provider: {{ medCertResult?.patientData?.insuranceProvider }}</h2>
+					<h3>Name: {{ medCertResult?.patientData?.firstName + " " + medCertResult?.patientData?.lastName }}</h3>
+					<h3>HINR: {{ medCertResult?.patientData?.healthInsuranceNumber }}</h3>
+					<h3>IPNR: {{ medCertResult?.patientData?.insuredPersonNumber }}</h3>
+				</ion-label>
+				<h2>Dates Data:</h2>
+				<ion-label>
+					<h3>Incapable of work since: {{ medCertResult?.dates?.incapableOfWorkSince?.dateString ?? "Unknown date" }}</h3>
+					<h3>Incapable of work until: {{ medCertResult?.dates?.incapableOfWorkUntil?.dateString ?? "Unknown date" }}</h3>
+					<h3>Diagnosed on: {{ medCertResult?.dates?.diagnosedOn?.dateString ?? "Unknown date" }}</h3>
+					<h3>Document Date: {{ medCertResult?.dates?.documentDate?.dateString ?? "Unknown date" }}</h3>
+				</ion-label>
+				<h2>Checkbox Data:</h2>
+				<ion-label>
+					<h3>Initial Certificate: {{ (medCertResult?.checkboxes?.initialCertificate?.isChecked ?? false) ? "Yes" : "No" }}</h3>
+					<h3>Renewed Certificate: {{ (medCertResult?.checkboxes?.renewedCertificate?.isChecked ?? false) ? "Yes" : "No" }}</h3>
+					<h3>Work Accident: {{ (medCertResult?.checkboxes?.workAccident?.isChecked ?? false) ? "Yes" : "No" }}</h3>
+					<h3>Accident: {{ (medCertResult?.checkboxes?.accident?.isChecked ?? false) ? "Yes" : "No" }}</h3>
+				</ion-label>
+			</ion-content>
+		</ng-template>
+	</ion-modal>
+</ion-content>

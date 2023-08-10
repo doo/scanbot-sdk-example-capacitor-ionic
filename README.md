@@ -1,10 +1,10 @@
-# Scanbot Barcode & Document Scanning Example App for Capacitor with Ionic
+# Scanbot Capacitor Document Scanner SDK Example App with Angular
 
-This example app shows how to integrate the [Scanbot Barcode Scanner SDK](https://scanbot.io/developer/ionic-barcode-scanner/), [Scanbot Document Scanner SDK](https://scanbot.io/developer/ionic-document-scanner/), and [Scanbot Data Capture SDK](https://scanbot.io/developer/ionic-data-capture/) for Capacitor.
+This example app shows how to integrate the [Scanbot Capacitor Document Scanner SDK](https://docs.scanbot.io/document-scanner-sdk/capacitor/introduction/)
 
-The Scanbot SDK Cordova Plugin is available as an [npm package](https://www.npmjs.com/package/cordova-plugin-scanbot-sdk).
+The Scanbot SDK Capacitor Plugin is available as an [npm package](https://www.npmjs.com/package/capacitor-plugin-scanbot-sdk).
 
-For more details about the Scanbot SDK Cordova Plugin please refer to the [documentation](https://docs.scanbot.io/document-scanner-sdk/cordova/).
+For more details about the Scanbot SDK Capacitor Plugin please refer to the [documentation](https://docs.scanbot.io/document-scanner-sdk/capacitor/).
 
 ## What is the Scanbot SDK?
 
@@ -32,27 +32,22 @@ framework or features, please visit our [Support Page](https://docs.scanbot.io/s
 
 ### Requirements
 
-- [Node.js v12](https://nodejs.org) or higher, with NPM v6.9 or higher
-- For Android Apps:
-  * Latest [Android Studio](https://developer.android.com/studio/) with Android SDK installed
-- For iOS Apps:
-  * Mac with latest version of [Xcode](https://developer.apple.com/xcode/)
-  * [CocoaPods](https://cocoapods.org)
+- NodeJS 16+ & npm
+- [Capacitor CLI](https://www.npmjs.com/package/@capacitor/cli) 5+
+- For Android apps:
+    * Android SDK (API Level 22+), Platforms and Developer Tools
+    * Android Studio Flamingo | 2022.2.1 with Gradle 8, Java JDK 17
+- For iOS apps: 
+    * iOS 13+
+    * macOS with Xcode 14.1+
 
 Please check the full [requirements for Capacitor](https://capacitorjs.com/docs/getting-started/environment-setup).
 
 ### Install
 
-Install [Ionic](https://ionicframework.com):
-
-```
-npm install -g ionic
-```
-
 Install the node modules of this project:
 
 ```
-cd scanbot-sdk-example-capacitor-ionic/
 npm install
 ```
 
@@ -80,21 +75,4 @@ npx cap sync
 
 ### Run
 
-Connect an Android or iOS device via USB and run the app from IDE or Command Line Interface (CLI).
-
-
-#### IDE
-Open the native projects in corresponding IDEs (Android Studio or Xcode) and hit the "Run" button:
-
-```
-ionic capacitor open android
-ionic capacitor open ios
-```
-
-#### CLI
-Or alternatively run the projects via CLI (Android or iOS):
-
-```
-ionic capacitor run android
-ionic capacitor run ios
-```
+Connect an Android or iOS device via USB and run the app by opening the respective projects

@@ -1,23 +1,60 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { ImagePreviewComponent } from './image-preview/image-preview.component';
 
-/* eslint-disable max-len */
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomePageModule) },
-  { path: 'image-results', loadChildren: () => import('./image-results/image-results.module').then(m => m.ImageResultsPageModule) },
-  { path: 'image-view/:pageId', loadChildren: () => import('./image-view/image-view.module').then(m => m.ImageViewPageModule) },
-  { path: 'barcode-list', loadChildren: () => import('./barcode-list/barcode-list.module').then(m => m.BarcodeListModule) },
-  { path: 'barcode-document-list', loadChildren: () => import('./barcode-document-list/barcode-document-list.module').then(m => m.BarcodeDocumentListModule) },
-  { path: 'barcode-result-list', loadChildren: () => import('./barcode-result-list/barcode-result-list.module').then(m => m.BarcodeResultListPageModule) },
-  { path: 'html5-camera', loadChildren: () => import('./html5-camera/html5-camera.module').then(m => m.Html5CameraPageModule) },
-  { path: 'idcard-scan-results', loadChildren: () => import('./idcard-scan-results/idcard-scan-results.module').then(m => m.IdCardScanResultsPageModule) },
-  { path: 'check-recognizer-results', loadChildren: () => import('./check-recognizer-results/check-recognizer-results.module').then(m => m.CheckRecognizerResultsPageModule) },
+  {
+    path: '',
+    redirectTo: 'mainpage',
+    pathMatch: 'full'
+  },
+  {
+    path: 'mainpage',
+    loadChildren: () => import('./mainpage/mainpage.module').then( m => m.MainpagePageModule)
+  },
+  {
+    path: 'document-results',
+    loadChildren: () => import('./document-results/document-results.module').then( m => m.DocumentResultsPageModule)
+  },
+  {
+    path: 'barcode-results',
+    loadChildren: () => import('./barcode-results/barcode-results.module').then( m => m.BarcodeResultsPageModule)
+  },
+  {
+    path: 'generic-doc-results',
+    loadChildren: () => import('./generic-doc-results/generic-doc-results.module').then( m => m.GenericDocResultsPageModule)
+  },
+  {
+    path: 'ehci-results',
+    loadChildren: () => import('./ehci-results/ehci-results.module').then( m => m.EhciResultsPageModule)
+  },
+  {
+    path: 'license-plate-scanner',
+    loadChildren: () => import('./license-plate-scanner/license-plate-scanner.module').then( m => m.LicensePlateScannerPageModule)
+  },
+  {
+    path: 'medical-certificate-scanner',
+    loadChildren: () => import('./medical-certificate-scanner/medical-certificate-scanner.module').then( m => m.MedicalCertificateScannerPageModule)
+  },
+  {
+    path: 'mrz-scanner',
+    loadChildren: () => import('./mrz-scanner/mrz-scanner.module').then( m => m.MrzScannerPageModule)
+  },
+  {
+    path: 'text-data-scanner',
+    loadChildren: () => import('./text-data-scanner/text-data-scanner.module').then( m => m.TextDataScannerPageModule)
+  },
+  {
+    path: 'check-results',
+    loadChildren: () => import('./check-results/check-results.module').then( m => m.CheckResultsPageModule)
+  },
+  { path: 'image-preview/:imageFileUri', component: ImagePreviewComponent },
 ];
-/* eslint-enable max-len */
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

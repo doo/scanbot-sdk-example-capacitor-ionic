@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>MRZ Scanner</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<div className="buttons-toolbar">
+		<div className="left-group">
+			<ion-button [routerLink]="['/mainpage']">&lt;- Back</ion-button>
+		</div>
+	</div>
+	<ion-button (click)="openMRZScanner()">Open MRZ Scanner</ion-button>
+	<ion-modal [isOpen]="isResultModalOpen">
+		<ng-template>
+			<ion-header>
+				<ion-toolbar>
+					<ion-title>MRZ Results</ion-title>
+					<ion-buttons slot="end">
+						<ion-button (click)="setOpen(false)">Close</ion-button>
+					</ion-buttons>
+				</ion-toolbar>
+			</ion-header>
+			<ion-content class="ion-padding">
+        <ion-list>
+					<ion-item *ngFor="let field of fields">
+						<ion-label>
+							<h2>Name: {{ field.name }}</h2>
+							<h3>Value: {{ field.value }}</h3>
+							<h3>Confidence: {{ field.confidence | number:'1.2-2' }}</h3>
+						</ion-label>
+					</ion-item>
+				</ion-list>
+			</ion-content>
+		</ng-template>
+	</ion-modal>
+</ion-content>
