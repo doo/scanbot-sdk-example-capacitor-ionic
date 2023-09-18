@@ -26,7 +26,7 @@ If you encounter technical issues with integrating the Scanbot SDK or need advic
 framework or features, please visit our [Support Page](https://docs.scanbot.io/support/).
 
 ## Documentation
-👉 [Scanbot SDK documentation](https://docs.scanbot.io/document-scanner-sdk/cordova/introduction/)
+👉 [Scanbot SDK documentation](https://docs.scanbot.io/document-scanner-sdk/capacitor/introduction/)
 
 ## How to run this app
 
