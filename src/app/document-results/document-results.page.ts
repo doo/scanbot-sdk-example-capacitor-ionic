@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Capacitor } from '@capacitor/core';
 import { ScanbotService } from '../services/scanbot-service.service';
 import { ActionSheetButton, ActionSheetController } from '@ionic/angular';
-import { ImageFilter, Page } from 'capacitor-plugin-scanbot-sdk/';
+import { ImageFilterType, Page } from 'capacitor-plugin-scanbot-sdk/';
 import { Camera } from '@capacitor/camera';
 
 @Component({
@@ -83,7 +83,7 @@ export class DocumentResultsPage implements OnInit {
 
 	async onFilterBtnPress() {
 		if (this.pageToFilter !== undefined) {
-			const page = await this.scanbot.applyImageFilterOnPage(this.pageToFilter, this.selectedFilterMode as ImageFilter);
+			const page = await this.scanbot.applyImageFilterOnPage(this.pageToFilter, this.selectedFilterMode as ImageFilterType);
 			const refreshed = await this.scanbot.refreshImages([page]);
 			const uri = refreshed[0].documentPreviewImageFileUri ?? refreshed[0].originalPreviewImageFileUri;
 			console.log(uri);
