@@ -1,0 +1,32 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title>license-plate-scanner</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<div className="buttons-toolbar">
+		<div className="left-group">
+			<ion-button [routerLink]="['/mainpage']">&lt;- Back</ion-button>
+		</div>
+	</div>
+	<ion-button (click)="openLicensePlateScanner()">Open License Plate Scanner</ion-button>
+	<ion-modal [isOpen]="isResultModalOpen">
+		<ng-template>
+			<ion-header>
+				<ion-toolbar>
+					<ion-title>License Plate Results</ion-title>
+					<ion-buttons slot="end">
+						<ion-button (click)="setOpen(false)">Close</ion-button>
+					</ion-buttons>
+				</ion-toolbar>
+			</ion-header>
+			<ion-content class="ion-padding">
+				<h2>License Plate: {{plateResult?.licensePlate }}</h2>
+				<h3>Confidence: {{ plateResult?.confidence }}</h3>
+				<h3>Country Code: {{ plateResult?.countryCode }}</h3>
+				<h3>Raw Text: {{ plateResult?.rawText }}</h3>
+			</ion-content>
+		</ng-template>
+	</ion-modal>
+</ion-content>
