@@ -5,10 +5,9 @@ import { ScanbotService } from '../services/scanbot-service.service';
 
 import { NavigationExtras, Router } from '@angular/router';
 import { Camera } from '@capacitor/camera';
-import { Capacitor } from '@capacitor/core';
 import { StringSelectorModalComponent } from '../string-selector-modal/string-selector-modal.component';
 import { ModalController } from '@ionic/angular';
-import { BarcodeResultField, ImageFilter } from 'capacitor-plugin-scanbot-sdk';
+import { BarcodeResultField, ImageFilterType } from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
 	selector: 'app-mainpage',
@@ -45,6 +44,28 @@ export class MainpagePage implements OnInit {
 		}
 		try {
 			const result = await this.scanbot.showDocumentScanner();
+
+			// Save page ids into a separate array.
+			if (result.pages.length > 0) {
+				const pageIds = result.pages.map(page => page.pageId);
+				const navigationExtras: NavigationExtras = {
+					state: { pageIds }
+				};
+
+				// Navigate to document-results and pass pageIds as pages to display.
+				this.router.navigate(['/document-results'], navigationExtras);
+			}
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+	async openFinderDocScannerClick() {
+		if (!await this.checkLicense()) {
+			return
+		}
+		try {
+			const result = await this.scanbot.showFinderDocumentScanner();
 
 			// Save page ids into a separate array.
 			if (result.pages.length > 0) {
@@ -137,7 +158,7 @@ export class MainpagePage implements OnInit {
 			'LOW_LIGHT_BINARIZATION',
 			'EDGE_HIGHLIGHT',
 			'LOW_LIGHT_BINARIZATION_2'
-		]) as ImageFilter;
+		]) as ImageFilterType;
 
 		if (!filter) {
 			console.log("Filter is undefined");

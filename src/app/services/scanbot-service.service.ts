@@ -6,7 +6,7 @@ import {
 	DocumentScannerResult,
 	GenericDocumentRecognizerResult,
 	HealthInsuranceCardScannerResult,
-	ImageFilter,
+	ImageFilterType,
 	LicenseInfo,
 	LicensePlateScannerResult,
 	MedicalCertificateScannerResult,
@@ -36,6 +36,16 @@ export class ScanbotService {
 			userGuidanceBackgroundColor: '#00ffff',
 			textHintNothingDetected: 'Please scan your document'
 		});
+	}
+
+	public async showFinderDocumentScanner(): Promise<DocumentScannerResult> {
+		return ScanbotSDK.startFinderDocumentScanner({
+			finderLineWidth: 4,
+			finderLineColor: '#ffffff',
+			userGuidanceTextColor: '#0000ff',
+			userGuidanceBackgroundColor: '#00ffff',
+			textHintNothingDetected: 'Please scan your document'
+		})
 	}
 
 	public async showCropUi(page: Page): Promise<CroppingResult> {
@@ -119,8 +129,8 @@ export class ScanbotService {
 		return ScanbotSDK.removePage({page: page});
 	}
 
-	public async applyImageFilterOnPage(page: Page, imageFilter: ImageFilter): Promise<Page> {
-		return ScanbotSDK.applyImageFilterOnPage({page: page, filter: imageFilter})
+	public async applyImageFilterOnPage(page: Page, ImageFilterType: ImageFilterType): Promise<Page> {
+		return ScanbotSDK.applyImageFilterOnPage({page: page, filter: ImageFilterType})
 	}
 
 	public async writeTiff(imageFileUris: string[]): Promise<string> {
@@ -149,7 +159,7 @@ export class ScanbotService {
 		return (await ScanbotSDK.recognizeCheck({imageFileUri: imageFilePath}))
 	}
 
-	public async applyImageFilter(imageFilePath: string, filter: ImageFilter): Promise<ApplyImageFilterResult> {
+	public async applyImageFilter(imageFilePath: string, filter: ImageFilterType): Promise<ApplyImageFilterResult> {
 		return (await ScanbotSDK.applyImageFilter({
 			imageFileUri: imageFilePath,
 			filter: filter

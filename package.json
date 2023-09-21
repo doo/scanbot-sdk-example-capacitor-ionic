@@ -31,7 +31,7 @@
     "@capacitor/status-bar": "4.1.1",
     "@ionic/angular": "^6.1.9",
     "@ionic/pwa-elements": "^3.1.1",
-    "capacitor-plugin-scanbot-sdk": "2.2.0",
+    "capacitor-plugin-scanbot-sdk": "file:capacitor-plugin-scanbot-sdk-2.2.1-local.1.tgz",
     "ionicons": "^6.0.3",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
