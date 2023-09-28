@@ -1,5 +1,5 @@
 {
-  "name": "scanbot-sdk-example-capacitor-native-ionic",
+  "name": "Scanbot Example SDK Capacitor",
   "integrations": {
     "capacitor": {}
   },

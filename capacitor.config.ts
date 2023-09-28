@@ -1,13 +1,12 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'scanbot-sdk-example-capacitor-native-ionic',
+  appId: 'io.scanbot.example.sdk.capacitor',
+  appName: 'Scanbot Example Sdk Capacitor',
   webDir: 'www',
-  bundledWebRuntime: false,
-  ios: {
-    contentInset: 'always',
-  },
+  server: {
+    androidScheme: 'https'
+  }
 };
 
 export default config;

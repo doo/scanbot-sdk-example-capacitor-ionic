@@ -1,0 +1,19 @@
+a.scanbotSDK {
+    color: var(--ion-color-primary);
+    text-decoration: none;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-top: 35px;
+}
+
+ion-footer {
+    text-align: center;
+}
+
+ion-note.scanbotCopyright {
+    --color: #ffffff;
+}
