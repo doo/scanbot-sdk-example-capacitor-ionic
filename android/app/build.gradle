@@ -29,8 +29,6 @@ repositories {
   }
 }
 
-// def scanbotSdkVersion = '2.2.0'
-
 dependencies {
   implementation fileTree(include: ['*.jar'], dir: 'libs')
   implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
@@ -41,7 +39,6 @@ dependencies {
   androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
   androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
   implementation project(':capacitor-cordova-android-plugins')
-  // implementation("io.scanbot:sdk-mc-assets:$scanbotSdkVersion")
 }
 
 apply from: 'capacitor.build.gradle'
