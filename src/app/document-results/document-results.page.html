@@ -32,7 +32,7 @@
 			</ion-header>
 			<ion-content class="ion-padding">
 				<ion-select label="filter" placeholder="Select filter" (ionChange)="onFilterChanged($event)">
-					<ion-select-option *ngFor="let name of filterNames" [value]="name">{{ name }}</ion-select-option>
+					<ion-select-option *ngFor="let filter of displayFilters" [value]="filter.filterType">{{ filter.displayName }}</ion-select-option>
 				</ion-select>
 				<ion-button (click)="onFilterBtnPress()">Apply Filter</ion-button>
 			</ion-content>

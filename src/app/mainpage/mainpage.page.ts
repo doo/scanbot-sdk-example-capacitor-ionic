@@ -8,6 +8,7 @@ import { Camera } from '@capacitor/camera';
 import { StringSelectorModalComponent } from '../string-selector-modal/string-selector-modal.component';
 import { ModalController } from '@ionic/angular';
 import { BarcodeResultField, ImageFilterType } from 'capacitor-plugin-scanbot-sdk';
+import { ScanbotRuntimeStorage } from '../services/scanbot-runtime-storage';
 
 @Component({
 	selector: 'app-mainpage',
@@ -36,6 +37,9 @@ export class MainpagePage implements OnInit {
 	async ngOnInit() {
 		await this.scanbot.initSdk();
 		this.checkLicense();
+
+		console.log("Cleaning up storage...");
+		await this.scanbot.cleanup();
 	}
 
 	async openDocScannerClick() {
@@ -44,16 +48,11 @@ export class MainpagePage implements OnInit {
 		}
 		try {
 			const result = await this.scanbot.showDocumentScanner();
-
-			// Save page ids into a separate array.
 			if (result.pages.length > 0) {
-				const pageIds = result.pages.map(page => page.pageId);
-				const navigationExtras: NavigationExtras = {
-					state: { pageIds }
-				};
-
+				// Add the scanned pages to the demo runtime storage
+				ScanbotRuntimeStorage.default.addPages(result.pages);
 				// Navigate to document-results and pass pageIds as pages to display.
-				this.router.navigate(['/document-results'], navigationExtras);
+				this.router.navigate(['/document-results']);
 			}
 		} catch (error) {
 			console.error(error);
@@ -66,18 +65,15 @@ export class MainpagePage implements OnInit {
 		}
 		try {
 			const result = await this.scanbot.showFinderDocumentScanner();
-			console.log(result);
+
 			console.log(JSON.stringify(result, null, 4));
 
-			// Save page ids into a separate array.
 			if (result.pages.length > 0) {
-				const pageIds = result.pages.map(page => page.pageId);
-				const navigationExtras: NavigationExtras = {
-					state: { pageIds }
-				};
+				// Add the scanned pages to the demo runtime storage
+				ScanbotRuntimeStorage.default.addPages(result.pages);
 
 				// Navigate to document-results and pass pageIds as pages to display.
-				this.router.navigate(['/document-results'], navigationExtras);
+				this.router.navigate(['/document-results']);
 			}
 		} catch (error) {
 			console.error(error);

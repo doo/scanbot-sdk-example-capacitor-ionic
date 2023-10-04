@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ApplyImageFilterResult, CheckRecognizerResult, DetectBarcodesOnImageResult, DetectBarcodesOnImagesResult, PageFileType, RecognizeCheckResult, RemovePageResult, ScanbotSDK, Status, TextDataScannerResult } from 'capacitor-plugin-scanbot-sdk';
+import { ApplyImageFilterResult, BaseSdkResult, CheckRecognizerResult, CroppingConfiguration, DetectBarcodesOnImageResult, DetectBarcodesOnImagesResult, EstimateBlurResult, GetImageDataResult, PageFileType, RecognizeCheckResult, RemovePageResult, ScanbotSDK, Status, TextDataScannerResult } from 'capacitor-plugin-scanbot-sdk';
 import {
 	BarcodeResult,
 	CroppingResult,
@@ -59,7 +59,16 @@ export class ScanbotService {
 	}
 
 	public async addPageFromImage(imageFileUri: string): Promise<Page> {
-		return ScanbotSDK.createPage({imageUri: imageFileUri});
+		const sanitize = (uri: string) => {
+			let fixedPath = uri
+				.replace('file://', '')
+				.replace('file:/', '')
+				.replace('file:', '')
+
+			return fixedPath.startsWith('/') ? fixedPath : `/${fixedPath}`
+		}
+
+		return ScanbotSDK.createPage({imageUri: sanitize(imageFileUri)});
 	}
 
 	public async detectDocumentOnPage(page: Page): Promise<Page> {
@@ -166,7 +175,19 @@ export class ScanbotService {
 		}));
 	}
 
-	// TODO: Include in SDK
+	public async getImageData(imageFileUri: string): Promise<GetImageDataResult> {
+		return ScanbotSDK.getImageData({imageFileUri})
+	}
+
+	public async estimateBlur(imageFileUri: string): Promise<EstimateBlurResult> {
+		return ScanbotSDK.estimateBlur({imageFileUri});
+	} 
+
+	public async cleanup(): Promise<BaseSdkResult> {
+		return ScanbotSDK.cleanup();
+	}
+
+	// TODO: Deprecate
 	public getStoredPageIds(): Promise<{ pageIds: string[] }> {
 		return (ScanbotSDK as any).getStoredPageIds();
 	}
