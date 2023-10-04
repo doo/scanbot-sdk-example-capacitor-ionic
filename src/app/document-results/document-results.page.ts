@@ -3,8 +3,20 @@ import { Router } from '@angular/router';
 import { Capacitor } from '@capacitor/core';
 import { ScanbotService } from '../services/scanbot-service.service';
 import { ActionSheetButton, ActionSheetController } from '@ionic/angular';
-import { ImageFilterType, Page } from 'capacitor-plugin-scanbot-sdk/';
+import { ImageFilterType, Page, ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
 import { Camera } from '@capacitor/camera';
+import { Directory, Filesystem, FilesystemDirectory, WriteFileOptions, WriteFileResult } from '@capacitor/filesystem';
+import { DemoRuntimeStorage } from '../services/demo-runtime-storage';
+
+export class DisplayImageFilter {
+	filterType: ImageFilterType;
+	displayName: string;
+
+	constructor(filterType: ImageFilterType, displayName: string) {
+		this.filterType = filterType;
+		this.displayName = displayName;
+	}
+}
 
 @Component({
 	selector: 'app-document-results',
@@ -14,22 +26,28 @@ import { Camera } from '@capacitor/camera';
 export class DocumentResultsPage implements OnInit {
 
 	constructor(private scanbot: ScanbotService, private actionSheetController: ActionSheetController, private router: Router) {
-		let data = this.router.getCurrentNavigation()?.extras?.state?.['pageIds']
-		if (data) {
-			this.pageIds = data;
-			this.withData = true
-		} else {
-			this.pageIds = []
-			this.withData = false
-		}
 		this.filterModalOpen = false
-		this.filterNames = ["NONE", "COLOR_ENHANCED", "GRAYSCALE", "BINARIZED", "COLOR_DOCUMENT", "PURE_BINARIZED", "BACKGROUND_CLEAN", "BLACK_AND_WHITE", "OTSU_BINARIZATION", "DEEP_BINARIZATION", "LOW_LIGHT_BINARIZATION", "LOW_LIGHT_BINARIZATION_2", "EDGE_HIGHLIGHT", "SENSITIVE_BINARIZATION"]
+		this.displayFilters = [
+			new DisplayImageFilter('ImageFilterTypeBackgroundClean', 'Background Clean'),
+			new DisplayImageFilter('ImageFilterTypeBinarized', 'Binarized'),
+			new DisplayImageFilter('ImageFilterTypeBlackAndWhite', 'Black and White'),
+			new DisplayImageFilter('ImageFilterTypeColor', 'Color'),
+			new DisplayImageFilter('ImageFilterTypeColorDocument', 'Color Document'),
+			new DisplayImageFilter('ImageFilterTypeDeepBinarization', 'Deep Binarization'),
+			new DisplayImageFilter('ImageFilterTypeEdgeHighlight', 'Edge Highlight'),
+			new DisplayImageFilter('ImageFilterTypeGray', 'Gray'),
+			new DisplayImageFilter('ImageFilterTypeLowLightBinarization', 'Low Light Binarization'),
+			new DisplayImageFilter('ImageFilterTypeLowLightBinarization2', 'Low Light Binarization 2'),
+			new DisplayImageFilter('ImageFilterTypeNone', 'None'),
+			new DisplayImageFilter('ImageFilterTypeOtsuBinarization', 'OtsuBinarization'),
+			new DisplayImageFilter('ImageFilterTypePureBinarized', 'Pure Binarized'),
+			new DisplayImageFilter('ImageFilterTypePureGray', 'Gray'),
+			new DisplayImageFilter('ImageFilterTypeSensitiveBinarization', 'Sensitive Binarization')
+		]
 	}
 
 	images: string[] = []
-	pageIds: string[]
-	withData: boolean
-	filterNames: string[]
+	displayFilters: DisplayImageFilter[]
 	filterModalOpen: boolean
 
 	selectedFilterMode?: string
@@ -37,9 +55,6 @@ export class DocumentResultsPage implements OnInit {
 	pageToFilterIndex?: number
 
 	async reloadData() {
-		if (!this.withData) {
-			this.pageIds = (await this.scanbot.getStoredPageIds()).pageIds.reverse()
-		}
 		await this.loadImageThumbnails()
 	}
 
@@ -48,7 +63,7 @@ export class DocumentResultsPage implements OnInit {
 	}
 
 	async loadImageThumbnails() {
-		var uris = (await this.scanbot.getPagePreviewUris("DOCUMENT", this.pageIds)).uris.filter(uri => uri !== undefined).map(uri => uri!)
+		const uris = DemoRuntimeStorage.default.allPagePreviewUris;
 		this.images = uris.map(uri => Capacitor.convertFileSrc(uri))
 	}
 
@@ -61,12 +76,8 @@ export class DocumentResultsPage implements OnInit {
 	}
 
 	async onDeleteAllClick() {
-		const ids = (await this.scanbot.getStoredPageIds()).pageIds
-		for (const pageId of ids) {
-			const page = await this.scanbot.getPageById(pageId)
-			await this.scanbot.removePage(page)
-		}
-		this.pageIds = []
+		await ScanbotSDK.cleanup();
+		DemoRuntimeStorage.default.removeAllPages();
 		this.images = []
 	}
 
@@ -75,6 +86,7 @@ export class DocumentResultsPage implements OnInit {
 		let photos = await Promise.all(res.photos.filter(async (photo) => { photo.path !== undefined; }).map(async (photo) => {
 			const page = await this.scanbot.addPageFromImage(photo.path!);
 			const documentPage = await this.scanbot.detectDocumentOnPage(page);
+			DemoRuntimeStorage.default.addPage(documentPage);
 			return Capacitor.convertFileSrc(documentPage.documentPreviewImageFileUri ?? documentPage.originalImageFileUri);
 		}))
 		this.images = photos.concat(this.images)
@@ -84,8 +96,11 @@ export class DocumentResultsPage implements OnInit {
 	async onFilterBtnPress() {
 		if (this.pageToFilter !== undefined) {
 			const page = await this.scanbot.applyImageFilterOnPage(this.pageToFilter, this.selectedFilterMode as ImageFilterType);
-			const refreshed = await this.scanbot.refreshImages([page]);
-			const uri = refreshed[0].documentPreviewImageFileUri ?? refreshed[0].originalPreviewImageFileUri;
+			const refreshedPages = await this.scanbot.refreshImages([page]);
+
+			DemoRuntimeStorage.default.updatePages(refreshedPages);
+
+			const uri = refreshedPages[0].documentPreviewImageFileUri ?? refreshedPages[0].originalPreviewImageFileUri;
 			console.log(uri);
 			this.images[this.pageToFilterIndex!] = Capacitor.convertFileSrc(uri)
 		}
@@ -94,7 +109,9 @@ export class DocumentResultsPage implements OnInit {
 
 	async showActionSheet(position: number) {
 		let buttons = new Array<ActionSheetButton>()
-		this.pageToFilter = await this.scanbot.getPageById(this.pageIds[position])
+
+		const selectedPage = DemoRuntimeStorage.default.allPages[position]
+		this.pageToFilter = selectedPage
 
 		buttons.push({
 			text: 'Crop',
@@ -102,10 +119,17 @@ export class DocumentResultsPage implements OnInit {
 			icon: 'crop',
 			handler: async () => {
 				if ((await this.scanbot.getLicenseInfo()).isLicenseValid) {
-					const page = await this.scanbot.getPageById(this.pageIds[position])
-					let result = (await this.scanbot.showCropUi(page))
+					const result = await this.scanbot.showCropUi(selectedPage)
 					if (result.status === "OK") {
-						this.images[position] = Capacitor.convertFileSrc(result.page!.documentPreviewImageFileUri ?? result.page!.originalImageFileUri)
+						const page = result.page;
+						if (page == null) {
+							return;
+						}
+
+						// Update the page in the demo runtime storage
+						DemoRuntimeStorage.default.updatePage(page);
+
+						this.images[position] = Capacitor.convertFileSrc(page.documentPreviewImageFileUri ?? page.originalImageFileUri)
 					}
 				}
 			}
@@ -122,7 +146,7 @@ export class DocumentResultsPage implements OnInit {
 			icon: "download-outline",
 			role: 'default',
 			handler: async () => {
-				let path = await this.scanbot.writePdf(this.pageIds, "A4")
+				let path = await this.scanbot.writePdf(DemoRuntimeStorage.default.allPageOriginalUris, "A4")
 				console.log("PDF saved at path: " + path);
 			}
 		}, {
@@ -130,7 +154,7 @@ export class DocumentResultsPage implements OnInit {
 			icon: "download-outline",
 			role: 'default',
 			handler: async () => {
-				let path = await this.scanbot.writeTiff(this.pageIds)
+				let path = await this.scanbot.writeTiff(DemoRuntimeStorage.default.allPageOriginalUris)
 				console.log("TIFF saved at path: " + path);
 			}
 		}, {
@@ -138,10 +162,8 @@ export class DocumentResultsPage implements OnInit {
 			role: 'destructive',
 			icon: 'trash',
 			handler: async () => {
-				const page = await this.scanbot.getPageById(this.pageIds[position])
-				this.scanbot.removePage(page);
-				this.pageIds.splice(position, 1)
-				this.images.splice(position, 1)
+				await this.scanbot.removePage(selectedPage);
+				DemoRuntimeStorage.default.removePage(selectedPage)
 			}
 		}, {
 			text: 'Cancel',
