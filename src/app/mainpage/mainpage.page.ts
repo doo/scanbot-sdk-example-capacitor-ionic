@@ -8,7 +8,7 @@ import { Camera } from '@capacitor/camera';
 import { StringSelectorModalComponent } from '../string-selector-modal/string-selector-modal.component';
 import { ModalController } from '@ionic/angular';
 import { BarcodeResultField, ImageFilterType } from 'capacitor-plugin-scanbot-sdk';
-import { ScanbotRuntimeStorage } from '../services/scanbot-runtime-storage';
+import { DemoRuntimeStorage } from '../services/demo-runtime-storage';
 
 @Component({
 	selector: 'app-mainpage',
@@ -50,7 +50,7 @@ export class MainpagePage implements OnInit {
 			const result = await this.scanbot.showDocumentScanner();
 			if (result.pages.length > 0) {
 				// Add the scanned pages to the demo runtime storage
-				ScanbotRuntimeStorage.default.addPages(result.pages);
+				DemoRuntimeStorage.default.addPages(result.pages);
 				// Navigate to document-results and pass pageIds as pages to display.
 				this.router.navigate(['/document-results']);
 			}
@@ -70,7 +70,7 @@ export class MainpagePage implements OnInit {
 
 			if (result.pages.length > 0) {
 				// Add the scanned pages to the demo runtime storage
-				ScanbotRuntimeStorage.default.addPages(result.pages);
+				DemoRuntimeStorage.default.addPages(result.pages);
 
 				// Navigate to document-results and pass pageIds as pages to display.
 				this.router.navigate(['/document-results']);

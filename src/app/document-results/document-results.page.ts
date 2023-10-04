@@ -6,7 +6,7 @@ import { ActionSheetButton, ActionSheetController } from '@ionic/angular';
 import { ImageFilterType, Page, ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
 import { Camera } from '@capacitor/camera';
 import { Directory, Filesystem, FilesystemDirectory, WriteFileOptions, WriteFileResult } from '@capacitor/filesystem';
-import { ScanbotRuntimeStorage } from '../services/scanbot-runtime-storage';
+import { DemoRuntimeStorage } from '../services/demo-runtime-storage';
 
 export class DisplayImageFilter {
 	filterType: ImageFilterType;
@@ -63,7 +63,7 @@ export class DocumentResultsPage implements OnInit {
 	}
 
 	async loadImageThumbnails() {
-		const uris = ScanbotRuntimeStorage.default.allPagePreviewUris;
+		const uris = DemoRuntimeStorage.default.allPagePreviewUris;
 		this.images = uris.map(uri => Capacitor.convertFileSrc(uri))
 	}
 
@@ -77,7 +77,7 @@ export class DocumentResultsPage implements OnInit {
 
 	async onDeleteAllClick() {
 		await ScanbotSDK.cleanup();
-		ScanbotRuntimeStorage.default.removeAllPages();
+		DemoRuntimeStorage.default.removeAllPages();
 		this.images = []
 	}
 
@@ -86,7 +86,7 @@ export class DocumentResultsPage implements OnInit {
 		let photos = await Promise.all(res.photos.filter(async (photo) => { photo.path !== undefined; }).map(async (photo) => {
 			const page = await this.scanbot.addPageFromImage(photo.path!);
 			const documentPage = await this.scanbot.detectDocumentOnPage(page);
-			ScanbotRuntimeStorage.default.addPage(documentPage);
+			DemoRuntimeStorage.default.addPage(documentPage);
 			return Capacitor.convertFileSrc(documentPage.documentPreviewImageFileUri ?? documentPage.originalImageFileUri);
 		}))
 		this.images = photos.concat(this.images)
@@ -98,7 +98,7 @@ export class DocumentResultsPage implements OnInit {
 			const page = await this.scanbot.applyImageFilterOnPage(this.pageToFilter, this.selectedFilterMode as ImageFilterType);
 			const refreshedPages = await this.scanbot.refreshImages([page]);
 
-			ScanbotRuntimeStorage.default.updatePages(refreshedPages);
+			DemoRuntimeStorage.default.updatePages(refreshedPages);
 
 			const uri = refreshedPages[0].documentPreviewImageFileUri ?? refreshedPages[0].originalPreviewImageFileUri;
 			console.log(uri);
@@ -110,7 +110,7 @@ export class DocumentResultsPage implements OnInit {
 	async showActionSheet(position: number) {
 		let buttons = new Array<ActionSheetButton>()
 
-		const selectedPage = ScanbotRuntimeStorage.default.allPages[position]
+		const selectedPage = DemoRuntimeStorage.default.allPages[position]
 		this.pageToFilter = selectedPage
 
 		buttons.push({
@@ -127,7 +127,7 @@ export class DocumentResultsPage implements OnInit {
 						}
 
 						// Update the page in the demo runtime storage
-						ScanbotRuntimeStorage.default.updatePage(page);
+						DemoRuntimeStorage.default.updatePage(page);
 
 						this.images[position] = Capacitor.convertFileSrc(page.documentPreviewImageFileUri ?? page.originalImageFileUri)
 					}
@@ -146,7 +146,7 @@ export class DocumentResultsPage implements OnInit {
 			icon: "download-outline",
 			role: 'default',
 			handler: async () => {
-				let path = await this.scanbot.writePdf(ScanbotRuntimeStorage.default.allPageOriginalUris, "A4")
+				let path = await this.scanbot.writePdf(DemoRuntimeStorage.default.allPageOriginalUris, "A4")
 				console.log("PDF saved at path: " + path);
 			}
 		}, {
@@ -154,7 +154,7 @@ export class DocumentResultsPage implements OnInit {
 			icon: "download-outline",
 			role: 'default',
 			handler: async () => {
-				let path = await this.scanbot.writeTiff(ScanbotRuntimeStorage.default.allPageOriginalUris)
+				let path = await this.scanbot.writeTiff(DemoRuntimeStorage.default.allPageOriginalUris)
 				console.log("TIFF saved at path: " + path);
 			}
 		}, {
@@ -163,7 +163,7 @@ export class DocumentResultsPage implements OnInit {
 			icon: 'trash',
 			handler: async () => {
 				await this.scanbot.removePage(selectedPage);
-				ScanbotRuntimeStorage.default.removePage(selectedPage)
+				DemoRuntimeStorage.default.removePage(selectedPage)
 			}
 		}, {
 			text: 'Cancel',
