@@ -1,7 +1,0 @@
-{
-  "name": "scanbot-sdk-example-capacitor-native-ionic",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
-}
