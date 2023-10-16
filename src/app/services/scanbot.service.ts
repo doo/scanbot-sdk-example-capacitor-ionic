@@ -3,6 +3,7 @@ import { CommonUtils } from '../utils/common-utils';
 import { ImageUtils } from '../utils/image-utils';
 import { FileUtils } from '../utils/file-utils';
 import { ActionSheetController } from '@ionic/angular';
+import { Colors } from 'src/theme/theme';
 
 import {
   ScanbotSDK,
@@ -31,9 +32,11 @@ import {
   ApplyImageFilterResult,
   GetLicenseInfoResult,
   GetOCRConfigsResult,
-  CameraImageFormat
+  CameraImageFormat,
+  CreatePDFResult,
+  PerformOCRResult,
+  WriteTIFFResult
 } from 'capacitor-plugin-scanbot-sdk';
-import { Colors } from 'src/theme/theme';
 
 export class Feature {
   constructor(public id: FeatureId, public title: string) { }
@@ -65,8 +68,6 @@ export enum FeatureId {
   FinderDocumentScanner
 }
 
-export const SCANBOT_IMAGES_FILE_FORMAT: CameraImageFormat = 'JPG'
-
 @Injectable({
   providedIn: 'root'
 })
@@ -75,6 +76,7 @@ export class ScanbotService {
   private utils = inject(CommonUtils);
   private imageUtils = inject(ImageUtils);
   private fileUtils = inject(FileUtils);
+  private actionSheetCtrl = inject(ActionSheetController);
 
   // set your key here
   // TODO REMOVE BEFORE COMMIT
@@ -135,17 +137,23 @@ export class ScanbotService {
     'IATA_2_OF_5',
     'INDUSTRIAL_2_OF_5'];
 
-  constructor(private actionSheetCtrl: ActionSheetController) { }
+
+  readonly SCANBOT_IMAGES_FILE_FORMAT: CameraImageFormat = 'JPG'
+  readonly FILE_ENCRYPTION_ENABLED: boolean = false
+
+  constructor() { }
 
   async initializeSDK() {
     try {
       const result = await ScanbotSDK.initializeSDK({
         licenseKey: this.licenseKey,
         loggingEnabled: true,
-        storageImageFormat: SCANBOT_IMAGES_FILE_FORMAT, // Format of stored images
+        storageImageFormat: this.SCANBOT_IMAGES_FILE_FORMAT, // Format of stored images
         storageImageQuality: 80, // Quality of stored images
         storageBaseDirectory: this.storageBaseDirectory, // Custom storage path
-        documentDetectorMode: 'ML_BASED', // The engine used to detect documents
+        documentDetectorMode: 'ML_BASED', // The engine used to detect documents,
+        fileEncryptionMode: this.FILE_ENCRYPTION_ENABLED ? 'AES256' : undefined,
+        fileEncryptionPassword: this.FILE_ENCRYPTION_ENABLED ? 'SomeSecretPa$$w0rdForFileEncryptio' : undefined
       });
       console.log(result);
     } catch (e) {
@@ -162,7 +170,7 @@ export class ScanbotService {
       orientationLockMode: 'PORTRAIT',
       pageCounterButtonTitle: '%d Page(s)',
       multiPageEnabled: false,
-      ignoreBadAspectRatio: true,
+      ignoreBadAspectRatio: true
     });
   }
 
@@ -507,6 +515,34 @@ export class ScanbotService {
 
   getOCRConfigs(): Promise<GetOCRConfigsResult> {
     return ScanbotSDK.getOCRConfigs();
+  }
+
+  cleanup() {
+    return ScanbotSDK.cleanup();
+  }
+
+  //todo on iOS, the folder inside app data is named 'sbsdk-rn-storage'
+
+  saveImagesAsPDF(imageUris: string[]): Promise<CreatePDFResult> {
+    return ScanbotSDK.createPDF({ imageFileUris: imageUris, pageSize: 'FIXED_A4' });
+  }
+
+  saveImagesAsPDFWithOCR(imageUris: string[]): Promise<PerformOCRResult> {
+    //todo not working correctly
+    //on android. pdfFileUri is undefuned and file is not created
+    //on iOS nothing is returned from promise and file is not created
+    return ScanbotSDK.performOCR({ imageFileUris: imageUris, languages: ['en'], options: { outputFormat: 'FULL_OCR_RESULT' } });
+  }
+
+  saveResultsAsTIFF(imageUris: string[], binarized: boolean): Promise<WriteTIFFResult> {
+    //todo oneBitEncoded property is not taken in consideration (on both platforms)
+    return ScanbotSDK.writeTIFF({
+      imageFileUris: imageUris, options: {
+        oneBitEncoded: binarized, // "true" means create 1-bit binarized black and white TIFF
+        dpi: 300, // optional DPI. default value is 200
+        compression: binarized ? 'CCITT_T6' : 'ADOBE_DEFLATE', // optional compression. see documentation!
+      }
+    });
   }
 
   private getErrorStringFromLicenseStatus(status: LicenseStatus): string {

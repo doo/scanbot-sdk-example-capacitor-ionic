@@ -31,7 +31,7 @@ export class ScanbotsdkFeatureRecognizeCheckOnImageComponent extends ScanbotsdkF
         //navigation.navigate(Screens.CHECK_RECOGNIZER_RESULT, result);
       }
     } catch (e: any) {
-      this.utils.dismissLoader();
+      await this.utils.dismissLoader();
       this.utils.showErrorAlert(e.message);
     }
   }

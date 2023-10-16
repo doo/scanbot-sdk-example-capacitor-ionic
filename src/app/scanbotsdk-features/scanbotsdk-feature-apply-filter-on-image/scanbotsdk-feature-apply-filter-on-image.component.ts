@@ -34,7 +34,7 @@ export class ScanbotsdkFeatureApplyFilterOnImageComponent extends ScanbotsdkFeat
       else
         this.utils.dismissLoader();
     } catch (e: any) {
-      this.utils.dismissLoader();
+      await this.utils.dismissLoader();
       this.utils.showErrorAlert(e.message);
     }
   }

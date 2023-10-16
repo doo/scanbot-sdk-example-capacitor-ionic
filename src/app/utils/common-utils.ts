@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Capacitor } from '@capacitor/core';
 import { AlertController, AlertOptions, LoadingController } from '@ionic/angular';
 import {
@@ -20,14 +20,18 @@ import {
     providedIn: 'root'
 })
 export class CommonUtils {
-    constructor(private alertController: AlertController, private loadingController: LoadingController) { }
+
+    private alertController = inject(AlertController);
+    private loadingController = inject(LoadingController);
+
+    constructor() { }
 
     async showAlert(opts?: AlertOptions) {
         const alert = await this.alertController.create(opts);
         alert.present();
     }
 
-    async showResultInfo(result: string) {
+    showResultInfo(result: string) {
         this.showAlert({ header: 'Result', message: result, buttons: ['OK'] });
     }
 
@@ -37,6 +41,10 @@ export class CommonUtils {
 
     showWarningAlert(warning: string) {
         this.showAlert({ header: 'Warning', message: warning, buttons: ['OK'] });
+    }
+
+    showInfoAlert(infoMessage: string) {
+        this.showAlert({ header: 'Info', message: infoMessage, buttons: ['OK'] });
     }
 
     showLicenseInfo(info: GetLicenseInfoResult) {
@@ -56,8 +64,8 @@ export class CommonUtils {
         (await this.loadingController.create({ message: message !== undefined ? message : 'Please wait ...' })).present();
     }
 
-    dismissLoader() {
-        this.loadingController.dismiss();
+    async dismissLoader() {
+        await this.loadingController.dismiss();
     }
 
     logBarcodeDocument(barcodeItem: BarcodeResultField | undefined) {

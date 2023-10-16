@@ -22,12 +22,12 @@ export class ScanbotsdkFeatureBarcodesOnStillImagesComponent extends ScanbotsdkF
     try {
       this.utils.showLoader();
       const result = await this.scanbot.detectBarcodesOnStillImages();
-      this.utils.dismissLoader();
+      await this.utils.dismissLoader();
 
       if (result.results.length > 0)
         this.utils.showResultInfo(JSON.stringify(result.results));
     } catch (e: any) {
-      this.utils.dismissLoader();
+      await this.utils.dismissLoader();
       this.utils.showErrorAlert(e.message);
     }
   }

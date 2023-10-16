@@ -25,11 +25,11 @@ export class ScanbotsdkFeatureDocumentFromImageComponent extends ScanbotsdkFeatu
       this.utils.showLoader();
       const result = await this.scanbot.detectDocumentFromImage(imageFileUri);
       const blur = await this.scanbot.estimateBlur(imageFileUri);
-      this.utils.dismissLoader();
+      await this.utils.dismissLoader();
 
       this.utils.showResultInfo(JSON.stringify(result) + '\n' + JSON.stringify(blur, null, 2));
     } catch (e: any) {
-      this.utils.dismissLoader();
+      await this.utils.dismissLoader();
       this.utils.showErrorAlert(e.message);
     }
   }

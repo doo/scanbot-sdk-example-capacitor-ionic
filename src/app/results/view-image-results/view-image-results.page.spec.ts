@@ -5,11 +5,11 @@ describe('ViewImageResultsPage', () => {
   let component: ViewImageResultsPage;
   let fixture: ComponentFixture<ViewImageResultsPage>;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     fixture = TestBed.createComponent(ViewImageResultsPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  }));
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();

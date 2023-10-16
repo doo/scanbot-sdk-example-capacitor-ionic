@@ -22,7 +22,7 @@ export class PreferencesUtils {
 
     async savePage(page: Page) {
         const pagesList = await this.getAllPagesFromPrefs();
-        pagesList.unshift(page);
+        pagesList.push(page);
 
         await this.savePagesListInPrefs(pagesList);
     }
