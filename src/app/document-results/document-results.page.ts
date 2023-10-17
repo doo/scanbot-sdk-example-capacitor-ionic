@@ -41,8 +41,7 @@ export class DocumentResultsPage implements OnInit {
 			new DisplayImageFilter('ImageFilterTypeNone', 'None'),
 			new DisplayImageFilter('ImageFilterTypeOtsuBinarization', 'OtsuBinarization'),
 			new DisplayImageFilter('ImageFilterTypePureBinarized', 'Pure Binarized'),
-			new DisplayImageFilter('ImageFilterTypePureGray', 'Gray'),
-			new DisplayImageFilter('ImageFilterTypeSensitiveBinarization', 'Sensitive Binarization')
+			new DisplayImageFilter('ImageFilterTypePureGray', 'Gray')
 		]
 	}
 
