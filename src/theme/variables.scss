@@ -74,6 +74,14 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+  /** scanbot-red **/
+  --ion-color-scanbot-red: #c8193c;
+  --ion-color-scanbot-red-rgb: 200, 25, 60;
+  --ion-color-scanbot-red-contrast: #ffffff;
+  --ion-color-scanbot-red-contrast-rgb: 255, 255, 255;
+  --ion-color-scanbot-red-shade: #b01635;
+  --ion-color-scanbot-red-tint: #ce3050;
 }
 
 @media (prefers-color-scheme: dark) {

@@ -62,8 +62,10 @@ export class HomePage implements OnInit {
   private scanbot = inject(ScanbotService);
   private utils = inject(CommonUtils);
 
-  featureScanLicensePlateMLBased: Feature = { id: FeatureId.LicensePlateScannerML, title: 'Scan Vehicle License Plate (ML Based)' };
-  featureScanLicensePlateClassic: Feature = { id: FeatureId.LicensePlateScannerClassic, title: 'Scan Vehicle License Plate (Classic)' };
+  readonly featureScanLicensePlateMLBased: Feature = { id: FeatureId.LicensePlateScannerML, title: 'Scan Vehicle License Plate (ML Based)' };
+  readonly featureScanLicensePlateClassic: Feature = { id: FeatureId.LicensePlateScannerClassic, title: 'Scan Vehicle License Plate (Classic)' };
+
+  readonly currentYear = new Date().getFullYear();
 
   constructor() { }
 
