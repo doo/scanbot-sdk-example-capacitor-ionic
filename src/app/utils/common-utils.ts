@@ -26,8 +26,9 @@ export class CommonUtils {
 
     constructor() { }
 
-    async showAlert(opts?: AlertOptions) {
+    async showAlert(opts?: AlertOptions, onDismiss?: () => any) {
         const alert = await this.alertController.create(opts);
+        alert.onDidDismiss().then(onDismiss);
         alert.present();
     }
 
@@ -35,8 +36,8 @@ export class CommonUtils {
         this.showAlert({ header: 'Result', message: result, buttons: ['OK'] });
     }
 
-    showErrorAlert(error: string) {
-        this.showAlert({ header: 'An unexpected error has occurred', message: error, buttons: ['OK'] });
+    showErrorAlert(error: string, onDismiss?: () => any) {
+        this.showAlert({ header: 'An unexpected error has occurred', message: error, buttons: ['OK'] }, onDismiss);
     }
 
     showWarningAlert(warning: string) {

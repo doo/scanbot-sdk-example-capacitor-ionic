@@ -20,6 +20,11 @@ export class PreferencesUtils {
         await Preferences.set({ key: this.pagesListKey, value: JSON.stringify(pagesList) });
     }
 
+    async getPageById(pageId: string): Promise<Page | undefined> {
+        const pagesList = await this.getAllPagesFromPrefs();
+        return pagesList.find(x => x.pageId == pageId);
+    }
+
     async savePage(page: Page) {
         const pagesList = await this.getAllPagesFromPrefs();
         pagesList.push(page);
@@ -36,9 +41,18 @@ export class PreferencesUtils {
         await this.savePagesListInPrefs(pagesList);
     }
 
-    async deletePageById(pageId: string) {
-        //todo should we delete from fs as well ??
+    async updatePage(page: Page) {
+        const pagesList = await this.getAllPagesFromPrefs();
+        const pageIndex = pagesList.findIndex(x => x.pageId == page.pageId);
 
+        if (pageIndex >= 0) {
+            pagesList[pageIndex] = page;
+
+            await this.savePagesListInPrefs(pagesList);
+        }
+    }
+
+    async deletePageById(pageId: string) {
         const pagesList = await this.getAllPagesFromPrefs();
         const pageIndex = pagesList.findIndex(x => x.pageId == pageId);
 

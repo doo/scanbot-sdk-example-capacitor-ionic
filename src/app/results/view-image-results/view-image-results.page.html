@@ -22,8 +22,9 @@
   </ion-header>
   <ion-grid>
     <ion-row class="ion-align-items-center">
-      <ion-col size="4" *ngFor="let image of imageResults">
-        <ion-img [src]="image.pagePreviewWebViewPath"></ion-img>
+      <ion-col size="4" *ngFor="let imageResult of imageResults">
+        <ion-img [src]="imageResult.pagePreviewWebViewPath"
+          [routerLink]="'/imageDetails/' + imageResult.page.pageId"></ion-img>
       </ion-col>
     </ion-row>
   </ion-grid>

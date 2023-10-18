@@ -10,9 +10,12 @@ export const routes: Routes = [
     loadComponent: () => import('./results/view-image-results/view-image-results.page').then(m => m.ViewImageResultsPage)
   },
   {
+    path: 'imageDetails/:pageId',
+    loadComponent: () => import('./results/view-image-details/view-image-details.page').then(m => m.ViewImageDetailsPage)
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
   },
 ];
-

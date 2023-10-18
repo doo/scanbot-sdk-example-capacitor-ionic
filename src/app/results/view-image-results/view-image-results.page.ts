@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActionSheetController, AlertController, IonicModule } from '@ionic/angular';
@@ -7,6 +7,7 @@ import { Page } from 'capacitor-plugin-scanbot-sdk';
 import { Capacitor } from '@capacitor/core';
 import { ScanbotService } from 'src/app/services/scanbot.service';
 import { CommonUtils } from 'src/app/utils/common-utils';
+import { RouterLink } from '@angular/router';
 
 interface ImageResult {
   page: Page,
@@ -18,9 +19,9 @@ interface ImageResult {
   templateUrl: './view-image-results.page.html',
   styleUrls: ['./view-image-results.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule]
+  imports: [IonicModule, CommonModule, FormsModule, RouterLink]
 })
-export class ViewImageResultsPage implements OnInit {
+export class ViewImageResultsPage {
   private preferencesUtils = inject(PreferencesUtils);
   private scanbot = inject(ScanbotService);
   private utils = inject(CommonUtils);
@@ -31,7 +32,7 @@ export class ViewImageResultsPage implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ionViewWillEnter() {
     this.loadImageResults();
   }
 
@@ -39,7 +40,7 @@ export class ViewImageResultsPage implements OnInit {
     this.imageResults = [];
 
     (await this.preferencesUtils.getAllPagesFromPrefs()).forEach(p => {
-      if (p.documentPreviewImageFileUri!!)
+      if (p.documentPreviewImageFileUri)
         this.imageResults.unshift({ page: p, pagePreviewWebViewPath: Capacitor.convertFileSrc(p.documentPreviewImageFileUri) })
     });
   }

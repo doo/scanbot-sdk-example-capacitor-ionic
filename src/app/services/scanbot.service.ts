@@ -35,7 +35,10 @@ import {
   CameraImageFormat,
   CreatePDFResult,
   PerformOCRResult,
-  WriteTIFFResult
+  WriteTIFFResult,
+  BaseSdkResult,
+  RemovePageResult,
+  CroppingResult
 } from 'capacitor-plugin-scanbot-sdk';
 
 export class Feature {
@@ -380,7 +383,7 @@ export class ScanbotService {
     });
   }
 
-  async chooseImageFilter(): Promise<ImageFilterType | undefined> {
+  async chooseFilter(): Promise<ImageFilterType | undefined> {
     let filter: ImageFilterType | undefined;
 
     //todo style the actionSheet for android
@@ -466,12 +469,6 @@ export class ScanbotService {
           }
         },
         {
-          text: 'Sensitive Binarization',
-          handler: () => {
-            filter = 'ImageFilterTypeSensitiveBinarization';
-          }
-        },
-        {
           text: 'Pure Gray',
           handler: () => {
             filter = 'ImageFilterTypePureGray';
@@ -497,13 +494,28 @@ export class ScanbotService {
 
     let imageFilter = args.filter;
     if (!imageFilter)
-      imageFilter = await this.chooseImageFilter();
+      imageFilter = await this.chooseFilter();
 
     if (imageFilter) {
       if (args.showLoader == true)
         this.utils.showLoader();
 
       return ScanbotSDK.applyImageFilter({ filter: imageFilter, imageFileUri: imageFileUri });
+    }
+    else
+      return undefined;
+  }
+
+  async applyFilterOnPage(args: { page: Page, filter?: ImageFilterType | undefined, showLoader?: boolean | undefined }): Promise<Page | undefined> {
+    let pageFilter = args.filter;
+    if (!pageFilter)
+      pageFilter = await this.chooseFilter();
+
+    if (pageFilter) {
+      if (args.showLoader == true)
+        this.utils.showLoader();
+
+      return ScanbotSDK.applyImageFilterOnPage({ page: args.page, filter: pageFilter });
     }
     else
       return undefined;
@@ -517,30 +529,41 @@ export class ScanbotService {
     return ScanbotSDK.getOCRConfigs();
   }
 
-  cleanup() {
+  cleanup(): Promise<BaseSdkResult> {
     return ScanbotSDK.cleanup();
   }
 
-  //todo on iOS, the folder inside app data is named 'sbsdk-rn-storage'
+  removePage(page: Page): Promise<RemovePageResult> {
+    return ScanbotSDK.removePage({ page: page });
+  }
 
   saveImagesAsPDF(imageUris: string[]): Promise<CreatePDFResult> {
     return ScanbotSDK.createPDF({ imageFileUris: imageUris, pageSize: 'FIXED_A4' });
   }
 
   saveImagesAsPDFWithOCR(imageUris: string[]): Promise<PerformOCRResult> {
-    //todo not working correctly
-    //on android. pdfFileUri is undefuned and file is not created
-    //on iOS nothing is returned from promise and file is not created
     return ScanbotSDK.performOCR({ imageFileUris: imageUris, languages: ['en'], options: { outputFormat: 'FULL_OCR_RESULT' } });
   }
 
   saveResultsAsTIFF(imageUris: string[], binarized: boolean): Promise<WriteTIFFResult> {
-    //todo oneBitEncoded property is not taken in consideration (on both platforms)
     return ScanbotSDK.writeTIFF({
       imageFileUris: imageUris, options: {
         oneBitEncoded: binarized, // "true" means create 1-bit binarized black and white TIFF
         dpi: 300, // optional DPI. default value is 200
         compression: binarized ? 'CCITT_T6' : 'ADOBE_DEFLATE', // optional compression. see documentation!
+      }
+    });
+  }
+
+  cropPage(page: Page): Promise<CroppingResult> {
+    return ScanbotSDK.startCroppingScreen({
+      page: page,
+      configuration: {
+        doneButtonTitle: 'Apply',
+        topBarBackgroundColor: Colors.scanbotRed,
+        bottomBarBackgroundColor: Colors.scanbotRed,
+        orientationLockMode: 'NONE',
+        swapTopBottomButtons: false
       }
     });
   }
