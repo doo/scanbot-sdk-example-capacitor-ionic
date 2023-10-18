@@ -498,7 +498,7 @@ export class ScanbotService {
 
     if (imageFilter) {
       if (args.showLoader == true)
-        this.utils.showLoader();
+        await this.utils.showLoader();
 
       return ScanbotSDK.applyImageFilter({ filter: imageFilter, imageFileUri: imageFileUri });
     }
@@ -513,7 +513,7 @@ export class ScanbotService {
 
     if (pageFilter) {
       if (args.showLoader == true)
-        this.utils.showLoader();
+        await this.utils.showLoader();
 
       return ScanbotSDK.applyImageFilterOnPage({ page: args.page, filter: pageFilter });
     }

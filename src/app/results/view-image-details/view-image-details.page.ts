@@ -59,7 +59,7 @@ export class ViewImageDetailsPage implements OnInit {
 
   async crop() {
     try {
-      this.utils.showLoader();
+      await this.utils.showLoader();
       const result = await this.scanbot.cropPage(this.page);
       await this.utils.dismissLoader();
 

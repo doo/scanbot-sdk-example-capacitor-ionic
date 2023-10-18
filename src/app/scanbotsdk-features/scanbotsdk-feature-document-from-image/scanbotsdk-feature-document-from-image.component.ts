@@ -22,7 +22,7 @@ export class ScanbotsdkFeatureDocumentFromImageComponent extends ScanbotsdkFeatu
     try {
       const imageFileUri = (await this.imageUtils.selectImagesFromLibrary())[0];
 
-      this.utils.showLoader();
+      await this.utils.showLoader();
       const result = await this.scanbot.detectDocumentFromImage(imageFileUri);
       const blur = await this.scanbot.estimateBlur(imageFileUri);
       await this.utils.dismissLoader();

@@ -66,7 +66,9 @@ export class CommonUtils {
     }
 
     async dismissLoader() {
-        await this.loadingController.dismiss();
+        try {
+            await this.loadingController.dismiss();
+        } catch (e) { }
     }
 
     logBarcodeDocument(barcodeItem: BarcodeResultField | undefined) {

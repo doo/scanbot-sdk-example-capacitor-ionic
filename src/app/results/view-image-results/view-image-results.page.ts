@@ -136,7 +136,7 @@ export class ViewImageResultsPage {
 
   private async saveResultsAsPDF() {
     try {
-      this.utils.showLoader();
+      await this.utils.showLoader();
       const saveResult = await this.scanbot.saveImagesAsPDF(this.getImageResultsUris());
 
       await this.utils.dismissLoader();
@@ -149,7 +149,7 @@ export class ViewImageResultsPage {
 
   private async saveResultsAsPDFWithOCR() {
     try {
-      this.utils.showLoader();
+      await this.utils.showLoader();
       const saveResult = await this.scanbot.saveImagesAsPDFWithOCR(this.getImageResultsUris());
 
       await this.utils.dismissLoader();
@@ -169,7 +169,7 @@ export class ViewImageResultsPage {
     }
 
     try {
-      this.utils.showLoader();
+      await this.utils.showLoader();
       const saveResult = await this.scanbot.saveResultsAsTIFF(this.getImageResultsUris(), binarized);
 
       await this.utils.dismissLoader();
