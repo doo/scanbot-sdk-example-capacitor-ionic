@@ -38,7 +38,8 @@ import {
   WriteTIFFResult,
   BaseSdkResult,
   RemovePageResult,
-  CroppingResult
+  CroppingResult,
+  GenericDocumentRecognizerResult
 } from 'capacitor-plugin-scanbot-sdk';
 
 export class Feature {
@@ -329,7 +330,7 @@ export class ScanbotService {
     });
   }
 
-  scanGenericDocument() {
+  scanGenericDocument(): Promise<GenericDocumentRecognizerResult> {
     return ScanbotSDK.startGenericDocumentRecognizer({});
   }
 

@@ -22,10 +22,10 @@ export class ScanbotsdkFeatureScanGenericDocComponent extends ScanbotsdkFeatureC
     try {
       const result = await this.scanbot.scanGenericDocument();
       if (result.status === 'OK') {
-        console.log(JSON.stringify(result, undefined, 4));
+        const documentResultAsJson = JSON.stringify(result);
 
-        //todo
-        //navigation.navigate(Screens.GENERIC_DOCUMENT_RESULT, result);
+        console.log(documentResultAsJson);
+        this.router.navigate(['/genericDocument', documentResultAsJson])
       }
     } catch (e: any) {
       this.utils.showErrorAlert(e.message);
