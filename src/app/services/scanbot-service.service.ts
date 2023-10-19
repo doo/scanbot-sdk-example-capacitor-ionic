@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ApplyImageFilterResult, BaseSdkResult, CheckRecognizerResult, CroppingConfiguration, DetectBarcodesOnImageResult, DetectBarcodesOnImagesResult, EstimateBlurResult, GetImageDataResult, PageFileType, RecognizeCheckResult, RemovePageResult, ScanbotSDK, Status, TextDataScannerResult } from 'capacitor-plugin-scanbot-sdk';
+import { ApplyImageFilterResult, BaseSdkResult, CheckRecognizerResult, CroppingConfiguration, DetectBarcodesOnImageResult, DetectBarcodesOnImagesResult, EstimateBlurResult, GetImageDataResult, PageFileType, PerformOCRResult, RecognizeCheckResult, RemovePageResult, ScanbotSDK, Status, TextDataScannerResult } from 'capacitor-plugin-scanbot-sdk';
 import {
 	BarcodeResult,
 	CroppingResult,
@@ -150,6 +150,16 @@ export class ScanbotService {
 
 	public async writePdf(imageFileUris: string[], pageSize: PDFPageSize): Promise<string> {
 		return (await ScanbotSDK.createPDF({imageFileUris: imageFileUris, pageSize: pageSize})).pdfFileUri;
+	}
+
+	public async performOCR(imageFileUris: string[]): Promise<PerformOCRResult> {
+		return (await ScanbotSDK.performOCR({
+			imageFileUris: imageFileUris,
+			languages: ["en", "de"],
+			options: {
+				outputFormat: 'FULL_OCR_RESULT'
+			}
+		}))
 	}
 
 	public async refreshImages(pages: Page[]): Promise<Page[]> {
