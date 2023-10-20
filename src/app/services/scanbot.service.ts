@@ -83,7 +83,6 @@ export class ScanbotService {
   private actionSheetCtrl = inject(ActionSheetController);
 
   // set your key here
-  // TODO REMOVE BEFORE COMMIT
   private licenseKey = "";
 
   //todo configure this

@@ -16,8 +16,16 @@ export const routes: Routes = [
     loadComponent: () => import('./results/view-image-details/view-image-details.page').then(m => m.ViewImageDetailsPage)
   },
   {
-    path: 'genericDocument/:documentResult',
-    loadComponent: () => import('./results/generic-document/generic-document.page').then(m => m.GenericDocumentPage)
+    path: 'genericDocumentResult/:result',
+    loadComponent: () => import('./results/scan-result-fields/generic-document-result-fields/generic-document-result-fields.page').then(m => m.GenericDocumentResultFieldsPage)
+  },
+  {
+    path: 'checkResult/:result',
+    loadComponent: () => import('./results/scan-result-fields/check-result-fields/check-result-fields.page').then(m => m.CheckResultFieldsPage)
+  },
+  {
+    path: 'medicalCertificateResult/:result',
+    loadComponent: () => import('./results/scan-result-fields/medical-certificate-result-fields/medical-certificate-result-fields.page').then(m => m.MedicalCertificateResultFieldsPage)
   },
   {
     path: '',

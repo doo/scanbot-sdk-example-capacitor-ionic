@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { RouterLink, Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { ScanbotsdkFeatureComponent } from '../scanbotsdk-feature.component';
 import { Feature, FeatureId } from 'src/app/services/scanbot.service';

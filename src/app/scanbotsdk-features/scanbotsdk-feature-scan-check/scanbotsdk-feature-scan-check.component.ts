@@ -23,10 +23,10 @@ export class ScanbotsdkFeatureScanCheckComponent extends ScanbotsdkFeatureCompon
       const result = await this.scanbot.scanCheck();
 
       if (result.checkStatus === 'SUCCESS') {
-        console.log(JSON.stringify(result, undefined, 4));
+        const checkResultAsJson = JSON.stringify(result);
 
-        //todo
-        //navigation.navigate(Screens.CHECK_RECOGNIZER_RESULT, result);
+        console.log(checkResultAsJson);
+        this.router.navigate(['/checkResult', checkResultAsJson])
       }
     } catch (e: any) {
       this.utils.showErrorAlert(e.message);
