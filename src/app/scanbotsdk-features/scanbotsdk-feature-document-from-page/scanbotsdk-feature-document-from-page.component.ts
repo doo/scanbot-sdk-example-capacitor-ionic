@@ -26,7 +26,7 @@ export class ScanbotsdkFeatureDocumentFromPageComponent extends ScanbotsdkFeatur
       await this.preferencesUtils.savePage(page);
       this.utils.dismissLoader();
 
-      this.router.navigate(['/imageResults'])
+      this.router.navigate(['/image-results'])
     } catch (e: any) {
       await this.utils.dismissLoader();
       this.utils.showErrorAlert(e.message);

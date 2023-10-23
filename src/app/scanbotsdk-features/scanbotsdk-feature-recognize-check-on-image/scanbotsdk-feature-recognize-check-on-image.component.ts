@@ -28,7 +28,7 @@ export class ScanbotsdkFeatureRecognizeCheckOnImageComponent extends ScanbotsdkF
         const checkResultAsJson = JSON.stringify(result);
 
         console.log(checkResultAsJson);
-        this.router.navigate(['/checkResult', checkResultAsJson])
+        this.router.navigate(['/check-result-fields', checkResultAsJson])
       }
     } catch (e: any) {
       await this.utils.dismissLoader();

@@ -25,7 +25,7 @@ export class ScanbotsdkFeatureScanGenericDocComponent extends ScanbotsdkFeatureC
         const documentResultAsJson = JSON.stringify(result);
 
         console.log(documentResultAsJson);
-        this.router.navigate(['/genericDocumentResult', documentResultAsJson])
+        this.router.navigate(['/generic-document-result-fields', documentResultAsJson])
       }
     } catch (e: any) {
       this.utils.showErrorAlert(e.message);

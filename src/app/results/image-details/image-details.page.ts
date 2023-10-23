@@ -10,13 +10,13 @@ import { Page } from 'capacitor-plugin-scanbot-sdk';
 import { ScanbotService } from 'src/app/services/scanbot.service';
 
 @Component({
-  selector: 'app-view-image-details',
-  templateUrl: './view-image-details.page.html',
-  styleUrls: ['./view-image-details.page.scss'],
+  selector: 'app-image-details',
+  templateUrl: './image-details.page.html',
+  styleUrls: ['./image-details.page.scss'],
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule]
 })
-export class ViewImageDetailsPage implements OnInit {
+export class ImageDetailsPage implements OnInit {
 
   pagePreviewWebViewPath?: string | undefined;
   page!: Page;

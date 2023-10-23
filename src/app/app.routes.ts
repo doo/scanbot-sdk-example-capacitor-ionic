@@ -6,25 +6,23 @@ export const routes: Routes = [
     loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
   },
   {
-    path: 'imageResults',
-    //remove view from name
-    loadComponent: () => import('./results/view-image-results/view-image-results.page').then(m => m.ViewImageResultsPage)
+    path: 'image-results',
+    loadComponent: () => import('./results/image-results/image-results.page').then(m => m.ImageResultsPage)
   },
   {
-    path: 'imageDetails/:pageId',
-    //remove view from name
-    loadComponent: () => import('./results/view-image-details/view-image-details.page').then(m => m.ViewImageDetailsPage)
+    path: 'image-details/:pageId',
+    loadComponent: () => import('./results/image-details/image-details.page').then(m => m.ImageDetailsPage)
   },
   {
-    path: 'genericDocumentResult/:result',
+    path: 'generic-document-result-fields/:result',
     loadComponent: () => import('./results/scan-result-fields/generic-document-result-fields/generic-document-result-fields.page').then(m => m.GenericDocumentResultFieldsPage)
   },
   {
-    path: 'checkResult/:result',
+    path: 'check-result-fields/:result',
     loadComponent: () => import('./results/scan-result-fields/check-result-fields/check-result-fields.page').then(m => m.CheckResultFieldsPage)
   },
   {
-    path: 'medicalCertificateResult/:result',
+    path: 'medical-certificate-result-fields/:result',
     loadComponent: () => import('./results/scan-result-fields/medical-certificate-result-fields/medical-certificate-result-fields.page').then(m => m.MedicalCertificateResultFieldsPage)
   },
   {

@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title>Barcode Formats</ion-title>
     <ion-buttons slot="start">
@@ -8,11 +8,6 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Barcode Formats</ion-title>
-    </ion-toolbar>
-  </ion-header>
   <ion-list>
     <ion-item *ngFor="let barcode of barcodeSettings">
       <ion-toggle [checked]="barcode.accepted" (ionChange)="barcodeSettingStateChanged($event, barcode)">

@@ -1,4 +1,4 @@
-# Scanbot Capacitor Document Scanner SDK Example App with Angular
+# Scanbot Capacitor Document Scanner Example SDK App with Angular
 
 This example app shows how to integrate the [Scanbot Capacitor Document Scanner SDK](https://docs.scanbot.io/document-scanner-sdk/capacitor/introduction/)
 

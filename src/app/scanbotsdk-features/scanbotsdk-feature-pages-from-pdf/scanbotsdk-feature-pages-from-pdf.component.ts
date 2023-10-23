@@ -27,7 +27,7 @@ export class ScanbotsdkFeaturePagesFromPdfComponent extends ScanbotsdkFeatureCom
       if (result.status === 'OK' && result.pages) {
         await this.preferencesUtils.savePages(result.pages);
 
-        this.router.navigate(['/imageResults'])
+        this.router.navigate(['/image-results'])
       }
     } catch (e: any) {
       await this.utils.dismissLoader();

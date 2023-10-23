@@ -14,14 +14,15 @@ interface ImageResult {
   pagePreviewWebViewPath: string
 }
 
+//todo images are not shown on iphone after xcode build (https://stackoverflow.com/questions/75356002/capacitor-convertfilesrc-invalid-url-after-rebuild-on-ios)
 @Component({
-  selector: 'app-view-image-results',
-  templateUrl: './view-image-results.page.html',
-  styleUrls: ['./view-image-results.page.scss'],
+  selector: 'app-image-results',
+  templateUrl: './image-results.page.html',
+  styleUrls: ['./image-results.page.scss'],
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule, RouterLink]
 })
-export class ViewImageResultsPage {
+export class ImageResultsPage {
   private preferencesUtils = inject(PreferencesUtils);
   private scanbot = inject(ScanbotService);
   private utils = inject(CommonUtils);

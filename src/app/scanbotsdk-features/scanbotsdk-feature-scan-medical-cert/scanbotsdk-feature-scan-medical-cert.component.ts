@@ -26,7 +26,7 @@ export class ScanbotsdkFeatureScanMedicalCertComponent extends ScanbotsdkFeature
         const medicalCertResultAsJson = JSON.stringify(result);
 
         console.log(medicalCertResultAsJson);
-        this.router.navigate(['/medicalCertificateResult', medicalCertResultAsJson])
+        this.router.navigate(['/medical-certificate-result-fields', medicalCertResultAsJson])
       }
     } catch (e: any) {
       this.utils.showErrorAlert(e.message);

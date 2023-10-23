@@ -29,7 +29,7 @@ export class ScanbotsdkFeatureApplyFilterOnImageComponent extends ScanbotsdkFeat
         await this.preferencesUtils.savePage(page);
         this.utils.dismissLoader();
 
-        this.router.navigate(['/imageResults'])
+        this.router.navigate(['/image-results'])
       }
       else
         this.utils.dismissLoader();

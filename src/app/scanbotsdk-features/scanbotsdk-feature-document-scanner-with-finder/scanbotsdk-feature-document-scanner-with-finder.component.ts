@@ -25,7 +25,7 @@ export class ScanbotsdkFeatureDocumentScannerWithFinderComponent extends Scanbot
       if (documentResult.status === 'OK') {
         await this.preferencesUtils.savePages(documentResult.pages);
 
-        this.router.navigate(['/imageResults'])
+        this.router.navigate(['/image-results'])
       }
     } catch (e: any) {
       this.utils.showErrorAlert(e.message);

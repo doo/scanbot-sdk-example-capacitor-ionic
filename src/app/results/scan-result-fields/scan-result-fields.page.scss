@@ -1,7 +1,11 @@
 ion-item-divider {
-    background-color: var(--ion-color-scanbot-red);
+    background-color: var(--ion-color-primary);
+    color: #ffffff;
 }
 
 ion-img.snappedImage {
+    width: 100%;
+    align-content: center;
     height: 200px;
+    padding: 5px;
 }

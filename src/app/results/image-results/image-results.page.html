@@ -1,6 +1,6 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>Image Results</ion-title>
+    <ion-title>Results</ion-title>
     <ion-buttons slot="start">
       <ion-back-button [text]="getBackButtonText()" defaultHref="/"></ion-back-button>
     </ion-buttons>
@@ -15,16 +15,11 @@
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Image Results</ion-title>
-    </ion-toolbar>
-  </ion-header>
   <ion-grid>
     <ion-row class="ion-align-items-center">
       <ion-col size="4" *ngFor="let imageResult of imageResults">
         <ion-img [src]="imageResult.pagePreviewWebViewPath"
-          [routerLink]="'/imageDetails/' + imageResult.page.pageId"></ion-img>
+          [routerLink]="'/image-details/' + imageResult.page.pageId"></ion-img>
       </ion-col>
     </ion-row>
   </ion-grid>

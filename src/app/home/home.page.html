@@ -1,20 +1,12 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title>
-      Scanbot SDK Example Capacitor
+      Scanbot Example SDK Capacitor
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">
-        Scanbot SDK Example Capacitor
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
-
   <ion-list>
 
     <ion-item lines="none">
@@ -28,7 +20,7 @@
     <app-scanbotsdk-feature-document-from-image />
     <app-scanbotsdk-feature-pages-from-pdf />
     <app-scanbotsdk-feature-images-from-pdf />
-    <ion-item [routerLink]="'/imageResults'" [detail]="false">
+    <ion-item [routerLink]="'/image-results'" [detail]="false">
       <ion-label>
         <p>View Image Results</p>
       </ion-label>
@@ -92,7 +84,7 @@
   </ion-list>
 </ion-content>
 <ion-footer>
-  <ion-toolbar class="scanbotCopyright">
-    <ion-note>Copyright {{ currentYear }} doo GmbH. All rights reserved</ion-note>
+  <ion-toolbar>
+    <ion-note class="scanbotCopyright">Copyright {{ currentYear }} doo GmbH. All rights reserved</ion-note>
   </ion-toolbar>
 </ion-footer>

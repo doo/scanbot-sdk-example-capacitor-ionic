@@ -26,7 +26,7 @@ export class ScanbotsdkFeatureScanCheckComponent extends ScanbotsdkFeatureCompon
         const checkResultAsJson = JSON.stringify(result);
 
         console.log(checkResultAsJson);
-        this.router.navigate(['/checkResult', checkResultAsJson])
+        this.router.navigate(['/check-result-fields', checkResultAsJson])
       }
     } catch (e: any) {
       this.utils.showErrorAlert(e.message);
