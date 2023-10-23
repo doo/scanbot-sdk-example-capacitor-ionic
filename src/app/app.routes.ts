@@ -28,8 +28,16 @@ export const routes: Routes = [
     loadComponent: () => import('./results/scan-result-fields/medical-certificate-result-fields/medical-certificate-result-fields.page').then(m => m.MedicalCertificateResultFieldsPage)
   },
   {
+    path: 'barcode-formats',
+    loadComponent: () => import('./settings/barcode-formats/barcode-formats.page').then(m => m.BarcodeFormatsPage)
+  },
+  {
+    path: 'barcode-document-formats',
+    loadComponent: () => import('./settings/barcode-document-formats/barcode-document-formats.page').then(m => m.BarcodeDocumentFormatsPage)
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
-  },
+  }
 ];

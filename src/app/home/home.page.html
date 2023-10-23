@@ -43,7 +43,16 @@
     <app-scanbotsdk-feature-scan-batch-barcodes />
     <app-scanbotsdk-feature-barcodes-on-still-image />
     <app-scanbotsdk-feature-barcodes-on-still-images />
-    <!-- todo barcode and document formats -->
+    <ion-item (click)='showBarcodeFormatsScreen()' [detail]="false">
+      <ion-label>
+        <p>Barcode Formats</p>
+      </ion-label>
+    </ion-item>
+    <ion-item (click)='showBarcodeDocumentFormatsScreen()' [detail]="false">
+      <ion-label>
+        <p>Barcode Document Formats</p>
+      </ion-label>
+    </ion-item>
 
     <ion-item lines="none" class="ion-margin-top">
       <ion-label>

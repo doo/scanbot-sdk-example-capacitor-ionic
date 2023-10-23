@@ -24,7 +24,6 @@ export class ScanbotsdkFeatureScanBatchBarcodesComponent extends ScanbotsdkFeatu
       const barcodeResult = await this.scanbot.scanBatchBarcodes();
 
       if (barcodeResult.status === 'OK' && barcodeResult.barcodes) {
-        //todo is it ok like this (because batch)
         barcodeResult.barcodes.forEach((barcode) => { this.utils.logBarcodeDocument(barcode); });
         this.utils.showResultInfo(JSON.stringify(barcodeResult.barcodes));
       }

@@ -41,9 +41,11 @@ import {
   CroppingResult,
   GenericDocumentRecognizerResult
 } from 'capacitor-plugin-scanbot-sdk';
+import { Preferences } from '@capacitor/preferences';
 
-export class Feature {
-  constructor(public id: FeatureId, public title: string) { }
+export interface Feature {
+  id: FeatureId,
+  title: string
 }
 
 export enum FeatureId {
@@ -70,6 +72,17 @@ export enum FeatureId {
   RecognizeCheckOnImage,
   ApplyFilterOnImage,
   FinderDocumentScanner
+}
+
+export interface BarcodeSetting {
+  format: BarcodeFormat,
+  accepted: boolean,
+}
+
+export const BARCODE_DOCUMENT_FORMATS_ENABLED_KEY = 'barcodeDocumentFormatsEnabled'
+export interface BarcodeDocumentSetting {
+  format: BarcodeDocumentFormat,
+  accepted: boolean,
 }
 
 @Injectable({
@@ -106,41 +119,6 @@ export class ScanbotService {
   // - https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/FileSystemProgrammingGuide/FileSystemOverview/FileSystemOverview.html
   private storageBaseDirectory = '';
 
-  // for this example we enable all formats and types. Configure them per your needs for better performance
-  private initialBarcodeDocumentFormats: BarcodeDocumentFormat[] = [
-    'AAMVA',
-    'BOARDING_PASS',
-    'DE_MEDICAL_PLAN',
-    'MEDICAL_CERTIFICATE',
-    'ID_CARD_PDF_417',
-    'SEPA',
-    'SWISS_QR',
-    'VCARD',
-    'GS1']
-
-  private initialBarcodeFormats: BarcodeFormat[] = [
-    'AZTEC',
-    'CODABAR',
-    'CODE_25',
-    'CODE_39',
-    'CODE_93',
-    'CODE_128',
-    'DATA_MATRIX',
-    'EAN_8',
-    'EAN_13',
-    'ITF',
-    'PDF_417',
-    'QR_CODE',
-    'RSS_14',
-    'RSS_EXPANDED',
-    'UPC_A',
-    'UPC_E',
-    'UNKNOWN',
-    'MSI_PLESSEY',
-    'IATA_2_OF_5',
-    'INDUSTRIAL_2_OF_5'];
-
-
   readonly SCANBOT_IMAGES_FILE_FORMAT: CameraImageFormat = 'JPG'
   readonly FILE_ENCRYPTION_ENABLED: boolean = false
 
@@ -162,6 +140,45 @@ export class ScanbotService {
     } catch (e) {
       console.error(e);
     }
+  }
+
+  async getBarcodeSettings(): Promise<BarcodeSetting[]> {
+    return [
+      { format: 'AZTEC', accepted: await this.isBarcodeFormatAccepted('AZTEC') },
+      { format: 'CODABAR', accepted: await this.isBarcodeFormatAccepted('CODABAR') },
+      { format: 'CODE_25', accepted: await this.isBarcodeFormatAccepted('CODE_25') },
+      { format: 'CODE_39', accepted: await this.isBarcodeFormatAccepted('CODE_39') },
+      { format: 'CODE_93', accepted: await this.isBarcodeFormatAccepted('CODE_93') },
+      { format: 'CODE_128', accepted: await this.isBarcodeFormatAccepted('CODE_128') },
+      { format: 'DATA_MATRIX', accepted: await this.isBarcodeFormatAccepted('DATA_MATRIX') },
+      { format: 'EAN_8', accepted: await this.isBarcodeFormatAccepted('EAN_8') },
+      { format: 'EAN_13', accepted: await this.isBarcodeFormatAccepted('EAN_13') },
+      { format: 'ITF', accepted: await this.isBarcodeFormatAccepted('ITF') },
+      { format: 'PDF_417', accepted: await this.isBarcodeFormatAccepted('PDF_417') },
+      { format: 'QR_CODE', accepted: await this.isBarcodeFormatAccepted('QR_CODE') },
+      { format: 'RSS_14', accepted: await this.isBarcodeFormatAccepted('RSS_14') },
+      { format: 'RSS_EXPANDED', accepted: await this.isBarcodeFormatAccepted('RSS_EXPANDED') },
+      { format: 'UPC_A', accepted: await this.isBarcodeFormatAccepted('UPC_A') },
+      { format: 'UPC_E', accepted: await this.isBarcodeFormatAccepted('UPC_E') },
+      { format: 'UNKNOWN', accepted: await this.isBarcodeFormatAccepted('UNKNOWN') },
+      { format: 'MSI_PLESSEY', accepted: await this.isBarcodeFormatAccepted('MSI_PLESSEY') },
+      { format: 'IATA_2_OF_5', accepted: await this.isBarcodeFormatAccepted('IATA_2_OF_5') },
+      { format: 'INDUSTRIAL_2_OF_5', accepted: await this.isBarcodeFormatAccepted('INDUSTRIAL_2_OF_5') }
+    ];
+  }
+
+  async getBarcodeDocumentSettings(): Promise<BarcodeDocumentSetting[]> {
+    return [
+      { format: 'AAMVA', accepted: await this.isBarcodeDocumentFormatAccepted('AAMVA') },
+      { format: 'BOARDING_PASS', accepted: await this.isBarcodeDocumentFormatAccepted('BOARDING_PASS') },
+      { format: 'DE_MEDICAL_PLAN', accepted: await this.isBarcodeDocumentFormatAccepted('DE_MEDICAL_PLAN') },
+      { format: 'MEDICAL_CERTIFICATE', accepted: await this.isBarcodeDocumentFormatAccepted('MEDICAL_CERTIFICATE') },
+      { format: 'ID_CARD_PDF_417', accepted: await this.isBarcodeDocumentFormatAccepted('ID_CARD_PDF_417') },
+      { format: 'SEPA', accepted: await this.isBarcodeDocumentFormatAccepted('SEPA') },
+      { format: 'SWISS_QR', accepted: await this.isBarcodeDocumentFormatAccepted('SWISS_QR') },
+      { format: 'VCARD', accepted: await this.isBarcodeDocumentFormatAccepted('VCARD') },
+      { format: 'GS1', accepted: await this.isBarcodeDocumentFormatAccepted('GS1') }
+    ];
   }
 
   scanDocument(): Promise<DocumentScannerResult> {
@@ -237,20 +254,20 @@ export class ScanbotService {
     });
   }
 
-  scanBarcode(): Promise<BarcodeResult> {
+  async scanBarcode(): Promise<BarcodeResult> {
     return ScanbotSDK.startBarcodeScanner({
-      acceptedDocumentFormats: this.initialBarcodeDocumentFormats,
-      barcodeFormats: this.initialBarcodeFormats,
+      acceptedDocumentFormats: await this.isBarcodeDocumentFormatsEnabled() ? await this.getAcceptedBarcodeDocumentFormats() : [],
+      barcodeFormats: await this.getAcceptedBarcodeFormats(),
       finderAspectRatio: { width: 1, height: 1 },
       useButtonsAllCaps: false,
       barcodeImageGenerationType: 'NONE',
     });
   }
 
-  scanBatchBarcodes(): Promise<BarcodeResult> {
+  async scanBatchBarcodes(): Promise<BarcodeResult> {
     return ScanbotSDK.startBatchBarcodeScanner({
-      acceptedDocumentFormats: this.initialBarcodeDocumentFormats,
-      barcodeFormats: this.initialBarcodeFormats,
+      acceptedDocumentFormats: await this.isBarcodeDocumentFormatsEnabled() ? await this.getAcceptedBarcodeDocumentFormats() : [],
+      barcodeFormats: await this.getAcceptedBarcodeFormats(),
       finderAspectRatio: { width: 1, height: 1 },
       useButtonsAllCaps: false
     });
@@ -272,8 +289,8 @@ export class ScanbotService {
       imageFileUri = (await this.imageUtils.selectImagesFromLibrary())[0];
 
     return ScanbotSDK.detectBarcodesOnImage({
-      acceptedDocumentFormats: this.initialBarcodeDocumentFormats,
-      barcodeFormats: this.initialBarcodeFormats,
+      acceptedDocumentFormats: await this.isBarcodeDocumentFormatsEnabled() ? await this.getAcceptedBarcodeDocumentFormats() : [],
+      barcodeFormats: await this.getAcceptedBarcodeFormats(),
       imageFileUri: imageFileUri,
       stripCheckDigits: true,
     });
@@ -286,8 +303,8 @@ export class ScanbotService {
       imageFileUris = await this.imageUtils.selectImagesFromLibrary(true);
 
     return ScanbotSDK.detectBarcodesOnImages({
-      acceptedDocumentFormats: this.initialBarcodeDocumentFormats,
-      barcodeFormats: this.initialBarcodeFormats,
+      acceptedDocumentFormats: await this.isBarcodeDocumentFormatsEnabled() ? await this.getAcceptedBarcodeDocumentFormats() : [],
+      barcodeFormats: await this.getAcceptedBarcodeFormats(),
       imageFileUris: imageFileUris,
       stripCheckDigits: true,
     });
@@ -587,5 +604,34 @@ export class ScanbotService {
       default:
         return 'Unknown error';
     }
+  }
+
+  private async getAcceptedBarcodeFormats(): Promise<BarcodeFormat[]> {
+    return (await this.getBarcodeSettings()).filter(x => x.accepted).map(x => x.format);
+  }
+
+  private async isBarcodeFormatAccepted(barcodeFormat: BarcodeFormat): Promise<boolean> {
+    const prefValue = (await Preferences.get({ key: barcodeFormat.toString() })).value;
+
+    if (barcodeFormat === 'UNKNOWN')
+      return prefValue === 'true'
+    else
+      return prefValue !== 'false';
+  }
+
+  private async getAcceptedBarcodeDocumentFormats(): Promise<BarcodeDocumentFormat[]> {
+    return (await this.getBarcodeDocumentSettings()).filter(x => x.accepted).map(x => x.format);
+  }
+
+  private async isBarcodeDocumentFormatAccepted(barcodeDocumentFormat: BarcodeDocumentFormat): Promise<boolean> {
+    const prefValue = (await Preferences.get({ key: barcodeDocumentFormat.toString() })).value;
+
+    return prefValue !== 'false';
+  }
+
+  async isBarcodeDocumentFormatsEnabled(): Promise<boolean> {
+    const prefValue = (await Preferences.get({ key: BARCODE_DOCUMENT_FORMATS_ENABLED_KEY })).value;
+
+    return prefValue === 'true';
   }
 }

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 import { CommonUtils } from '../utils/common-utils';
 
@@ -61,6 +61,7 @@ export class HomePage implements OnInit {
 
   private scanbot = inject(ScanbotService);
   private utils = inject(CommonUtils);
+  private router = inject(Router);
 
   readonly featureScanLicensePlateMLBased: Feature = { id: FeatureId.LicensePlateScannerML, title: 'Scan Vehicle License Plate (ML Based)' };
   readonly featureScanLicensePlateClassic: Feature = { id: FeatureId.LicensePlateScannerClassic, title: 'Scan Vehicle License Plate (Classic)' };
@@ -83,9 +84,20 @@ export class HomePage implements OnInit {
 
   async showOCRConfigs() {
     try {
-      this.utils.showOCRConfigs(await this.scanbot.getOCRConfigs());
+      if (await this.scanbot.isLicenseValid())
+        this.utils.showOCRConfigs(await this.scanbot.getOCRConfigs());
     } catch (e: any) {
       this.utils.showErrorAlert(e.message);
     }
+  }
+
+  async showBarcodeFormatsScreen() {
+    if (await this.scanbot.isLicenseValid())
+      this.router.navigate(['/barcode-formats']);
+  }
+
+  async showBarcodeDocumentFormatsScreen() {
+    if (await this.scanbot.isLicenseValid())
+      this.router.navigate(['/barcode-document-formats']);
   }
 }

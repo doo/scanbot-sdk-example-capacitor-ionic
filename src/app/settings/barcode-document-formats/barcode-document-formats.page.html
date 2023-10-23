@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Barcode Document Formats</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button [text]="getBackButtonText()" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Barcode Document Formats</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-list>
+    <ion-item>
+      <ion-toggle [checked]="documentFormatsEnabled" (ionChange)="documentFormatsEnabledStateChanged($event)"
+        class="headerToggle">
+        Enable Document Format Filters
+      </ion-toggle>
+    </ion-item>
+    <ion-item *ngFor="let document of documentSettings" [disabled]="!documentFormatsEnabled">
+      <ion-toggle [checked]="document.accepted" (ionChange)="documentSettingStateChanged($event, document)">
+        {{ document.format }}
+      </ion-toggle>
+    </ion-item>
+  </ion-list>
+</ion-content>
