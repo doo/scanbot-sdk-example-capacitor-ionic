@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { StatusBar, Style } from '@capacitor/status-bar';
 import { IonicModule } from '@ionic/angular';
+import { Colors } from 'src/theme/theme';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +11,8 @@ import { IonicModule } from '@ionic/angular';
   imports: [IonicModule],
 })
 export class AppComponent {
-  constructor() {}
+  constructor() {
+    StatusBar.setStyle({ style: Style.Dark });
+    StatusBar.setBackgroundColor({ color: Colors.scanbotRed });
+  }
 }

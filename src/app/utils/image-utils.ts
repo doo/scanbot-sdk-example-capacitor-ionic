@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Camera, GalleryPhoto } from '@capacitor/camera';
+import { FilePicker, PickedFile } from '@capawesome/capacitor-file-picker';
 
 @Injectable({
     providedIn: 'root'
@@ -8,15 +8,14 @@ export class ImageUtils {
     constructor() { }
 
     async selectImagesFromLibrary(multipleImages?: boolean | undefined): Promise<string[]> {
-        let photos: GalleryPhoto[] = [];
+        let photos: PickedFile[] = [];
         try {
-            //todo use capacitor-plugin-demo if we are able to use it
-            photos = (await Camera.pickImages({
-                quality: 100,
-                correctOrientation: false,
-                limit: multipleImages == true ? 0 : 1
+            photos = (await FilePicker.pickImages({
+                multiple: multipleImages ?? false,
+                readData: false,
+                skipTranscoding: true
             }))
-                .photos
+                .files
                 .filter(photo => photo.path !== undefined);
         } catch (e: any) {
         }
