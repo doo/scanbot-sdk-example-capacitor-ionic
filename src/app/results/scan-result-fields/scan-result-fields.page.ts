@@ -42,7 +42,6 @@ export class ScanResultFieldsPage implements OnInit {
     return this.utils.isiOSPlatform() ? 'Home' : '';
   }
 
-  //todo should we map plain keys to better key description ??
   loadResultFields(): ScanResultFieldsSection[] {
     return [];
   }

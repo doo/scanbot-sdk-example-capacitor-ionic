@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActionSheetController, AlertController, IonicModule } from '@ionic/angular';
+import { ActionSheetController, IonicModule } from '@ionic/angular';
 import { PreferencesUtils } from 'src/app/utils/preferences-utils';
 import { Page } from 'capacitor-plugin-scanbot-sdk';
 import { Capacitor } from '@capacitor/core';
@@ -14,7 +14,6 @@ interface ImageResult {
   pagePreviewWebViewPath: string
 }
 
-//todo images are not shown on iphone after xcode build (https://stackoverflow.com/questions/75356002/capacitor-convertfilesrc-invalid-url-after-rebuild-on-ios)
 @Component({
   selector: 'app-image-results',
   templateUrl: './image-results.page.html',
@@ -27,7 +26,6 @@ export class ImageResultsPage {
   private scanbot = inject(ScanbotService);
   private utils = inject(CommonUtils);
   private actionSheetCtrl = inject(ActionSheetController);
-  private alertController = inject(AlertController);
 
   imageResults: ImageResult[] = [];
 
@@ -79,7 +77,7 @@ export class ImageResultsPage {
     if (this.isResultsListEmpty())
       return;
 
-    const alert = await this.alertController.create({
+    await this.utils.showAlert({
       header: 'Delete all results ?',
       buttons: [
         {
@@ -93,8 +91,6 @@ export class ImageResultsPage {
         }
       ],
     });
-
-    await alert.present();
   }
 
   private async deleteAllResults() {

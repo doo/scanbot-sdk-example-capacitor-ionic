@@ -29,36 +29,36 @@ export class CommonUtils {
     async showAlert(opts?: AlertOptions, onDismiss?: () => any) {
         const alert = await this.alertController.create(opts);
         alert.onDidDismiss().then(onDismiss);
-        alert.present();
+        await alert.present();
     }
 
-    showResultInfo(result: string) {
-        this.showAlert({ header: 'Result', message: result, buttons: ['OK'] });
+    async showResultInfo(result: string) {
+        await this.showAlert({ header: 'Result', message: result, buttons: ['OK'] });
     }
 
-    showErrorAlert(error: string, onDismiss?: () => any) {
-        this.showAlert({ header: 'An unexpected error has occurred', message: error, buttons: ['OK'] }, onDismiss);
+    async showErrorAlert(error: string, onDismiss?: () => any) {
+        await this.showAlert({ header: 'An unexpected error has occurred', message: error, buttons: ['OK'] }, onDismiss);
     }
 
-    showWarningAlert(warning: string) {
-        this.showAlert({ header: 'Warning', message: warning, buttons: ['OK'] });
+    async showWarningAlert(warning: string) {
+        await this.showAlert({ header: 'Warning', message: warning, buttons: ['OK'] });
     }
 
-    showInfoAlert(infoMessage: string) {
-        this.showAlert({ header: 'Info', message: infoMessage, buttons: ['OK'] });
+    async showInfoAlert(infoMessage: string) {
+        await this.showAlert({ header: 'Info', message: infoMessage, buttons: ['OK'] });
     }
 
-    showLicenseInfo(info: GetLicenseInfoResult) {
+    async showLicenseInfo(info: GetLicenseInfoResult) {
         const formattedText =
             `• The license is ${info.isLicenseValid ? 'VALID' : 'NOT VALID'}`
             + `<br />• Expiration Date: ${info.licenseExpirationDate ? new Date(Number(info.licenseExpirationDate)).toDateString() : 'N/A'}`
             + `<br />• Status: ${info.licenseStatus}`;
 
-        this.showAlert({ header: 'License', message: formattedText, buttons: ['OK'] });
+        await this.showAlert({ header: 'License', message: formattedText, buttons: ['OK'] });
     }
 
-    showOCRConfigs(info: GetOCRConfigsResult) {
-        this.showAlert({ header: 'OCR', message: JSON.stringify(info) });
+    async showOCRConfigs(info: GetOCRConfigsResult) {
+        await this.showAlert({ header: 'OCR', message: JSON.stringify(info) });
     }
 
     async showLoader(message?: string | undefined) {

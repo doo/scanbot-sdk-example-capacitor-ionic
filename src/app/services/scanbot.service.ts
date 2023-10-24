@@ -4,6 +4,8 @@ import { ImageUtils } from '../utils/image-utils';
 import { FileUtils } from '../utils/file-utils';
 import { ActionSheetController } from '@ionic/angular';
 import { Colors } from 'src/theme/theme';
+import { Preferences } from '@capacitor/preferences';
+import { Directory, Filesystem } from '@capacitor/filesystem';
 
 import {
   ScanbotSDK,
@@ -41,7 +43,6 @@ import {
   CroppingResult,
   GenericDocumentRecognizerResult
 } from 'capacitor-plugin-scanbot-sdk';
-import { Preferences } from '@capacitor/preferences';
 
 export interface Feature {
   id: FeatureId,
@@ -98,26 +99,20 @@ export class ScanbotService {
   // set your key here
   private licenseKey = "";
 
-  //todo configure this
   // !! Please read note !!
   // It is strongly recommended to use the default (secure) storage location of the Scanbot SDK.
   // However, for demo purposes we overwrite the "storageBaseDirectory" of the Scanbot SDK by a custom storage directory.
   //
-  // On Android we use the "ExternalDirectoryPath" which is a public(!) folder.
-  // All image files and export files (PDF, TIFF, etc.) created by the Scanbot SDK in this demo app will be stored
-  // in this public storage directory and will be accessible for every(!) app having external storage permissions!
-  // Again, this is only for demo purposes, which allows us to easily fetch and check the generated files
-  // via Android "adb" CLI tools, Android File Transfer app, Android Studio, etc.
-  //
-  // On iOS, we use the "DocumentDirectoryPath" which is accessible via iTunes file sharing.
+  // On Android we will use the primary shared/external storage device where the application can place persistent files it owns.
+  // On iOS, we will use the Documents directory.
   //
   // For more details about the storage system of the Scanbot SDK Capacitor Module please see our docs:
   // - https://docs.scanbot.io/document-scanner-sdk/capacitor/introduction/
   //
   // For more details about the file system on Android and iOS we also recommend to check out:
-  // - https://developer.android.com/guide/topics/data/data-storage
-  // - https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/FileSystemProgrammingGuide/FileSystemOverview/FileSystemOverview.html
-  private storageBaseDirectory = '';
+  // - https://developer.android.com/training/data-storage
+  // - https://developer.apple.com/documentation/foundation/filemanager
+  private readonly storageBaseDirectoryUri = Filesystem.getUri({ path: 'my-custom-storage', directory: Directory.External });
 
   readonly SCANBOT_IMAGES_FILE_FORMAT: CameraImageFormat = 'JPG'
   readonly FILE_ENCRYPTION_ENABLED: boolean = false
@@ -125,13 +120,17 @@ export class ScanbotService {
   constructor() { }
 
   async initializeSDK() {
+    let storageBaseDirectoryPath = (await this.storageBaseDirectoryUri).uri;
+    if (storageBaseDirectoryPath.startsWith('file://'))
+      storageBaseDirectoryPath = storageBaseDirectoryPath.slice(7);
+
     try {
       const result = await ScanbotSDK.initializeSDK({
         licenseKey: this.licenseKey,
         loggingEnabled: true,
         storageImageFormat: this.SCANBOT_IMAGES_FILE_FORMAT, // Format of stored images
         storageImageQuality: 80, // Quality of stored images
-        storageBaseDirectory: this.storageBaseDirectory, // Custom storage path
+        storageBaseDirectory: storageBaseDirectoryPath, // Custom storage path
         documentDetectorMode: 'ML_BASED', // The engine used to detect documents,
         fileEncryptionMode: this.FILE_ENCRYPTION_ENABLED ? 'AES256' : undefined,
         fileEncryptionPassword: this.FILE_ENCRYPTION_ENABLED ? 'SomeSecretPa$$w0rdForFileEncryptio' : undefined
