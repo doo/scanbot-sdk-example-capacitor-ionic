@@ -15,11 +15,41 @@ import {
 	Page
 } from 'capacitor-plugin-scanbot-sdk';
 
+export class DisplayImageFilter {
+	filterType: ImageFilterType;
+	displayName: string;
+
+	constructor(filterType: ImageFilterType, displayName: string) {
+		this.filterType = filterType;
+		this.displayName = displayName;
+	}
+}
+
 @Injectable({
 	providedIn: 'root',
 })
 export class ScanbotService {
-	constructor() { }
+
+	public readonly displayFilters: DisplayImageFilter[];
+
+	constructor() { 
+		this.displayFilters = [
+			new DisplayImageFilter('ImageFilterTypeBackgroundClean', 'Background Clean'),
+			new DisplayImageFilter('ImageFilterTypeBinarized', 'Binarized'),
+			new DisplayImageFilter('ImageFilterTypeBlackAndWhite', 'Black and White'),
+			new DisplayImageFilter('ImageFilterTypeColor', 'Color'),
+			new DisplayImageFilter('ImageFilterTypeColorDocument', 'Color Document'),
+			new DisplayImageFilter('ImageFilterTypeDeepBinarization', 'Deep Binarization'),
+			new DisplayImageFilter('ImageFilterTypeEdgeHighlight', 'Edge Highlight'),
+			new DisplayImageFilter('ImageFilterTypeGray', 'Gray'),
+			new DisplayImageFilter('ImageFilterTypeLowLightBinarization', 'Low Light Binarization'),
+			new DisplayImageFilter('ImageFilterTypeLowLightBinarization2', 'Low Light Binarization 2'),
+			new DisplayImageFilter('ImageFilterTypeNone', 'None'),
+			new DisplayImageFilter('ImageFilterTypeOtsuBinarization', 'OtsuBinarization'),
+			new DisplayImageFilter('ImageFilterTypePureBinarized', 'Pure Binarized'),
+			new DisplayImageFilter('ImageFilterTypePureGray', 'Gray'),
+		]
+	}
 
 	public async initSdk() {
 		await ScanbotSDK.initializeSDK({

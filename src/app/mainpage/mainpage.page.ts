@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from "@angular/common";
 
-import { ScanbotService } from '../services/scanbot-service.service';
+import { DisplayImageFilter, ScanbotService } from '../services/scanbot-service.service';
 
 import { NavigationExtras, Router } from '@angular/router';
 import { Camera } from '@capacitor/camera';
@@ -141,25 +141,11 @@ export class MainpagePage implements OnInit {
 		}))
 		const imageFilePath = pictures[0];
 		
-		const filter = await this.openModalAndGetStringValue([
-			'NONE',
-			'COLOR_ENHANCED',
-			'GRAYSCALE',
-			'PURE_GRAYSCALE',
-			'BINARIZED',
-			'COLOR_DOCUMENT',
-			'PURE_BINARIZED',
-			'BACKGROUND_CLEAN',
-			'BLACK_AND_WHITE',
-			'OTSU_BINARIZATION',
-			'DEEP_BINARIZATION',
-			'LOW_LIGHT_BINARIZATION',
-			'EDGE_HIGHLIGHT',
-			'LOW_LIGHT_BINARIZATION_2'
-		]) as ImageFilterType;
-
-		if (!filter) {
-			console.log("Filter is undefined");
+		const displayFilters = this.scanbot.displayFilters;
+		const filterName = await this.openModalAndGetStringValue(displayFilters.map(f => f.displayName));
+		const filter = displayFilters.find(f => f.displayName === filterName)?.filterType;
+		if (filter == null) {
+			console.log(`ERROR: No Image Filter Type for given name: ${filterName}`);
 			return;
 		}
 
