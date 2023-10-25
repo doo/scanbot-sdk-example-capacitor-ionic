@@ -19,10 +19,11 @@ export class FileUtils {
             pdfPath = pdfFIle.files[0].path;
 
             if (pdfPath)
-                return pdfPath
+                return pdfPath;
         } catch (e: any) {
+            throw new Error(e.message);
         }
 
-        throw new Error('No file picked')
+        throw new Error('No file picked');
     }
 }

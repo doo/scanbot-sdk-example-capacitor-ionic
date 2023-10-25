@@ -5,3 +5,9 @@ ion-img {
 ion-fab {
     margin-bottom: var(--ion-safe-area-bottom, 20);
 }
+
+ion-fab-button {
+    --background: var(--ion-color-scanbot-red);
+    --background-activated: var(--ion-color-scanbot-red-shade);
+    --background-hover: var(--ion-color-scanbot-red-tint);
+}

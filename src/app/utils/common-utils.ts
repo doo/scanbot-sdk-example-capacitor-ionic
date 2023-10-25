@@ -58,7 +58,7 @@ export class CommonUtils {
     }
 
     async showOCRConfigs(info: GetOCRConfigsResult) {
-        await this.showAlert({ header: 'OCR', message: JSON.stringify(info) });
+        await this.showAlert({ header: 'OCR', message: JSON.stringify(info), buttons: ['OK'] });
     }
 
     async showLoader(message?: string | undefined) {

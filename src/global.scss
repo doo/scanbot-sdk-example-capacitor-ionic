@@ -25,3 +25,8 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 @import "theme/image-filter-modal.css";
+@import "theme/android-action-sheet.css";
+
+.md button.alert-button.alert-button-role-destructive {
+    color: var(--ion-color-danger);
+}
