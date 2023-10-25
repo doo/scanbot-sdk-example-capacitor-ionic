@@ -2,10 +2,11 @@ import { Injectable, inject } from '@angular/core';
 import { CommonUtils } from '../utils/common-utils';
 import { ImageUtils } from '../utils/image-utils';
 import { FileUtils } from '../utils/file-utils';
-import { ActionSheetController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { Colors } from 'src/theme/theme';
 import { Preferences } from '@capacitor/preferences';
 import { Directory, Filesystem } from '@capacitor/filesystem';
+import { ImageFilterComponent } from '../image-filter/image-filter.component';
 
 import {
   ScanbotSDK,
@@ -86,6 +87,11 @@ export interface BarcodeDocumentSetting {
   accepted: boolean,
 }
 
+export interface ImageFilter {
+  title: string,
+  type: ImageFilterType,
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -94,7 +100,7 @@ export class ScanbotService {
   private utils = inject(CommonUtils);
   private imageUtils = inject(ImageUtils);
   private fileUtils = inject(FileUtils);
-  private actionSheetCtrl = inject(ActionSheetController);
+  private modalCtrl = inject(ModalController);
 
   // set your key here
   private licenseKey = "";
@@ -177,6 +183,25 @@ export class ScanbotService {
       { format: 'SWISS_QR', accepted: await this.isBarcodeDocumentFormatAccepted('SWISS_QR') },
       { format: 'VCARD', accepted: await this.isBarcodeDocumentFormatAccepted('VCARD') },
       { format: 'GS1', accepted: await this.isBarcodeDocumentFormatAccepted('GS1') }
+    ];
+  }
+
+  getImageFilters(): ImageFilter[] {
+    return [
+      { title: 'None', type: 'ImageFilterTypeNone' },
+      { title: 'Color', type: 'ImageFilterTypeColor' },
+      { title: 'Gray', type: 'ImageFilterTypeGray' },
+      { title: 'Binarized', type: 'ImageFilterTypeBinarized' },
+      { title: 'Color Document', type: 'ImageFilterTypeColorDocument' },
+      { title: 'Pure Binarized', type: 'ImageFilterTypePureBinarized' },
+      { title: 'Background Clean', type: 'ImageFilterTypeBackgroundClean' },
+      { title: 'Black And White', type: 'ImageFilterTypeBlackAndWhite' },
+      { title: 'Otsu Binarization', type: 'ImageFilterTypeOtsuBinarization' },
+      { title: 'Deep Binarization', type: 'ImageFilterTypeDeepBinarization' },
+      { title: 'Edge Highlight', type: 'ImageFilterTypeEdgeHighlight' },
+      { title: 'Low Light Binarization', type: 'ImageFilterTypeLowLightBinarization' },
+      { title: 'Low Light Binarization 2', type: 'ImageFilterTypeLowLightBinarization2' },
+      { title: 'Pure Gray', type: 'ImageFilterTypePureGray' }
     ];
   }
 
@@ -400,107 +425,15 @@ export class ScanbotService {
   }
 
   async chooseFilter(): Promise<ImageFilterType | undefined> {
-    let filter: ImageFilterType | undefined;
-
-    //todo style the actionSheet for android
-    const actionSheet = await this.actionSheetCtrl.create({
-      header: 'Choose filter',
-      buttons: [
-        {
-          text: 'None',
-          handler: () => {
-            filter = 'ImageFilterTypeNone';
-          }
-        },
-        {
-          text: 'Color',
-          handler: () => {
-            filter = 'ImageFilterTypeColor';
-          }
-        },
-        {
-          text: 'Gray',
-          handler: () => {
-            filter = 'ImageFilterTypeGray';
-          }
-        },
-        {
-          text: 'Binarized',
-          handler: () => {
-            filter = 'ImageFilterTypeBinarized';
-          }
-        },
-        {
-          text: 'Color Document',
-          handler: () => {
-            filter = 'ImageFilterTypeColorDocument';
-          }
-        },
-        {
-          text: 'Pure Binarized',
-          handler: () => {
-            filter = 'ImageFilterTypePureBinarized';
-          }
-        },
-        {
-          text: 'Background Clean',
-          handler: () => {
-            filter = 'ImageFilterTypeBackgroundClean';
-          }
-        },
-        {
-          text: 'Black And White',
-          handler: () => {
-            filter = 'ImageFilterTypeBlackAndWhite';
-          }
-        },
-        {
-          text: 'Otsu Binarization',
-          handler: () => {
-            filter = 'ImageFilterTypeOtsuBinarization';
-          }
-        },
-        {
-          text: 'Deep Binarization',
-          handler: () => {
-            filter = 'ImageFilterTypeDeepBinarization';
-          }
-        },
-        {
-          text: 'Edge Highlight',
-          handler: () => {
-            filter = 'ImageFilterTypeEdgeHighlight';
-          }
-        },
-        {
-          text: 'Low Light Binarization',
-          handler: () => {
-            filter = 'ImageFilterTypeLowLightBinarization';
-          }
-        },
-        {
-          text: 'Low Light Binarization 2',
-          handler: () => {
-            filter = 'ImageFilterTypeLowLightBinarization2';
-          }
-        },
-        {
-          text: 'Pure Gray',
-          handler: () => {
-            filter = 'ImageFilterTypePureGray';
-          }
-        },
-        {
-          text: 'Cancel',
-          role: 'cancel'
-        }
-      ],
-      backdropDismiss: false
+    const filterModal = await this.modalCtrl.create({
+      component: ImageFilterComponent,
+      id: 'image-filter',
+      backdropDismiss: true
     });
-    await actionSheet.present();
-    await actionSheet.onDidDismiss();
+    await filterModal.present();
 
-    return filter;
+    const selectedFilterType: ImageFilterType | undefined = (await filterModal.onDidDismiss()).data;
+    return selectedFilterType;
   }
 
   async applyFilterOnImage(args: { filter?: ImageFilterType | undefined, imageUri?: string | undefined, showLoader?: boolean | undefined }): Promise<ApplyImageFilterResult | undefined> {
