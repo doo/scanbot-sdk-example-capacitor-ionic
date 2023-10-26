@@ -14,9 +14,7 @@ import { FeatureId } from 'src/app/services/scanbot.service';
 })
 export class ScanbotsdkFeatureScanLicensePlateComponent extends ScanbotsdkFeatureComponent {
 
-  override async featureClicked() {
-    super.featureClicked();
-
+  override async run() {
     try {
       const scanStrategy = this.feature.id == FeatureId.LicensePlateScannerML ? 'MlBased' : 'Classic';
       const result = await this.scanbot.scanLicensePlate(scanStrategy);

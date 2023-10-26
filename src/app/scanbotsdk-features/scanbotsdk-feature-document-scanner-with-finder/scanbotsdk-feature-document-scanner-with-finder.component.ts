@@ -16,9 +16,7 @@ export class ScanbotsdkFeatureDocumentScannerWithFinderComponent extends Scanbot
 
   override feature = { id: FeatureId.FinderDocumentScanner, title: 'Document Scanner with Finder' };
 
-  override async featureClicked() {
-    super.featureClicked();
-
+  override async run() {
     try {
       const documentResult = await this.scanbot.scanDocumentWithFinder();
 

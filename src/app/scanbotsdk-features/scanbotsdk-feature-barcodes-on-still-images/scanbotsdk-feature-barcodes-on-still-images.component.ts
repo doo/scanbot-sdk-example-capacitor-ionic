@@ -16,9 +16,7 @@ export class ScanbotsdkFeatureBarcodesOnStillImagesComponent extends ScanbotsdkF
 
   override feature = { id: FeatureId.DetectBarcodesOnStillImages, title: 'Import Multiple Images & Detect Barcodes' };
 
-  override async featureClicked() {
-    super.featureClicked();
-
+  override async run() {
     try {
       this.utils.showLoader();
       const result = await this.scanbot.detectBarcodesOnStillImages();

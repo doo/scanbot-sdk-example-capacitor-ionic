@@ -16,9 +16,7 @@ export class ScanbotsdkFeatureScanTextDataComponent extends ScanbotsdkFeatureCom
 
   override feature: Feature = { id: FeatureId.TextDataScanner, title: 'Start Text Data Scanner' };
 
-  override async featureClicked() {
-    super.featureClicked();
-
+  override async run() {
     try {
       const result = await this.scanbot.scanTextData();
 

@@ -16,9 +16,7 @@ export class ScanbotsdkFeaturePagesFromPdfComponent extends ScanbotsdkFeatureCom
 
   override feature = { id: FeatureId.ExtractPagesFromPdf, title: 'Extract pages from PDF' };
 
-  override async featureClicked() {
-    super.featureClicked();
-
+  override async run() {
     try {
       this.utils.showLoader();
       const result = await this.scanbot.extractPagesFromPdf();

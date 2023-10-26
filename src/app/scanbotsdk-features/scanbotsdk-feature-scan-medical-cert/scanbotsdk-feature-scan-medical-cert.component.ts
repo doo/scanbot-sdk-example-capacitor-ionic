@@ -16,9 +16,7 @@ export class ScanbotsdkFeatureScanMedicalCertComponent extends ScanbotsdkFeature
 
   override feature = { id: FeatureId.ScanMedicalCertificate, title: 'Scan Medical Certificate' };
 
-  override async featureClicked() {
-    super.featureClicked();
-
+  override async run() {
     try {
       const result = await this.scanbot.scanMedicalCertificate();
 

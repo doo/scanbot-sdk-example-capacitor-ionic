@@ -16,9 +16,7 @@ export class ScanbotsdkFeatureScanGenericDocComponent extends ScanbotsdkFeatureC
 
   override feature = { id: FeatureId.ScanGenericDocument, title: 'Scan Generic Document' };
 
-  override async featureClicked() {
-    super.featureClicked();
-
+  override async run() {
     try {
       const result = await this.scanbot.scanGenericDocument();
       if (result.status === 'OK') {

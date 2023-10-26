@@ -16,9 +16,7 @@ export class ScanbotsdkFeatureDocumentScannerComponent extends ScanbotsdkFeature
 
   override feature = { id: FeatureId.DocumentScanner, title: 'Scan Document' };
 
-  override async featureClicked() {
-    super.featureClicked();
-
+  override async run() {
     try {
       const documentResult = await this.scanbot.scanDocument();
 

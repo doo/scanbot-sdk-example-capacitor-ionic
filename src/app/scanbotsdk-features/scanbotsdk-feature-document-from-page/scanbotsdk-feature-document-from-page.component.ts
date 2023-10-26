@@ -16,9 +16,7 @@ export class ScanbotsdkFeatureDocumentFromPageComponent extends ScanbotsdkFeatur
 
   override feature = { id: FeatureId.DetectDocumentFromPage, title: 'Import Image & Detect Document' };
 
-  override async featureClicked() {
-    super.featureClicked();
-
+  override async run() {
     try {
       this.utils.showLoader();
       const page = await this.scanbot.detectDocumentFromPage();

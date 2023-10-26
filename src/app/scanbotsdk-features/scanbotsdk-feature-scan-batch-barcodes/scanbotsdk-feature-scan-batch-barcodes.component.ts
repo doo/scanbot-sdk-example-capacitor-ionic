@@ -16,11 +16,8 @@ export class ScanbotsdkFeatureScanBatchBarcodesComponent extends ScanbotsdkFeatu
 
   override feature = { id: FeatureId.ScanBatchBarcodes, title: 'Scan Multiple QR-/Barcode' };
 
-  override async featureClicked() {
-    super.featureClicked();
-
+  override async run() {
     try {
-      //doesn't return anything on cancel or back button (android only)
       const barcodeResult = await this.scanbot.scanBatchBarcodes();
 
       if (barcodeResult.status === 'OK' && barcodeResult.barcodes) {

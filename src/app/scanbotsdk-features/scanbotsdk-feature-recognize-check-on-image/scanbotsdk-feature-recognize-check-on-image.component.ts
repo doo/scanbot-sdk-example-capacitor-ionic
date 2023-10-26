@@ -16,9 +16,7 @@ export class ScanbotsdkFeatureRecognizeCheckOnImageComponent extends ScanbotsdkF
 
   override feature: Feature = { id: FeatureId.RecognizeCheckOnImage, title: 'Import Image and Recognize Check' };
 
-  override async featureClicked() {
-    super.featureClicked();
-
+  override async run() {
     try {
       this.utils.showLoader();
       const result = await this.scanbot.scanCheckFromImage();

@@ -58,6 +58,9 @@ export class ImageDetailsPage implements OnInit {
   }
 
   async crop() {
+    if (!(await this.scanbot.isLicenseValid()))
+      return;
+
     try {
       await this.utils.showLoader();
       const result = await this.scanbot.cropPage(this.page);
@@ -77,6 +80,9 @@ export class ImageDetailsPage implements OnInit {
   }
 
   async applyFilter() {
+    if (!(await this.scanbot.isLicenseValid()))
+      return;
+
     try {
       const page = await this.scanbot.applyFilterOnPage({ page: this.page, showLoader: true });
       this.utils.dismissLoader();

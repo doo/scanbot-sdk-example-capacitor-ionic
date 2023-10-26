@@ -335,10 +335,9 @@ export class ScanbotService {
   }
 
   scanMrzId(): Promise<MrzResult> {
-    //todo the description ???
     const config: MrzScannerConfiguration = {
       finderTextHint:
-        'Please hold your phone over the 2- or 3-line MRZ code at the front of your passport.'
+        'Please hold your phone over the 2- or 3-line MRZ code at the front of your passport'
     };
 
     if (this.utils.isiOSPlatform()) {

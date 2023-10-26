@@ -16,9 +16,7 @@ export class ScanbotsdkFeatureScanMrzComponent extends ScanbotsdkFeatureComponen
 
   override feature = { id: FeatureId.ScanMRZ, title: 'Scan MRZ on ID Card' };
 
-  override async featureClicked() {
-    super.featureClicked();
-
+  override async run() {
     try {
       const result = await this.scanbot.scanMrzId();
 

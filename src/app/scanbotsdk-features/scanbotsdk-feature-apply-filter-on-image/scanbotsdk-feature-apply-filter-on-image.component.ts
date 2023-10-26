@@ -16,9 +16,7 @@ export class ScanbotsdkFeatureApplyFilterOnImageComponent extends ScanbotsdkFeat
 
   override feature: Feature = { id: FeatureId.ApplyFilterOnImage, title: 'Import Image and Apply Filter' };
 
-  override async featureClicked() {
-    super.featureClicked();
-
+  override async run() {
     try {
       const result = await this.scanbot.applyFilterOnImage({ showLoader: true });
       const filteredImageUri = result?.imageFileUri;

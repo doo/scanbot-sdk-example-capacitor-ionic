@@ -16,9 +16,7 @@ export class ScanbotsdkFeatureScanCheckComponent extends ScanbotsdkFeatureCompon
 
   override feature = { id: FeatureId.CheckRecognizer, title: 'Scan Check' };
 
-  override async featureClicked() {
-    super.featureClicked();
-
+  override async run() {
     try {
       const result = await this.scanbot.scanCheck();
 

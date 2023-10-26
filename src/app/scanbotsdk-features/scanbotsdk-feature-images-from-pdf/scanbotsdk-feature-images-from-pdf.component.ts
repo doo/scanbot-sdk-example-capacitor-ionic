@@ -16,9 +16,7 @@ export class ScanbotsdkFeatureImagesFromPdfComponent extends ScanbotsdkFeatureCo
 
   override feature = { id: FeatureId.ExtractImagesFromPdf, title: 'Extract Images from PDF' };
 
-  override async featureClicked() {
-    super.featureClicked();
-
+  override async run() {
     try {
       this.utils.showLoader();
       const result = await this.scanbot.extractImagesFromPdf();

@@ -24,8 +24,11 @@ export class ScanbotsdkFeatureComponent {
   router = inject(Router);
 
   async featureClicked() {
-    const isScanBotLicenseValid = await this.scanbot.isLicenseValid();
-    if (!isScanBotLicenseValid)
-      return;
+    if (await this.scanbot.isLicenseValid())
+      this.run();
+  }
+
+  async run() {
+    throw new Error('Not implemented');
   }
 }

@@ -16,9 +16,7 @@ export class ScanbotsdkFeatureScanEhicComponent extends ScanbotsdkFeatureCompone
 
   override feature = { id: FeatureId.ScanEHIC, title: 'Scan Health Insurance Card' };
 
-  override async featureClicked() {
-    super.featureClicked();
-
+  override async run() {
     try {
       const result = await this.scanbot.scanEHIC();
 

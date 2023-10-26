@@ -48,9 +48,9 @@ export class ImageResultsPage {
     return this.imageResults.map(img => img.page.documentImageFileUri || img.page.originalImageFileUri);
   }
 
-  private isResultsListEmpty(): boolean {
+  private isResultsListEmpty(warningMessage: string): boolean {
     if (this.imageResults.length == 0) {
-      this.utils.showWarningAlert('No images to save. Please scan few documents first')
+      this.utils.showWarningAlert(warningMessage)
       return true;
     } else
       return false;
@@ -61,6 +61,9 @@ export class ImageResultsPage {
   }
 
   async scanDocument() {
+    if (!(await this.scanbot.isLicenseValid()))
+      return;
+
     try {
       const documentResult = await this.scanbot.scanDocument();
 
@@ -74,7 +77,7 @@ export class ImageResultsPage {
   }
 
   async showDeleteAllResultsConfirmationDialog() {
-    if (this.isResultsListEmpty())
+    if (this.isResultsListEmpty('No images to delete. Please scan few documents first'))
       return;
 
     await this.utils.showAlert({
@@ -94,13 +97,13 @@ export class ImageResultsPage {
   }
 
   private async deleteAllResults() {
-    await this.scanbot.cleanup();
     await this.preferencesUtils.deleteAllPages();
+    await this.scanbot.cleanup();
     this.imageResults = [];
   }
 
   async saveResultsAs() {
-    if (this.isResultsListEmpty())
+    if (this.isResultsListEmpty('No images to save. Please scan few documents first') || !(await this.scanbot.isLicenseValid()))
       return;
 
     const actionSheet = await this.actionSheetCtrl.create({

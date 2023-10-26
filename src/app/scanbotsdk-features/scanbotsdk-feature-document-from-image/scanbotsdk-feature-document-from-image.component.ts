@@ -16,9 +16,7 @@ export class ScanbotsdkFeatureDocumentFromImageComponent extends ScanbotsdkFeatu
 
   override feature = { id: FeatureId.DetectDocumentFromImage, title: 'Import Image & Detect Document (JSON)' };
 
-  override async featureClicked() {
-    super.featureClicked();
-
+  override async run() {
     try {
       const imageFileUri = (await this.imageUtils.selectImagesFromLibrary())[0];
 
