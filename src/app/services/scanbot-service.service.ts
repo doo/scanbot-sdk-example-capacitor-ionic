@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ApplyImageFilterResult, BaseSdkResult, CheckRecognizerResult, CroppingConfiguration, DetectBarcodesOnImageResult, DetectBarcodesOnImagesResult, EstimateBlurResult, GetImageDataResult, PageFileType, PerformOCRResult, RecognizeCheckResult, RemovePageResult, ScanbotSDK, Status, TextDataScannerResult } from 'capacitor-plugin-scanbot-sdk';
+import { Directory, Filesystem } from '@capacitor/filesystem';
+import { ApplyImageFilterResult, BaseSdkResult, CheckRecognizerResult, CroppingConfiguration, DetectBarcodesOnImageResult, DetectBarcodesOnImagesResult, EstimateBlurResult, GetImageDataResult, InitializationOptions, PageFileType, PerformOCRResult, RecognizeCheckResult, RemovePageResult, ScanbotSDK, ScanbotSdkConfiguration, Status, TextDataScannerResult } from 'capacitor-plugin-scanbot-sdk';
 import {
 	BarcodeResult,
 	CroppingResult,
@@ -31,33 +32,40 @@ export class DisplayImageFilter {
 export class ScanbotService {
 
 	public readonly displayFilters: DisplayImageFilter[];
+	
+	/**
+	 * Here you can set your license key. 
+	 * 
+	 * If you leave this field empty, a 60 seconds trial license will be activated
+	 * once the SDK is initialized.
+	 * 
+	 * You can request a 7-day trial license on [our website](https://scanbot.io/trial/).
+	 */
+	private readonly LICENSE_KEY = "";
+	
+	// If true, a custom storage base directory will be set.
+	private readonly USE_CUSTOM_STORAGE = false;
 
-	constructor() { 
-		this.displayFilters = [
-			new DisplayImageFilter('ImageFilterTypeBackgroundClean', 'Background Clean'),
-			new DisplayImageFilter('ImageFilterTypeBinarized', 'Binarized'),
-			new DisplayImageFilter('ImageFilterTypeBlackAndWhite', 'Black and White'),
-			new DisplayImageFilter('ImageFilterTypeColor', 'Color'),
-			new DisplayImageFilter('ImageFilterTypeColorDocument', 'Color Document'),
-			new DisplayImageFilter('ImageFilterTypeDeepBinarization', 'Deep Binarization'),
-			new DisplayImageFilter('ImageFilterTypeEdgeHighlight', 'Edge Highlight'),
-			new DisplayImageFilter('ImageFilterTypeGray', 'Gray'),
-			new DisplayImageFilter('ImageFilterTypeLowLightBinarization', 'Low Light Binarization'),
-			new DisplayImageFilter('ImageFilterTypeLowLightBinarization2', 'Low Light Binarization 2'),
-			new DisplayImageFilter('ImageFilterTypeNone', 'None'),
-			new DisplayImageFilter('ImageFilterTypeOtsuBinarization', 'OtsuBinarization'),
-			new DisplayImageFilter('ImageFilterTypePureBinarized', 'Pure Binarized'),
-			new DisplayImageFilter('ImageFilterTypePureGray', 'Gray'),
-		]
-	}
+	// If USE_CUSTOM_STORAGE is true, this will be the name of the base directory.
+	private readonly CUSTOM_STORAGE_NAME = 'my-demo-custom-storage';
 
 	public async initSdk() {
-		await ScanbotSDK.initializeSDK({
+		const configuration: ScanbotSdkConfiguration = {
 			allowGpuAcceleration: true, 
 			allowXnnpackAcceleration: true,
-			licenseKey: ''
-		});
-		// pass your license here ↑
+			licenseKey: this.LICENSE_KEY,
+		}
+
+		if (this.USE_CUSTOM_STORAGE) {
+			configuration.storageBaseDirectory = await this.getStorageBaseDirectory();
+			console.log("Changed Storage Base Directory to " + configuration.storageBaseDirectory);
+		}
+
+		await ScanbotSDK.initializeSDK(configuration);
+	}
+
+	private async getStorageBaseDirectory(): Promise<string> {
+		return (await Filesystem.getUri({path: this.CUSTOM_STORAGE_NAME, directory: Directory.External})).uri;
 	}
 
 	public async showDocumentScanner(): Promise<DocumentScannerResult> {
@@ -238,5 +246,24 @@ export class ScanbotService {
 
 	public async getPageById(pageId: string): Promise<Page> {
 		return (ScanbotSDK as any).getPageById({ pageId: pageId });
+	}
+
+	constructor() { 
+		this.displayFilters = [
+			new DisplayImageFilter('ImageFilterTypeBackgroundClean', 'Background Clean'),
+			new DisplayImageFilter('ImageFilterTypeBinarized', 'Binarized'),
+			new DisplayImageFilter('ImageFilterTypeBlackAndWhite', 'Black and White'),
+			new DisplayImageFilter('ImageFilterTypeColor', 'Color'),
+			new DisplayImageFilter('ImageFilterTypeColorDocument', 'Color Document'),
+			new DisplayImageFilter('ImageFilterTypeDeepBinarization', 'Deep Binarization'),
+			new DisplayImageFilter('ImageFilterTypeEdgeHighlight', 'Edge Highlight'),
+			new DisplayImageFilter('ImageFilterTypeGray', 'Gray'),
+			new DisplayImageFilter('ImageFilterTypeLowLightBinarization', 'Low Light Binarization'),
+			new DisplayImageFilter('ImageFilterTypeLowLightBinarization2', 'Low Light Binarization 2'),
+			new DisplayImageFilter('ImageFilterTypeNone', 'None'),
+			new DisplayImageFilter('ImageFilterTypeOtsuBinarization', 'OtsuBinarization'),
+			new DisplayImageFilter('ImageFilterTypePureBinarized', 'Pure Binarized'),
+			new DisplayImageFilter('ImageFilterTypePureGray', 'Gray'),
+		]
 	}
 }
