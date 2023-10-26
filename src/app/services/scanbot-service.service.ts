@@ -84,10 +84,6 @@ export class ScanbotService {
 		}})
 	}
 
-	public async showGenericDocScanner(): Promise<GenericDocumentRecognizerResult> {
-		return ScanbotSDK.startGenericDocumentRecognizer({});
-	}
-
 	public async addPageFromImage(imageFileUri: string): Promise<Page> {
 		const sanitize = (uri: string) => {
 			let fixedPath = uri
