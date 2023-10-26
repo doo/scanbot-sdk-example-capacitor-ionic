@@ -36,7 +36,7 @@ framework or features, please visit our [Support Page](https://docs.scanbot.io/s
 - [Capacitor CLI](https://www.npmjs.com/package/@capacitor/cli) 5+
 - For Android apps:
     * Android SDK (API Level 22+), Platforms and Developer Tools
-    * Android Studio Flamingo | 2022.2.1 with Gradle 8, Java JDK 17
+    * Android Studio 2022.2.1+, JDK 17
 - For iOS apps: 
     * iOS 13+
     * macOS with Xcode 14.1+
@@ -75,4 +75,12 @@ npx cap sync
 
 ### Run
 
-Connect an Android or iOS device via USB and run the app by opening the respective projects
+Connect an Android or iOS device via USB and run the app by opening the respective projects, or via terminal with this command:
+
+```
+npx cap run <platform>
+```
+
+You can read more about the Capacitor CLI commands on this [link](https://capacitorjs.com/docs/cli).
+
+If you want to perform development without Capacitor CLI commands you can use [VS Code](https://code.visualstudio.com/) togheter with the [Ionic VS Code Extension](https://marketplace.visualstudio.com/items?itemName=ionic.ionic). Read more about this [here](https://capacitorjs.com/docs/vscode/getting-started).
