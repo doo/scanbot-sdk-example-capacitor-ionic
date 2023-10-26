@@ -55,8 +55,6 @@ import { ScanbotsdkFeatureApplyFilterOnImageComponent } from '../scanbotsdk-feat
   ],
 })
 
-//todo review the libraries file (add new plugins and remove unused)
-//todo very different logs, alerts...
 export class HomePage implements OnInit {
 
   private scanbot = inject(ScanbotService);

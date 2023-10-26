@@ -6,10 +6,6 @@ PODS:
   - CapacitorCordova (5.4.1)
   - CapacitorFilesystem (5.1.4):
     - Capacitor
-  - CapacitorHaptics (5.0.6):
-    - Capacitor
-  - CapacitorKeyboard (5.0.6):
-    - Capacitor
   - CapacitorPluginScanbotSdk (2.2.2):
     - Capacitor
     - ScanbotSDK/ALL (= 2.2.0)
@@ -29,8 +25,6 @@ DEPENDENCIES:
   - "CapacitorApp (from `../../node_modules/@capacitor/app`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorFilesystem (from `../../node_modules/@capacitor/filesystem`)"
-  - "CapacitorHaptics (from `../../node_modules/@capacitor/haptics`)"
-  - "CapacitorKeyboard (from `../../node_modules/@capacitor/keyboard`)"
   - CapacitorPluginScanbotSdk (from `../../node_modules/capacitor-plugin-scanbot-sdk`)
   - "CapacitorPreferences (from `../../node_modules/@capacitor/preferences`)"
   - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
@@ -50,10 +44,6 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/ios"
   CapacitorFilesystem:
     :path: "../../node_modules/@capacitor/filesystem"
-  CapacitorHaptics:
-    :path: "../../node_modules/@capacitor/haptics"
-  CapacitorKeyboard:
-    :path: "../../node_modules/@capacitor/keyboard"
   CapacitorPluginScanbotSdk:
     :path: "../../node_modules/capacitor-plugin-scanbot-sdk"
   CapacitorPreferences:
@@ -68,8 +58,6 @@ SPEC CHECKSUMS:
   CapacitorApp: 024e1b1bea5f883d79f6330d309bc441c88ad04a
   CapacitorCordova: 1222fdd78bfd0d323cc22bf254eed1484fe6c92a
   CapacitorFilesystem: af704badfbc69f6f8623d9ed313e5490e3723dcb
-  CapacitorHaptics: 1fffc1217c7e64a472d7845be50fb0c2f7d4204c
-  CapacitorKeyboard: b978154b024a5f65e044908e37d15b7de58b9d12
   CapacitorPluginScanbotSdk: a8822991b699a7355b99ee07c51fd3edf104205e
   CapacitorPreferences: f03954bcb0ff09c792909e46bff88e3183c16b10
   CapacitorStatusBar: 565c0a1ebd79bb40d797606a8992b4a105885309
@@ -77,6 +65,6 @@ SPEC CHECKSUMS:
   ScanbotSDK: 88ea9100f2d6fe0c0fddc707bff470e7f71387d8
   ScanbotSDKNativeWrapper: 7629f74e7bad10067e7367c08d97c28a9d90df47
 
-PODFILE CHECKSUM: cec2ce2ce61251b5c3361b7f5069526a07ace7aa
+PODFILE CHECKSUM: 3270fc383a65278efb4c6a2af7d13eec0a3cfee6
 
 COCOAPODS: 1.13.0

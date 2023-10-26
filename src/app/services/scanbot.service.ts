@@ -234,13 +234,7 @@ export class ScanbotService {
     if (!imageFileUri)
       imageFileUri = (await this.imageUtils.selectImagesFromLibrary())[0];
 
-    /**
-       * Create a page from the selected image
-       */
     let page = await ScanbotSDK.createPage({ imageUri: imageFileUri });
-    /**
-       * Detect the document on the page
-       */
     return ScanbotSDK.detectDocumentOnPage({ page: page });
   }
 
