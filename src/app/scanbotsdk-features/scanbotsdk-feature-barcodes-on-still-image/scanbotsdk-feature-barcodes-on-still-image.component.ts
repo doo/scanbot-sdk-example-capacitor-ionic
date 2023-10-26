@@ -24,6 +24,8 @@ export class ScanbotsdkFeatureBarcodesOnStillImageComponent extends ScanbotsdkFe
 
       if (result.barcodes.length > 0)
         this.utils.showResultInfo(JSON.stringify(result.barcodes));
+      else
+        this.utils.showInfoAlert('No barcodes detected');
     } catch (e: any) {
       await this.utils.dismissLoader();
       this.utils.showErrorAlert(e.message);

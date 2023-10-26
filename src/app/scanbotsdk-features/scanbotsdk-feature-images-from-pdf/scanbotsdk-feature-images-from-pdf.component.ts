@@ -22,8 +22,12 @@ export class ScanbotsdkFeatureImagesFromPdfComponent extends ScanbotsdkFeatureCo
       const result = await this.scanbot.extractImagesFromPdf();
       await this.utils.dismissLoader();
 
-      if (result.status === 'OK' && result.imageFilesUrls)
-        this.utils.showResultInfo(JSON.stringify(result.imageFilesUrls, null, 2));
+      if (result.status === 'OK') {
+        if (result.imageFilesUrls)
+          this.utils.showResultInfo(JSON.stringify(result.imageFilesUrls, null, 2));
+        else
+          this.utils.showInfoAlert('No images extracted');
+      }
     } catch (e: any) {
       await this.utils.dismissLoader();
       this.utils.showErrorAlert(e.message);

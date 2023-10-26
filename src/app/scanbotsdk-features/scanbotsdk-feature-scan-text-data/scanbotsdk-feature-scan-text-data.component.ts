@@ -20,8 +20,12 @@ export class ScanbotsdkFeatureScanTextDataComponent extends ScanbotsdkFeatureCom
     try {
       const result = await this.scanbot.scanTextData();
 
-      if (result.status === 'OK' && result.result?.text)
-        this.utils.showResultInfo(JSON.stringify(result));
+      if (result.status === 'OK') {
+        if (result.result?.text)
+          this.utils.showResultInfo(JSON.stringify(result));
+        else
+          this.utils.showInfoAlert('No data founded');
+      }
     } catch (e: any) {
       this.utils.showErrorAlert(e.message);
     }

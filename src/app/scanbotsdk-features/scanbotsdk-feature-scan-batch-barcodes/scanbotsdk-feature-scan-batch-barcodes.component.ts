@@ -20,9 +20,13 @@ export class ScanbotsdkFeatureScanBatchBarcodesComponent extends ScanbotsdkFeatu
     try {
       const barcodeResult = await this.scanbot.scanBatchBarcodes();
 
-      if (barcodeResult.status === 'OK' && barcodeResult.barcodes) {
-        barcodeResult.barcodes.forEach((barcode) => { this.utils.logBarcodeDocument(barcode); });
-        this.utils.showResultInfo(JSON.stringify(barcodeResult.barcodes));
+      if (barcodeResult.status === 'OK') {
+        if (barcodeResult.barcodes) {
+          barcodeResult.barcodes.forEach((barcode) => { this.utils.logBarcodeDocument(barcode); });
+          this.utils.showResultInfo(JSON.stringify(barcodeResult.barcodes));
+        }
+        else
+          this.utils.showInfoAlert('No barcodes scanned');
       }
     } catch (e: any) {
       this.utils.showErrorAlert(e.message);

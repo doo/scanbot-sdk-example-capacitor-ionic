@@ -22,10 +22,13 @@ export class ScanbotsdkFeaturePagesFromPdfComponent extends ScanbotsdkFeatureCom
       const result = await this.scanbot.extractPagesFromPdf();
       this.utils.dismissLoader();
 
-      if (result.status === 'OK' && result.pages) {
-        await this.preferencesUtils.savePages(result.pages);
-
-        this.router.navigate(['/image-results'])
+      if (result.status === 'OK') {
+        if (result.pages) {
+          await this.preferencesUtils.savePages(result.pages);
+          this.router.navigate(['/image-results'])
+        }
+        else
+          this.utils.showInfoAlert('No pages extracted');
       }
     } catch (e: any) {
       await this.utils.dismissLoader();
