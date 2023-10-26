@@ -9,6 +9,8 @@ export class ImageUtils {
 
     async selectImagesFromLibrary(multipleImages?: boolean | undefined): Promise<string[]> {
         let photos: PickedFile[] = [];
+        let pickImagesErrorMessage;
+
         try {
             photos = (await FilePicker.pickImages({
                 multiple: multipleImages ?? false,
@@ -18,12 +20,12 @@ export class ImageUtils {
                 .files
                 .filter(photo => photo.path !== undefined);
         } catch (e: any) {
-            throw new Error(e.message);
+            pickImagesErrorMessage = e.message;
         }
 
         if (photos.length > 0)
             return photos.map(photos => photos.path!!);
         else
-            throw new Error(`No image${multipleImages == true ? 's' : ''} picked`);
+            throw new Error(`No image${multipleImages == true ? 's' : ''} picked${pickImagesErrorMessage ? '. ' + pickImagesErrorMessage : ''}`);
     }
 }

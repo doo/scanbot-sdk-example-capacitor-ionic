@@ -9,6 +9,7 @@ export class FileUtils {
 
     async selectPdfFile(): Promise<string> {
         let pdfPath;
+        let pickFilesErrorMessage;
 
         try {
             const pdfFIle = await FilePicker.pickFiles({
@@ -21,9 +22,9 @@ export class FileUtils {
             if (pdfPath)
                 return pdfPath;
         } catch (e: any) {
-            throw new Error(e.message);
+            pickFilesErrorMessage = e.message;
         }
 
-        throw new Error('No file picked');
+        throw new Error(`No file picked${pickFilesErrorMessage ? '. ' + pickFilesErrorMessage : ''}`);
     }
 }
