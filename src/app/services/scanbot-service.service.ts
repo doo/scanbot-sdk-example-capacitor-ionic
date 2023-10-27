@@ -191,7 +191,7 @@ export class ScanbotService {
 			imageFileUris: imageFileUris,
 			languages: ["en", "de"],
 			options: {
-				outputFormat: 'FULL_OCR_RESULT'
+				outputFormat: 'PDF_FILE'
 			}
 		}))
 	}

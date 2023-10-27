@@ -124,6 +124,14 @@ export class DocumentResultsPage implements OnInit {
 				console.log("PDF saved at path: " + path);
 			}
 		}, {
+			text: 'Export PDF with OCR',
+			icon: "download-outline",
+			role: 'default',
+			handler: async () => {
+				let result = await this.scanbot.performOCR(DemoRuntimeStorage.default.allPageOriginalUris)
+				console.log("PDF with OCR saved at path: " + result.pdfFileUri);
+			}
+		}, {
 			text: 'Export Tiff',
 			icon: "download-outline",
 			role: 'default',
