@@ -484,7 +484,7 @@ export class ScanbotService {
   }
 
   saveImagesAsPDFWithOCR(imageUris: string[]): Promise<PerformOCRResult> {
-    return ScanbotSDK.performOCR({ imageFileUris: imageUris, languages: ['en'], options: { outputFormat: 'FULL_OCR_RESULT' } });
+    return ScanbotSDK.performOCR({ imageFileUris: imageUris, languages: ['en', 'de'], options: { outputFormat: 'FULL_OCR_RESULT' } });
   }
 
   saveResultsAsTIFF(imageUris: string[], binarized: boolean): Promise<WriteTIFFResult> {

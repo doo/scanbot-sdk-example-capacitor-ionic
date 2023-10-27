@@ -8,6 +8,7 @@ import { Capacitor } from '@capacitor/core';
 import { ScanbotService } from 'src/app/services/scanbot.service';
 import { CommonUtils } from 'src/app/utils/common-utils';
 import { RouterLink } from '@angular/router';
+import { FileUtils } from 'src/app/utils/file-utils';
 
 interface ImageResult {
   page: Page,
@@ -25,6 +26,7 @@ export class ImageResultsPage {
   private preferencesUtils = inject(PreferencesUtils);
   private scanbot = inject(ScanbotService);
   private utils = inject(CommonUtils);
+  private fileUtils = inject(FileUtils);
   private actionSheetCtrl = inject(ActionSheetController);
 
   imageResults: ImageResult[] = [];
@@ -103,7 +105,7 @@ export class ImageResultsPage {
   }
 
   async saveResultsAs() {
-    if (this.isResultsListEmpty('No images to save. Please scan few documents first') || !(await this.scanbot.isLicenseValid()))
+    if (this.isResultsListEmpty('No images to save. Please scan few documents first'))
       return;
 
     const actionSheet = await this.actionSheetCtrl.create({
@@ -135,12 +137,15 @@ export class ImageResultsPage {
   }
 
   private async saveResultsAsPDF() {
+    if (!(await this.scanbot.isLicenseValid()))
+      return;
+
     try {
       await this.utils.showLoader();
       const saveResult = await this.scanbot.saveImagesAsPDF(this.getImageResultsUris());
 
       await this.utils.dismissLoader();
-      this.utils.showInfoAlert('PDF file is created: \n' + saveResult.pdfFileUri);
+      await this.fileUtils.openPdfFile(saveResult.pdfFileUri);
     } catch (e: any) {
       await this.utils.dismissLoader();
       this.utils.showErrorAlert(e.message);
@@ -148,12 +153,15 @@ export class ImageResultsPage {
   }
 
   private async saveResultsAsPDFWithOCR() {
+    if (!(await this.scanbot.isLicenseValid()))
+      return;
+
     try {
       await this.utils.showLoader();
       const saveResult = await this.scanbot.saveImagesAsPDFWithOCR(this.getImageResultsUris());
 
       await this.utils.dismissLoader();
-      this.utils.showInfoAlert('PDF with OCR layer is created: \n' + saveResult.pdfFileUri);
+      await this.fileUtils.openPdfFile(saveResult.pdfFileUri);
     } catch (e: any) {
       await this.utils.dismissLoader();
       this.utils.showErrorAlert(e.message);
@@ -161,6 +169,9 @@ export class ImageResultsPage {
   }
 
   private async saveResultsAsTIFF(binarized: boolean) {
+    if (!(await this.scanbot.isLicenseValid()))
+      return;
+
     if (this.scanbot.FILE_ENCRYPTION_ENABLED) {
       this.utils.showWarningAlert('Encryption for TIFF files currently not supported. ' +
         'In order to test TIFF please disable image file encryption');
@@ -173,7 +184,7 @@ export class ImageResultsPage {
       const saveResult = await this.scanbot.saveResultsAsTIFF(this.getImageResultsUris(), binarized);
 
       await this.utils.dismissLoader();
-      this.utils.showInfoAlert('TIFF file is created: \n' + saveResult.tiffFileUri);
+      await this.fileUtils.openTiffFile(saveResult.tiffFileUri);
     } catch (e: any) {
       await this.utils.dismissLoader();
       this.utils.showErrorAlert(e.message);
