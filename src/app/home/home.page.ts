@@ -6,25 +6,25 @@ import { Router, RouterLink } from '@angular/router';
 import { CommonUtils } from '../utils/common-utils';
 
 import { Feature, FeatureId, ScanbotService } from '../services/scanbot.service';
-import { ScanbotsdkFeatureDocumentScannerComponent } from '../scanbotsdk-features/scanbotsdk-feature-document-scanner/scanbotsdk-feature-document-scanner.component';
-import { ScanbotsdkFeatureDocumentScannerWithFinderComponent } from '../scanbotsdk-features/scanbotsdk-feature-document-scanner-with-finder/scanbotsdk-feature-document-scanner-with-finder.component';
-import { ScanbotsdkFeatureDocumentFromPageComponent } from '../scanbotsdk-features/scanbotsdk-feature-document-from-page/scanbotsdk-feature-document-from-page.component';
-import { ScanbotsdkFeatureDocumentFromImageComponent } from '../scanbotsdk-features/scanbotsdk-feature-document-from-image/scanbotsdk-feature-document-from-image.component';
-import { ScanbotsdkFeaturePagesFromPdfComponent } from '../scanbotsdk-features/scanbotsdk-feature-pages-from-pdf/scanbotsdk-feature-pages-from-pdf.component';
-import { ScanbotsdkFeatureImagesFromPdfComponent } from '../scanbotsdk-features/scanbotsdk-feature-images-from-pdf/scanbotsdk-feature-images-from-pdf.component';
-import { ScanbotsdkFeatureScanBarcodesComponent } from '../scanbotsdk-features/scanbotsdk-feature-scan-barcodes/scanbotsdk-feature-scan-barcodes.component';
-import { ScanbotsdkFeatureScanBatchBarcodesComponent } from '../scanbotsdk-features/scanbotsdk-feature-scan-batch-barcodes/scanbotsdk-feature-scan-batch-barcodes.component';
-import { ScanbotsdkFeatureBarcodesOnStillImageComponent } from '../scanbotsdk-features/scanbotsdk-feature-barcodes-on-still-image/scanbotsdk-feature-barcodes-on-still-image.component';
-import { ScanbotsdkFeatureBarcodesOnStillImagesComponent } from '../scanbotsdk-features/scanbotsdk-feature-barcodes-on-still-images/scanbotsdk-feature-barcodes-on-still-images.component';
-import { ScanbotsdkFeatureScanMrzComponent } from '../scanbotsdk-features/scanbotsdk-feature-scan-mrz/scanbotsdk-feature-scan-mrz.component';
-import { ScanbotsdkFeatureScanMedicalCertComponent } from '../scanbotsdk-features/scanbotsdk-feature-scan-medical-cert/scanbotsdk-feature-scan-medical-cert.component';
-import { ScanbotsdkFeatureScanGenericDocComponent } from '../scanbotsdk-features/scanbotsdk-feature-scan-generic-doc/scanbotsdk-feature-scan-generic-doc.component';
-import { ScanbotsdkFeatureScanCheckComponent } from '../scanbotsdk-features/scanbotsdk-feature-scan-check/scanbotsdk-feature-scan-check.component';
-import { ScanbotsdkFeatureScanEhicComponent } from '../scanbotsdk-features/scanbotsdk-feature-scan-ehic/scanbotsdk-feature-scan-ehic.component';
-import { ScanbotsdkFeatureScanLicensePlateComponent } from '../scanbotsdk-features/scanbotsdk-feature-scan-license-plate/scanbotsdk-feature-scan-license-plate.component';
-import { ScanbotsdkFeatureScanTextDataComponent } from '../scanbotsdk-features/scanbotsdk-feature-scan-text-data/scanbotsdk-feature-scan-text-data.component';
-import { ScanbotsdkFeatureRecognizeCheckOnImageComponent } from '../scanbotsdk-features/scanbotsdk-feature-recognize-check-on-image/scanbotsdk-feature-recognize-check-on-image.component';
-import { ScanbotsdkFeatureApplyFilterOnImageComponent } from '../scanbotsdk-features/scanbotsdk-feature-apply-filter-on-image/scanbotsdk-feature-apply-filter-on-image.component';
+import { RtuDocumentScannerFeature } from '../scanbotsdk-features/rtu-document-scanner/rtu-document-scanner-feature.component';
+import { RtuDocumentScannerWithFinderFeature } from '../scanbotsdk-features/rtu-document-scanner-with-finder/rtu-document-scanner-with-finder-feature.component';
+import { DetectDocumentOnPageFeature } from '../scanbotsdk-features/detect-document-on-page/detect-document-on-page-feature.component';
+import { DetectDocumentOnImageFeature } from '../scanbotsdk-features/detect-document-on-image/detect-document-on-image-feature.component';
+import { ExtractPagesFromPdfFeature } from '../scanbotsdk-features/extract-pages-from-pdf/extract-pages-from-pdf-feature.component';
+import { ExtractImagesFromPdfFeature } from '../scanbotsdk-features/extract-images-from-pdf/extract-images-from-pdf-feature.component';
+import { RtuBarcodeScannerFeature } from '../scanbotsdk-features/rtu-barcode-scanner/rtu-barcode-scanner-feature.component';
+import { RtuBatchBarcodeScannerFeature } from '../scanbotsdk-features/rtu-batch-barcode-scanner/rtu-batch-barcode-scanner-feature.component';
+import { DetectBarcodesOnImageFeature } from '../scanbotsdk-features/detect-barcodes-on-image/detect-barcodes-on-image-feature.component';
+import { DetectBarcodesOnMultipleImagesFeature } from '../scanbotsdk-features/detect-barcodes-on-multiple-images/detect-barcodes-on-multiple-images-feature.component';
+import { RtuMrzScannerFeature } from '../scanbotsdk-features/rtu-mrz-scanner/rtu-mrz-scanner-feature.component';
+import { RtuMedicalCertificateScannerFeature } from '../scanbotsdk-features/rtu-medical-certificate-scanner/rtu-medical-certificate-scanner-feature.component';
+import { RtuGenericDocumentRecognizerFeature } from '../scanbotsdk-features/rtu-generic-document-recognizer/rtu-generic-document-recognizer-feature.component';
+import { RtuCheckRecognizerFeature } from '../scanbotsdk-features/rtu-check-recognizer/rtu-check-recognizer-feature.component';
+import { RtuHealthInsuranceCardScannerFeature } from '../scanbotsdk-features/rtu-health-insurance-card-scanner/rtu-health-insurance-card-scanner-feature.component';
+import { RtuLicensePlateScannerFeature } from '../scanbotsdk-features/rtu-license-plate-scanner/rtu-license-plate-scanner-feature.component';
+import { RtuTextDataScannerFeature } from '../scanbotsdk-features/rtu-text-data-scanner/rtu-text-data-scanner-feature.component';
+import { RecognizeCheckOnImageFeature } from '../scanbotsdk-features/recognize-check-on-image/recognize-check-on-image-feature.component';
+import { ApplyFilterOnImageFeature } from '../scanbotsdk-features/apply-filter-on-image/apply-filter-on-image-feature.component';
 
 
 @Component({
@@ -32,29 +32,32 @@ import { ScanbotsdkFeatureApplyFilterOnImageComponent } from '../scanbotsdk-feat
     templateUrl: 'home.page.html',
     styleUrls: ['home.page.scss'],
     standalone: true,
-    imports: [IonicModule, CommonModule, RouterLink,
-    ScanbotsdkFeatureDocumentScannerComponent,
-    ScanbotsdkFeatureDocumentScannerWithFinderComponent,
-    ScanbotsdkFeatureDocumentFromPageComponent,
-    ScanbotsdkFeatureDocumentFromImageComponent,
-    ScanbotsdkFeaturePagesFromPdfComponent,
-    ScanbotsdkFeatureImagesFromPdfComponent,
-    ScanbotsdkFeatureScanBarcodesComponent,
-    ScanbotsdkFeatureScanBatchBarcodesComponent,
-    ScanbotsdkFeatureBarcodesOnStillImageComponent,
-    ScanbotsdkFeatureBarcodesOnStillImagesComponent,
-    ScanbotsdkFeatureScanMrzComponent,
-    ScanbotsdkFeatureScanMedicalCertComponent,
-    ScanbotsdkFeatureScanGenericDocComponent,
-    ScanbotsdkFeatureScanCheckComponent,
-    ScanbotsdkFeatureScanEhicComponent,
-    ScanbotsdkFeatureScanLicensePlateComponent,
-    ScanbotsdkFeatureScanTextDataComponent,
-    ScanbotsdkFeatureRecognizeCheckOnImageComponent,
-    ScanbotsdkFeatureApplyFilterOnImageComponent
+    imports: 
+    [
+    IonicModule, 
+    CommonModule, 
+    RouterLink,
+    RtuDocumentScannerFeature,
+    RtuDocumentScannerWithFinderFeature,
+    DetectDocumentOnPageFeature,
+    DetectDocumentOnImageFeature,
+    ExtractPagesFromPdfFeature,
+    ExtractImagesFromPdfFeature,
+    RtuBarcodeScannerFeature,
+    RtuBatchBarcodeScannerFeature,
+    DetectBarcodesOnImageFeature,
+    DetectBarcodesOnMultipleImagesFeature,
+    RtuMrzScannerFeature,
+    RtuMedicalCertificateScannerFeature,
+    RtuGenericDocumentRecognizerFeature,
+    RtuCheckRecognizerFeature,
+    RtuHealthInsuranceCardScannerFeature,
+    RtuLicensePlateScannerFeature,
+    RtuTextDataScannerFeature,
+    RecognizeCheckOnImageFeature,
+    ApplyFilterOnImageFeature
     ],
     })
-
 export class HomePage implements OnInit {
 
   private scanbot = inject(ScanbotService);

@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ScanbotSdkFeatureComponent } from './scanbotsdk-feature.component';
+import { DetectDocumentOnPageFeature } from './detect-document-on-page-feature.component';
 
-describe('ScanbotsdkFeatureComponent', () => {
-    let component: ScanbotSdkFeatureComponent;
-    let fixture: ComponentFixture<ScanbotSdkFeatureComponent>;
+describe('DetectDocumentOnPageFeature', () => {
+    let component: DetectDocumentOnPageFeature;
+    let fixture: ComponentFixture<DetectDocumentOnPageFeature>;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [ScanbotSdkFeatureComponent],
+            declarations: [DetectDocumentOnPageFeature],
             imports: [IonicModule.forRoot()],
         }).compileComponents();
 
-        fixture = TestBed.createComponent(ScanbotSdkFeatureComponent);
+        fixture = TestBed.createComponent(DetectDocumentOnPageFeature);
         component = fixture.componentInstance;
         fixture.detectChanges();
     }));

@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ScanbotSdkFeatureComponent } from './scanbotsdk-feature.component';
+import { DetectBarcodesOnMultipleImagesFeature } from './detect-barcodes-on-multiple-images-feature.component';
 
-describe('ScanbotsdkFeatureComponent', () => {
-    let component: ScanbotSdkFeatureComponent;
-    let fixture: ComponentFixture<ScanbotSdkFeatureComponent>;
+describe('DetectBarcodesOnMultipleImagesFeature', () => {
+    let component: DetectBarcodesOnMultipleImagesFeature;
+    let fixture: ComponentFixture<DetectBarcodesOnMultipleImagesFeature>;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [ScanbotSdkFeatureComponent],
+            declarations: [DetectBarcodesOnMultipleImagesFeature],
             imports: [IonicModule.forRoot()],
         }).compileComponents();
 
-        fixture = TestBed.createComponent(ScanbotSdkFeatureComponent);
+        fixture = TestBed.createComponent(DetectBarcodesOnMultipleImagesFeature);
         component = fixture.componentInstance;
         fixture.detectChanges();
     }));

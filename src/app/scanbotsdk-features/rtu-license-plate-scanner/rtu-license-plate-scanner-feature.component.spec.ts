@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ScanbotSdkFeatureComponent } from './scanbotsdk-feature.component';
+import { RtuLicensePlateScannerFeature } from './rtu-license-plate-scanner-feature.component';
 
-describe('ScanbotsdkFeatureComponent', () => {
-    let component: ScanbotSdkFeatureComponent;
-    let fixture: ComponentFixture<ScanbotSdkFeatureComponent>;
+describe('RtuLicensePlateScannerFeature', () => {
+    let component: RtuLicensePlateScannerFeature;
+    let fixture: ComponentFixture<RtuLicensePlateScannerFeature>;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [ScanbotSdkFeatureComponent],
+            declarations: [RtuLicensePlateScannerFeature],
             imports: [IonicModule.forRoot()],
         }).compileComponents();
 
-        fixture = TestBed.createComponent(ScanbotSdkFeatureComponent);
+        fixture = TestBed.createComponent(RtuLicensePlateScannerFeature);
         component = fixture.componentInstance;
         fixture.detectChanges();
     }));

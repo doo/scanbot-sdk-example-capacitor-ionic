@@ -14,7 +14,7 @@ import { PreferencesUtils } from '../utils/preferences-utils';
     standalone: true,
     imports: [CommonModule, IonicModule, RouterLink],
     })
-export class ScanbotsdkFeatureComponent {
+export class ScanbotSdkFeatureComponent {
   @Input() feature!: Feature;
 
   scanbot = inject(ScanbotService);

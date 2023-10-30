@@ -302,7 +302,7 @@ export class ScanbotService {
       return licenseInfo.isLicenseValid;
   }
 
-  async detectBarcodesOnStillImage(imageUri?: string | undefined): Promise<DetectBarcodesOnImageResult> {
+  async detectBarcodesOnImage(imageUri?: string | undefined): Promise<DetectBarcodesOnImageResult> {
       let imageFileUri = imageUri;
 
       if (!imageFileUri) {
@@ -317,7 +317,7 @@ export class ScanbotService {
       });
   }
 
-  async detectBarcodesOnStillImages(imageUris?: string[] | undefined): Promise<DetectBarcodesOnImagesResult> {
+  async detectBarcodesOnMultipleImages(imageUris?: string[] | undefined): Promise<DetectBarcodesOnImagesResult> {
       let imageFileUris = imageUris;
 
       if (!imageFileUris) {

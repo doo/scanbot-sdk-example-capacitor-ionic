@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ScanbotSdkFeatureComponent } from './scanbotsdk-feature.component';
+import { ExtractImagesFromPdfFeature } from './extract-images-from-pdf-feature.component';
 
-describe('ScanbotsdkFeatureComponent', () => {
-    let component: ScanbotSdkFeatureComponent;
-    let fixture: ComponentFixture<ScanbotSdkFeatureComponent>;
+describe('ScanbotsdkFeatureImagesFromPdfComponent', () => {
+    let component: ExtractImagesFromPdfFeature;
+    let fixture: ComponentFixture<ExtractImagesFromPdfFeature>;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [ScanbotSdkFeatureComponent],
+            declarations: [ExtractImagesFromPdfFeature],
             imports: [IonicModule.forRoot()],
         }).compileComponents();
 
-        fixture = TestBed.createComponent(ScanbotSdkFeatureComponent);
+        fixture = TestBed.createComponent(ExtractImagesFromPdfFeature);
         component = fixture.componentInstance;
         fixture.detectChanges();
     }));
