@@ -2,7 +2,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'io.scanbot.example.sdk.capacitor',
-  appName: 'Scanbot Example Sdk Capacitor',
+  appName: 'Capacitor Scanbot SDK Example',
   webDir: 'www',
   server: {
     androidScheme: 'https'
