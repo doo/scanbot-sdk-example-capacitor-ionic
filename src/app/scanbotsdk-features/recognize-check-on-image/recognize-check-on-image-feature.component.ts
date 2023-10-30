@@ -28,7 +28,7 @@ export class RecognizeCheckOnImageFeature extends ScanbotSdkFeatureComponent {
               console.log(checkResultAsJson);
               this.router.navigate(['/check-result-fields', checkResultAsJson]);
           } else {
-              this.utils.showInfoAlert('Check is not founded');
+              this.utils.showInfoAlert('The check was not found in the given image.');
           }
       } catch (e: any) {
           await this.utils.dismissLoader();

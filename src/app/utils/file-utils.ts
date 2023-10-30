@@ -31,7 +31,7 @@ export class FileUtils {
             pickFilesErrorMessage = e.message;
         }
 
-        throw new Error(`No file picked${pickFilesErrorMessage ? '. ' + pickFilesErrorMessage : ''}`);
+        throw new Error(`No file picked${pickFilesErrorMessage ? ': ' + pickFilesErrorMessage : ''}`);
     }
 
     async openPdfFile(fileURI?: string | undefined) {
@@ -42,7 +42,7 @@ export class FileUtils {
                 openWithDefault: false,
             });
         } else {
-            this.utils.showWarningAlert('PDF file is not founded');
+            this.utils.showWarningAlert(`Cannot find PDF file at URI: ${fileURI}`);
         }
     }
 
@@ -54,7 +54,7 @@ export class FileUtils {
                 openWithDefault: false,
             });
         } else {
-            this.utils.showWarningAlert('TIFF file is not founded');
+            this.utils.showWarningAlert(`Cannot find TIFF file at URI: ${fileURI}`);
         }
     }
 }

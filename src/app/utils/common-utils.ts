@@ -37,7 +37,7 @@ export class CommonUtils {
     }
 
     async showErrorAlert(error: string, onDismiss?: () => any) {
-        await this.showAlert({ header: 'An unexpected error has occurred', message: error, buttons: ['OK'] }, onDismiss);
+        await this.showAlert({ header: 'Error', message: error, buttons: ['OK'] }, onDismiss);
     }
 
     async showWarningAlert(warning: string) {
