@@ -12,7 +12,7 @@ import { Capacitor } from '@capacitor/core';
     styleUrls: ['../scan-result-fields.page.scss'],
     standalone: true,
     imports: [IonicModule, CommonModule, FormsModule]
-})
+    })
 export class MedicalCertificateResultFieldsPage extends ScanResultFieldsPage {
 
     override pageTitle: string = 'Medical Certificate'
@@ -37,7 +37,7 @@ export class MedicalCertificateResultFieldsPage extends ScanResultFieldsPage {
             {
                 key: 'imageFileUri',
                 fieldPhotoPreviewWebViewPath: Capacitor.convertFileSrc(this.medicalCertResult.imageFileUri),
-                showPhotoOnly: true
+                showPhotoOnly: true,
             };
 
             allFields = [{ title: 'Snapped image', fields: [resultImageField] }];

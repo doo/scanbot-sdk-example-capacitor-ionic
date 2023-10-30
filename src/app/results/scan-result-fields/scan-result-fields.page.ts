@@ -18,12 +18,12 @@ export interface ScanResultField {
 }
 
 @Component({
-  selector: 'app-scan-result-fields',
-  templateUrl: './scan-result-fields.page.html',
-  styleUrls: ['./scan-result-fields.page.scss'],
-  standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule]
-})
+    selector: 'app-scan-result-fields',
+    templateUrl: './scan-result-fields.page.html',
+    styleUrls: ['./scan-result-fields.page.scss'],
+    standalone: true,
+    imports: [IonicModule, CommonModule, FormsModule]
+    })
 export class ScanResultFieldsPage implements OnInit {
 
   pageTitle: string = 'Scan Result'
@@ -35,14 +35,14 @@ export class ScanResultFieldsPage implements OnInit {
   constructor() { }
 
   async ngOnInit() {
-    this.resultFields = this.loadResultFields();
+      this.resultFields = this.loadResultFields();
   }
 
   getBackButtonText() {
-    return this.utils.isiOSPlatform() ? 'Home' : '';
+      return this.utils.isiOSPlatform() ? 'Home' : '';
   }
 
   loadResultFields(): ScanResultFieldsSection[] {
-    return [];
+      return [];
   }
 }

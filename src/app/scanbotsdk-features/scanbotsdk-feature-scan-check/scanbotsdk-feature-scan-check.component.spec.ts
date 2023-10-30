@@ -4,21 +4,21 @@ import { IonicModule } from '@ionic/angular';
 import { ScanbotsdkFeatureScanCheckComponent } from './scanbotsdk-feature-scan-check.component';
 
 describe('ScanbotsdkFeatureScanCheckComponent', () => {
-  let component: ScanbotsdkFeatureScanCheckComponent;
-  let fixture: ComponentFixture<ScanbotsdkFeatureScanCheckComponent>;
+    let component: ScanbotsdkFeatureScanCheckComponent;
+    let fixture: ComponentFixture<ScanbotsdkFeatureScanCheckComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ScanbotsdkFeatureScanCheckComponent],
-      imports: [IonicModule.forRoot()]
-    }).compileComponents();
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            declarations: [ScanbotsdkFeatureScanCheckComponent],
+            imports: [IonicModule.forRoot()],
+        }).compileComponents();
 
-    fixture = TestBed.createComponent(ScanbotsdkFeatureScanCheckComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+        fixture = TestBed.createComponent(ScanbotsdkFeatureScanCheckComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

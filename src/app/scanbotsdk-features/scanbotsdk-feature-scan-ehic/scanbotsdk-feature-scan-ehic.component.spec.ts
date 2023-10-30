@@ -4,21 +4,21 @@ import { IonicModule } from '@ionic/angular';
 import { ScanbotsdkFeatureScanEhicComponent } from './scanbotsdk-feature-scan-ehic.component';
 
 describe('ScanbotsdkFeatureScanEhicComponent', () => {
-  let component: ScanbotsdkFeatureScanEhicComponent;
-  let fixture: ComponentFixture<ScanbotsdkFeatureScanEhicComponent>;
+    let component: ScanbotsdkFeatureScanEhicComponent;
+    let fixture: ComponentFixture<ScanbotsdkFeatureScanEhicComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ScanbotsdkFeatureScanEhicComponent],
-      imports: [IonicModule.forRoot()]
-    }).compileComponents();
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            declarations: [ScanbotsdkFeatureScanEhicComponent],
+            imports: [IonicModule.forRoot()],
+        }).compileComponents();
 
-    fixture = TestBed.createComponent(ScanbotsdkFeatureScanEhicComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+        fixture = TestBed.createComponent(ScanbotsdkFeatureScanEhicComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

@@ -4,21 +4,21 @@ import { IonicModule } from '@ionic/angular';
 import { ScanbotsdkFeatureImagesFromPdfComponent } from './scanbotsdk-feature-images-from-pdf.component';
 
 describe('ScanbotsdkFeatureImagesFromPdfComponent', () => {
-  let component: ScanbotsdkFeatureImagesFromPdfComponent;
-  let fixture: ComponentFixture<ScanbotsdkFeatureImagesFromPdfComponent>;
+    let component: ScanbotsdkFeatureImagesFromPdfComponent;
+    let fixture: ComponentFixture<ScanbotsdkFeatureImagesFromPdfComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ScanbotsdkFeatureImagesFromPdfComponent],
-      imports: [IonicModule.forRoot()]
-    }).compileComponents();
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            declarations: [ScanbotsdkFeatureImagesFromPdfComponent],
+            imports: [IonicModule.forRoot()],
+        }).compileComponents();
 
-    fixture = TestBed.createComponent(ScanbotsdkFeatureImagesFromPdfComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+        fixture = TestBed.createComponent(ScanbotsdkFeatureImagesFromPdfComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

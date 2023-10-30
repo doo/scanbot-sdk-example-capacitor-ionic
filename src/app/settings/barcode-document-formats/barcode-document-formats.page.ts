@@ -7,12 +7,12 @@ import { BARCODE_DOCUMENT_FORMATS_ENABLED_KEY, BarcodeDocumentSetting, ScanbotSe
 import { Preferences } from '@capacitor/preferences';
 
 @Component({
-  selector: 'app-barcode-document-formats',
-  templateUrl: './barcode-document-formats.page.html',
-  styleUrls: ['./barcode-document-formats.page.scss'],
-  standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule]
-})
+    selector: 'app-barcode-document-formats',
+    templateUrl: './barcode-document-formats.page.html',
+    styleUrls: ['./barcode-document-formats.page.scss'],
+    standalone: true,
+    imports: [IonicModule, CommonModule, FormsModule]
+    })
 export class BarcodeDocumentFormatsPage implements OnInit {
 
   private utils = inject(CommonUtils);
@@ -24,21 +24,21 @@ export class BarcodeDocumentFormatsPage implements OnInit {
   constructor() { }
 
   async ngOnInit() {
-    this.documentFormatsEnabled = await this.scanbot.isBarcodeDocumentFormatsEnabled();
-    this.documentSettings = await this.scanbot.getBarcodeDocumentSettings();
+      this.documentFormatsEnabled = await this.scanbot.isBarcodeDocumentFormatsEnabled();
+      this.documentSettings = await this.scanbot.getBarcodeDocumentSettings();
   }
 
   getBackButtonText() {
-    return this.utils.isiOSPlatform() ? 'Home' : '';
+      return this.utils.isiOSPlatform() ? 'Home' : '';
   }
 
   async documentFormatsEnabledStateChanged(event: any) {
-    this.documentFormatsEnabled = event.target.checked;
+      this.documentFormatsEnabled = event.target.checked;
 
-    await Preferences.set({ key: BARCODE_DOCUMENT_FORMATS_ENABLED_KEY, value: this.documentFormatsEnabled.toString() });
+      await Preferences.set({ key: BARCODE_DOCUMENT_FORMATS_ENABLED_KEY, value: this.documentFormatsEnabled.toString() });
   }
 
   async documentSettingStateChanged(event: any, document: BarcodeDocumentSetting) {
-    await Preferences.set({ key: document.format.toString(), value: event.target.checked.toString() });
+      await Preferences.set({ key: document.format.toString(), value: event.target.checked.toString() });
   }
 }

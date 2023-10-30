@@ -4,21 +4,21 @@ import { IonicModule } from '@ionic/angular';
 import { ScanbotsdkFeatureApplyFilterOnImageComponent } from './scanbotsdk-feature-apply-filter-on-image.component';
 
 describe('ScanbotsdkFeatureApplyFilterOnImageComponent', () => {
-  let component: ScanbotsdkFeatureApplyFilterOnImageComponent;
-  let fixture: ComponentFixture<ScanbotsdkFeatureApplyFilterOnImageComponent>;
+    let component: ScanbotsdkFeatureApplyFilterOnImageComponent;
+    let fixture: ComponentFixture<ScanbotsdkFeatureApplyFilterOnImageComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ScanbotsdkFeatureApplyFilterOnImageComponent],
-      imports: [IonicModule.forRoot()]
-    }).compileComponents();
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            declarations: [ScanbotsdkFeatureApplyFilterOnImageComponent],
+            imports: [IonicModule.forRoot()],
+        }).compileComponents();
 
-    fixture = TestBed.createComponent(ScanbotsdkFeatureApplyFilterOnImageComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+        fixture = TestBed.createComponent(ScanbotsdkFeatureApplyFilterOnImageComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

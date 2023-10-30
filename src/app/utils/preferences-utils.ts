@@ -4,7 +4,7 @@ import { Page } from 'capacitor-plugin-scanbot-sdk';
 
 @Injectable({
     providedIn: 'root'
-})
+    })
 export class PreferencesUtils {
 
     private pagesListKey = 'pagesList';

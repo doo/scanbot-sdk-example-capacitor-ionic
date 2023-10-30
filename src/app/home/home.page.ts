@@ -28,11 +28,11 @@ import { ScanbotsdkFeatureApplyFilterOnImageComponent } from '../scanbotsdk-feat
 
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
-  standalone: true,
-  imports: [IonicModule, CommonModule, RouterLink,
+    selector: 'app-home',
+    templateUrl: 'home.page.html',
+    styleUrls: ['home.page.scss'],
+    standalone: true,
+    imports: [IonicModule, CommonModule, RouterLink,
     ScanbotsdkFeatureDocumentScannerComponent,
     ScanbotsdkFeatureDocumentScannerWithFinderComponent,
     ScanbotsdkFeatureDocumentFromPageComponent,
@@ -52,8 +52,8 @@ import { ScanbotsdkFeatureApplyFilterOnImageComponent } from '../scanbotsdk-feat
     ScanbotsdkFeatureScanTextDataComponent,
     ScanbotsdkFeatureRecognizeCheckOnImageComponent,
     ScanbotsdkFeatureApplyFilterOnImageComponent
-  ],
-})
+    ],
+    })
 
 export class HomePage implements OnInit {
 
@@ -69,33 +69,36 @@ export class HomePage implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.scanbot.initializeSDK();
+      this.scanbot.initializeSDK();
   }
 
   async showLicenseInfo() {
-    try {
-      this.utils.showLicenseInfo(await this.scanbot.getLicenseInfo());
-    } catch (e: any) {
-      this.utils.showErrorAlert(e.message);
-    }
+      try {
+          this.utils.showLicenseInfo(await this.scanbot.getLicenseInfo());
+      } catch (e: any) {
+          this.utils.showErrorAlert(e.message);
+      }
   }
 
   async showOCRConfigs() {
-    try {
-      if (await this.scanbot.isLicenseValid())
-        this.utils.showOCRConfigs(await this.scanbot.getOCRConfigs());
-    } catch (e: any) {
-      this.utils.showErrorAlert(e.message);
-    }
+      try {
+          if (await this.scanbot.isLicenseValid()) {
+              this.utils.showOCRConfigs(await this.scanbot.getOCRConfigs());
+          }
+      } catch (e: any) {
+          this.utils.showErrorAlert(e.message);
+      }
   }
 
   async showBarcodeFormatsScreen() {
-    if (await this.scanbot.isLicenseValid())
-      this.router.navigate(['/barcode-formats']);
+      if (await this.scanbot.isLicenseValid()) {
+          this.router.navigate(['/barcode-formats']);
+      }
   }
 
   async showBarcodeDocumentFormatsScreen() {
-    if (await this.scanbot.isLicenseValid())
-      this.router.navigate(['/barcode-document-formats']);
+      if (await this.scanbot.isLicenseValid()) {
+          this.router.navigate(['/barcode-document-formats']);
+      }
   }
 }

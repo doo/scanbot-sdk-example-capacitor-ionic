@@ -4,21 +4,21 @@ import { IonicModule } from '@ionic/angular';
 import { ScanbotsdkFeatureScanBatchBarcodesComponent } from './scanbotsdk-feature-scan-batch-barcodes.component';
 
 describe('ScanbotsdkFeatureScanBatchBarcodesComponent', () => {
-  let component: ScanbotsdkFeatureScanBatchBarcodesComponent;
-  let fixture: ComponentFixture<ScanbotsdkFeatureScanBatchBarcodesComponent>;
+    let component: ScanbotsdkFeatureScanBatchBarcodesComponent;
+    let fixture: ComponentFixture<ScanbotsdkFeatureScanBatchBarcodesComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ScanbotsdkFeatureScanBatchBarcodesComponent],
-      imports: [IonicModule.forRoot()]
-    }).compileComponents();
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            declarations: [ScanbotsdkFeatureScanBatchBarcodesComponent],
+            imports: [IonicModule.forRoot()],
+        }).compileComponents();
 
-    fixture = TestBed.createComponent(ScanbotsdkFeatureScanBatchBarcodesComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+        fixture = TestBed.createComponent(ScanbotsdkFeatureScanBatchBarcodesComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

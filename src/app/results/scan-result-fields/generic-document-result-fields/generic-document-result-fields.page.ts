@@ -12,7 +12,7 @@ import { Capacitor } from '@capacitor/core';
     styleUrls: ['../scan-result-fields.page.scss'],
     standalone: true,
     imports: [IonicModule, CommonModule, FormsModule]
-})
+    })
 export class GenericDocumentResultFieldsPage extends ScanResultFieldsPage {
 
     override pageTitle: string = 'Generic Document'
@@ -36,8 +36,9 @@ export class GenericDocumentResultFieldsPage extends ScanResultFieldsPage {
 
             Object.entries(this.genDocumentResult.fields).forEach(([_key, _value]) => {
                 if (_key === 'mrz') {
-                    if (_value)
+                    if (_value) {
                         resultFields.push(...this.getMRZFields(_value as MrzDocumentResult));
+                    }
                 } else {
                     let field: ScanResultField = { key: _key };
 
@@ -45,8 +46,9 @@ export class GenericDocumentResultFieldsPage extends ScanResultFieldsPage {
                         if (_value) {
                             field.value = _value;
 
-                            if (_key === resultImageField.key)
+                            if (_key === resultImageField.key) {
                                 resultImageField.fieldPhotoPreviewWebViewPath = Capacitor.convertFileSrc(_value);
+                            }
                         }
                     } else if (_value) {
                         const genDocField = _value as GenericDocumentField;
@@ -58,9 +60,9 @@ export class GenericDocumentResultFieldsPage extends ScanResultFieldsPage {
             });
 
             return [{ title: 'Snapped image', fields: [resultImageField] }, { title: 'Fields', fields: resultFields }];
-        }
-        else
+        } else {
             return super.loadResultFields();
+        }
     }
 
     private getMRZFields(mrzValue: MrzDocumentResult): ScanResultField[] {
@@ -70,9 +72,9 @@ export class GenericDocumentResultFieldsPage extends ScanResultFieldsPage {
             let field: ScanResultField = { key: `MRZ.${_key}` };
 
             if (_value) {
-                if (Array.isArray(_value))
+                if (Array.isArray(_value)) {
                     field.value = JSON.stringify(_value);
-                else {
+                } else {
                     const genDocField = _value as GenericDocumentField;
                     field.value = `${genDocField.text} ${genDocField.confidence ? '(confidence: ' + genDocField.confidence.toFixed(2) + ')' : ''}`;
                 }

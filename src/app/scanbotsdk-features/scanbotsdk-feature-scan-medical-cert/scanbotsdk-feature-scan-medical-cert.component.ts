@@ -6,28 +6,28 @@ import { ScanbotsdkFeatureComponent } from '../scanbotsdk-feature.component';
 import { FeatureId } from 'src/app/services/scanbot.service';
 
 @Component({
-  selector: 'app-scanbotsdk-feature-scan-medical-cert',
-  templateUrl: '../scanbotsdk-feature.component.html',
-  styleUrls: ['../scanbotsdk-feature.component.scss'],
-  standalone: true,
-  imports: [CommonModule, IonicModule, RouterLink],
-})
+    selector: 'app-scanbotsdk-feature-scan-medical-cert',
+    templateUrl: '../scanbotsdk-feature.component.html',
+    styleUrls: ['../scanbotsdk-feature.component.scss'],
+    standalone: true,
+    imports: [CommonModule, IonicModule, RouterLink],
+    })
 export class ScanbotsdkFeatureScanMedicalCertComponent extends ScanbotsdkFeatureComponent {
 
   override feature = { id: FeatureId.ScanMedicalCertificate, title: 'Scan Medical Certificate' };
 
   override async run() {
-    try {
-      const result = await this.scanbot.scanMedicalCertificate();
+      try {
+          const result = await this.scanbot.scanMedicalCertificate();
 
-      if (result.status === 'OK') {
-        const medicalCertResultAsJson = JSON.stringify(result);
+          if (result.status === 'OK') {
+              const medicalCertResultAsJson = JSON.stringify(result);
 
-        console.log(medicalCertResultAsJson);
-        this.router.navigate(['/medical-certificate-result-fields', medicalCertResultAsJson])
+              console.log(medicalCertResultAsJson);
+              this.router.navigate(['/medical-certificate-result-fields', medicalCertResultAsJson]);
+          }
+      } catch (e: any) {
+          this.utils.showErrorAlert(e.message);
       }
-    } catch (e: any) {
-      this.utils.showErrorAlert(e.message);
-    }
   }
 }

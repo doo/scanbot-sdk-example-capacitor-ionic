@@ -7,12 +7,12 @@ import { BarcodeSetting, ScanbotService } from 'src/app/services/scanbot.service
 import { Preferences } from '@capacitor/preferences';
 
 @Component({
-  selector: 'app-barcode-formats',
-  templateUrl: './barcode-formats.page.html',
-  styleUrls: ['./barcode-formats.page.scss'],
-  standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule]
-})
+    selector: 'app-barcode-formats',
+    templateUrl: './barcode-formats.page.html',
+    styleUrls: ['./barcode-formats.page.scss'],
+    standalone: true,
+    imports: [IonicModule, CommonModule, FormsModule]
+    })
 export class BarcodeFormatsPage implements OnInit {
 
   private utils = inject(CommonUtils);
@@ -23,14 +23,14 @@ export class BarcodeFormatsPage implements OnInit {
   constructor() { }
 
   async ngOnInit() {
-    this.barcodeSettings = await this.scanbot.getBarcodeSettings();
+      this.barcodeSettings = await this.scanbot.getBarcodeSettings();
   }
 
   getBackButtonText() {
-    return this.utils.isiOSPlatform() ? 'Home' : '';
+      return this.utils.isiOSPlatform() ? 'Home' : '';
   }
 
   async barcodeSettingStateChanged(event: any, barcode: BarcodeSetting) {
-    await Preferences.set({ key: barcode.format.toString(), value: event.target.checked.toString() });
+      await Preferences.set({ key: barcode.format.toString(), value: event.target.checked.toString() });
   }
 }
