@@ -109,9 +109,6 @@ export class ScanbotService {
   // It is strongly recommended to use the default (secure) storage location of the Scanbot SDK.
   // However, for demo purposes we overwrite the "storageBaseDirectory" of the Scanbot SDK by a custom storage directory.
   //
-  // On Android we will use the primary shared/external storage device where the application can place persistent files it owns.
-  // On iOS, we will use the Documents directory.
-  //
   // For more details about the storage system of the Scanbot SDK Capacitor Module please see our docs:
   // - https://docs.scanbot.io/document-scanner-sdk/capacitor/introduction/
   //
