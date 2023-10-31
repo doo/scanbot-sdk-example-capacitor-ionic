@@ -13,22 +13,24 @@ import { FeatureId } from 'src/app/services/scanbot.service';
     imports: [CommonModule, IonicModule, RouterLink],
     })
 export class RtuHealthInsuranceCardScannerFeature extends ScanbotSdkFeatureComponent {
+    override feature = {
+        id: FeatureId.ScanEHIC,
+        title: 'Scan Health Insurance Card',
+    };
 
-  override feature = { id: FeatureId.ScanEHIC, title: 'Scan Health Insurance Card' };
+    override async run() {
+        try {
+            const result = await this.scanbot.scanEHIC();
 
-  override async run() {
-      try {
-          const result = await this.scanbot.scanEHIC();
+            if (result.status === 'OK') {
+                const fields = result.fields.map(
+                    (f) => `${f.type}: ${f.value} (${f.confidence.toFixed(2)})`,
+                );
 
-          if (result.status === 'OK') {
-              const fields = result.fields.map(
-                  f => `${f.type}: ${f.value} (${f.confidence.toFixed(2)})`,
-              );
-
-              this.utils.showResultInfo(fields.join('\n'));
-          }
-      } catch (e: any) {
-          this.utils.showErrorAlert(e.message);
-      }
-  }
+                this.utils.showResultInfo(fields.join('\n'));
+            }
+        } catch (e: any) {
+            this.utils.showErrorAlert(e.message);
+        }
+    }
 }

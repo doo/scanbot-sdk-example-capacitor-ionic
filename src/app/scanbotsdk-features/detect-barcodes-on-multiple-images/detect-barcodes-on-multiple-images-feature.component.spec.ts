@@ -13,7 +13,9 @@ describe('DetectBarcodesOnMultipleImagesFeature', () => {
             imports: [IonicModule.forRoot()],
         }).compileComponents();
 
-        fixture = TestBed.createComponent(DetectBarcodesOnMultipleImagesFeature);
+        fixture = TestBed.createComponent(
+            DetectBarcodesOnMultipleImagesFeature,
+        );
         component = fixture.componentInstance;
         fixture.detectChanges();
     }));

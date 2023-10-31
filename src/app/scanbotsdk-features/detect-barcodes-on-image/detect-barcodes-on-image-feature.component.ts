@@ -13,23 +13,25 @@ import { FeatureId } from 'src/app/services/scanbot.service';
     imports: [CommonModule, IonicModule, RouterLink],
     })
 export class DetectBarcodesOnImageFeature extends ScanbotSdkFeatureComponent {
+    override feature = {
+        id: FeatureId.DetectBarcodesOnStillImage,
+        title: 'Import Image & Detect Barcodes',
+    };
 
-  override feature = { id: FeatureId.DetectBarcodesOnStillImage, title: 'Import Image & Detect Barcodes' };
+    override async run() {
+        try {
+            this.utils.showLoader();
+            const result = await this.scanbot.detectBarcodesOnImage();
+            await this.utils.dismissLoader();
 
-  override async run() {
-      try {
-          this.utils.showLoader();
-          const result = await this.scanbot.detectBarcodesOnImage();
-          await this.utils.dismissLoader();
-
-          if (result.barcodes.length > 0) {
-              this.utils.showResultInfo(JSON.stringify(result.barcodes));
-          } else {
-              this.utils.showInfoAlert('No barcodes detected');
-          }
-      } catch (e: any) {
-          await this.utils.dismissLoader();
-          this.utils.showErrorAlert(e.message);
-      }
-  }
+            if (result.barcodes.length > 0) {
+                this.utils.showResultInfo(JSON.stringify(result.barcodes));
+            } else {
+                this.utils.showInfoAlert('No barcodes detected');
+            }
+        } catch (e: any) {
+            await this.utils.dismissLoader();
+            this.utils.showErrorAlert(e.message);
+        }
+    }
 }

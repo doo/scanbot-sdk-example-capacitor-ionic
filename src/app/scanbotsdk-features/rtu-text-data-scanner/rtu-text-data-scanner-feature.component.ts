@@ -13,22 +13,24 @@ import { Feature, FeatureId } from 'src/app/services/scanbot.service';
     imports: [CommonModule, IonicModule, RouterLink],
     })
 export class RtuTextDataScannerFeature extends ScanbotSdkFeatureComponent {
+    override feature: Feature = {
+        id: FeatureId.TextDataScanner,
+        title: 'Start Text Data Scanner',
+    };
 
-  override feature: Feature = { id: FeatureId.TextDataScanner, title: 'Start Text Data Scanner' };
+    override async run() {
+        try {
+            const result = await this.scanbot.scanTextData();
 
-  override async run() {
-      try {
-          const result = await this.scanbot.scanTextData();
-
-          if (result.status === 'OK') {
-              if (result.result?.text) {
-                  this.utils.showResultInfo(JSON.stringify(result));
-              } else {
-                  this.utils.showInfoAlert('No text data found');
-              }
-          }
-      } catch (e: any) {
-          this.utils.showErrorAlert(e.message);
-      }
-  }
+            if (result.status === 'OK') {
+                if (result.result?.text) {
+                    this.utils.showResultInfo(JSON.stringify(result));
+                } else {
+                    this.utils.showInfoAlert('No text data found');
+                }
+            }
+        } catch (e: any) {
+            this.utils.showErrorAlert(e.message);
+        }
+    }
 }

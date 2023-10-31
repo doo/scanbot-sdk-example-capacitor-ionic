@@ -13,20 +13,22 @@ import { FeatureId } from 'src/app/services/scanbot.service';
     imports: [CommonModule, IonicModule, RouterLink],
     })
 export class RtuDocumentScannerWithFinderFeature extends ScanbotSdkFeatureComponent {
+    override feature = {
+        id: FeatureId.FinderDocumentScanner,
+        title: 'Document Scanner with Finder',
+    };
 
-  override feature = { id: FeatureId.FinderDocumentScanner, title: 'Document Scanner with Finder' };
+    override async run() {
+        try {
+            const documentResult = await this.scanbot.scanDocumentWithFinder();
 
-  override async run() {
-      try {
-          const documentResult = await this.scanbot.scanDocumentWithFinder();
+            if (documentResult.status === 'OK') {
+                await this.preferencesUtils.savePages(documentResult.pages);
 
-          if (documentResult.status === 'OK') {
-              await this.preferencesUtils.savePages(documentResult.pages);
-
-              this.router.navigate(['/image-results']);
-          }
-      } catch (e: any) {
-          this.utils.showErrorAlert(e.message);
-      }
-  }
+                this.router.navigate(['/image-results']);
+            }
+        } catch (e: any) {
+            this.utils.showErrorAlert(e.message);
+        }
+    }
 }

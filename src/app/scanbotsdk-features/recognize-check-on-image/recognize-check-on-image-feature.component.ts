@@ -13,26 +13,33 @@ import { Feature, FeatureId } from 'src/app/services/scanbot.service';
     imports: [CommonModule, IonicModule, RouterLink],
     })
 export class RecognizeCheckOnImageFeature extends ScanbotSdkFeatureComponent {
+    override feature: Feature = {
+        id: FeatureId.RecognizeCheckOnImage,
+        title: 'Import Image and Recognize Check',
+    };
 
-  override feature: Feature = { id: FeatureId.RecognizeCheckOnImage, title: 'Import Image and Recognize Check' };
+    override async run() {
+        try {
+            this.utils.showLoader();
+            const result = await this.scanbot.scanCheckFromImage();
+            this.utils.dismissLoader();
 
-  override async run() {
-      try {
-          this.utils.showLoader();
-          const result = await this.scanbot.scanCheckFromImage();
-          this.utils.dismissLoader();
+            if (result.checkStatus === 'SUCCESS') {
+                const checkResultAsJson = JSON.stringify(result);
 
-          if (result.checkStatus === 'SUCCESS') {
-              const checkResultAsJson = JSON.stringify(result);
-
-              console.log(checkResultAsJson);
-              this.router.navigate(['/check-result-fields', checkResultAsJson]);
-          } else {
-              this.utils.showInfoAlert('The check was not found in the given image.');
-          }
-      } catch (e: any) {
-          await this.utils.dismissLoader();
-          this.utils.showErrorAlert(e.message);
-      }
-  }
+                console.log(checkResultAsJson);
+                this.router.navigate([
+                    '/check-result-fields',
+                    checkResultAsJson,
+                ]);
+            } else {
+                this.utils.showInfoAlert(
+                    'The check was not found in the given image.',
+                );
+            }
+        } catch (e: any) {
+            await this.utils.dismissLoader();
+            this.utils.showErrorAlert(e.message);
+        }
+    }
 }

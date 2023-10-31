@@ -13,21 +13,26 @@ import { FeatureId } from 'src/app/services/scanbot.service';
     imports: [CommonModule, IonicModule, RouterLink],
     })
 export class RtuMedicalCertificateScannerFeature extends ScanbotSdkFeatureComponent {
+    override feature = {
+        id: FeatureId.ScanMedicalCertificate,
+        title: 'Scan Medical Certificate',
+    };
 
-  override feature = { id: FeatureId.ScanMedicalCertificate, title: 'Scan Medical Certificate' };
+    override async run() {
+        try {
+            const result = await this.scanbot.scanMedicalCertificate();
 
-  override async run() {
-      try {
-          const result = await this.scanbot.scanMedicalCertificate();
+            if (result.status === 'OK') {
+                const medicalCertResultAsJson = JSON.stringify(result);
 
-          if (result.status === 'OK') {
-              const medicalCertResultAsJson = JSON.stringify(result);
-
-              console.log(medicalCertResultAsJson);
-              this.router.navigate(['/medical-certificate-result-fields', medicalCertResultAsJson]);
-          }
-      } catch (e: any) {
-          this.utils.showErrorAlert(e.message);
-      }
-  }
+                console.log(medicalCertResultAsJson);
+                this.router.navigate([
+                    '/medical-certificate-result-fields',
+                    medicalCertResultAsJson,
+                ]);
+            }
+        } catch (e: any) {
+            this.utils.showErrorAlert(e.message);
+        }
+    }
 }

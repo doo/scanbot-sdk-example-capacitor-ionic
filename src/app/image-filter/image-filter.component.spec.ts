@@ -9,7 +9,7 @@ describe('ImageFilterComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [ ImageFilterComponent ],
+            declarations: [ImageFilterComponent],
             imports: [IonicModule.forRoot()],
         }).compileComponents();
 

@@ -13,25 +13,29 @@ import { FeatureId } from 'src/app/services/scanbot.service';
     imports: [CommonModule, IonicModule, RouterLink],
     })
 export class ExtractImagesFromPdfFeature extends ScanbotSdkFeatureComponent {
+    override feature = {
+        id: FeatureId.ExtractImagesFromPdf,
+        title: 'Extract Images from PDF',
+    };
 
-  override feature = { id: FeatureId.ExtractImagesFromPdf, title: 'Extract Images from PDF' };
+    override async run() {
+        try {
+            this.utils.showLoader();
+            const result = await this.scanbot.extractImagesFromPdf();
+            await this.utils.dismissLoader();
 
-  override async run() {
-      try {
-          this.utils.showLoader();
-          const result = await this.scanbot.extractImagesFromPdf();
-          await this.utils.dismissLoader();
-
-          if (result.status === 'OK') {
-              if (result.imageFilesUrls) {
-                  this.utils.showResultInfo(JSON.stringify(result.imageFilesUrls, null, 2));
-              } else {
-                  this.utils.showInfoAlert('No images extracted');
-              }
-          }
-      } catch (e: any) {
-          await this.utils.dismissLoader();
-          this.utils.showErrorAlert(e.message);
-      }
-  }
+            if (result.status === 'OK') {
+                if (result.imageFilesUrls) {
+                    this.utils.showResultInfo(
+                        JSON.stringify(result.imageFilesUrls, null, 2),
+                    );
+                } else {
+                    this.utils.showInfoAlert('No images extracted');
+                }
+            }
+        } catch (e: any) {
+            await this.utils.dismissLoader();
+            this.utils.showErrorAlert(e.message);
+        }
+    }
 }

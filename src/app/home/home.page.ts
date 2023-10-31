@@ -5,7 +5,11 @@ import { Router, RouterLink } from '@angular/router';
 
 import { CommonUtils } from '../utils/common-utils';
 
-import { Feature, FeatureId, ScanbotService } from '../services/scanbot.service';
+import {
+    Feature,
+    FeatureId,
+    ScanbotService,
+} from '../services/scanbot.service';
 import { RtuDocumentScannerFeature } from '../scanbotsdk-features/rtu-document-scanner/rtu-document-scanner-feature.component';
 import { RtuDocumentScannerWithFinderFeature } from '../scanbotsdk-features/rtu-document-scanner-with-finder/rtu-document-scanner-with-finder-feature.component';
 import { DetectDocumentOnPageFeature } from '../scanbotsdk-features/detect-document-on-page/detect-document-on-page-feature.component';
@@ -26,16 +30,14 @@ import { RtuTextDataScannerFeature } from '../scanbotsdk-features/rtu-text-data-
 import { RecognizeCheckOnImageFeature } from '../scanbotsdk-features/recognize-check-on-image/recognize-check-on-image-feature.component';
 import { ApplyFilterOnImageFeature } from '../scanbotsdk-features/apply-filter-on-image/apply-filter-on-image-feature.component';
 
-
 @Component({
     selector: 'app-home',
     templateUrl: 'home.page.html',
     styleUrls: ['home.page.scss'],
     standalone: true,
-    imports: 
-    [
-    IonicModule, 
-    CommonModule, 
+    imports: [
+    IonicModule,
+    CommonModule,
     RouterLink,
     RtuDocumentScannerFeature,
     RtuDocumentScannerWithFinderFeature,
@@ -55,53 +57,58 @@ import { ApplyFilterOnImageFeature } from '../scanbotsdk-features/apply-filter-o
     RtuLicensePlateScannerFeature,
     RtuTextDataScannerFeature,
     RecognizeCheckOnImageFeature,
-    ApplyFilterOnImageFeature
+    ApplyFilterOnImageFeature,
     ],
     })
 export class HomePage implements OnInit {
+    private scanbot = inject(ScanbotService);
+    private utils = inject(CommonUtils);
+    private router = inject(Router);
 
-  private scanbot = inject(ScanbotService);
-  private utils = inject(CommonUtils);
-  private router = inject(Router);
+    readonly featureScanLicensePlateMLBased: Feature = {
+        id: FeatureId.LicensePlateScannerML,
+        title: 'Scan Vehicle License Plate (ML Based)',
+    };
+    readonly featureScanLicensePlateClassic: Feature = {
+        id: FeatureId.LicensePlateScannerClassic,
+        title: 'Scan Vehicle License Plate (Classic)',
+    };
 
-  readonly featureScanLicensePlateMLBased: Feature = { id: FeatureId.LicensePlateScannerML, title: 'Scan Vehicle License Plate (ML Based)' };
-  readonly featureScanLicensePlateClassic: Feature = { id: FeatureId.LicensePlateScannerClassic, title: 'Scan Vehicle License Plate (Classic)' };
+    readonly currentYear = new Date().getFullYear();
 
-  readonly currentYear = new Date().getFullYear();
+    constructor() {}
 
-  constructor() { }
+    ngOnInit() {
+        this.scanbot.initializeSDK();
+    }
 
-  ngOnInit() {
-      this.scanbot.initializeSDK();
-  }
+    async showLicenseInfo() {
+        try {
+            this.utils.showLicenseInfo(await this.scanbot.getLicenseInfo());
+        } catch (e: any) {
+            this.utils.showErrorAlert(e.message);
+        }
+    }
 
-  async showLicenseInfo() {
-      try {
-          this.utils.showLicenseInfo(await this.scanbot.getLicenseInfo());
-      } catch (e: any) {
-          this.utils.showErrorAlert(e.message);
-      }
-  }
+    async showOCRConfigs() {
+        try {
+            if (await this.scanbot.isLicenseValid()) {
+                this.utils.showOCRConfigs(await this.scanbot.getOCRConfigs());
+            }
+        } catch (e: any) {
+            this.utils.showErrorAlert(e.message);
+        }
+    }
 
-  async showOCRConfigs() {
-      try {
-          if (await this.scanbot.isLicenseValid()) {
-              this.utils.showOCRConfigs(await this.scanbot.getOCRConfigs());
-          }
-      } catch (e: any) {
-          this.utils.showErrorAlert(e.message);
-      }
-  }
+    async showBarcodeFormatsScreen() {
+        if (await this.scanbot.isLicenseValid()) {
+            this.router.navigate(['/barcode-formats']);
+        }
+    }
 
-  async showBarcodeFormatsScreen() {
-      if (await this.scanbot.isLicenseValid()) {
-          this.router.navigate(['/barcode-formats']);
-      }
-  }
-
-  async showBarcodeDocumentFormatsScreen() {
-      if (await this.scanbot.isLicenseValid()) {
-          this.router.navigate(['/barcode-document-formats']);
-      }
-  }
+    async showBarcodeDocumentFormatsScreen() {
+        if (await this.scanbot.isLicenseValid()) {
+            this.router.navigate(['/barcode-document-formats']);
+        }
+    }
 }

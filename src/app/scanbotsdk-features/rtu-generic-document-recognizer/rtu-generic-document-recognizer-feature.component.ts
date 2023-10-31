@@ -13,20 +13,25 @@ import { FeatureId } from 'src/app/services/scanbot.service';
     imports: [CommonModule, IonicModule, RouterLink],
     })
 export class RtuGenericDocumentRecognizerFeature extends ScanbotSdkFeatureComponent {
+    override feature = {
+        id: FeatureId.ScanGenericDocument,
+        title: 'Scan Generic Document',
+    };
 
-  override feature = { id: FeatureId.ScanGenericDocument, title: 'Scan Generic Document' };
+    override async run() {
+        try {
+            const result = await this.scanbot.scanGenericDocument();
+            if (result.status === 'OK') {
+                const documentResultAsJson = JSON.stringify(result);
 
-  override async run() {
-      try {
-          const result = await this.scanbot.scanGenericDocument();
-          if (result.status === 'OK') {
-              const documentResultAsJson = JSON.stringify(result);
-
-              console.log(documentResultAsJson);
-              this.router.navigate(['/generic-document-result-fields', documentResultAsJson]);
-          }
-      } catch (e: any) {
-          this.utils.showErrorAlert(e.message);
-      }
-  }
+                console.log(documentResultAsJson);
+                this.router.navigate([
+                    '/generic-document-result-fields',
+                    documentResultAsJson,
+                ]);
+            }
+        } catch (e: any) {
+            this.utils.showErrorAlert(e.message);
+        }
+    }
 }

@@ -4,13 +4,12 @@ import { FilePicker } from '@capawesome/capacitor-file-picker';
 import { CommonUtils } from './common-utils';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
     })
 export class FileUtils {
-
     private utils = inject(CommonUtils);
 
-    constructor() { }
+    constructor() {}
 
     async selectPdfFile(): Promise<string> {
         let pdfPath;
@@ -31,7 +30,11 @@ export class FileUtils {
             pickFilesErrorMessage = e.message;
         }
 
-        throw new Error(`No file picked${pickFilesErrorMessage ? ': ' + pickFilesErrorMessage : ''}`);
+        throw new Error(
+            `No file picked${
+                pickFilesErrorMessage ? ': ' + pickFilesErrorMessage : ''
+            }`,
+        );
     }
 
     async openPdfFile(fileURI?: string | undefined) {
@@ -42,7 +45,9 @@ export class FileUtils {
                 openWithDefault: false,
             });
         } else {
-            this.utils.showWarningAlert(`Cannot find PDF file at URI: ${fileURI}`);
+            this.utils.showWarningAlert(
+                `Cannot find PDF file at URI: ${fileURI}`,
+            );
         }
     }
 
@@ -54,7 +59,9 @@ export class FileUtils {
                 openWithDefault: false,
             });
         } else {
-            this.utils.showWarningAlert(`Cannot find TIFF file at URI: ${fileURI}`);
+            this.utils.showWarningAlert(
+                `Cannot find TIFF file at URI: ${fileURI}`,
+            );
         }
     }
 }

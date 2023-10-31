@@ -13,21 +13,23 @@ import { FeatureId } from 'src/app/services/scanbot.service';
     imports: [CommonModule, IonicModule, RouterLink],
     })
 export class RtuCheckRecognizerFeature extends ScanbotSdkFeatureComponent {
+    override feature = { id: FeatureId.CheckRecognizer, title: 'Scan Check' };
 
-  override feature = { id: FeatureId.CheckRecognizer, title: 'Scan Check' };
+    override async run() {
+        try {
+            const result = await this.scanbot.scanCheck();
 
-  override async run() {
-      try {
-          const result = await this.scanbot.scanCheck();
+            if (result.checkStatus === 'SUCCESS') {
+                const checkResultAsJson = JSON.stringify(result);
 
-          if (result.checkStatus === 'SUCCESS') {
-              const checkResultAsJson = JSON.stringify(result);
-
-              console.log(checkResultAsJson);
-              this.router.navigate(['/check-result-fields', checkResultAsJson]);
-          }
-      } catch (e: any) {
-          this.utils.showErrorAlert(e.message);
-      }
-  }
+                console.log(checkResultAsJson);
+                this.router.navigate([
+                    '/check-result-fields',
+                    checkResultAsJson,
+                ]);
+            }
+        } catch (e: any) {
+            this.utils.showErrorAlert(e.message);
+        }
+    }
 }

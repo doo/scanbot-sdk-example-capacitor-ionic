@@ -13,21 +13,23 @@ import { FeatureId } from 'src/app/services/scanbot.service';
     imports: [CommonModule, IonicModule, RouterLink],
     })
 export class DetectDocumentOnPageFeature extends ScanbotSdkFeatureComponent {
+    override feature = {
+        id: FeatureId.DetectDocumentFromPage,
+        title: 'Import Image & Detect Document',
+    };
 
-  override feature = { id: FeatureId.DetectDocumentFromPage, title: 'Import Image & Detect Document' };
+    override async run() {
+        try {
+            this.utils.showLoader();
+            const page = await this.scanbot.detectDocumentFromPage();
 
-  override async run() {
-      try {
-          this.utils.showLoader();
-          const page = await this.scanbot.detectDocumentFromPage();
+            await this.preferencesUtils.savePage(page);
+            this.utils.dismissLoader();
 
-          await this.preferencesUtils.savePage(page);
-          this.utils.dismissLoader();
-
-          this.router.navigate(['/image-results']);
-      } catch (e: any) {
-          await this.utils.dismissLoader();
-          this.utils.showErrorAlert(e.message);
-      }
-  }
+            this.router.navigate(['/image-results']);
+        } catch (e: any) {
+            await this.utils.dismissLoader();
+            this.utils.showErrorAlert(e.message);
+        }
+    }
 }

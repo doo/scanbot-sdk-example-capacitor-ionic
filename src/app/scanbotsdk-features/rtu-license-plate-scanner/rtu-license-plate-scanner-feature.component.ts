@@ -13,10 +13,12 @@ import { FeatureId } from 'src/app/services/scanbot.service';
     imports: [CommonModule, IonicModule, RouterLink],
     })
 export class RtuLicensePlateScannerFeature extends ScanbotSdkFeatureComponent {
-
     override async run() {
         try {
-            const scanStrategy = this.feature.id == FeatureId.LicensePlateScannerML ? 'MlBased' : 'Classic';
+            const scanStrategy =
+                this.feature.id == FeatureId.LicensePlateScannerML
+                    ? 'MlBased'
+                    : 'Classic';
             const result = await this.scanbot.scanLicensePlate(scanStrategy);
 
             if (result.status === 'OK') {

@@ -6,15 +6,15 @@ import { CommonUtils } from 'src/app/utils/common-utils';
 import { ActivatedRoute } from '@angular/router';
 
 export interface ScanResultFieldsSection {
-  title: string,
-  fields: ScanResultField[]
+    title: string;
+    fields: ScanResultField[];
 }
 
 export interface ScanResultField {
-  key: string,
-  value?: string | undefined,
-  fieldPhotoPreviewWebViewPath?: string | undefined
-  showPhotoOnly?: boolean | undefined
+    key: string;
+    value?: string | undefined;
+    fieldPhotoPreviewWebViewPath?: string | undefined;
+    showPhotoOnly?: boolean | undefined;
 }
 
 @Component({
@@ -22,27 +22,26 @@ export interface ScanResultField {
     templateUrl: './scan-result-fields.page.html',
     styleUrls: ['./scan-result-fields.page.scss'],
     standalone: true,
-    imports: [IonicModule, CommonModule, FormsModule]
+    imports: [IonicModule, CommonModule, FormsModule],
     })
 export class ScanResultFieldsPage implements OnInit {
+    pageTitle: string = 'Scan Result';
+    resultFields: ScanResultFieldsSection[] = [];
 
-  pageTitle: string = 'Scan Result'
-  resultFields: ScanResultFieldsSection[] = [];
+    activatedRoute = inject(ActivatedRoute);
+    utils = inject(CommonUtils);
 
-  activatedRoute = inject(ActivatedRoute);
-  utils = inject(CommonUtils);
+    constructor() {}
 
-  constructor() { }
+    async ngOnInit() {
+        this.resultFields = this.loadResultFields();
+    }
 
-  async ngOnInit() {
-      this.resultFields = this.loadResultFields();
-  }
+    getBackButtonText() {
+        return this.utils.isiOSPlatform() ? 'Home' : '';
+    }
 
-  getBackButtonText() {
-      return this.utils.isiOSPlatform() ? 'Home' : '';
-  }
-
-  loadResultFields(): ScanResultFieldsSection[] {
-      return [];
-  }
+    loadResultFields(): ScanResultFieldsSection[] {
+        return [];
+    }
 }

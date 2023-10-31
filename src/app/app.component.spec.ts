@@ -5,7 +5,6 @@ import { IonicModule } from '@ionic/angular';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
-
     beforeEach(async () => {
         TestBed.overrideComponent(AppComponent, {
             add: {
@@ -19,5 +18,4 @@ describe('AppComponent', () => {
         const app = fixture.componentInstance;
         expect(app).toBeTruthy();
     });
-
 });

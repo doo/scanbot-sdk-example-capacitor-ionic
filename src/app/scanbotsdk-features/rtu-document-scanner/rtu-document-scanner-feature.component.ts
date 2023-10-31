@@ -13,20 +13,22 @@ import { FeatureId } from 'src/app/services/scanbot.service';
     imports: [CommonModule, IonicModule, RouterLink],
     })
 export class RtuDocumentScannerFeature extends ScanbotSdkFeatureComponent {
+    override feature = {
+        id: FeatureId.DocumentScanner,
+        title: 'Scan Document',
+    };
 
-  override feature = { id: FeatureId.DocumentScanner, title: 'Scan Document' };
+    override async run() {
+        try {
+            const documentResult = await this.scanbot.scanDocument();
 
-  override async run() {
-      try {
-          const documentResult = await this.scanbot.scanDocument();
+            if (documentResult.status === 'OK') {
+                await this.preferencesUtils.savePages(documentResult.pages);
 
-          if (documentResult.status === 'OK') {
-              await this.preferencesUtils.savePages(documentResult.pages);
-
-              this.router.navigate(['/image-results']);
-          }
-      } catch (e: any) {
-          this.utils.showErrorAlert(e.message);
-      }
-  }
+                this.router.navigate(['/image-results']);
+            }
+        } catch (e: any) {
+            this.utils.showErrorAlert(e.message);
+        }
+    }
 }
