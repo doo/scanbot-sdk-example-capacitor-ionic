@@ -82,7 +82,7 @@ export class ImageResultsPage {
   }
 
   async showDeleteAllResultsConfirmationDialog() {
-      if (this.isResultsListEmpty('No images to delete. Please scan few documents first')) {
+      if (this.isResultsListEmpty('No images to delete. Please scan one or more documents first.')) {
           return;
       }
 
@@ -111,7 +111,7 @@ export class ImageResultsPage {
   }
 
   async saveResultsAs() {
-      if (this.isResultsListEmpty('No images to save. Please scan few documents first')) {
+      if (this.isResultsListEmpty('No images to delete. Please scan one or more documents first.')) {
           return;
       }
 
