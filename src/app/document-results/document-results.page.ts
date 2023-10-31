@@ -1,22 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Capacitor } from '@capacitor/core';
-import { ScanbotService } from '../services/scanbot-service.service';
+import { DisplayImageFilter, ScanbotService } from '../services/scanbot-service.service';
 import { ActionSheetButton, ActionSheetController } from '@ionic/angular';
 import { ImageFilterType, Page, ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
 import { Camera } from '@capacitor/camera';
 import { Directory, Filesystem, FilesystemDirectory, WriteFileOptions, WriteFileResult } from '@capacitor/filesystem';
 import { DemoRuntimeStorage } from '../services/demo-runtime-storage';
-
-export class DisplayImageFilter {
-	filterType: ImageFilterType;
-	displayName: string;
-
-	constructor(filterType: ImageFilterType, displayName: string) {
-		this.filterType = filterType;
-		this.displayName = displayName;
-	}
-}
 
 @Component({
 	selector: 'app-document-results',
@@ -27,23 +17,7 @@ export class DocumentResultsPage implements OnInit {
 
 	constructor(private scanbot: ScanbotService, private actionSheetController: ActionSheetController, private router: Router) {
 		this.filterModalOpen = false
-		this.displayFilters = [
-			new DisplayImageFilter('ImageFilterTypeBackgroundClean', 'Background Clean'),
-			new DisplayImageFilter('ImageFilterTypeBinarized', 'Binarized'),
-			new DisplayImageFilter('ImageFilterTypeBlackAndWhite', 'Black and White'),
-			new DisplayImageFilter('ImageFilterTypeColor', 'Color'),
-			new DisplayImageFilter('ImageFilterTypeColorDocument', 'Color Document'),
-			new DisplayImageFilter('ImageFilterTypeDeepBinarization', 'Deep Binarization'),
-			new DisplayImageFilter('ImageFilterTypeEdgeHighlight', 'Edge Highlight'),
-			new DisplayImageFilter('ImageFilterTypeGray', 'Gray'),
-			new DisplayImageFilter('ImageFilterTypeLowLightBinarization', 'Low Light Binarization'),
-			new DisplayImageFilter('ImageFilterTypeLowLightBinarization2', 'Low Light Binarization 2'),
-			new DisplayImageFilter('ImageFilterTypeNone', 'None'),
-			new DisplayImageFilter('ImageFilterTypeOtsuBinarization', 'OtsuBinarization'),
-			new DisplayImageFilter('ImageFilterTypePureBinarized', 'Pure Binarized'),
-			new DisplayImageFilter('ImageFilterTypePureGray', 'Gray'),
-			new DisplayImageFilter('ImageFilterTypeSensitiveBinarization', 'Sensitive Binarization')
-		]
+		this.displayFilters = scanbot.displayFilters;
 	}
 
 	images: string[] = []
@@ -148,6 +122,14 @@ export class DocumentResultsPage implements OnInit {
 			handler: async () => {
 				let path = await this.scanbot.writePdf(DemoRuntimeStorage.default.allPageOriginalUris, "A4")
 				console.log("PDF saved at path: " + path);
+			}
+		}, {
+			text: 'Export PDF with OCR',
+			icon: "download-outline",
+			role: 'default',
+			handler: async () => {
+				let result = await this.scanbot.performOCR(DemoRuntimeStorage.default.allPageOriginalUris)
+				console.log("PDF with OCR saved at path: " + result.pdfFileUri);
 			}
 		}, {
 			text: 'Export Tiff',

@@ -22,7 +22,7 @@ export class GenericDocResultsPage implements OnInit {
 	}
 
 	async openGenericDocRecognizer() {
-		this.genericDocResult = (await this.scanbotSdk.showGenericDocScanner());
+		this.genericDocResult = (await this.scanbotSdk.showGenericDocumentRecognizer());
 		if (this.genericDocResult.status === "CANCELED") {
 			return;
 		}
