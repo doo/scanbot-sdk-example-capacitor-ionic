@@ -1,0 +1,15 @@
+ion-modal#image-filter {
+    --width: fit-content;
+    --min-width: 250px;
+    --max-height: 70%;
+    --border-radius: 6px;
+}
+
+ion-modal#image-filter h2 {
+    margin: 10px 20px 10px 20px;
+}
+
+ion-modal#image-filter .cancelLabel {
+    color: var(--ion-color-primary);
+    margin: 20px;
+}

@@ -5,7 +5,12 @@
   "projects": {
     "app": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@ionic/angular-toolkit:page": {
+          "styleext": "scss",
+          "standalone": true
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -124,10 +129,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         }
       }
@@ -145,6 +147,12 @@
     },
     "@ionic/angular-toolkit:page": {
       "styleext": "scss"
+    },
+    "@angular-eslint/schematics:application": {
+      "setParserOptionsProject": true
+    },
+    "@angular-eslint/schematics:library": {
+      "setParserOptionsProject": true
     }
   }
 }
