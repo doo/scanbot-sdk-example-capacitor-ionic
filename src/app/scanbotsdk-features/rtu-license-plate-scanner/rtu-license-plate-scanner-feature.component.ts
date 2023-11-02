@@ -6,12 +6,12 @@ import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature.component';
 import { FeatureId } from 'src/app/services/scanbot.service';
 
 @Component({
-    selector: 'app-scanbotsdk-feature-scan-license-plate',
+    selector: 'app-rtu-license-plate-scanner-feature',
     templateUrl: '../scanbotsdk-feature.component.html',
     styleUrls: ['../scanbotsdk-feature.component.scss'],
     standalone: true,
     imports: [CommonModule, IonicModule, RouterLink],
-    })
+})
 export class RtuLicensePlateScannerFeature extends ScanbotSdkFeatureComponent {
     override async run() {
         try {

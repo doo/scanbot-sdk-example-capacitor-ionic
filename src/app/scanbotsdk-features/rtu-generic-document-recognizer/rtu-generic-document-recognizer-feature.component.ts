@@ -6,12 +6,12 @@ import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature.component';
 import { FeatureId } from 'src/app/services/scanbot.service';
 
 @Component({
-    selector: 'app-scanbotsdk-feature-scan-generic-doc',
+    selector: 'app-rtu-generic-document-recognizer-feature',
     templateUrl: '../scanbotsdk-feature.component.html',
     styleUrls: ['../scanbotsdk-feature.component.scss'],
     standalone: true,
     imports: [CommonModule, IonicModule, RouterLink],
-    })
+})
 export class RtuGenericDocumentRecognizerFeature extends ScanbotSdkFeatureComponent {
     override feature = {
         id: FeatureId.ScanGenericDocument,

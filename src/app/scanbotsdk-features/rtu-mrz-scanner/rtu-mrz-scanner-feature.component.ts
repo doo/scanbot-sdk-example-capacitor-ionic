@@ -6,12 +6,12 @@ import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature.component';
 import { FeatureId } from 'src/app/services/scanbot.service';
 
 @Component({
-    selector: 'app-scanbotsdk-feature-scan-mrz',
+    selector: 'app-rtu-mrz-scanner-feature',
     templateUrl: '../scanbotsdk-feature.component.html',
     styleUrls: ['../scanbotsdk-feature.component.scss'],
     standalone: true,
     imports: [CommonModule, IonicModule, RouterLink],
-    })
+})
 export class RtuMrzScannerFeature extends ScanbotSdkFeatureComponent {
     override feature = { id: FeatureId.ScanMRZ, title: 'Scan MRZ on ID Card' };
 

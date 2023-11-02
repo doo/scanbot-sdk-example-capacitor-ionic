@@ -6,12 +6,12 @@ import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature.component';
 import { Feature, FeatureId } from 'src/app/services/scanbot.service';
 
 @Component({
-    selector: 'app-scanbotsdk-feature-scan-text-data',
+    selector: 'app-rtu-text-data-scanner-feature',
     templateUrl: '../scanbotsdk-feature.component.html',
     styleUrls: ['../scanbotsdk-feature.component.scss'],
     standalone: true,
     imports: [CommonModule, IonicModule, RouterLink],
-    })
+})
 export class RtuTextDataScannerFeature extends ScanbotSdkFeatureComponent {
     override feature: Feature = {
         id: FeatureId.TextDataScanner,

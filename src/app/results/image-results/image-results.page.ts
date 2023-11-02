@@ -21,7 +21,7 @@ interface ImageResult {
     styleUrls: ['./image-results.page.scss'],
     standalone: true,
     imports: [IonicModule, CommonModule, FormsModule, RouterLink],
-    })
+})
 export class ImageResultsPage {
     private preferencesUtils = inject(PreferencesUtils);
     private scanbot = inject(ScanbotService);
@@ -31,7 +31,7 @@ export class ImageResultsPage {
 
     imageResults: ImageResult[] = [];
 
-    constructor() {}
+    constructor() { }
 
     ionViewWillEnter() {
         this.loadImageResults();
@@ -125,7 +125,7 @@ export class ImageResultsPage {
     async saveResultsAs() {
         if (
             this.isResultsListEmpty(
-                'No images to delete. Please scan one or more documents first.',
+                'No images to save. Please scan one or more documents first.',
             )
         ) {
             return;
@@ -213,7 +213,7 @@ export class ImageResultsPage {
         if (this.scanbot.FILE_ENCRYPTION_ENABLED) {
             this.utils.showWarningAlert(
                 'Encryption for TIFF files currently not supported. ' +
-                    'In order to test TIFF please disable image file encryption',
+                'In order to test TIFF please disable image file encryption',
             );
 
             return;

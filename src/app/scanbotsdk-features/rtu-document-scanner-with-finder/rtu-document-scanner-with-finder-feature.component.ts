@@ -6,12 +6,12 @@ import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature.component';
 import { FeatureId } from 'src/app/services/scanbot.service';
 
 @Component({
-    selector: 'app-scanbotsdk-feature-document-scanner-with-finder',
+    selector: 'app-rtu-document-scanner-with-finder-feature',
     templateUrl: '../scanbotsdk-feature.component.html',
     styleUrls: ['../scanbotsdk-feature.component.scss'],
     standalone: true,
     imports: [CommonModule, IonicModule, RouterLink],
-    })
+})
 export class RtuDocumentScannerWithFinderFeature extends ScanbotSdkFeatureComponent {
     override feature = {
         id: FeatureId.FinderDocumentScanner,

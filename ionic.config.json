@@ -1,5 +1,5 @@
 {
-  "name": "Scanbot Example SDK Capacitor",
+  "name": "Capacitor Scanbot SDK Example",
   "integrations": {
     "capacitor": {}
   },
