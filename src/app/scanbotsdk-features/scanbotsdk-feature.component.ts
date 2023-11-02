@@ -8,27 +8,28 @@ import { ImageUtils } from '../utils/image-utils';
 import { PreferencesUtils } from '../utils/preferences-utils';
 
 @Component({
-  selector: 'app-scanbotsdk-feature',
-  templateUrl: './scanbotsdk-feature.component.html',
-  styleUrls: ['./scanbotsdk-feature.component.scss'],
-  standalone: true,
-  imports: [CommonModule, IonicModule, RouterLink],
-})
-export class ScanbotsdkFeatureComponent {
-  @Input() feature!: Feature;
+    selector: 'app-scanbotsdk-feature',
+    templateUrl: './scanbotsdk-feature.component.html',
+    styleUrls: ['./scanbotsdk-feature.component.scss'],
+    standalone: true,
+    imports: [CommonModule, IonicModule, RouterLink],
+    })
+export class ScanbotSdkFeatureComponent {
+    @Input() feature!: Feature;
 
-  scanbot = inject(ScanbotService);
-  utils = inject(CommonUtils);
-  imageUtils = inject(ImageUtils);
-  preferencesUtils = inject(PreferencesUtils);
-  router = inject(Router);
+    scanbot = inject(ScanbotService);
+    utils = inject(CommonUtils);
+    imageUtils = inject(ImageUtils);
+    preferencesUtils = inject(PreferencesUtils);
+    router = inject(Router);
 
-  async featureClicked() {
-    if (await this.scanbot.isLicenseValid())
-      this.run();
-  }
+    async featureClicked() {
+        if (await this.scanbot.isLicenseValid()) {
+            this.run();
+        }
+    }
 
-  async run() {
-    throw new Error('Not implemented');
-  }
+    async run() {
+        throw new Error('Not implemented');
+    }
 }

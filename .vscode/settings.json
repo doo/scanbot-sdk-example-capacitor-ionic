@@ -1,0 +1,29 @@
+{
+    "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": [
+        "source.formatDocument",
+        "source.fixAll.eslint"
+    ],
+    "eslint.workingDirectories": [{ "mode": "auto" }],
+    "eslint.validate": ["javascript", "typescript"],
+    "commandOnAllFiles.commands": {
+        "Re-Indent All Files": {
+            "command": "editor.action.reindentlines",
+            "includeFileExtensions": [".ts", ".js"]
+        },
+        "Re-Format All Files": {
+            "command": "editor.action.formatDocument",
+            "includeFileExtensions": [".ts", ".js"]
+        }
+    },
+    "commandOnAllFiles.excludeFolders": [
+        "android",
+        "./android",
+        "ios",
+        "./ios",
+        "node_modules",
+        "./node_modules",
+        "www",
+        "./www"
+    ]
+}

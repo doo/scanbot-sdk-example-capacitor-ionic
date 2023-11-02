@@ -10,10 +10,14 @@ a.scanbotSDK {
     margin-top: 35px;
 }
 
-ion-footer {
+p.footerNote {
+    font-size: x-small;
+    text-decoration: none;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
     text-align: center;
-}
-
-ion-note.scanbotCopyright {
-    --color: #ffffff;
+    margin-top: 4px;
 }

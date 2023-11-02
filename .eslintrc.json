@@ -34,7 +34,20 @@
             "prefix": "app",
             "style": "camelCase"
           }
-        ]
+        ],
+        "curly": [
+          "error"
+        ],
+        "brace-style": [
+          "error",
+          "1tbs",
+          {
+            "allowSingleLine": false
+          }
+        ],
+        "indent": ["error", 4],
+        "semi": ["error"],
+        "comma-dangle": ["error", "always-multiline"]
       }
     },
     {

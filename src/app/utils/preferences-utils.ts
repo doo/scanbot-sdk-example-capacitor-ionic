@@ -3,26 +3,30 @@ import { Preferences } from '@capacitor/preferences';
 import { Page } from 'capacitor-plugin-scanbot-sdk';
 
 @Injectable({
-    providedIn: 'root'
-})
+    providedIn: 'root',
+    })
 export class PreferencesUtils {
-
     private pagesListKey = 'pagesList';
 
-    constructor() { }
+    constructor() {}
 
     async getAllPagesFromPrefs(): Promise<Page[]> {
-        const allPagesAsJson = (await Preferences.get({ key: this.pagesListKey })).value;
+        const allPagesAsJson = (
+            await Preferences.get({ key: this.pagesListKey })
+        ).value;
         return JSON.parse(allPagesAsJson ?? '[]');
     }
 
     private async savePagesListInPrefs(pagesList: Page[]) {
-        await Preferences.set({ key: this.pagesListKey, value: JSON.stringify(pagesList) });
+        await Preferences.set({
+            key: this.pagesListKey,
+            value: JSON.stringify(pagesList),
+        });
     }
 
     async getPageById(pageId: string): Promise<Page | undefined> {
         const pagesList = await this.getAllPagesFromPrefs();
-        return pagesList.find(x => x.pageId == pageId);
+        return pagesList.find((x) => x.pageId == pageId);
     }
 
     async savePage(page: Page) {
@@ -34,7 +38,7 @@ export class PreferencesUtils {
 
     async savePages(pages: Page[]) {
         const pagesList = await this.getAllPagesFromPrefs();
-        pages.forEach(page => {
+        pages.forEach((page) => {
             pagesList.push(page);
         });
 
@@ -43,7 +47,7 @@ export class PreferencesUtils {
 
     async updatePage(page: Page) {
         const pagesList = await this.getAllPagesFromPrefs();
-        const pageIndex = pagesList.findIndex(x => x.pageId == page.pageId);
+        const pageIndex = pagesList.findIndex((x) => x.pageId == page.pageId);
 
         if (pageIndex >= 0) {
             pagesList[pageIndex] = page;
@@ -54,7 +58,7 @@ export class PreferencesUtils {
 
     async deletePageById(pageId: string) {
         const pagesList = await this.getAllPagesFromPrefs();
-        const pageIndex = pagesList.findIndex(x => x.pageId == pageId);
+        const pageIndex = pagesList.findIndex((x) => x.pageId == pageId);
 
         if (pageIndex >= 0) {
             pagesList.splice(pageIndex, 1);

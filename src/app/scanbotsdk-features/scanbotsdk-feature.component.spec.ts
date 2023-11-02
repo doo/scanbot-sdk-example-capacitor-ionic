@@ -1,24 +1,24 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ScanbotsdkFeatureComponent } from './scanbotsdk-feature.component';
+import { ScanbotSdkFeatureComponent } from './scanbotsdk-feature.component';
 
 describe('ScanbotsdkFeatureComponent', () => {
-  let component: ScanbotsdkFeatureComponent;
-  let fixture: ComponentFixture<ScanbotsdkFeatureComponent>;
+    let component: ScanbotSdkFeatureComponent;
+    let fixture: ComponentFixture<ScanbotSdkFeatureComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ScanbotsdkFeatureComponent],
-      imports: [IonicModule.forRoot()]
-    }).compileComponents();
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            declarations: [ScanbotSdkFeatureComponent],
+            imports: [IonicModule.forRoot()],
+        }).compileComponents();
 
-    fixture = TestBed.createComponent(ScanbotsdkFeatureComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+        fixture = TestBed.createComponent(ScanbotSdkFeatureComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

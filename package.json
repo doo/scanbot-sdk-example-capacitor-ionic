@@ -68,5 +68,5 @@
     "ts-node": "^8.3.0",
     "typescript": "~5.0.2"
   },
-  "description": "Scanbot Example Sdk App for Capacitor with Angular"
+  "description": "Scanbot SDK Example App for Capacitor with Angular"
 }
