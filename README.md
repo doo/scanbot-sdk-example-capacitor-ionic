@@ -70,15 +70,19 @@ Build the web assets and sync with the Capacitor native projects:
 
 ```
 npm run build
-npx cap sync
+npm run sync
 ```
 
 ### Run
 
-Connect an Android or iOS device via USB and run the app by opening the respective projects, or via terminal with this command:
+Connect an Android or iOS device via USB and run the app by opening the respective projects, or via terminal with these commands:
 
 ```
-npx cap run <platform>
+npm run android
+```
+
+```
+npm run ios
 ```
 
 You can read more about the Capacitor CLI commands on this [link](https://capacitorjs.com/docs/cli).

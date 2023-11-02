@@ -1,15 +1,19 @@
 {
   "name": "scanbot-example-sdk-capacitor",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "author": "Scanbot SDK",
   "homepage": "https://scanbot.io",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --configuration development",
+    "build": "ng build --configuration development && cd ios/App && pod install --repo-update",
+    "sync": "npx cap sync",
+    "android": "npx cap run android",
+    "ios": "npx cap run ios",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "clean": "rm -r -f node_modules && cd ios/App && rm -r -f Pods && rm -f Podfile.lock"
   },
   "private": true,
   "dependencies": {
@@ -31,7 +35,7 @@
     "@capacitor/status-bar": "5.0.6",
     "@capawesome/capacitor-file-picker": "5.1.1",
     "@ionic/angular": "^7.0.0",
-    "capacitor-plugin-scanbot-sdk": "^2.2.3-beta.3",
+    "capacitor-plugin-scanbot-sdk": "2.2.3",
     "ionicons": "^7.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
