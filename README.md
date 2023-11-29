@@ -84,6 +84,7 @@ npm run android
 ```
 npm run ios
 ```
+**Note:** If you want to run on iOS 17+, for now it's possible only through the Xcode. Running from CLI on iOS 17+ will be possible from Capacitor 6+.
 
 You can read more about the Capacitor CLI commands on this [link](https://capacitorjs.com/docs/cli).
 
