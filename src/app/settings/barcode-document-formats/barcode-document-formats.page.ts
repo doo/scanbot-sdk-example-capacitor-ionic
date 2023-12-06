@@ -2,13 +2,10 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { CommonUtils } from 'src/app/utils/common-utils';
-import {
-    BARCODE_DOCUMENT_FORMATS_ENABLED_KEY,
-    BarcodeDocumentSetting,
-    ScanbotService,
-} from 'src/app/services/scanbot.service';
 import { Preferences } from '@capacitor/preferences';
+
+import { CommonUtils } from 'src/app/utils/common-utils';
+import { BarcodeDocumentSetting, ScanbotUtils } from 'src/app/utils/scanbot-utils';
 
 @Component({
     selector: 'app-barcode-document-formats',
@@ -16,20 +13,20 @@ import { Preferences } from '@capacitor/preferences';
     styleUrls: ['./barcode-document-formats.page.scss'],
     standalone: true,
     imports: [IonicModule, CommonModule, FormsModule],
-    })
+})
 export class BarcodeDocumentFormatsPage implements OnInit {
     private utils = inject(CommonUtils);
-    private scanbot = inject(ScanbotService);
+    private scanbotUtils = inject(ScanbotUtils);
 
     documentFormatsEnabled!: boolean;
     documentSettings!: BarcodeDocumentSetting[];
 
-    constructor() {}
+    constructor() { }
 
     async ngOnInit() {
         this.documentFormatsEnabled =
-            await this.scanbot.isBarcodeDocumentFormatsEnabled();
-        this.documentSettings = await this.scanbot.getBarcodeDocumentSettings();
+            await this.scanbotUtils.isBarcodeDocumentFormatsEnabled();
+        this.documentSettings = await this.scanbotUtils.getBarcodeDocumentSettings();
     }
 
     getBackButtonText() {
@@ -40,7 +37,7 @@ export class BarcodeDocumentFormatsPage implements OnInit {
         this.documentFormatsEnabled = event.target.checked;
 
         await Preferences.set({
-            key: BARCODE_DOCUMENT_FORMATS_ENABLED_KEY,
+            key: ScanbotUtils.BARCODE_DOCUMENT_FORMATS_ENABLED_KEY,
             value: this.documentFormatsEnabled.toString(),
         });
     }

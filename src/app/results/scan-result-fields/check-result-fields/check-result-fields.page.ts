@@ -2,13 +2,15 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { CheckRecognizerResult } from 'capacitor-plugin-scanbot-sdk';
+import { Capacitor } from '@capacitor/core';
+
 import {
     ScanResultFieldsSection,
     ScanResultFieldsPage,
     ScanResultField,
 } from '../scan-result-fields.page';
-import { Capacitor } from '@capacitor/core';
+
+import { CheckRecognizerResult } from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
     selector: 'app-check-result-fields',
@@ -16,7 +18,7 @@ import { Capacitor } from '@capacitor/core';
     styleUrls: ['../scan-result-fields.page.scss'],
     standalone: true,
     imports: [IonicModule, CommonModule, FormsModule],
-    })
+})
 export class CheckResultFieldsPage extends ScanResultFieldsPage {
     override pageTitle: string = 'Check';
 
@@ -38,7 +40,7 @@ export class CheckResultFieldsPage extends ScanResultFieldsPage {
         let allFields: ScanResultFieldsSection[] = [];
 
         if (this.checkResult.imageFileUri) {
-            let resultImageField: ScanResultField = {
+            const resultImageField: ScanResultField = {
                 key: 'imageFileUri',
                 fieldPhotoPreviewWebViewPath: Capacitor.convertFileSrc(
                     this.checkResult.imageFileUri,
@@ -52,7 +54,7 @@ export class CheckResultFieldsPage extends ScanResultFieldsPage {
         }
 
         if (this.checkResult.fields) {
-            let resultFields: ScanResultField[] = [];
+            const resultFields: ScanResultField[] = [];
 
             Object.entries(this.checkResult.fields).forEach(
                 ([_key, _value]) => {

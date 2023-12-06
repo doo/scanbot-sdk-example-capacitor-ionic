@@ -34,4 +34,8 @@ export class ImageUtils {
             );
         }
     }
+
+    async selectImageFromLibrary(): Promise<string> {
+        return (await this.selectImagesFromLibrary(false))[0];
+    }
 }

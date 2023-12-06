@@ -2,17 +2,19 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import {
-    MedicalCertificateCheckboxField,
-    MedicalCertificateDateField,
-    MedicalCertificateScannerResult,
-} from 'capacitor-plugin-scanbot-sdk';
+import { Capacitor } from '@capacitor/core';
+
 import {
     ScanResultFieldsSection,
     ScanResultFieldsPage,
     ScanResultField,
 } from '../scan-result-fields.page';
-import { Capacitor } from '@capacitor/core';
+
+import {
+    MedicalCertificateCheckboxField,
+    MedicalCertificateDateField,
+    MedicalCertificateScannerResult,
+} from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
     selector: 'app-medical-certificate-result-fields',
@@ -20,7 +22,7 @@ import { Capacitor } from '@capacitor/core';
     styleUrls: ['../scan-result-fields.page.scss'],
     standalone: true,
     imports: [IonicModule, CommonModule, FormsModule],
-    })
+})
 export class MedicalCertificateResultFieldsPage extends ScanResultFieldsPage {
     override pageTitle: string = 'Medical Certificate';
 
@@ -42,7 +44,7 @@ export class MedicalCertificateResultFieldsPage extends ScanResultFieldsPage {
         let allFields: ScanResultFieldsSection[] = [];
 
         if (this.medicalCertResult.imageFileUri) {
-            let resultImageField: ScanResultField = {
+            const resultImageField: ScanResultField = {
                 key: 'imageFileUri',
                 fieldPhotoPreviewWebViewPath: Capacitor.convertFileSrc(
                     this.medicalCertResult.imageFileUri,
@@ -66,7 +68,7 @@ export class MedicalCertificateResultFieldsPage extends ScanResultFieldsPage {
     }
 
     private getPatientData(): ScanResultField[] {
-        let patientDataResultFields: ScanResultField[] = [];
+        const patientDataResultFields: ScanResultField[] = [];
 
         Object.entries(this.medicalCertResult.patientData).forEach(
             ([_key, _value]) => {
@@ -81,19 +83,18 @@ export class MedicalCertificateResultFieldsPage extends ScanResultFieldsPage {
     }
 
     private getDates(): ScanResultField[] {
-        let datesResultFields: ScanResultField[] = [];
+        const datesResultFields: ScanResultField[] = [];
 
         Object.entries(this.medicalCertResult.dates).forEach(
             ([_key, _value]) => {
-                let dateResultField: ScanResultField = { key: _key };
+                const dateResultField: ScanResultField = { key: _key };
 
                 if (_value) {
-                    let dateField = _value as MedicalCertificateDateField;
-                    dateResultField.value = `${
-                        dateField.dateString
-                    } (confidence: ${Math.round(
-                        dateField.recognitionConfidence * 100,
-                    )}%)`;
+                    const dateField = _value as MedicalCertificateDateField;
+                    dateResultField.value = `${dateField.dateString
+                        } (confidence: ${Math.round(
+                            dateField.recognitionConfidence * 100,
+                        )}%)`;
                 }
 
                 datesResultFields.push(dateResultField);
@@ -104,20 +105,19 @@ export class MedicalCertificateResultFieldsPage extends ScanResultFieldsPage {
     }
 
     private getCheckboxes(): ScanResultField[] {
-        let checkboxesResultFields: ScanResultField[] = [];
+        const checkboxesResultFields: ScanResultField[] = [];
 
         Object.entries(this.medicalCertResult.checkboxes).forEach(
             ([_key, _value]) => {
-                let checkboxResultField: ScanResultField = { key: _key };
+                const checkboxResultField: ScanResultField = { key: _key };
 
                 if (_value) {
-                    let checkboxField =
+                    const checkboxField =
                         _value as MedicalCertificateCheckboxField;
-                    checkboxResultField.value = `${
-                        checkboxField.isChecked ? 'YES' : 'NO'
-                    } (confidence: ${Math.round(
-                        checkboxField.confidence * 100,
-                    )}%)`;
+                    checkboxResultField.value = `${checkboxField.isChecked ? 'YES' : 'NO'
+                        } (confidence: ${Math.round(
+                            checkboxField.confidence * 100,
+                        )}%)`;
                 }
 
                 checkboxesResultFields.push(checkboxResultField);
