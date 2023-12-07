@@ -19,3 +19,7 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Scanbot SDK Capacitor Plugin
+-keeppackagenames io.scanbot.sdk.capacitor.** { *; }
+-keep public class io.scanbot.sdk.ui.** { *; }
