@@ -1,7 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Directory, Filesystem } from '@capacitor/filesystem';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { IonicModule } from '@ionic/angular';
+
 import { Colors } from 'src/theme/theme';
+
+import { ScanbotSDK, ScanbotSdkConfiguration } from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
     selector: 'app-root',
@@ -9,10 +13,53 @@ import { Colors } from 'src/theme/theme';
     styleUrls: ['app.component.scss'],
     standalone: true,
     imports: [IonicModule],
-    })
-export class AppComponent {
+})
+export class AppComponent implements OnInit {
+
+    // !! Please read note !!
+    // It is strongly recommended to use the default (secure) storage location of the Scanbot SDK.
+    // However, for demo purposes we overwrite the "storageBaseDirectory" of the Scanbot SDK by a custom storage directory.
+    //
+    // For more details about the storage system of the Scanbot SDK Capacitor Module please see our docs:
+    // - https://docs.scanbot.io/document-scanner-sdk/capacitor/introduction/
+    //
+    // For more details about the file system on Android and iOS we also recommend to check out:
+    // - https://developer.android.com/training/data-storage
+    // - https://developer.apple.com/documentation/foundation/filemanager
+    readonly storageBaseDirectoryUri = Filesystem.getUri({
+        path: 'my-custom-storage',
+        directory: Directory.External,
+    });
+
+    public static readonly FILE_ENCRYPTION_ENABLED: boolean = false;
+
     constructor() {
         StatusBar.setStyle({ style: Style.Dark });
         StatusBar.setBackgroundColor({ color: Colors.scanbotRed });
+    }
+
+    ngOnInit(): void {
+        this.initScanbotSdk();
+    }
+
+    private async initScanbotSdk() {
+        const config: ScanbotSdkConfiguration = {
+            licenseKey: '',
+            loggingEnabled: true,
+            storageImageFormat: 'JPG', // Format of stored images
+            storageImageQuality: 80, // Quality of stored images
+            storageBaseDirectory: (await this.storageBaseDirectoryUri).uri, // Custom storage path
+            documentDetectorMode: 'ML_BASED', // The engine used to detect documents,
+            fileEncryptionMode: AppComponent.FILE_ENCRYPTION_ENABLED ? 'AES256' : undefined,
+            fileEncryptionPassword: AppComponent.FILE_ENCRYPTION_ENABLED ? 'SomeSecretPa$$w0rdForFileEncryptio' : undefined,
+            // see further config parameters
+        };
+
+        try {
+            const result = await ScanbotSDK.initializeSDK(config);
+            console.log(result);
+        } catch (e) {
+            console.error(e);
+        }
     }
 }

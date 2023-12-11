@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { Router, RouterLink } from '@angular/router';
-import { Directory, Filesystem } from '@capacitor/filesystem';
 
 import { Feature, FeatureId, ScanbotUtils } from '../utils/scanbot-utils';
 import { CommonUtils } from '../utils/common-utils';
@@ -27,7 +26,7 @@ import { RtuTextDataScannerFeature } from '../scanbotsdk-features/rtu-text-data-
 import { RecognizeCheckOnImageFeature } from '../scanbotsdk-features/recognize-check-on-image/recognize-check-on-image-feature.component';
 import { ApplyFilterOnImageFeature } from '../scanbotsdk-features/apply-filter-on-image/apply-filter-on-image-feature.component';
 
-import { ScanbotSDK, ScanbotSdkConfiguration } from 'capacitor-plugin-scanbot-sdk';
+import { ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
     selector: 'app-home',
@@ -59,7 +58,7 @@ import { ScanbotSDK, ScanbotSdkConfiguration } from 'capacitor-plugin-scanbot-sd
         ApplyFilterOnImageFeature,
     ],
 })
-export class HomePage implements OnInit {
+export class HomePage {
     private scanbotUtils = inject(ScanbotUtils);
     private utils = inject(CommonUtils);
     private router = inject(Router);
@@ -75,49 +74,7 @@ export class HomePage implements OnInit {
 
     readonly currentYear = new Date().getFullYear();
 
-    // !! Please read note !!
-    // It is strongly recommended to use the default (secure) storage location of the Scanbot SDK.
-    // However, for demo purposes we overwrite the "storageBaseDirectory" of the Scanbot SDK by a custom storage directory.
-    //
-    // For more details about the storage system of the Scanbot SDK Capacitor Module please see our docs:
-    // - https://docs.scanbot.io/document-scanner-sdk/capacitor/introduction/
-    //
-    // For more details about the file system on Android and iOS we also recommend to check out:
-    // - https://developer.android.com/training/data-storage
-    // - https://developer.apple.com/documentation/foundation/filemanager
-    readonly storageBaseDirectoryUri = Filesystem.getUri({
-        path: 'my-custom-storage',
-        directory: Directory.External,
-    });
-
-    public static readonly FILE_ENCRYPTION_ENABLED: boolean = false;
-
     constructor() { }
-
-    ngOnInit() {
-        this.initScanbotSdk();
-    }
-
-    private async initScanbotSdk() {
-        const config: ScanbotSdkConfiguration = {
-            licenseKey: '',
-            loggingEnabled: true,
-            storageImageFormat: 'JPG', // Format of stored images
-            storageImageQuality: 80, // Quality of stored images
-            storageBaseDirectory: (await this.storageBaseDirectoryUri).uri, // Custom storage path
-            documentDetectorMode: 'ML_BASED', // The engine used to detect documents,
-            fileEncryptionMode: HomePage.FILE_ENCRYPTION_ENABLED ? 'AES256' : undefined,
-            fileEncryptionPassword: HomePage.FILE_ENCRYPTION_ENABLED ? 'SomeSecretPa$$w0rdForFileEncryptio' : undefined,
-            // see further config parameters
-        };
-
-        try {
-            const result = await ScanbotSDK.initializeSDK(config);
-            console.log(result);
-        } catch (e) {
-            console.error(e);
-        }
-    }
 
     async showLicenseInfo() {
         try {

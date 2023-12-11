@@ -8,7 +8,7 @@ import { RouterLink } from '@angular/router';
 import { PreferencesUtils } from 'src/app/utils/preferences-utils';
 import { CommonUtils } from 'src/app/utils/common-utils';
 import { FileUtils } from 'src/app/utils/file-utils';
-import { HomePage } from 'src/app/home/home.page';
+import { AppComponent } from 'src/app/app.component';
 import { Colors } from 'src/theme/theme';
 import { ScanbotUtils } from 'src/app/utils/scanbot-utils';
 
@@ -236,7 +236,7 @@ export class ImageResultsPage {
     }
 
     private async saveResultsAsTIFF(binarized: boolean) {
-        if (HomePage.FILE_ENCRYPTION_ENABLED) {
+        if (AppComponent.FILE_ENCRYPTION_ENABLED) {
             this.utils.showWarningAlert(
                 'Encryption for TIFF files currently not supported. ' +
                 'In order to test TIFF please disable image file encryption',
