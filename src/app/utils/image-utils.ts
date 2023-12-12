@@ -1,26 +1,26 @@
 import { Injectable } from '@angular/core';
-import { FilePicker, PickedFile } from '@capawesome/capacitor-file-picker';
+import { Camera, GalleryPhoto } from '@capacitor/camera';
 
 @Injectable({
     providedIn: 'root',
-    })
+})
 export class ImageUtils {
-    constructor() {}
+    constructor() { }
 
     async selectImagesFromLibrary(
         multipleImages?: boolean | undefined,
     ): Promise<string[]> {
-        let photos: PickedFile[] = [];
+        let photos: GalleryPhoto[] = [];
         let pickImagesErrorMessage;
 
         try {
             photos = (
-                await FilePicker.pickImages({
-                    multiple: multipleImages ?? false,
-                    readData: false,
-                    skipTranscoding: true,
+                await Camera.pickImages({
+                    quality: 100,
+                    correctOrientation: true,
+                    limit: multipleImages ? 0 : 1,
                 })
-            ).files.filter((photo) => photo.path !== undefined);
+            ).photos.filter((photo) => photo.path !== undefined);
         } catch (e: any) {
             pickImagesErrorMessage = e.message;
         }
@@ -29,10 +29,13 @@ export class ImageUtils {
             return photos.map((photos) => photos.path!!);
         } else {
             throw new Error(
-                `No image${multipleImages == true ? 's' : ''} picked${
-                    pickImagesErrorMessage ? '. ' + pickImagesErrorMessage : ''
+                `No image${multipleImages == true ? 's' : ''} picked${pickImagesErrorMessage ? '. ' + pickImagesErrorMessage : ''
                 }`,
             );
         }
+    }
+
+    async selectImageFromLibrary(): Promise<string> {
+        return (await this.selectImagesFromLibrary(false))[0];
     }
 }

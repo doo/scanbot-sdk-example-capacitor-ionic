@@ -2,12 +2,10 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { CommonUtils } from 'src/app/utils/common-utils';
-import {
-    BarcodeSetting,
-    ScanbotService,
-} from 'src/app/services/scanbot.service';
 import { Preferences } from '@capacitor/preferences';
+
+import { CommonUtils } from 'src/app/utils/common-utils';
+import { BarcodeSetting, ScanbotUtils } from 'src/app/utils/scanbot-utils';
 
 @Component({
     selector: 'app-barcode-formats',
@@ -15,17 +13,17 @@ import { Preferences } from '@capacitor/preferences';
     styleUrls: ['./barcode-formats.page.scss'],
     standalone: true,
     imports: [IonicModule, CommonModule, FormsModule],
-    })
+})
 export class BarcodeFormatsPage implements OnInit {
     private utils = inject(CommonUtils);
-    private scanbot = inject(ScanbotService);
+    private scanbotUtils = inject(ScanbotUtils);
 
     barcodeSettings!: BarcodeSetting[];
 
-    constructor() {}
+    constructor() { }
 
     async ngOnInit() {
-        this.barcodeSettings = await this.scanbot.getBarcodeSettings();
+        this.barcodeSettings = await this.scanbotUtils.getBarcodeSettings();
     }
 
     getBackButtonText() {

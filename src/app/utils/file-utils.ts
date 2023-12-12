@@ -5,14 +5,13 @@ import { CommonUtils } from './common-utils';
 
 @Injectable({
     providedIn: 'root',
-    })
+})
 export class FileUtils {
     private utils = inject(CommonUtils);
 
-    constructor() {}
+    constructor() { }
 
     async selectPdfFile(): Promise<string> {
-        let pdfPath;
         let pickFilesErrorMessage;
 
         try {
@@ -21,7 +20,7 @@ export class FileUtils {
                 multiple: false,
                 readData: false,
             });
-            pdfPath = pdfFile.files[0].path;
+            const pdfPath = pdfFile.files[0].path;
 
             if (pdfPath) {
                 return pdfPath;
@@ -31,8 +30,7 @@ export class FileUtils {
         }
 
         throw new Error(
-            `No file picked${
-                pickFilesErrorMessage ? ': ' + pickFilesErrorMessage : ''
+            `No file picked${pickFilesErrorMessage ? ': ' + pickFilesErrorMessage : ''
             }`,
         );
     }

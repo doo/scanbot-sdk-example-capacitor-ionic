@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
+
 import { Page } from 'capacitor-plugin-scanbot-sdk';
 
 @Injectable({
     providedIn: 'root',
-    })
+})
 export class PreferencesUtils {
     private pagesListKey = 'pagesList';
 
-    constructor() {}
+    constructor() { }
 
     async getAllPagesFromPrefs(): Promise<Page[]> {
         const allPagesAsJson = (

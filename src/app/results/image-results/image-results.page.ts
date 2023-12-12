@@ -2,13 +2,17 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActionSheetController, IonicModule } from '@ionic/angular';
-import { PreferencesUtils } from 'src/app/utils/preferences-utils';
-import { Page } from 'capacitor-plugin-scanbot-sdk';
 import { Capacitor } from '@capacitor/core';
-import { ScanbotService } from 'src/app/services/scanbot.service';
-import { CommonUtils } from 'src/app/utils/common-utils';
 import { RouterLink } from '@angular/router';
+
+import { PreferencesUtils } from 'src/app/utils/preferences-utils';
+import { CommonUtils } from 'src/app/utils/common-utils';
 import { FileUtils } from 'src/app/utils/file-utils';
+import { AppComponent } from 'src/app/app.component';
+import { Colors } from 'src/theme/theme';
+import { ScanbotUtils } from 'src/app/utils/scanbot-utils';
+
+import { DocumentScannerConfiguration, Page, ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
 
 interface ImageResult {
     page: Page;
@@ -24,7 +28,7 @@ interface ImageResult {
 })
 export class ImageResultsPage {
     private preferencesUtils = inject(PreferencesUtils);
-    private scanbot = inject(ScanbotService);
+    private scanbotUtils = inject(ScanbotUtils);
     private utils = inject(CommonUtils);
     private fileUtils = inject(FileUtils);
     private actionSheetCtrl = inject(ActionSheetController);
@@ -73,14 +77,31 @@ export class ImageResultsPage {
     }
 
     async scanDocument() {
-        if (!(await this.scanbot.isLicenseValid())) {
+        // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+        if (!(await this.isLicenseValid())) {
             return;
         }
 
-        try {
-            const documentResult = await this.scanbot.scanDocument();
+        const configuration: DocumentScannerConfiguration = {
+            // Customize colors, text resources, behavior, etc..
+            polygonColor: '#00ffff',
+            bottomBarBackgroundColor: Colors.scanbotRed,
+            topBarBackgroundColor: Colors.scanbotRed,
+            cameraBackgroundColor: Colors.scanbotRed,
+            orientationLockMode: 'PORTRAIT',
+            pageCounterButtonTitle: '%d Page(s)',
+            multiPageEnabled: false,
+            ignoreBadAspectRatio: true,
+            // see further configs ...
+        };
 
-            if (documentResult.status === 'OK') {
+        try {
+            const documentResult = await ScanbotSDK.startDocumentScanner(configuration);
+
+            if (documentResult.status === 'CANCELED') {
+                // User has canceled the scanning operation
+            } else {
+                // Handle the scanned pages from result
                 await this.preferencesUtils.savePages(documentResult.pages);
                 this.loadImageResults();
             }
@@ -118,7 +139,7 @@ export class ImageResultsPage {
 
     private async deleteAllResults() {
         await this.preferencesUtils.deleteAllPages();
-        await this.scanbot.cleanup();
+        await ScanbotSDK.cleanup();
         this.imageResults = [];
     }
 
@@ -168,17 +189,21 @@ export class ImageResultsPage {
     }
 
     private async saveResultsAsPDF() {
-        if (!(await this.scanbot.isLicenseValid())) {
+        // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+        if (!(await this.isLicenseValid())) {
             return;
         }
 
         try {
             await this.utils.showLoader();
-            const saveResult = await this.scanbot.saveImagesAsPDF(
-                this.getImageResultsUris(),
-            );
+
+            const saveResult = await ScanbotSDK.createPDF({
+                imageFileUris: this.getImageResultsUris(),
+                pageSize: 'FIXED_A4',
+            });
 
             await this.utils.dismissLoader();
+            // use the PDF file URI from result, e.g.:
             await this.fileUtils.openPdfFile(saveResult.pdfFileUri);
         } catch (e: any) {
             await this.utils.dismissLoader();
@@ -187,17 +212,22 @@ export class ImageResultsPage {
     }
 
     private async saveResultsAsPDFWithOCR() {
-        if (!(await this.scanbot.isLicenseValid())) {
+        // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+        if (!(await this.isLicenseValid())) {
             return;
         }
 
         try {
             await this.utils.showLoader();
-            const saveResult = await this.scanbot.saveImagesAsPDFWithOCR(
-                this.getImageResultsUris(),
-            );
+
+            const saveResult = await ScanbotSDK.performOCR({
+                imageFileUris: this.getImageResultsUris(),
+                languages: ['en', 'de'],
+                options: { outputFormat: 'FULL_OCR_RESULT' },
+            });
 
             await this.utils.dismissLoader();
+            // use the PDF file URI from result, e.g.:
             await this.fileUtils.openPdfFile(saveResult.pdfFileUri);
         } catch (e: any) {
             await this.utils.dismissLoader();
@@ -206,31 +236,53 @@ export class ImageResultsPage {
     }
 
     private async saveResultsAsTIFF(binarized: boolean) {
-        if (!(await this.scanbot.isLicenseValid())) {
-            return;
-        }
-
-        if (this.scanbot.FILE_ENCRYPTION_ENABLED) {
+        if (AppComponent.FILE_ENCRYPTION_ENABLED) {
             this.utils.showWarningAlert(
                 'Encryption for TIFF files currently not supported. ' +
                 'In order to test TIFF please disable image file encryption',
             );
+            return;
+        }
 
+        // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+        if (!(await this.isLicenseValid())) {
             return;
         }
 
         try {
             await this.utils.showLoader();
-            const saveResult = await this.scanbot.saveResultsAsTIFF(
-                this.getImageResultsUris(),
-                binarized,
-            );
+
+            const result = await ScanbotSDK.writeTIFF({
+                imageFileUris: this.getImageResultsUris(),
+                options: {
+                    oneBitEncoded: binarized, // "true" means create 1-bit binarized black and white TIFF
+                    dpi: 300, // optional DPI. default value is 200
+                    compression: binarized ? 'CCITT_T6' : 'ADOBE_DEFLATE', // optional compression. see documentation!
+                },
+            });
 
             await this.utils.dismissLoader();
-            await this.fileUtils.openTiffFile(saveResult.tiffFileUri);
+            // use the TIFF file URI from result, e.g.:
+            await this.fileUtils.openTiffFile(result.tiffFileUri);
         } catch (e: any) {
             await this.utils.dismissLoader();
             this.utils.showErrorAlert(e.message);
+        }
+    }
+
+    async isLicenseValid(): Promise<boolean> {
+        const licenseInfo = await ScanbotSDK.getLicenseInfo();
+
+        if (licenseInfo.isLicenseValid) {
+            // We have a valid (trial) license and can call other Scanbot SDK methods.
+            // E.g. launch the Document Scanner
+            return true;
+        } else {
+            // The license is not valid. We will return false and show the status
+            this.utils.showWarningAlert(
+                this.scanbotUtils.getMessageFromLicenseStatus(licenseInfo.licenseStatus),
+            );
+            return false;
         }
     }
 }

@@ -2,12 +2,15 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, NavController } from '@ionic/angular';
-import { CommonUtils } from 'src/app/utils/common-utils';
-import { PreferencesUtils } from 'src/app/utils/preferences-utils';
 import { ActivatedRoute } from '@angular/router';
 import { Capacitor } from '@capacitor/core';
-import { Page } from 'capacitor-plugin-scanbot-sdk';
-import { ScanbotService } from 'src/app/services/scanbot.service';
+
+import { CommonUtils } from 'src/app/utils/common-utils';
+import { PreferencesUtils } from 'src/app/utils/preferences-utils';
+import { Colors } from 'src/theme/theme';
+import { ScanbotUtils } from 'src/app/utils/scanbot-utils';
+
+import { ApplyImageFilterOnPageResult, CroppingConfiguration, Page, ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
     selector: 'app-image-details',
@@ -15,7 +18,7 @@ import { ScanbotService } from 'src/app/services/scanbot.service';
     styleUrls: ['./image-details.page.scss'],
     standalone: true,
     imports: [IonicModule, CommonModule, FormsModule],
-    })
+})
 export class ImageDetailsPage implements OnInit {
     pagePreviewWebViewPath?: string | undefined;
     page!: Page;
@@ -23,7 +26,7 @@ export class ImageDetailsPage implements OnInit {
     private navController = inject(NavController);
     private activatedRoute = inject(ActivatedRoute);
 
-    private scanbot = inject(ScanbotService);
+    private scanbotUtils = inject(ScanbotUtils);
     private utils = inject(CommonUtils);
     private preferencesUtils = inject(PreferencesUtils);
 
@@ -41,7 +44,7 @@ export class ImageDetailsPage implements OnInit {
         },
     ];
 
-    constructor() {}
+    constructor() { }
 
     async ngOnInit() {
         const pageId = this.activatedRoute.snapshot.paramMap.get(
@@ -63,22 +66,38 @@ export class ImageDetailsPage implements OnInit {
     }
 
     async crop() {
-        if (!(await this.scanbot.isLicenseValid())) {
+        // Always make sure you have a valid license on runtime via SDK.getLicenseInfo()
+        if (!(await this.isLicenseValid())) {
             return;
         }
 
+        const configuration: CroppingConfiguration = {
+            // Customize colors, text resources, behavior, etc..
+            doneButtonTitle: 'Apply',
+            topBarBackgroundColor: Colors.scanbotRed,
+            bottomBarBackgroundColor: Colors.scanbotRed,
+            orientationLockMode: 'NONE',
+            swapTopBottomButtons: false,
+            // see further configs ...
+        };
+
         try {
             await this.utils.showLoader();
-            const result = await this.scanbot.cropPage(this.page);
-            await this.utils.dismissLoader();
 
-            if (result.status === 'OK') {
-                if (result.page) {
-                    this.updateResultUI(result.page);
-                    await this.preferencesUtils.updatePage(result.page);
-                } else {
-                    this.utils.showErrorAlert('Something went wrong');
-                }
+            const result = await ScanbotSDK.startCroppingScreen({
+                page: this.page,
+                configuration: configuration,
+            });
+
+            await this.utils.dismissLoader();
+            if (result.status === 'CANCELED') {
+                // User has canceled the scanning operation
+            } else if (result.page) {
+                // Handle the modified page object from result
+                this.updateResultUI(result.page);
+                await this.preferencesUtils.updatePage(result.page);
+            } else {
+                this.utils.showErrorAlert('Something went wrong');
             }
         } catch (e: any) {
             await this.utils.dismissLoader();
@@ -87,20 +106,28 @@ export class ImageDetailsPage implements OnInit {
     }
 
     async applyFilter() {
-        if (!(await this.scanbot.isLicenseValid())) {
+        // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+        if (!(await this.isLicenseValid())) {
             return;
         }
 
         try {
-            const page = await this.scanbot.applyFilterOnPage({
-                page: this.page,
-                showLoader: true,
-            });
-            this.utils.dismissLoader();
+            // Choose one of the available filters
+            const pageFilter = await this.scanbotUtils.chooseFilter();
 
-            if (page) {
-                this.updateResultUI(page);
-                await this.preferencesUtils.updatePage(page);
+            if (pageFilter) {
+                await this.utils.showLoader();
+
+                // Use the updated page
+                const filteredPage: Page = await ScanbotSDK.applyImageFilterOnPage({
+                    page: this.page,
+                    filter: pageFilter,
+                });
+
+                this.utils.dismissLoader();
+                // Reload the preview
+                this.updateResultUI(filteredPage);
+                await this.preferencesUtils.updatePage(filteredPage);
             }
         } catch (e: any) {
             await this.utils.dismissLoader();
@@ -111,7 +138,7 @@ export class ImageDetailsPage implements OnInit {
     async deleteResult() {
         try {
             await this.preferencesUtils.deletePageById(this.page.pageId);
-            await this.scanbot.removePage(this.page);
+            await ScanbotSDK.removePage({ page: this.page });
             this.navController.back();
         } catch (e: any) {
             this.utils.showErrorAlert(e.message);
@@ -127,6 +154,22 @@ export class ImageDetailsPage implements OnInit {
             );
         } else {
             this.pagePreviewWebViewPath = '';
+        }
+    }
+
+    private async isLicenseValid(): Promise<boolean> {
+        const licenseInfo = await ScanbotSDK.getLicenseInfo();
+
+        if (licenseInfo.isLicenseValid) {
+            // We have a valid (trial) license and can call other Scanbot SDK methods.
+            // E.g. launch the Document Scanner
+            return true;
+        } else {
+            // The license is not valid. We will return false and show the status
+            this.utils.showWarningAlert(
+                this.scanbotUtils.getMessageFromLicenseStatus(licenseInfo.licenseStatus),
+            );
+            return false;
         }
     }
 }

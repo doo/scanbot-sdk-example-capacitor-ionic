@@ -1,15 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { Router, RouterLink } from '@angular/router';
 
+import { Feature, FeatureId, ScanbotUtils } from '../utils/scanbot-utils';
 import { CommonUtils } from '../utils/common-utils';
 
-import {
-    Feature,
-    FeatureId,
-    ScanbotService,
-} from '../services/scanbot.service';
 import { RtuDocumentScannerFeature } from '../scanbotsdk-features/rtu-document-scanner/rtu-document-scanner-feature.component';
 import { RtuDocumentScannerWithFinderFeature } from '../scanbotsdk-features/rtu-document-scanner-with-finder/rtu-document-scanner-with-finder-feature.component';
 import { DetectDocumentOnPageFeature } from '../scanbotsdk-features/detect-document-on-page/detect-document-on-page-feature.component';
@@ -30,38 +26,40 @@ import { RtuTextDataScannerFeature } from '../scanbotsdk-features/rtu-text-data-
 import { RecognizeCheckOnImageFeature } from '../scanbotsdk-features/recognize-check-on-image/recognize-check-on-image-feature.component';
 import { ApplyFilterOnImageFeature } from '../scanbotsdk-features/apply-filter-on-image/apply-filter-on-image-feature.component';
 
+import { ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
+
 @Component({
     selector: 'app-home',
     templateUrl: 'home.page.html',
     styleUrls: ['home.page.scss'],
     standalone: true,
     imports: [
-    IonicModule,
-    CommonModule,
-    RouterLink,
-    RtuDocumentScannerFeature,
-    RtuDocumentScannerWithFinderFeature,
-    DetectDocumentOnPageFeature,
-    DetectDocumentOnImageFeature,
-    ExtractPagesFromPdfFeature,
-    ExtractImagesFromPdfFeature,
-    RtuBarcodeScannerFeature,
-    RtuBatchBarcodeScannerFeature,
-    DetectBarcodesOnImageFeature,
-    DetectBarcodesOnMultipleImagesFeature,
-    RtuMrzScannerFeature,
-    RtuMedicalCertificateScannerFeature,
-    RtuGenericDocumentRecognizerFeature,
-    RtuCheckRecognizerFeature,
-    RtuHealthInsuranceCardScannerFeature,
-    RtuLicensePlateScannerFeature,
-    RtuTextDataScannerFeature,
-    RecognizeCheckOnImageFeature,
-    ApplyFilterOnImageFeature,
+        IonicModule,
+        CommonModule,
+        RouterLink,
+        RtuDocumentScannerFeature,
+        RtuDocumentScannerWithFinderFeature,
+        DetectDocumentOnPageFeature,
+        DetectDocumentOnImageFeature,
+        ExtractPagesFromPdfFeature,
+        ExtractImagesFromPdfFeature,
+        RtuBarcodeScannerFeature,
+        RtuBatchBarcodeScannerFeature,
+        DetectBarcodesOnImageFeature,
+        DetectBarcodesOnMultipleImagesFeature,
+        RtuMrzScannerFeature,
+        RtuMedicalCertificateScannerFeature,
+        RtuGenericDocumentRecognizerFeature,
+        RtuCheckRecognizerFeature,
+        RtuHealthInsuranceCardScannerFeature,
+        RtuLicensePlateScannerFeature,
+        RtuTextDataScannerFeature,
+        RecognizeCheckOnImageFeature,
+        ApplyFilterOnImageFeature,
     ],
-    })
-export class HomePage implements OnInit {
-    private scanbot = inject(ScanbotService);
+})
+export class HomePage {
+    private scanbotUtils = inject(ScanbotUtils);
     private utils = inject(CommonUtils);
     private router = inject(Router);
 
@@ -76,15 +74,11 @@ export class HomePage implements OnInit {
 
     readonly currentYear = new Date().getFullYear();
 
-    constructor() {}
-
-    ngOnInit() {
-        this.scanbot.initializeSDK();
-    }
+    constructor() { }
 
     async showLicenseInfo() {
         try {
-            this.utils.showLicenseInfo(await this.scanbot.getLicenseInfo());
+            this.utils.showLicenseInfo(await ScanbotSDK.getLicenseInfo());
         } catch (e: any) {
             this.utils.showErrorAlert(e.message);
         }
@@ -92,8 +86,9 @@ export class HomePage implements OnInit {
 
     async showOCRConfigs() {
         try {
-            if (await this.scanbot.isLicenseValid()) {
-                this.utils.showOCRConfigs(await this.scanbot.getOCRConfigs());
+            // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+            if (await this.isLicenseValid()) {
+                this.utils.showOCRConfigs(await ScanbotSDK.getOCRConfigs());
             }
         } catch (e: any) {
             this.utils.showErrorAlert(e.message);
@@ -101,14 +96,30 @@ export class HomePage implements OnInit {
     }
 
     async showBarcodeFormatsScreen() {
-        if (await this.scanbot.isLicenseValid()) {
+        if (await this.isLicenseValid()) {
             this.router.navigate(['/barcode-formats']);
         }
     }
 
     async showBarcodeDocumentFormatsScreen() {
-        if (await this.scanbot.isLicenseValid()) {
+        if (await this.isLicenseValid()) {
             this.router.navigate(['/barcode-document-formats']);
+        }
+    }
+
+    private async isLicenseValid(): Promise<boolean> {
+        const licenseInfo = await ScanbotSDK.getLicenseInfo();
+
+        if (licenseInfo.isLicenseValid) {
+            // We have a valid (trial) license and can call other Scanbot SDK methods.
+            // E.g. launch the Document Scanner
+            return true;
+        } else {
+            // The license is not valid. We will return false and show the status
+            this.utils.showWarningAlert(
+                this.scanbotUtils.getMessageFromLicenseStatus(licenseInfo.licenseStatus),
+            );
+            return false;
         }
     }
 }

@@ -1,6 +1,6 @@
 {
   "name": "scanbot-example-sdk-capacitor",
-  "version": "2.2.3",
+  "version": "2.2.4-beta.1",
   "author": "Scanbot SDK",
   "homepage": "https://scanbot.io",
   "scripts": {
@@ -28,6 +28,7 @@
     "@capacitor-community/file-opener": "1.0.5",
     "@capacitor/android": "5.4.1",
     "@capacitor/app": "5.0.6",
+    "@capacitor/camera": "5.0.7",
     "@capacitor/core": "5.4.1",
     "@capacitor/filesystem": "5.1.4",
     "@capacitor/ios": "5.4.1",
@@ -35,7 +36,7 @@
     "@capacitor/status-bar": "5.0.6",
     "@capawesome/capacitor-file-picker": "5.1.1",
     "@ionic/angular": "^7.0.0",
-    "capacitor-plugin-scanbot-sdk": "2.2.3",
+    "capacitor-plugin-scanbot-sdk": "2.2.4-beta.1",
     "ionicons": "^7.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
@@ -72,5 +73,13 @@
     "ts-node": "^8.3.0",
     "typescript": "~5.0.2"
   },
-  "description": "Scanbot SDK Example App for Capacitor with Angular"
+  "description": "Scanbot SDK Example App for Capacitor with Angular",
+  "browserslist": [
+    "Chrome >=79",
+    "ChromeAndroid >=79",
+    "Firefox >=70",
+    "Edge >=79",
+    "Safari >=14",
+    "iOS >=14"
+  ]
 }
