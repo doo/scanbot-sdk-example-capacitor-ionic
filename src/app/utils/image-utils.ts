@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Camera, GalleryPhoto } from '@capacitor/camera';
+import { Camera, CameraResultType, CameraSource, GalleryPhoto } from '@capacitor/camera';
 
 @Injectable({
     providedIn: 'root',
@@ -7,9 +7,7 @@ import { Camera, GalleryPhoto } from '@capacitor/camera';
 export class ImageUtils {
     constructor() { }
 
-    async selectImagesFromLibrary(
-        multipleImages?: boolean | undefined,
-    ): Promise<string[]> {
+    async selectImagesFromLibrary(): Promise<string[]> {
         let photos: GalleryPhoto[] = [];
         let pickImagesErrorMessage;
 
@@ -18,7 +16,7 @@ export class ImageUtils {
                 await Camera.pickImages({
                     quality: 100,
                     correctOrientation: true,
-                    limit: multipleImages ? 0 : 1,
+                    limit: 0,
                 })
             ).photos.filter((photo) => photo.path !== undefined);
         } catch (e: any) {
@@ -29,13 +27,38 @@ export class ImageUtils {
             return photos.map((photos) => photos.path!!);
         } else {
             throw new Error(
-                `No image${multipleImages == true ? 's' : ''} picked${pickImagesErrorMessage ? '. ' + pickImagesErrorMessage : ''
+                `No images picked${pickImagesErrorMessage ? '. ' + pickImagesErrorMessage : ''
                 }`,
             );
         }
     }
 
     async selectImageFromLibrary(): Promise<string> {
-        return (await this.selectImagesFromLibrary(false))[0];
+        let photo;
+        let pickImageErrorMessage;
+
+        try {
+            photo = (
+                await Camera.getPhoto({
+                    quality: 100,
+                    allowEditing: false,
+                    resultType: CameraResultType.Uri,
+                    saveToGallery: false,
+                    correctOrientation: true,
+                    source: CameraSource.Photos,
+                })
+            );
+        } catch (e: any) {
+            pickImageErrorMessage = e.message;
+        }
+
+        if (photo?.path) {
+            return photo.path;
+        } else {
+            throw new Error(
+                `No image picked${pickImageErrorMessage ? '. ' + pickImageErrorMessage : ''
+                }`,
+            );
+        }
     }
 }

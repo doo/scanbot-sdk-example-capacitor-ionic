@@ -29,7 +29,7 @@ export class DetectBarcodesOnMultipleImagesFeature extends ScanbotSdkFeatureComp
 
         try {
             // Select multiple images from the library
-            const imageFileUris = await this.imageUtils.selectImagesFromLibrary(true);
+            const imageFileUris = await this.imageUtils.selectImagesFromLibrary();
 
             const args: DetectBarcodesOnImagesArguments = {
                 imageFileUris: imageFileUris,
