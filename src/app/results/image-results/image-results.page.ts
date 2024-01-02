@@ -1,0 +1,288 @@
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ActionSheetController, IonicModule } from '@ionic/angular';
+import { Capacitor } from '@capacitor/core';
+import { RouterLink } from '@angular/router';
+
+import { PreferencesUtils } from 'src/app/utils/preferences-utils';
+import { CommonUtils } from 'src/app/utils/common-utils';
+import { FileUtils } from 'src/app/utils/file-utils';
+import { AppComponent } from 'src/app/app.component';
+import { Colors } from 'src/theme/theme';
+import { ScanbotUtils } from 'src/app/utils/scanbot-utils';
+
+import { DocumentScannerConfiguration, Page, ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
+
+interface ImageResult {
+    page: Page;
+    pagePreviewWebViewPath: string;
+}
+
+@Component({
+    selector: 'app-image-results',
+    templateUrl: './image-results.page.html',
+    styleUrls: ['./image-results.page.scss'],
+    standalone: true,
+    imports: [IonicModule, CommonModule, FormsModule, RouterLink],
+})
+export class ImageResultsPage {
+    private preferencesUtils = inject(PreferencesUtils);
+    private scanbotUtils = inject(ScanbotUtils);
+    private utils = inject(CommonUtils);
+    private fileUtils = inject(FileUtils);
+    private actionSheetCtrl = inject(ActionSheetController);
+
+    imageResults: ImageResult[] = [];
+
+    constructor() { }
+
+    ionViewWillEnter() {
+        this.loadImageResults();
+    }
+
+    private async loadImageResults() {
+        this.imageResults = [];
+
+        (await this.preferencesUtils.getAllPagesFromPrefs()).forEach((p) => {
+            if (p.documentPreviewImageFileUri) {
+                this.imageResults.unshift({
+                    page: p,
+                    pagePreviewWebViewPath: Capacitor.convertFileSrc(
+                        p.documentPreviewImageFileUri,
+                    ),
+                });
+            }
+        });
+    }
+
+    private getImageResultsUris(): string[] {
+        return this.imageResults.map(
+            (img) =>
+                img.page.documentImageFileUri || img.page.originalImageFileUri,
+        );
+    }
+
+    private isResultsListEmpty(warningMessage: string): boolean {
+        if (this.imageResults.length == 0) {
+            this.utils.showWarningAlert(warningMessage);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    getBackButtonText() {
+        return this.utils.isiOSPlatform() ? 'Home' : '';
+    }
+
+    async scanDocument() {
+        // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+        if (!(await this.isLicenseValid())) {
+            return;
+        }
+
+        const configuration: DocumentScannerConfiguration = {
+            // Customize colors, text resources, behavior, etc..
+            polygonColor: '#00ffff',
+            bottomBarBackgroundColor: Colors.scanbotRed,
+            topBarBackgroundColor: Colors.scanbotRed,
+            cameraBackgroundColor: Colors.scanbotRed,
+            orientationLockMode: 'PORTRAIT',
+            pageCounterButtonTitle: '%d Page(s)',
+            multiPageEnabled: false,
+            ignoreBadAspectRatio: true,
+            // see further configs ...
+        };
+
+        try {
+            const documentResult = await ScanbotSDK.startDocumentScanner(configuration);
+
+            if (documentResult.status === 'CANCELED') {
+                // User has canceled the scanning operation
+            } else {
+                // Handle the scanned pages from result
+                await this.preferencesUtils.savePages(documentResult.pages);
+                this.loadImageResults();
+            }
+        } catch (e: any) {
+            this.utils.showErrorAlert(e.message);
+        }
+    }
+
+    async showDeleteAllResultsConfirmationDialog() {
+        if (
+            this.isResultsListEmpty(
+                'No images to delete. Please scan one or more documents first.',
+            )
+        ) {
+            return;
+        }
+
+        await this.utils.showAlert({
+            header: 'Delete all results ?',
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                },
+                {
+                    text: 'Delete',
+                    role: 'destructive',
+                    handler: () => {
+                        this.deleteAllResults();
+                    },
+                },
+            ],
+        });
+    }
+
+    private async deleteAllResults() {
+        await this.preferencesUtils.deleteAllPages();
+        await ScanbotSDK.cleanup();
+        this.imageResults = [];
+    }
+
+    async saveResultsAs() {
+        if (
+            this.isResultsListEmpty(
+                'No images to save. Please scan one or more documents first.',
+            )
+        ) {
+            return;
+        }
+
+        const actionSheet = await this.actionSheetCtrl.create({
+            header: 'Save results as',
+            buttons: [
+                {
+                    text: 'PDF',
+                    handler: () => {
+                        this.saveResultsAsPDF();
+                    },
+                },
+                {
+                    text: 'PDF with OCR',
+                    handler: () => {
+                        this.saveResultsAsPDFWithOCR();
+                    },
+                },
+                {
+                    text: 'TIFF (1-bit B&W)',
+                    handler: () => {
+                        this.saveResultsAsTIFF(true);
+                    },
+                },
+                {
+                    text: 'TIFF (color)',
+                    handler: () => {
+                        this.saveResultsAsTIFF(false);
+                    },
+                },
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                },
+            ],
+        });
+        actionSheet.present();
+    }
+
+    private async saveResultsAsPDF() {
+        // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+        if (!(await this.isLicenseValid())) {
+            return;
+        }
+
+        try {
+            await this.utils.showLoader();
+
+            const saveResult = await ScanbotSDK.createPDF({
+                imageFileUris: this.getImageResultsUris(),
+                pageSize: 'FIXED_A4',
+            });
+
+            await this.utils.dismissLoader();
+            // use the PDF file URI from result, e.g.:
+            await this.fileUtils.openPdfFile(saveResult.pdfFileUri);
+        } catch (e: any) {
+            await this.utils.dismissLoader();
+            this.utils.showErrorAlert(e.message);
+        }
+    }
+
+    private async saveResultsAsPDFWithOCR() {
+        // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+        if (!(await this.isLicenseValid())) {
+            return;
+        }
+
+        try {
+            await this.utils.showLoader();
+
+            const saveResult = await ScanbotSDK.performOCR({
+                imageFileUris: this.getImageResultsUris(),
+                languages: ['en', 'de'],
+                options: { outputFormat: 'FULL_OCR_RESULT' },
+            });
+
+            await this.utils.dismissLoader();
+            // use the PDF file URI from result, e.g.:
+            await this.fileUtils.openPdfFile(saveResult.pdfFileUri);
+        } catch (e: any) {
+            await this.utils.dismissLoader();
+            this.utils.showErrorAlert(e.message);
+        }
+    }
+
+    private async saveResultsAsTIFF(binarized: boolean) {
+        if (AppComponent.FILE_ENCRYPTION_ENABLED) {
+            this.utils.showWarningAlert(
+                'Encryption for TIFF files currently not supported. ' +
+                'In order to test TIFF please disable image file encryption',
+            );
+            return;
+        }
+
+        // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+        if (!(await this.isLicenseValid())) {
+            return;
+        }
+
+        try {
+            await this.utils.showLoader();
+
+            const result = await ScanbotSDK.writeTIFF({
+                imageFileUris: this.getImageResultsUris(),
+                options: {
+                    oneBitEncoded: binarized, // "true" means create 1-bit binarized black and white TIFF
+                    dpi: 300, // optional DPI. default value is 200
+                    compression: binarized ? 'CCITT_T6' : 'ADOBE_DEFLATE', // optional compression. see documentation!
+                },
+            });
+
+            await this.utils.dismissLoader();
+            // use the TIFF file URI from result, e.g.:
+            await this.fileUtils.openTiffFile(result.tiffFileUri);
+        } catch (e: any) {
+            await this.utils.dismissLoader();
+            this.utils.showErrorAlert(e.message);
+        }
+    }
+
+    async isLicenseValid(): Promise<boolean> {
+        const licenseInfo = await ScanbotSDK.getLicenseInfo();
+
+        if (licenseInfo.isLicenseValid) {
+            // We have a valid (trial) license and can call other Scanbot SDK methods.
+            // E.g. launch the Document Scanner
+            return true;
+        } else {
+            // The license is not valid. We will return false and show the status
+            this.utils.showWarningAlert(
+                this.scanbotUtils.getMessageFromLicenseStatus(licenseInfo.licenseStatus),
+            );
+            return false;
+        }
+    }
+}

@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Barcode Formats</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button [text]="getBackButtonText()" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item *ngFor="let barcode of barcodeSettings">
+      <ion-toggle [checked]="barcode.accepted" (ionChange)="barcodeSettingStateChanged($event, barcode)">
+        {{ barcode.format }}
+      </ion-toggle>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,10 +1,10 @@
 # Scanbot Capacitor Document Scanner SDK Example App with Angular
 
-This example app shows how to integrate the [Scanbot Capacitor Document Scanner SDK](https://docs.scanbot.io/document-scanner-sdk/capacitor/introduction/)
+This example app shows how to integrate the [Scanbot Capacitor Document Scanner SDK](https://docs.scanbot.io/document-scanner-sdk/capacitor/introduction/).
 
 The Scanbot SDK Capacitor Plugin is available as an [npm package](https://www.npmjs.com/package/capacitor-plugin-scanbot-sdk).
 
-For more details about the Scanbot SDK Capacitor Plugin please refer to the [documentation](https://docs.scanbot.io/document-scanner-sdk/capacitor/).
+For more details about the Scanbot SDK Capacitor Plugin, please refer to the [documentation](https://docs.scanbot.io/document-scanner-sdk/capacitor/).
 
 ## What is the Scanbot SDK?
 
@@ -36,7 +36,7 @@ framework or features, please visit our [Support Page](https://docs.scanbot.io/s
 - [Capacitor CLI](https://www.npmjs.com/package/@capacitor/cli) 5+
 - For Android apps:
     * Android SDK (API Level 22+), Platforms and Developer Tools
-    * Android Studio Flamingo | 2022.2.1 with Gradle 8, Java JDK 17
+    * Android Studio 2022.2.1+, JDK 17
 - For iOS apps: 
     * iOS 13+
     * macOS with Xcode 14.1+
@@ -70,9 +70,22 @@ Build the web assets and sync with the Capacitor native projects:
 
 ```
 npm run build
-npx cap sync
+npm run sync
 ```
 
 ### Run
 
-Connect an Android or iOS device via USB and run the app by opening the respective projects
+Connect an Android or iOS device via USB and run the app by opening the respective projects, or via terminal with these commands:
+
+```
+npm run android
+```
+
+```
+npm run ios
+```
+**Note:** If you want to run on iOS 17+, currently this is only possible through Xcode. Running from CLI on iOS 17+ will be possible from Capacitor 6+.
+
+You can read more about the Capacitor CLI commands at this [link](https://capacitorjs.com/docs/cli).
+
+If you want to develop without Capacitor CLI commands, you can use [VS Code](https://code.visualstudio.com/) together with the [Ionic VS Code Extension](https://marketplace.visualstudio.com/items?itemName=ionic.ionic). Read more about this [here](https://capacitorjs.com/docs/vscode/getting-started).
