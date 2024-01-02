@@ -31,13 +31,6 @@ export class RtuMrzScannerFeature extends ScanbotSdkFeatureComponent {
             // see further configs ...
         };
 
-        if (this.utils.isiOSPlatform()) {
-            configuration.finderAspectRatio = {
-                width: 0.9,
-                height: 0.18,
-            };
-        }
-
         try {
             const result = await ScanbotSDK.startMrzScanner(configuration);
 

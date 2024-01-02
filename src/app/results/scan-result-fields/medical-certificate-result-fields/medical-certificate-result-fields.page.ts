@@ -57,12 +57,23 @@ export class MedicalCertificateResultFieldsPage extends ScanResultFieldsPage {
             ];
         }
 
-        allFields.push({
-            title: 'Patient Data',
-            fields: this.getPatientData(),
-        });
-        allFields.push({ title: 'Dates', fields: this.getDates() });
-        allFields.push({ title: 'Checkboxes', fields: this.getCheckboxes() });
+        let patientDataFields = this.getPatientData();
+        if (patientDataFields.length > 0) {
+            allFields.push({
+                title: 'Patient Data',
+                fields: patientDataFields,
+            });
+        }
+
+        let datesFields = this.getDates();
+        if (datesFields.length > 0) {
+            allFields.push({ title: 'Dates', fields: datesFields });
+        }
+
+        let checkboxesFields = this.getCheckboxes();
+        if (checkboxesFields.length > 0) {
+            allFields.push({ title: 'Checkboxes', fields: checkboxesFields });
+        }
 
         return allFields;
     }
