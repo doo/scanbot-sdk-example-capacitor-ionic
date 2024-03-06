@@ -18,7 +18,7 @@ def capacitor_pods
   pod 'CapacitorPreferences', :path => '../../node_modules/@capacitor/preferences'
   pod 'CapacitorStatusBar', :path => '../../node_modules/@capacitor/status-bar'
   pod 'CapawesomeCapacitorFilePicker', :path => '../../node_modules/@capawesome/capacitor-file-picker'
-  pod 'CapacitorPluginScanbotSdk', :path => '../../node_modules/capacitor-plugin-scanbot-sdk'
+  pod 'CapacitorPluginScanbotSdk', :path => '../../../scanbot-sdk-capacitor-plugin'
 end
 
 target 'App' do
