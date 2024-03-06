@@ -31,12 +31,12 @@ export class RecognizeCheckOnImageFeature extends ScanbotSdkFeatureComponent {
             const imageFileUri = await this.imageUtils.selectImageFromLibrary()
             await this.utils.showLoader();
 
-            const result = await ScanbotSDK.recognizeCheck({
+            const result = await ScanbotSDK.recognizeMrz({
                 imageFileUri: imageFileUri,
             });
 
             this.utils.dismissLoader();
-            if (result.checkStatus === 'SUCCESS') {
+            if (result.status === "OK" ) {
                 // Handle the detected check(s) from result
                 const checkResultAsJson = JSON.stringify(result);
 

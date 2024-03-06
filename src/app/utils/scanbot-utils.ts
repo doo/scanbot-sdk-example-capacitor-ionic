@@ -1,15 +1,10 @@
-import { Injectable, inject } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { Preferences } from '@capacitor/preferences';
+import {inject, Injectable} from '@angular/core';
+import {ModalController} from '@ionic/angular';
+import {Preferences} from '@capacitor/preferences';
 
-import { ImageFilterComponent } from '../image-filter/image-filter.component';
+import {ImageFilterComponent} from '../image-filter/image-filter.component';
 
-import {
-    BarcodeDocumentFormat,
-    BarcodeFormat,
-    ImageFilterType,
-    LicenseStatus,
-} from 'capacitor-plugin-scanbot-sdk';
+import {BarcodeDocumentFormat, BarcodeFormat, ImageFilterType, LicenseStatus,} from 'capacitor-plugin-scanbot-sdk';
 
 export interface Feature {
     id: FeatureId;
@@ -66,7 +61,8 @@ export class ScanbotUtils {
 
     private modalCtrl = inject(ModalController);
 
-    constructor() { }
+    constructor() {
+    }
 
     async getBarcodeSettings(): Promise<BarcodeSetting[]> {
         return [
@@ -133,10 +129,6 @@ export class ScanbotUtils {
             {
                 format: 'UPC_E',
                 accepted: await this.isBarcodeFormatAccepted('UPC_E'),
-            },
-            {
-                format: 'UNKNOWN',
-                accepted: await this.isBarcodeFormatAccepted('UNKNOWN'),
             },
             {
                 format: 'MSI_PLESSEY',
@@ -208,35 +200,62 @@ export class ScanbotUtils {
 
     getImageFilters(): ImageFilter[] {
         return [
-            { title: 'None', type: 'ImageFilterTypeNone' },
-            { title: 'Color', type: 'ImageFilterTypeColor' },
-            { title: 'Gray', type: 'ImageFilterTypeGray' },
-            { title: 'Binarized', type: 'ImageFilterTypeBinarized' },
-            { title: 'Color Document', type: 'ImageFilterTypeColorDocument' },
-            { title: 'Pure Binarized', type: 'ImageFilterTypePureBinarized' },
+            {
+                title: 'None',
+                type: 'NONE'
+            },
+            {
+                title: 'Color',
+                type: 'COLOR'
+            },
+            {
+                title: 'Gray',
+                type: 'GRAYSCALE'
+            },
+            {
+                title: 'Binarized',
+                type: 'BINARIZED'
+            },
+            {
+                title: 'Color Document',
+                type: 'COLOR_DOCUMENT'
+            },
+            {
+                title: 'Pure Binarized',
+                type: 'PURE_BINARIZED'
+            },
             {
                 title: 'Background Clean',
-                type: 'ImageFilterTypeBackgroundClean',
+                type: 'BACKGROUND_CLEAN',
             },
-            { title: 'Black And White', type: 'ImageFilterTypeBlackAndWhite' },
+            {
+                title: 'Black And White',
+                type: 'BLACK_AND_WHITE'
+            },
             {
                 title: 'Otsu Binarization',
-                type: 'ImageFilterTypeOtsuBinarization',
+                type: 'OTSU_BINARIZATION',
             },
             {
                 title: 'Deep Binarization',
-                type: 'ImageFilterTypeDeepBinarization',
+                type: 'DEEP_BINARIZATION',
             },
-            { title: 'Edge Highlight', type: 'ImageFilterTypeEdgeHighlight' },
+            {
+                title: 'Edge Highlight',
+                type: 'EDGE_HIGHLIGHT'
+            },
             {
                 title: 'Low Light Binarization',
-                type: 'ImageFilterTypeLowLightBinarization',
+                type: 'LOW_LIGHT_BINARIZATION',
             },
             {
                 title: 'Low Light Binarization 2',
-                type: 'ImageFilterTypeLowLightBinarization2',
+                type: 'LOW_LIGHT_BINARIZATION_2',
             },
-            { title: 'Pure Gray', type: 'ImageFilterTypePureGray' },
+            {
+                title: 'Pure Gray',
+                type: 'PURE_GRAY'
+            },
         ];
     }
 
@@ -248,10 +267,9 @@ export class ScanbotUtils {
         });
         await filterModal.present();
 
-        const selectedFilterType: ImageFilterType | undefined = (
+        return (
             await filterModal.onDidDismiss()
         ).data;
-        return selectedFilterType;
     }
 
     async getAcceptedBarcodeFormats(): Promise<BarcodeFormat[]> {
@@ -263,15 +281,9 @@ export class ScanbotUtils {
     private async isBarcodeFormatAccepted(
         barcodeFormat: BarcodeFormat,
     ): Promise<boolean> {
-        const prefValue = (
-            await Preferences.get({ key: barcodeFormat.toString() })
-        ).value;
-
-        if (barcodeFormat === 'UNKNOWN') {
-            return prefValue === 'true';
-        } else {
-            return prefValue !== 'false';
-        }
+        return (
+            await Preferences.get({key: barcodeFormat.toString()})
+        ).value === 'true'
     }
 
     async getAcceptedBarcodeDocumentFormats(): Promise<
@@ -286,7 +298,7 @@ export class ScanbotUtils {
         barcodeDocumentFormat: BarcodeDocumentFormat,
     ): Promise<boolean> {
         const prefValue = (
-            await Preferences.get({ key: barcodeDocumentFormat.toString() })
+            await Preferences.get({key: barcodeDocumentFormat.toString()})
         ).value;
 
         return prefValue !== 'false';
@@ -294,7 +306,7 @@ export class ScanbotUtils {
 
     async isBarcodeDocumentFormatsEnabled(): Promise<boolean> {
         const prefValue = (
-            await Preferences.get({ key: ScanbotUtils.BARCODE_DOCUMENT_FORMATS_ENABLED_KEY })
+            await Preferences.get({key: ScanbotUtils.BARCODE_DOCUMENT_FORMATS_ENABLED_KEY})
         ).value;
 
         return prefValue === 'true';

@@ -41,7 +41,6 @@ export class RtuTextDataScannerFeature extends ScanbotSdkFeatureComponent {
                 preferredZoom: 2.0,
                 shouldMatchSubstring: false,
                 significantShakeDelay: -1,
-                textFilterStrategy: 'Document',
                 unzoomedFinderHeight: 40,
             },
             // Other UI configs...
