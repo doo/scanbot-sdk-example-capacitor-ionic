@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature.component';
 import { FeatureId } from 'src/app/utils/scanbot-utils';
 
-import { MrzResult, MrzScannerConfiguration, ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
+import { MrzScannerResult, MrzScannerConfiguration, ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
     selector: 'app-rtu-mrz-scanner-feature',
@@ -37,11 +37,14 @@ export class RtuMrzScannerFeature extends ScanbotSdkFeatureComponent {
             if (result.status === 'CANCELED') {
                 // User has canceled the scanning operation
             } else {
-                // Handle the extracted data fields
-                const fields = result.fields.map(
-                    (f) => `${f.name}: ${f.value} (${f.confidence.toFixed(2)})`,
-                );
-                this.utils.showResultInfo(fields.join('\n'));
+                // Handle the extracted data
+                const checkResultAsJson = JSON.stringify(result);
+
+                console.log(checkResultAsJson);
+                this.router.navigate([
+                    '/mrz-result-fields',
+                    checkResultAsJson,
+                ]);
             }
         } catch (e: any) {
             this.utils.showErrorAlert(e.message);

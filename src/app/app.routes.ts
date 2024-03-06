@@ -59,4 +59,8 @@ export const routes: Routes = [
         redirectTo: 'home',
         pathMatch: 'full',
     },
+  {
+    path: 'mrz-result-fields/:result',
+    loadComponent: () => import('./results/scan-result-fields/mrz-result-fields/mrz-result-fields.page').then(m => m.MrzResultFieldsPage)
+  },
 ];
