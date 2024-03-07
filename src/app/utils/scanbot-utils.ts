@@ -35,6 +35,7 @@ export enum FeatureId {
     RecognizeCheckOnImage,
     ApplyFilterOnImage,
     FinderDocumentScanner,
+    VINScanner,
 }
 
 export interface BarcodeSetting {

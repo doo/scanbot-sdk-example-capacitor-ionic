@@ -27,6 +27,7 @@ import { RecognizeCheckOnImageFeature } from '../scanbotsdk-features/recognize-c
 import { ApplyFilterOnImageFeature } from '../scanbotsdk-features/apply-filter-on-image/apply-filter-on-image-feature.component';
 
 import { ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
+import {RtuVinScannerComponent} from "../scanbotsdk-features/rtu-vin-scanner/rtu-vin-scanner.component";
 
 @Component({
     selector: 'app-home',
@@ -56,6 +57,7 @@ import { ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
         RtuTextDataScannerFeature,
         RecognizeCheckOnImageFeature,
         ApplyFilterOnImageFeature,
+        RtuVinScannerComponent,
     ],
 })
 export class HomePage {
