@@ -76,7 +76,7 @@ export class CommonUtils {
                 ).toDateString()
                 : 'N/A'
             }` +
-            `<br />• Status: ${info.licenseStatus}`;
+            `Restructured PatientDataInfo to return value and confidence of the recognized patient data result• Status: ${info.licenseStatus}`;
 
         await this.showAlert({
             header: 'License',

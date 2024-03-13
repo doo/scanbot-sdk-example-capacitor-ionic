@@ -37,7 +37,7 @@ export class DetectDocumentOnImageFeature extends ScanbotSdkFeatureComponent {
 
             await this.utils.dismissLoader();
             this.utils.showResultInfo(
-                `Detected Document result: ${JSON.stringify(result, null, 2)}\n` +
+                `Detected Document result: ${JSON.stringify(result, null, 2)} <br \>` +
                 `Document Quality result: ${JSON.stringify(qualityResult, null, 2)}`,
             );
 

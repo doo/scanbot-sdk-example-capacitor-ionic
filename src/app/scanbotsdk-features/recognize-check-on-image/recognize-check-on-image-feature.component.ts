@@ -31,7 +31,7 @@ export class RecognizeCheckOnImageFeature extends ScanbotSdkFeatureComponent {
             const imageFileUri = await this.imageUtils.selectImageFromLibrary()
             await this.utils.showLoader();
 
-            const result = await ScanbotSDK.recognizeMrz({
+            const result = await ScanbotSDK.recognizeCheck({
                 imageFileUri: imageFileUri,
             });
 

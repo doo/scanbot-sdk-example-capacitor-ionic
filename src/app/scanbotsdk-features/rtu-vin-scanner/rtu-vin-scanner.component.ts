@@ -34,10 +34,6 @@ export class RtuVinScannerComponent extends ScanbotSdkFeatureComponent {
         };
 
         try {
-            setTimeout(async () => {
-                console.log(await ScanbotSDK.closeVinScanner(), "LOG")
-            }, 5000)
-
             const result = await ScanbotSDK.startVinScanner(configuration);
 
             if (result.status === 'CANCELED') {
@@ -48,7 +44,7 @@ export class RtuVinScannerComponent extends ScanbotSdkFeatureComponent {
                         `- Raw Text: ${result.rawText}`, result.confidenceValue &&
                         `- Confidence: ${(result.confidenceValue * 100).toFixed(0)}%`,
                         `- Validation: ${result.validationSuccessful ? 'SUCCESSFUL' : 'NOT SUCCESSFUL'}`,
-                    ].join('\n\n')
+                    ].join('<br />')
                 );
             }
         } catch (e: any) {
