@@ -5,9 +5,9 @@ import { IonicModule } from '@ionic/angular';
 
 import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature.component';
 import { Colors } from 'src/theme/theme';
+import { FeatureId } from 'src/app/utils/scanbot-utils';
 
 import { CheckRecognizerConfiguration, ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
-import { FeatureId } from 'src/app/utils/scanbot-utils';
 
 @Component({
     selector: 'app-rtu-check-recognizer-feature',

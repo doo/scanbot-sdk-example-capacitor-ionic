@@ -1,87 +1,88 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Capacitor Scanbot SDK
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>
+            Capacitor Scanbot SDK
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-list>
+    <ion-list>
 
-    <ion-item lines="none">
-      <ion-label>
-        <h2>DOCUMENT SCANNER</h2>
-      </ion-label>
-    </ion-item>
-    <app-rtu-document-scanner-feature />
-    <app-rtu-document-scanner-with-finder-feature />
-    <app-detect-document-on-page-feature />
-    <app-detect-document-on-image-feature />
-    <app-extract-pages-from-pdf-feature />
-    <app-extract-images-from-pdf-feature />
-    <ion-item [routerLink]="'/image-results'" [detail]="false">
-      <ion-label>
-        <p>View Image Results</p>
-      </ion-label>
-    </ion-item>
+        <ion-item lines="none">
+            <ion-label>
+                <h2>DOCUMENT SCANNER</h2>
+            </ion-label>
+        </ion-item>
+        <app-rtu-document-scanner-feature />
+        <app-rtu-document-scanner-with-finder-feature />
+        <app-detect-document-on-page-feature />
+        <app-detect-document-on-image-feature />
+        <app-extract-pages-from-pdf-feature />
+        <app-extract-images-from-pdf-feature />
+        <ion-item [routerLink]="'/image-results'" [detail]="false">
+            <ion-label>
+                <p>View Image Results</p>
+            </ion-label>
+        </ion-item>
 
-    <ion-item lines="none" class="ion-margin-top">
-      <ion-label>
-        <h2>BARCODE DETECTOR</h2>
-      </ion-label>
-    </ion-item>
-    <app-rtu-barcode-scanner-feature />
-    <app-rtu-batch-barcode-scanner-feature />
-    <app-detect-barcodes-on-image-feature />
-    <app-detect-barcodes-on-multiple-images-feature />
-    <ion-item (click)='showBarcodeFormatsScreen()' [detail]="false">
-      <ion-label>
-        <p>Barcode Formats</p>
-      </ion-label>
-    </ion-item>
-    <ion-item (click)='showBarcodeDocumentFormatsScreen()' [detail]="false">
-      <ion-label>
-        <p>Barcode Document Formats</p>
-      </ion-label>
-    </ion-item>
+        <ion-item lines="none" class="ion-margin-top">
+            <ion-label>
+                <h2>BARCODE DETECTOR</h2>
+            </ion-label>
+        </ion-item>
+        <app-rtu-barcode-scanner-feature />
+        <app-rtu-batch-barcode-scanner-feature />
+        <app-detect-barcodes-on-image-feature />
+        <app-detect-barcodes-on-multiple-images-feature />
+        <ion-item (click)='showBarcodeFormatsScreen()' [detail]="false">
+            <ion-label>
+                <p>Barcode Formats</p>
+            </ion-label>
+        </ion-item>
+        <ion-item (click)='showBarcodeDocumentFormatsScreen()' [detail]="false">
+            <ion-label>
+                <p>Barcode Document Formats</p>
+            </ion-label>
+        </ion-item>
 
-    <ion-item lines="none" class="ion-margin-top">
-      <ion-label>
-        <h2>DATA DETECTORS</h2>
-      </ion-label>
-    </ion-item>
-    <app-rtu-mrz-scanner-feature />
-    <app-rtu-medical-certificate-scanner-feature />
-    <app-rtu-generic-document-recognizer-feature />
-    <app-rtu-check-recognizer-feature />
-    <app-rtu-health-insurance-card-scanner-feature />
-    <app-rtu-license-plate-scanner-feature [feature]="featureScanLicensePlateMLBased" />
-    <app-rtu-license-plate-scanner-feature [feature]="featureScanLicensePlateClassic" />
-    <app-rtu-text-data-scanner-feature />
-    <app-recognize-check-on-image-feature />
+        <ion-item lines="none" class="ion-margin-top">
+            <ion-label>
+                <h2>DATA DETECTORS</h2>
+            </ion-label>
+        </ion-item>
+        <app-rtu-mrz-scanner-feature />
+        <app-rtu-medical-certificate-scanner-feature />
+        <app-rtu-generic-document-recognizer-feature />
+        <app-rtu-check-recognizer-feature />
+        <app-rtu-health-insurance-card-scanner-feature />
+        <app-rtu-license-plate-scanner-feature [feature]="featureScanLicensePlateMLBased" />
+        <app-rtu-license-plate-scanner-feature [feature]="featureScanLicensePlateClassic" />
+        <app-rtu-vin-scanner />
+        <app-rtu-text-data-scanner-feature />
+        <app-recognize-check-on-image-feature />
 
-    <ion-item lines="none" class="ion-margin-top">
-      <ion-label>
-        <h2>MISCELLANEOUS</h2>
-      </ion-label>
-    </ion-item>
-    <app-apply-filter-on-image-feature />
-    <ion-item (click)='showLicenseInfo()'>
-      <ion-label>
-        <p>View License Info</p>
-      </ion-label>
-    </ion-item>
-    <ion-item (click)='showOCRConfigs()'>
-      <ion-label>
-        <p>View OCR Configs</p>
-      </ion-label>
-    </ion-item>
-    <ion-item lines="none">
-      <a href="https://scanbot.io" class="scanbotSDK">Learn More About Scanbot SDK</a>
-    </ion-item>
-    <ion-item lines="none">
-      <p class="footerNote">Copyright {{ currentYear }} Scanbot SDK GmbH. All rights reserved.</p>
-    </ion-item>
-  </ion-list>
+        <ion-item lines="none" class="ion-margin-top">
+            <ion-label>
+                <h2>MISCELLANEOUS</h2>
+            </ion-label>
+        </ion-item>
+        <app-apply-filter-on-image-feature />
+        <ion-item (click)='showLicenseInfo()'>
+            <ion-label>
+                <p>View License Info</p>
+            </ion-label>
+        </ion-item>
+        <ion-item (click)='showOCRConfigs()'>
+            <ion-label>
+                <p>View OCR Configs</p>
+            </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+            <a href="https://scanbot.io" class="scanbotSDK">Learn More About Scanbot SDK</a>
+        </ion-item>
+        <ion-item lines="none">
+            <p class="footerNote">Copyright {{ currentYear }} Scanbot SDK GmbH. All rights reserved.</p>
+        </ion-item>
+    </ion-list>
 </ion-content>

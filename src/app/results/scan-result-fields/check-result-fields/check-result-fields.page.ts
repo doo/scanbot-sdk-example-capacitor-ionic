@@ -2,13 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { Capacitor } from '@capacitor/core';
+import { Capacitor } from "@capacitor/core";
 
-import {
-    ScanResultFieldsSection,
-    ScanResultFieldsPage,
-    ScanResultField,
-} from '../scan-result-fields.page';
+
+import { ScanResultFieldsPage } from '../scan-result-fields.page';
+import { ScanResultSection, ScanResultSectionList, SectionListComponent } from "../section-list/section-list.component";
+import { GenericDocumentUtils } from "../../../utils/gdr-utils";
 
 import { CheckRecognizerResult } from 'capacitor-plugin-scanbot-sdk';
 
@@ -17,11 +16,10 @@ import { CheckRecognizerResult } from 'capacitor-plugin-scanbot-sdk';
     templateUrl: '../scan-result-fields.page.html',
     styleUrls: ['../scan-result-fields.page.scss'],
     standalone: true,
-    imports: [IonicModule, CommonModule, FormsModule],
+    imports: [IonicModule, CommonModule, FormsModule, SectionListComponent],
 })
 export class CheckResultFieldsPage extends ScanResultFieldsPage {
-    override pageTitle: string = 'Check';
-
+    override pageTitle: string = 'Check Result';
     private checkResult!: CheckRecognizerResult;
 
     constructor() {
@@ -33,41 +31,40 @@ export class CheckResultFieldsPage extends ScanResultFieldsPage {
             this.activatedRoute.snapshot.paramMap.get('result') as string,
         );
 
-        super.ngOnInit();
+        await super.ngOnInit();
     }
 
-    override loadResultFields(): ScanResultFieldsSection[] {
-        let allFields: ScanResultFieldsSection[] = [];
-
-        if (this.checkResult.imageFileUri) {
-            const resultImageField: ScanResultField = {
-                key: 'imageFileUri',
-                fieldPhotoPreviewWebViewPath: Capacitor.convertFileSrc(
-                    this.checkResult.imageFileUri,
-                ),
-                showPhotoOnly: true,
-            };
-
-            allFields = [
-                { title: 'Snapped image', fields: [resultImageField] },
-            ];
-        }
-
-        if (this.checkResult.fields) {
-            const resultFields: ScanResultField[] = [];
-
-            Object.entries(this.checkResult.fields).forEach(
-                ([_key, _value]) => {
-                    resultFields.push({
-                        key: _key,
-                        value: _value?.value?.text,
-                    });
+    override loadResultFields(): ScanResultSectionList {
+        const commonSection: ScanResultSection = {
+            title: 'Check Result',
+            data: [
+                {
+                    key: 'Check Image',
+                    image: this.checkResult.imageFileUri && Capacitor.convertFileSrc(this.checkResult.imageFileUri),
                 },
-            );
+                {
+                    key: 'Recognition Status',
+                    value: this.checkResult.checkStatus,
+                },
+                {
+                    key: 'Check Type',
+                    value: this.checkResult.checkType,
+                },
+                {
+                    key: 'Recognition confidence',
+                    value: this.checkResult.check.confidence.toString(),
+                },
+            ]
+        };
 
-            allFields.push({ title: 'Fields', fields: resultFields });
-        }
+        const checkFieldsSection: ScanResultSection = {
+            title: this.checkResult.check.type.name,
+            data: GenericDocumentUtils.gdrFields(this.checkResult.check),
+        };
 
-        return allFields;
+        return [
+            commonSection,
+            checkFieldsSection
+        ];
     }
 }

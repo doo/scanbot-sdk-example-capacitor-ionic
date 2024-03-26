@@ -27,8 +27,8 @@ export class RtuLicensePlateScannerFeature extends ScanbotSdkFeatureComponent {
         const configuration: LicensePlateScannerConfiguration = {
             // Customize colors, text resources, behavior, etc..
             scanStrategy: FeatureId.LicensePlateScannerML
-                ? 'MlBased'
-                : 'Classic',
+                ? 'ML_BASED'
+                : 'CLASSIC',
             topBarBackgroundColor: Colors.scanbotRed,
             cancelButtonTitle: 'Cancel',
             finderLineColor: '#c8193c',

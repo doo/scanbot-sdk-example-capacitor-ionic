@@ -36,7 +36,7 @@ export class RecognizeCheckOnImageFeature extends ScanbotSdkFeatureComponent {
             });
 
             this.utils.dismissLoader();
-            if (result.checkStatus === 'SUCCESS') {
+            if (result.status === "OK" ) {
                 // Handle the detected check(s) from result
                 const checkResultAsJson = JSON.stringify(result);
 
