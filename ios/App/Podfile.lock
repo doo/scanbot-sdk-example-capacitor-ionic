@@ -30,7 +30,7 @@ DEPENDENCIES:
   - "CapacitorCommunityFileOpener (from `../../node_modules/@capacitor-community/file-opener`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorFilesystem (from `../../node_modules/@capacitor/filesystem`)"
-  - CapacitorPluginScanbotSdk (from `../../../scanbot-sdk-capacitor-plugin`)
+  - CapacitorPluginScanbotSdk (from `../../node_modules/capacitor-plugin-scanbot-sdk`)
   - "CapacitorPreferences (from `../../node_modules/@capacitor/preferences`)"
   - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
   - "CapawesomeCapacitorFilePicker (from `../../node_modules/@capawesome/capacitor-file-picker`)"
@@ -54,7 +54,7 @@ EXTERNAL SOURCES:
   CapacitorFilesystem:
     :path: "../../node_modules/@capacitor/filesystem"
   CapacitorPluginScanbotSdk:
-    :path: "../../../scanbot-sdk-capacitor-plugin"
+    :path: "../../node_modules/capacitor-plugin-scanbot-sdk"
   CapacitorPreferences:
     :path: "../../node_modules/@capacitor/preferences"
   CapacitorStatusBar:
@@ -76,6 +76,6 @@ SPEC CHECKSUMS:
   ScanbotSDK: d982d517143b71cfab94792bfd8d4bddc8c4dee8
   ScanbotSDKNativeWrapper: de97591540030a6087a602f99859afa95011ed79
 
-PODFILE CHECKSUM: 9b3ba14a3ebda22b1c5077c51c29e9a96c8c96eb
+PODFILE CHECKSUM: 1c0b01bf953f77e825473bc5646fb2763258c470
 
 COCOAPODS: 1.12.1
