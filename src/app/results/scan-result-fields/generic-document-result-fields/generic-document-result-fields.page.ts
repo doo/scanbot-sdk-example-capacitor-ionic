@@ -1,9 +1,11 @@
-import {Component} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {IonicModule} from '@ionic/angular';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 
-import {ScanResultFieldsPage,} from '../scan-result-fields.page';
+import { ScanResultFieldsPage, } from '../scan-result-fields.page';
+import { ScanResultSection, ScanResultSectionList, SectionListComponent } from "../section-list/section-list.component";
+import { GenericDocumentUtils } from "../../../utils/gdr-utils";
 
 import {
     CategoriesDocument,
@@ -15,8 +17,6 @@ import {
     Field,
     GenericDocumentRecognizerResult
 } from 'capacitor-plugin-scanbot-sdk';
-import {ScanResultSection, ScanResultSectionList, SectionListComponent} from "../section-list/section-list.component";
-import {GenericDocumentUtils} from "../../../utils/gdr-utils";
 
 @Component({
     selector: 'app-generic-document-result-fields',
@@ -69,23 +69,23 @@ export class GenericDocumentResultFieldsPage extends ScanResultFieldsPage {
     private dePassportFields = (
         passportDocument: DePassportDocument,
     ): ScanResultSection[] => [
-        {
-            title: 'German Passport',
-            data: [
-                ...GenericDocumentUtils.gdrCommonFields(passportDocument),
-                ...GenericDocumentUtils.gdrFields(passportDocument),
-            ],
-        },
-        {
-            title: 'Passport MRZ',
-            data: [
-                ...GenericDocumentUtils.gdrCommonFields(passportDocument.mrz),
-                ...GenericDocumentUtils.gdrFields(passportDocument.mrz),
-            ],
-        },
-    ];
+            {
+                title: 'German Passport',
+                data: [
+                    ...GenericDocumentUtils.gdrCommonFields(passportDocument),
+                    ...GenericDocumentUtils.gdrFields(passportDocument),
+                ],
+            },
+            {
+                title: 'Passport MRZ',
+                data: [
+                    ...GenericDocumentUtils.gdrCommonFields(passportDocument.mrz),
+                    ...GenericDocumentUtils.gdrFields(passportDocument.mrz),
+                ],
+            },
+        ];
 
-// German ID Card (FRONT) - Display Utility Method
+    // German ID Card (FRONT) - Display Utility Method
     private deIdCardFrontFields = (idCardDocument: DeIdCardFrontDocument) => [
         {
             title: 'German ID Card Front',
@@ -96,7 +96,7 @@ export class GenericDocumentResultFieldsPage extends ScanResultFieldsPage {
         },
     ];
 
-// German ID Card (BACK) - Display Utility Method
+    // German ID Card (BACK) - Display Utility Method
     private deIdCardBackFields = (idCardDocument: DeIdCardBackDocument) => [
         {
             title: 'German ID Card Back',
@@ -114,34 +114,34 @@ export class GenericDocumentResultFieldsPage extends ScanResultFieldsPage {
         },
     ];
 
-// Driver License (FRONT) - Display Utility Method
+    // Driver License (FRONT) - Display Utility Method
     private deDriverLicenseFrontFields = (
         driversLicense: DeDriverLicenseFrontDocument,
     ) => [
-        {
-            title: 'German Drivers licence Front',
-            data: [
-                ...GenericDocumentUtils.gdrCommonFields(driversLicense),
-                ...GenericDocumentUtils.gdrFields(driversLicense),
-            ],
-        },
-    ];
+            {
+                title: 'German Drivers licence Front',
+                data: [
+                    ...GenericDocumentUtils.gdrCommonFields(driversLicense),
+                    ...GenericDocumentUtils.gdrFields(driversLicense),
+                ],
+            },
+        ];
 
-// Driver License (BACK) - Display Utility Method
+    // Driver License (BACK) - Display Utility Method
     private deDriverLicenseBackFields = (
         driversLicense: DeDriverLicenseBackDocument,
     ) => [
-        {
-            title: 'German Drivers licence Back',
-            data: [
-                ...GenericDocumentUtils.gdrCommonFields(driversLicense),
-                ...GenericDocumentUtils.gdrFields(driversLicense),
-            ],
-        },
-        ...this.driverLicenseBackCategoryFields(driversLicense.categories),
-    ];
+            {
+                title: 'German Drivers licence Back',
+                data: [
+                    ...GenericDocumentUtils.gdrCommonFields(driversLicense),
+                    ...GenericDocumentUtils.gdrFields(driversLicense),
+                ],
+            },
+            ...this.driverLicenseBackCategoryFields(driversLicense.categories),
+        ];
 
-// Driver License (BACK - Categories) - Display Utility Method
+    // Driver License (BACK - Categories) - Display Utility Method
     private driverLicenseBackCategoryFields = (categories: CategoriesDocument) => [
         this.getDriverLicenseCategoryField('A', categories.a),
         this.getDriverLicenseCategoryField('A1', categories.a1),
@@ -162,7 +162,7 @@ export class GenericDocumentResultFieldsPage extends ScanResultFieldsPage {
         this.getDriverLicenseCategoryField('T', categories.t),
     ];
 
-// Driver License Category - Display Utility Method
+    // Driver License Category - Display Utility Method
     private getDriverLicenseCategoryField = (
         displayName: string,
         category?: {

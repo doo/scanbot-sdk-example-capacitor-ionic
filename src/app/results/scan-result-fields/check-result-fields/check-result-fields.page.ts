@@ -1,17 +1,15 @@
-import {Component} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {IonicModule} from '@ionic/angular';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { Capacitor } from "@capacitor/core";
 
 
-import {
-    ScanResultFieldsPage,
-} from '../scan-result-fields.page';
+import { ScanResultFieldsPage } from '../scan-result-fields.page';
+import { ScanResultSection, ScanResultSectionList, SectionListComponent } from "../section-list/section-list.component";
+import { GenericDocumentUtils } from "../../../utils/gdr-utils";
 
-import {CheckRecognizerResult} from 'capacitor-plugin-scanbot-sdk';
-import {ScanResultSection, ScanResultSectionList, SectionListComponent} from "../section-list/section-list.component";
-import {GenericDocumentUtils} from "../../../utils/gdr-utils";
-import {Capacitor} from "@capacitor/core";
+import { CheckRecognizerResult } from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
     selector: 'app-check-result-fields',

@@ -9,7 +9,7 @@ describe('SectionListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SectionListComponent ],
+      declarations: [SectionListComponent],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 

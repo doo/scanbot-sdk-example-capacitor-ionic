@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import {ScanResultSection, ScanResultSectionList, SectionListComponent} from "../section-list/section-list.component";
-import {ScanResultFieldsPage} from "../scan-result-fields.page";
-import {MrzScannerResult} from 'capacitor-plugin-scanbot-sdk';
-import {GenericDocumentUtils} from "../../../utils/gdr-utils";
+
+import { ScanResultSection, ScanResultSectionList, SectionListComponent } from "../section-list/section-list.component";
+import { ScanResultFieldsPage } from "../scan-result-fields.page";
+import { GenericDocumentUtils } from "../../../utils/gdr-utils";
+
+import { MrzScannerResult } from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
-  selector: 'app-mrz-result-fields',
+    selector: 'app-mrz-result-fields',
     templateUrl: '../scan-result-fields.page.html',
     styleUrls: ['../scan-result-fields.page.scss'],
     standalone: true,

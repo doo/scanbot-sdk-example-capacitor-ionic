@@ -1,12 +1,13 @@
-import {Component} from '@angular/core';
-import {CommonModule} from "@angular/common";
-import {IonicModule} from "@ionic/angular";
-import {RouterLink} from "@angular/router";
-import {ScanbotSdkFeatureComponent} from "../scanbotsdk-feature.component";
-import {Feature, FeatureId} from "../../utils/scanbot-utils";
-import {ScanbotSDK} from "../../../../../scanbot-sdk-capacitor-plugin/src";
-import {Colors} from "../../../theme/theme";
-import {VinScannerConfiguration} from 'capacitor-plugin-scanbot-sdk';
+import { Component } from '@angular/core';
+import { CommonModule } from "@angular/common";
+import { IonicModule } from "@ionic/angular";
+import { RouterLink } from "@angular/router";
+
+import { ScanbotSdkFeatureComponent } from "../scanbotsdk-feature.component";
+import { Feature, FeatureId } from "../../utils/scanbot-utils";
+import { Colors } from "../../../theme/theme";
+
+import { ScanbotSDK, VinScannerConfiguration } from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
     selector: 'app-rtu-vin-scanner',
@@ -41,10 +42,10 @@ export class RtuVinScannerComponent extends ScanbotSdkFeatureComponent {
             } else {
                 // Handle the extracted data
                 this.utils.showResultInfo([
-                        `- Raw Text: ${result.rawText}`, result.confidenceValue &&
-                        `- Confidence: ${(result.confidenceValue * 100).toFixed(0)}%`,
-                        `- Validation: ${result.validationSuccessful ? 'SUCCESSFUL' : 'NOT SUCCESSFUL'}`,
-                    ].join('<br />')
+                    `- Raw Text: ${result.rawText}`, result.confidenceValue &&
+                    `- Confidence: ${(result.confidenceValue * 100).toFixed(0)}%`,
+                    `- Validation: ${result.validationSuccessful ? 'SUCCESSFUL' : 'NOT SUCCESSFUL'}`,
+                ].join('<br />')
                 );
             }
         } catch (e: any) {

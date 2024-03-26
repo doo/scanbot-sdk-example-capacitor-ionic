@@ -1,10 +1,10 @@
-import {inject, Injectable} from '@angular/core';
-import {ModalController} from '@ionic/angular';
-import {Preferences} from '@capacitor/preferences';
+import { inject, Injectable } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { Preferences } from '@capacitor/preferences';
 
-import {ImageFilterComponent} from '../image-filter/image-filter.component';
+import { ImageFilterComponent } from '../image-filter/image-filter.component';
 
-import {BarcodeDocumentFormat, BarcodeFormat, ImageFilterType, LicenseStatus,} from 'capacitor-plugin-scanbot-sdk';
+import { BarcodeDocumentFormat, BarcodeFormat, ImageFilterType, LicenseStatus, } from 'capacitor-plugin-scanbot-sdk';
 
 export interface Feature {
     id: FeatureId;
@@ -283,7 +283,7 @@ export class ScanbotUtils {
         barcodeFormat: BarcodeFormat,
     ): Promise<boolean> {
         return (
-            await Preferences.get({key: barcodeFormat.toString()})
+            await Preferences.get({ key: barcodeFormat.toString() })
         ).value === 'true'
     }
 
@@ -299,7 +299,7 @@ export class ScanbotUtils {
         barcodeDocumentFormat: BarcodeDocumentFormat,
     ): Promise<boolean> {
         const prefValue = (
-            await Preferences.get({key: barcodeDocumentFormat.toString()})
+            await Preferences.get({ key: barcodeDocumentFormat.toString() })
         ).value;
 
         return prefValue !== 'false';
@@ -307,7 +307,7 @@ export class ScanbotUtils {
 
     async isBarcodeDocumentFormatsEnabled(): Promise<boolean> {
         const prefValue = (
-            await Preferences.get({key: ScanbotUtils.BARCODE_DOCUMENT_FORMATS_ENABLED_KEY})
+            await Preferences.get({ key: ScanbotUtils.BARCODE_DOCUMENT_FORMATS_ENABLED_KEY })
         ).value;
 
         return prefValue === 'true';

@@ -1,13 +1,13 @@
-import {Component} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {IonicModule} from '@ionic/angular';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { Capacitor } from "@capacitor/core";
 
-import {ScanResultFieldsPage,} from '../scan-result-fields.page';
+import { ScanResultFieldsPage, } from '../scan-result-fields.page';
+import { ScanResultSection, ScanResultSectionList, SectionListComponent } from "../section-list/section-list.component";
 
-import {MedicalCertificateScannerResult,} from 'capacitor-plugin-scanbot-sdk';
-import {ScanResultSection, ScanResultSectionList, SectionListComponent} from "../section-list/section-list.component";
-import {Capacitor} from "@capacitor/core";
+import { MedicalCertificateScannerResult, } from 'capacitor-plugin-scanbot-sdk';
 
 type PatientDataKeys = keyof MedicalCertificateScannerResult['patientData'];
 type DatesKeys = keyof MedicalCertificateScannerResult['dates'];
@@ -97,12 +97,11 @@ export class MedicalCertificateResultFieldsPage extends ScanResultFieldsPage {
             )
             .map(mapKey => ({
                 key: displayTitleMap[mapKey as PatientDataKeys],
-                value: `${
-                    this.medicalCertificateScannerResult.patientData[mapKey as PatientDataKeys]!.value
-                } (confidence: ${Math.round(
-                    this.medicalCertificateScannerResult.patientData[mapKey as PatientDataKeys]!
-                        .recognitionConfidence * 100,
-                )} %)`,
+                value: `${this.medicalCertificateScannerResult.patientData[mapKey as PatientDataKeys]!.value
+                    } (confidence: ${Math.round(
+                        this.medicalCertificateScannerResult.patientData[mapKey as PatientDataKeys]!
+                            .recognitionConfidence * 100,
+                    )} %)`,
             }));
     }
 

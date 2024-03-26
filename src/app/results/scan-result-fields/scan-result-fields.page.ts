@@ -1,10 +1,11 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {IonicModule} from '@ionic/angular';
-import {CommonUtils} from 'src/app/utils/common-utils';
-import {ActivatedRoute} from '@angular/router';
-import {ScanResultSectionList, SectionListComponent} from "./section-list/section-list.component";
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
+
+import { CommonUtils } from 'src/app/utils/common-utils';
+import { ScanResultSectionList, SectionListComponent } from "./section-list/section-list.component";
 
 
 @Component({

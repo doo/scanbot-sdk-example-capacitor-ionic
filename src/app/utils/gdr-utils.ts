@@ -1,4 +1,4 @@
-import {Field, GenericDocumentWrapper} from 'capacitor-plugin-scanbot-sdk'
+import { Field, GenericDocumentWrapper } from 'capacitor-plugin-scanbot-sdk'
 
 function isGenericDocumentField(field: any): field is Field {
     return (
@@ -9,15 +9,15 @@ function isGenericDocumentField(field: any): field is Field {
 }
 
 function sectionValueItem(key: string, value: string) {
-    return {key, value};
+    return { key, value };
 }
 
 function sectionImageItem(key: string, image?: string) {
-    return {key, image};
+    return { key, image };
 }
 
 function sectionFieldItem(key: string, field: Field) {
-    return {key, field};
+    return { key, field };
 }
 
 function gdrCommonFields(document: GenericDocumentWrapper): Array<{

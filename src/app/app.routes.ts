@@ -55,12 +55,12 @@ export const routes: Routes = [
             ).then((m) => m.BarcodeDocumentFormatsPage),
     },
     {
+        path: 'mrz-result-fields/:result',
+        loadComponent: () => import('./results/scan-result-fields/mrz-result-fields/mrz-result-fields.page').then(m => m.MrzResultFieldsPage)
+    },
+    {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full',
     },
-  {
-    path: 'mrz-result-fields/:result',
-    loadComponent: () => import('./results/scan-result-fields/mrz-result-fields/mrz-result-fields.page').then(m => m.MrzResultFieldsPage)
-  },
 ];

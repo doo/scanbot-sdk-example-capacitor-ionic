@@ -9,7 +9,7 @@ describe('RtuVinScannerComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ RtuVinScannerComponent ],
+      declarations: [RtuVinScannerComponent],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
