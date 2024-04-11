@@ -60,7 +60,7 @@ export class AppComponent implements OnInit {
             loggingEnabled: true,
             storageImageFormat: 'JPG', // Format of stored images
             storageImageQuality: 80, // Quality of stored images
-            // storageBaseDirectory: (await this.storageBaseDirectoryUri).uri, Custom storage path
+            // storageBaseDirectory: (await this.storageBaseDirectoryUri).uri, // Custom storage path
             documentDetectorMode: 'ML_BASED', // The engine used to detect documents,
             fileEncryptionMode: AppComponent.FILE_ENCRYPTION_ENABLED ? 'AES256' : undefined,
             fileEncryptionPassword: AppComponent.FILE_ENCRYPTION_ENABLED ? 'SomeSecretPa$$w0rdForFileEncryptio' : undefined,
