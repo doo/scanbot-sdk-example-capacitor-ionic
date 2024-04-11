@@ -39,7 +39,6 @@ export class RtuBarcodeScannerFeature extends ScanbotSdkFeatureComponent {
                     : [], // optional filter for specific document types
             finderAspectRatio: { width: 1, height: 1 },
             useButtonsAllCaps: false,
-            barcodeImageGenerationType: 'NONE',
             // see further configs ...
         };
 

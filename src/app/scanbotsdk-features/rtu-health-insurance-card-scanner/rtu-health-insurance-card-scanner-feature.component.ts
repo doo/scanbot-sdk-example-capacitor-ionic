@@ -35,7 +35,7 @@ export class RtuHealthInsuranceCardScannerFeature extends ScanbotSdkFeatureCompo
             // see further configs ...
         };
         try {
-            const result: HealthInsuranceCardScannerResult = await ScanbotSDK.startEHICScanner(configuration);
+            const result = await ScanbotSDK.startEHICScanner(configuration);
 
             if (result.status === 'CANCELED') {
                 // User has canceled the scanning operation

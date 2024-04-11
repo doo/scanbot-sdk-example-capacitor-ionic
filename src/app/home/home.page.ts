@@ -25,6 +25,7 @@ import { RtuLicensePlateScannerFeature } from '../scanbotsdk-features/rtu-licens
 import { RtuTextDataScannerFeature } from '../scanbotsdk-features/rtu-text-data-scanner/rtu-text-data-scanner-feature.component';
 import { RecognizeCheckOnImageFeature } from '../scanbotsdk-features/recognize-check-on-image/recognize-check-on-image-feature.component';
 import { ApplyFilterOnImageFeature } from '../scanbotsdk-features/apply-filter-on-image/apply-filter-on-image-feature.component';
+import { RtuVinScannerComponent } from "../scanbotsdk-features/rtu-vin-scanner/rtu-vin-scanner.component";
 
 import { ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
 
@@ -56,6 +57,7 @@ import { ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
         RtuTextDataScannerFeature,
         RecognizeCheckOnImageFeature,
         ApplyFilterOnImageFeature,
+        RtuVinScannerComponent,
     ],
 })
 export class HomePage {

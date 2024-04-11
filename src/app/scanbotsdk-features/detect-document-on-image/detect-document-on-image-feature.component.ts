@@ -33,31 +33,17 @@ export class DetectDocumentOnImageFeature extends ScanbotSdkFeatureComponent {
             await this.utils.showLoader();
 
             const result = await ScanbotSDK.detectDocument({ imageFileUri: imageFileUri });
+            const qualityResult = await ScanbotSDK.documentQualityAnalyzer({ imageFileUri: imageFileUri });
 
             await this.utils.dismissLoader();
-            this.estimateBlur(result.documentImageFileUri);
-            this.utils.showResultInfo(JSON.stringify(result));
+            this.utils.showResultInfo(
+                `Detected Document result: ${JSON.stringify(result, null, 2)} <br \>` +
+                `Document Quality result: ${JSON.stringify(qualityResult, null, 2)}`,
+            );
+
         } catch (e: any) {
             await this.utils.dismissLoader();
             this.utils.showErrorAlert(e.message);
-        }
-    }
-
-    private async estimateBlur(imageFileUri: string | undefined) {
-        if (!imageFileUri) {
-            return;
-        }
-
-        // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
-        if (!(await this.isLicenseValid())) {
-            return;
-        }
-
-        const result = await ScanbotSDK.estimateBlur({ imageFileUri: imageFileUri });
-
-        // Check the blurriness value, e.g.
-        if (result.blur > 0.6) {
-            this.utils.showInfoAlert('This scanned image looks blurry. Consider rescanning it.');
         }
     }
 }

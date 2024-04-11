@@ -199,7 +199,9 @@ export class ImageResultsPage {
 
             const saveResult = await ScanbotSDK.createPDF({
                 imageFileUris: this.getImageResultsUris(),
-                pageSize: 'FIXED_A4',
+                options: {
+                    pageSize: 'A4',
+                }
             });
 
             await this.utils.dismissLoader();
