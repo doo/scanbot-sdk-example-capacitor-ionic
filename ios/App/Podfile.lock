@@ -10,7 +10,7 @@ PODS:
   - CapacitorCordova (5.4.1)
   - CapacitorFilesystem (5.1.4):
     - Capacitor
-  - CapacitorPluginScanbotSdk (4.2.0-beta.3):
+  - CapacitorPluginScanbotSdk (4.2.0):
     - Capacitor
     - ScanbotSDKNativeWrapper/ALL (= 4.2.2.4)
   - CapacitorPreferences (5.0.6):
@@ -69,7 +69,7 @@ SPEC CHECKSUMS:
   CapacitorCommunityFileOpener: 8ae87db61961a6166cb929cc16e3cc719ea58da1
   CapacitorCordova: 1222fdd78bfd0d323cc22bf254eed1484fe6c92a
   CapacitorFilesystem: af704badfbc69f6f8623d9ed313e5490e3723dcb
-  CapacitorPluginScanbotSdk: 1608bfee296203dd6d757eb96819c74dac284cfe
+  CapacitorPluginScanbotSdk: ed39af622245e650015c0d6278301436e46248d1
   CapacitorPreferences: f03954bcb0ff09c792909e46bff88e3183c16b10
   CapacitorStatusBar: 565c0a1ebd79bb40d797606a8992b4a105885309
   CapawesomeCapacitorFilePicker: 4a27a464c569de315738fcb7bdd3ad544ef3c7c2
