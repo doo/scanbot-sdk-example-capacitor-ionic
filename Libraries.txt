@@ -1,4 +1,4 @@
-Open Source libraries used in the Scanbot SDK for Capacitor version 4.2.0:
+Open Source libraries used in the Scanbot SDK for Capacitor version 4.2.1:
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 Open Source libraries used in the Scanbot SDK for Android version 4.2.0

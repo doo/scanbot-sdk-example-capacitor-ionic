@@ -32,14 +32,17 @@ framework or features, please visit our [Support Page](https://docs.scanbot.io/s
 
 ### Requirements
 
-- NodeJS 16+ & npm
-- [Capacitor CLI](https://www.npmjs.com/package/@capacitor/cli) 5+
+- NodeJS 18+ & npm
+- [Capacitor CLI](https://www.npmjs.com/package/@capacitor/cli) 6+
 - For Android apps:
+    * Android Studio Hedgehog | 2023.1.1+
     * Android SDK (API Level 22+), Platforms and Developer Tools
-    * Android Studio 2022.2.1+, JDK 17
 - For iOS apps: 
     * iOS 13+
-    * macOS with Xcode 14.1+
+    * macOS with Xcode 15+
+    * Xcode Command Line Tools
+    * Homebrew
+    * Cocoapods
 
 Please check the full [requirements for Capacitor](https://capacitorjs.com/docs/getting-started/environment-setup).
 
@@ -49,19 +52,6 @@ Install the node modules of this project:
 
 ```
 npm install
-```
-
-## Important
-When using Node 17+ you might face this known Ionic issue: 
-
-```
-Error: error:0308010C:digital envelope routines::unsupported
-```
-
-Before proceeding, please execute this in your terminal to prevent the issue from happening:
-
-```bash
-export NODE_OPTIONS=--openssl-legacy-provider
 ```
 
 ### Build
@@ -84,7 +74,6 @@ npm run android
 ```
 npm run ios
 ```
-**Note:** If you want to run on iOS 17+, currently this is only possible through Xcode. Running from CLI on iOS 17+ will be possible from Capacitor 6+.
 
 You can read more about the Capacitor CLI commands at this [link](https://capacitorjs.com/docs/cli).
 
