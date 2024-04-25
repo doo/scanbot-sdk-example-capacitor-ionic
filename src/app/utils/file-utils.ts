@@ -17,7 +17,7 @@ export class FileUtils {
         try {
             const pdfFile = await FilePicker.pickFiles({
                 types: ['application/pdf'],
-                multiple: false,
+                limit: 1,
                 readData: false,
             });
             const pdfPath = pdfFile.files[0].path;
