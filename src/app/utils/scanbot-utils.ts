@@ -116,6 +116,10 @@ export class ScanbotUtils {
                 accepted: await this.isBarcodeFormatAccepted('QR_CODE'),
             },
             {
+                format: 'MICRO_QR_CODE',
+                accepted: await this.isBarcodeFormatAccepted('QR_CODE'),
+            },
+            {
                 format: 'RSS_14',
                 accepted: await this.isBarcodeFormatAccepted('RSS_14'),
             },
@@ -143,6 +147,42 @@ export class ScanbotUtils {
                 format: 'INDUSTRIAL_2_OF_5',
                 accepted: await this.isBarcodeFormatAccepted(
                     'INDUSTRIAL_2_OF_5',
+                ),
+            },
+            {
+                format: 'USPS_INTELLIGENT_MAIL',
+                accepted: await this.isBarcodeFormatAccepted(
+                    'USPS_INTELLIGENT_MAIL',
+                ),
+            }, {
+                format: 'ROYAL_MAIL',
+                accepted: await this.isBarcodeFormatAccepted(
+                    'ROYAL_MAIL',
+                ),
+            }, {
+                format: 'JAPAN_POST',
+                accepted: await this.isBarcodeFormatAccepted(
+                    'JAPAN_POST',
+                ),
+            }, {
+                format: 'ROYAL_TNT_POST',
+                accepted: await this.isBarcodeFormatAccepted(
+                    'ROYAL_TNT_POST',
+                ),
+            }, {
+                format: 'AUSTRALIA_POST',
+                accepted: await this.isBarcodeFormatAccepted(
+                    'AUSTRALIA_POST',
+                ),
+            }, {
+                format: 'DATABAR_LIMITED',
+                accepted: await this.isBarcodeFormatAccepted(
+                    'DATABAR_LIMITED',
+                ),
+            }, {
+                format: 'GS1_COMPOSITE',
+                accepted: await this.isBarcodeFormatAccepted(
+                    'GS1_COMPOSITE',
                 ),
             },
         ];
