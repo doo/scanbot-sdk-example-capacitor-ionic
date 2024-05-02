@@ -117,7 +117,7 @@ export class ScanbotUtils {
             },
             {
                 format: 'MICRO_QR_CODE',
-                accepted: await this.isBarcodeFormatAccepted('QR_CODE'),
+                accepted: await this.isBarcodeFormatAccepted('MICRO_QR_CODE'),
             },
             {
                 format: 'RSS_14',
