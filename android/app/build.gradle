@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     namespace "io.scanbot.example.sdk.capacitor"
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "io.scanbot.example.sdk.capacitor"
         minSdkVersion rootProject.ext.minSdkVersion
