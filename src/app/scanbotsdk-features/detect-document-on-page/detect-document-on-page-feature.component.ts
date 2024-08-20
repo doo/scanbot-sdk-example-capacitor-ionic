@@ -18,7 +18,7 @@ import { ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
 export class DetectDocumentOnPageFeature extends ScanbotSdkFeatureComponent {
     override feature = {
         id: FeatureId.DetectDocumentFromPage,
-        title: 'Import Image & Detect Document',
+        title: 'Import Image & Detect Document on Page',
     };
 
     override async featureClicked() {
@@ -37,7 +37,7 @@ export class DetectDocumentOnPageFeature extends ScanbotSdkFeatureComponent {
 
             await this.preferencesUtils.savePage(result);
             this.utils.dismissLoader();
-            this.router.navigate(['/image-results']);
+            this.router.navigate(['/page-results']);
         } catch (e: any) {
             await this.utils.dismissLoader();
             this.utils.showErrorAlert(e.message);

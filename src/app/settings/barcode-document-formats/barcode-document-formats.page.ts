@@ -25,7 +25,7 @@ export class BarcodeDocumentFormatsPage implements OnInit {
 
     async ngOnInit() {
         this.documentFormatsEnabled =
-            await this.scanbotUtils.isBarcodeDocumentFormatsEnabled();
+            await this.scanbotUtils.isBarcodeDocumentFormatsFilterEnabled();
         this.documentSettings = await this.scanbotUtils.getBarcodeDocumentSettings();
     }
 
@@ -36,19 +36,18 @@ export class BarcodeDocumentFormatsPage implements OnInit {
     async documentFormatsEnabledStateChanged(event: any) {
         this.documentFormatsEnabled = event.target.checked;
 
-        await Preferences.set({
-            key: ScanbotUtils.BARCODE_DOCUMENT_FORMATS_ENABLED_KEY,
-            value: this.documentFormatsEnabled.toString(),
-        });
+        await this.scanbotUtils.setBarcodeDocumentFormatsFilterEnabled(
+            this.documentFormatsEnabled
+        );
     }
 
     async documentSettingStateChanged(
         event: any,
         document: BarcodeDocumentSetting,
     ) {
-        await Preferences.set({
-            key: document.format.toString(),
-            value: event.target.checked.toString(),
-        });
+        await this.scanbotUtils.setBarcodeDocumentFormatAccepted(
+            document.format,
+            event.target.checked
+        );
     }
 }

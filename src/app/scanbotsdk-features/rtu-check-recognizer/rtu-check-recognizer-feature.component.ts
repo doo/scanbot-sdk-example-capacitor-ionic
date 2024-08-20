@@ -42,7 +42,6 @@ export class RtuCheckRecognizerFeature extends ScanbotSdkFeatureComponent {
                 // Handle the extracted data
                 const checkResultAsJson = JSON.stringify(result);
 
-                console.log(checkResultAsJson);
                 this.router.navigate([
                     '/check-result-fields',
                     checkResultAsJson,

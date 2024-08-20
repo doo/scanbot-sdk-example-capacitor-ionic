@@ -19,7 +19,7 @@ import { FinderDocumentScannerConfiguration, ScanbotSDK } from 'capacitor-plugin
 export class RtuDocumentScannerWithFinderFeature extends ScanbotSdkFeatureComponent {
     override feature = {
         id: FeatureId.FinderDocumentScanner,
-        title: 'Document Scanner with Finder',
+        title: 'Scan Document with Finder',
     };
 
     override async featureClicked() {
@@ -46,7 +46,7 @@ export class RtuDocumentScannerWithFinderFeature extends ScanbotSdkFeatureCompon
             } else {
                 // Handle the scanned pages from result
                 await this.preferencesUtils.savePages(documentResult.pages);
-                this.router.navigate(['/image-results']);
+                this.router.navigate(['/page-results']);
             }
         } catch (e: any) {
             this.utils.showErrorAlert(e.message);

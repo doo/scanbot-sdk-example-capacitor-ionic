@@ -4,10 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { Capacitor } from "@capacitor/core";
 
-import { ScanResultFieldsPage, } from '../scan-result-fields.page';
-import { ScanResultSection, ScanResultSectionList, SectionListComponent } from "../section-list/section-list.component";
+import { ScanResultFieldsPage, ScanResultSection, ScanResultSectionData, } from '../scan-result-fields.page';
 
-import { MedicalCertificateScannerResult, } from 'capacitor-plugin-scanbot-sdk';
+import { MedicalCertificateCheckboxField, MedicalCertificateDateField, MedicalCertificatePatientDataInfoField, MedicalCertificateScannerResult, } from 'capacitor-plugin-scanbot-sdk';
 
 type PatientDataKeys = keyof MedicalCertificateScannerResult['patientData'];
 type DatesKeys = keyof MedicalCertificateScannerResult['dates'];
@@ -18,10 +17,10 @@ type CheckBoxKeys = keyof MedicalCertificateScannerResult['checkboxes'];
     templateUrl: '../scan-result-fields.page.html',
     styleUrls: ['../scan-result-fields.page.scss'],
     standalone: true,
-    imports: [IonicModule, CommonModule, FormsModule, SectionListComponent],
+    imports: [IonicModule, CommonModule, FormsModule],
 })
 export class MedicalCertificateResultFieldsPage extends ScanResultFieldsPage {
-    override pageTitle: string = 'Medical Certificate';
+    override pageTitle: string = 'Medical Certificate Result';
 
     private medicalCertificateScannerResult!: MedicalCertificateScannerResult;
 
@@ -37,42 +36,46 @@ export class MedicalCertificateResultFieldsPage extends ScanResultFieldsPage {
         await super.ngOnInit();
     }
 
-    override loadResultFields(): ScanResultSectionList {
-        const commonData: ScanResultSection = {
-            title: 'Medical Certificate Result',
-            data: [
-                {
-                    key: 'Snapped Image',
-                    image: this.medicalCertificateScannerResult.imageFileUri && Capacitor.convertFileSrc(this.medicalCertificateScannerResult.imageFileUri)
-                },
-                {
-                    key: 'Form Type',
-                    value: this.medicalCertificateScannerResult.formType
-                },
-            ],
-        };
-
-        return [
-            commonData,
+    override loadResultFields(): Array<ScanResultSection> {
+        let resultFields: Array<ScanResultSection> = [
             {
-                title: 'Patient Data',
-                data: this.transformPatientData(),
+                image: this.medicalCertificateScannerResult.imageFileUri && Capacitor.convertFileSrc(this.medicalCertificateScannerResult.imageFileUri)
             },
             {
-                title: 'Dates',
-                data: this.transformDatesData(),
-            },
-            {
-                title: 'Checkboxes',
-                data: this.transformCheckboxesData(),
-            },
+                data: [
+                    { key: 'Form Type', value: this.medicalCertificateScannerResult.formType }
+                ]
+            }
         ];
+
+        const patientData = this.transformPatientData();
+        if (patientData.length > 0) {
+            resultFields.push({
+                title: 'Patient Data',
+                data: this.transformPatientData()
+            });
+        }
+
+        const dates = this.transformDates()
+        if (dates.length > 0) {
+            resultFields.push({
+                title: 'Dates',
+                data: this.transformDates()
+            });
+        }
+
+        const checkboxes = this.transformCheckboxes();
+        if (checkboxes.length > 0) {
+            resultFields.push({
+                title: 'Checkboxes',
+                data: this.transformCheckboxes()
+            });
+        }
+
+        return resultFields;
     }
 
-    transformPatientData() {
-        if (!this.medicalCertificateScannerResult.patientData) {
-            return [];
-        }
+    private transformPatientData(): Array<ScanResultSectionData> {
 
         const displayTitleMap: Record<PatientDataKeys, string> = {
             firstName: 'First Name',
@@ -90,29 +93,22 @@ export class MedicalCertificateResultFieldsPage extends ScanResultFieldsPage {
         };
 
         return Object.keys(displayTitleMap)
-            .filter(
-                mapKey =>
-                    mapKey in this.medicalCertificateScannerResult.patientData &&
-                    this.medicalCertificateScannerResult.patientData[mapKey as PatientDataKeys] != null,
-            )
-            .map(mapKey => ({
-                key: displayTitleMap[mapKey as PatientDataKeys],
-                value: `${this.medicalCertificateScannerResult.patientData[mapKey as PatientDataKeys]!.value
-                    } (confidence: ${Math.round(
-                        this.medicalCertificateScannerResult.patientData[mapKey as PatientDataKeys]!
-                            .recognitionConfidence * 100,
-                    )} %)`,
-            }));
+            .filter(mapKey => this.medicalCertificateScannerResult.patientData[mapKey as PatientDataKeys])
+            .map((mapKey) => {
+                const patientDataKey = mapKey as PatientDataKeys
+                const patientData = this.medicalCertificateScannerResult.patientData[patientDataKey] as MedicalCertificatePatientDataInfoField
+
+                return {
+                    key: displayTitleMap[patientDataKey],
+                    value: `${patientData.value}` +
+                        ` (confidence:${Math.round(patientData.recognitionConfidence * 100)}%)`,
+                } as ScanResultSectionData
+            });
     }
 
-    transformDatesData = () => {
-        if (!this.medicalCertificateScannerResult.dates) {
-            return [];
-        }
+    private transformDates(): Array<ScanResultSectionData> {
 
-        const dates = this.medicalCertificateScannerResult.dates;
-
-        const displayMap = {
+        const displayTitleMap: Record<DatesKeys, string> = {
             incapableOfWorkSince: 'Incapable of work since',
             incapableOfWorkUntil: 'Incapable of work until',
             diagnosedOn: 'Diagnosed on',
@@ -123,25 +119,23 @@ export class MedicalCertificateResultFieldsPage extends ScanResultFieldsPage {
             unknown: 'Unknown',
         };
 
-        return Object.keys(dates).map(key => {
-            const returnKey = key in displayMap ? displayMap[key as DatesKeys] : key;
-            let confidence = dates[key as DatesKeys]?.recognitionConfidence ?? 0;
-            confidence = Math.round(confidence * 100);
-            const returnValue = this.medicalCertificateScannerResult.dates[key as DatesKeys]?.dateString ?? '';
+        return Object.keys(displayTitleMap)
+            .filter(mapKey => this.medicalCertificateScannerResult.dates[mapKey as DatesKeys])
+            .map((mapKey) => {
+                const dateKey = mapKey as DatesKeys
+                const dateValue = this.medicalCertificateScannerResult.dates[dateKey] as MedicalCertificateDateField
 
-            return {
-                key: returnKey,
-                value: `${returnValue} (confidence: ${confidence} %)`,
-            };
-        });
+                return {
+                    key: displayTitleMap[dateKey],
+                    value: `${dateValue.dateString}` +
+                        ` (confidence:${Math.round(dateValue.recognitionConfidence * 100)}%)`,
+                } as ScanResultSectionData
+            });
     };
 
-    transformCheckboxesData = () => {
-        const checkboxes = this.medicalCertificateScannerResult.checkboxes;
-        if (!checkboxes) {
-            return [];
-        }
-        const displayNames: Record<CheckBoxKeys, string> = {
+    private transformCheckboxes(): Array<ScanResultSectionData> {
+
+        const displayTitleMap: Record<CheckBoxKeys, string> = {
             initialCertificate: 'Initial Certificate',
             renewedCertificate: 'Renewed Certificate',
             workAccident: 'Work Accident',
@@ -153,8 +147,8 @@ export class MedicalCertificateResultFieldsPage extends ScanResultFieldsPage {
             insuredPayCase: 'Insurance company has to pay?',
             finalCertificate: 'The certificate is final?',
             otherAccident: 'Other Accident?',
-            entitlementToContinuedPaymentNo: '',
-            entitlementToContinuedPaymentYes: '',
+            entitlementToContinuedPaymentNo: 'Entitlement To Continued Payment No?',
+            entitlementToContinuedPaymentYes: 'Entitlement To Continued Payment Yes?',
             sickPayWasClaimedNo: 'Claimed sick pay No?',
             sickPayWasClaimedYes: 'Claimed sick play Yes?',
             singleParentNo: 'Single parent No?',
@@ -162,16 +156,17 @@ export class MedicalCertificateResultFieldsPage extends ScanResultFieldsPage {
             unknown: 'Unknown',
         };
 
-        return Object.keys(checkboxes).flatMap(key => {
-            const value = checkboxes[key as CheckBoxKeys]?.isChecked;
-            let confidence = checkboxes[key as CheckBoxKeys]?.confidence ?? 0;
-            confidence = Math.round(confidence * 100);
-            const displayName =
-                key in displayNames ? displayNames[key as CheckBoxKeys] : key;
-            return {
-                key: displayName,
-                value: `${value ? 'YES' : 'NO'} (confidence: ${confidence}%)`,
-            };
-        });
+        return Object.keys(displayTitleMap)
+            .filter(mapKey => this.medicalCertificateScannerResult.checkboxes[mapKey as CheckBoxKeys])
+            .map((mapKey) => {
+                const checkboxKey = mapKey as CheckBoxKeys
+                const checkboxValue = this.medicalCertificateScannerResult.checkboxes[checkboxKey] as MedicalCertificateCheckboxField
+
+                return {
+                    key: displayTitleMap[checkboxKey],
+                    value: `${checkboxValue.isChecked ? 'YES' : 'NO'}` +
+                        ` (confidence:${Math.round(checkboxValue.confidence * 100)}%)`,
+                } as ScanResultSectionData
+            });
     };
 }

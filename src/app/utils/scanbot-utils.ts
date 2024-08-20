@@ -4,7 +4,8 @@ import { Preferences } from '@capacitor/preferences';
 
 import { ImageFilterComponent } from '../image-filter/image-filter.component';
 
-import { BarcodeDocumentFormat, BarcodeFormat, ImageFilterType, LicenseStatus, } from 'capacitor-plugin-scanbot-sdk';
+import { BarcodeDocumentFormat, BarcodeFormat, BrightnessFilter, ColorDocumentFilter, ContrastFilter, CustomBinarizationFilter, Field, GenericDocument, ImageFilterType, LegacyFilter, LicenseStatus, ParametricFilter, ScanbotBinarizationFilter, WhiteBlackPointFilter, } from 'capacitor-plugin-scanbot-sdk';
+import { ScanResultSectionData } from '../results/scan-result-fields/scan-result-fields.page';
 
 export interface Feature {
     id: FeatureId;
@@ -17,8 +18,12 @@ export enum FeatureId {
     DetectDocumentFromImage,
     ExtractPagesFromPdf,
     ExtractImagesFromPdf,
-    ScanBarcodes,
-    ScanBatchBarcodes,
+    RtuSingleScanning,
+    RtuMultiScanning,
+    RtuMultiArScanning,
+    RtuFindAndPickScanning,
+    LegacyScanBarcodes,
+    LegacyScanBatchBarcodes,
     DetectBarcodesOnStillImage,
     DetectBarcodesOnStillImages,
     ScanMRZ,
@@ -27,13 +32,18 @@ export enum FeatureId {
     ScanEHIC,
     LicenseInfo,
     OcrConfigs,
-    LicensePlateScannerML,
-    LicensePlateScannerClassic,
+    LicensePlateScanner,
     TextDataScanner,
     CheckRecognizer,
     BarcodeCameraViewComponent,
     RecognizeCheckOnImage,
+    RecognizeMrzOnImage,
+    RecognizeMedicalCertificateOnImage,
+    RecognizeEhicOnImage,
+    RecognizeGenericDocumentOnImage,
     ApplyFilterOnImage,
+    AnalyzeDocumentQuality,
+    PerformOcrOnImage,
     FinderDocumentScanner,
     VINScanner,
 }
@@ -50,7 +60,7 @@ export interface BarcodeDocumentSetting {
 
 export interface ImageFilter {
     title: string;
-    type: ImageFilterType;
+    filter: ParametricFilter;
 }
 
 @Injectable({
@@ -58,7 +68,7 @@ export interface ImageFilter {
 })
 export class ScanbotUtils {
 
-    public static readonly BARCODE_DOCUMENT_FORMATS_ENABLED_KEY = 'barcodeDocumentFormatsEnabled';
+    public readonly BARCODE_DOCUMENT_FORMATS_FILTER_ENABLED_KEY = 'barcodeDocumentFormatsEnabled';
 
     private modalCtrl = inject(ModalController);
 
@@ -120,12 +130,12 @@ export class ScanbotUtils {
                 accepted: await this.isBarcodeFormatAccepted('MICRO_QR_CODE'),
             },
             {
-                format: 'RSS_14',
-                accepted: await this.isBarcodeFormatAccepted('RSS_14'),
+                format: 'DATABAR',
+                accepted: await this.isBarcodeFormatAccepted('DATABAR'),
             },
             {
-                format: 'RSS_EXPANDED',
-                accepted: await this.isBarcodeFormatAccepted('RSS_EXPANDED'),
+                format: 'DATABAR_EXPANDED',
+                accepted: await this.isBarcodeFormatAccepted('DATABAR_EXPANDED'),
             },
             {
                 format: 'UPC_A',
@@ -183,6 +193,11 @@ export class ScanbotUtils {
                 format: 'GS1_COMPOSITE',
                 accepted: await this.isBarcodeFormatAccepted(
                     'GS1_COMPOSITE',
+                ),
+            }, {
+                format: 'MICRO_PDF_417',
+                accepted: await this.isBarcodeFormatAccepted(
+                    'MICRO_PDF_417',
                 ),
             },
         ];
@@ -242,65 +257,41 @@ export class ScanbotUtils {
     getImageFilters(): ImageFilter[] {
         return [
             {
-                title: 'None',
-                type: 'NONE'
+                title: 'Scanbot Binarization',
+                filter: new ScanbotBinarizationFilter()
             },
             {
-                title: 'Color',
-                type: 'COLOR'
-            },
-            {
-                title: 'Gray',
-                type: 'GRAYSCALE'
-            },
-            {
-                title: 'Binarized',
-                type: 'BINARIZED'
+                title: 'Custom Binarization',
+                filter: new CustomBinarizationFilter()
             },
             {
                 title: 'Color Document',
-                type: 'COLOR_DOCUMENT'
+                filter: new ColorDocumentFilter()
             },
             {
-                title: 'Pure Binarized',
-                type: 'PURE_BINARIZED'
+                title: 'Brightness',
+                filter: new BrightnessFilter({ brightness: 0.2 })
             },
             {
-                title: 'Background Clean',
-                type: 'BACKGROUND_CLEAN',
+                title: 'Contrast',
+                filter: new ContrastFilter({ contrast: 2 })
             },
             {
-                title: 'Black And White',
-                type: 'BLACK_AND_WHITE'
+                title: 'Grayscale',
+                filter: new ContrastFilter()
             },
             {
-                title: 'Otsu Binarization',
-                type: 'OTSU_BINARIZATION',
+                title: 'White Black Point',
+                filter: new WhiteBlackPointFilter({ blackPoint: 0.2, whitePoint: 0.8 }),
             },
             {
-                title: 'Deep Binarization',
-                type: 'DEEP_BINARIZATION',
-            },
-            {
-                title: 'Edge Highlight',
-                type: 'EDGE_HIGHLIGHT'
-            },
-            {
-                title: 'Low Light Binarization',
-                type: 'LOW_LIGHT_BINARIZATION',
-            },
-            {
-                title: 'Low Light Binarization 2',
-                type: 'LOW_LIGHT_BINARIZATION_2',
-            },
-            {
-                title: 'Pure Gray',
-                type: 'PURE_GRAY'
-            },
+                title: 'Legacy',
+                filter: new LegacyFilter()
+            }
         ];
     }
 
-    async chooseFilter(): Promise<ImageFilterType | undefined> {
+    async chooseFilter(): Promise<ParametricFilter | undefined> {
         const filterModal = await this.modalCtrl.create({
             component: ImageFilterComponent,
             id: 'image-filter',
@@ -319,38 +310,63 @@ export class ScanbotUtils {
             .map((x) => x.format);
     }
 
+    // Default is undefined (true). Only if explicitly is set to false, then it will be disabled.
     private async isBarcodeFormatAccepted(
         barcodeFormat: BarcodeFormat,
     ): Promise<boolean> {
         return (
-            await Preferences.get({ key: barcodeFormat.toString() })
-        ).value === 'true'
+            (await Preferences.get({ key: barcodeFormat.toString() })).value !== 'false'
+        );
     }
 
-    async getAcceptedBarcodeDocumentFormats(): Promise<
-        BarcodeDocumentFormat[]
-    > {
-        return (await this.getBarcodeDocumentSettings())
-            .filter((x) => x.accepted)
-            .map((x) => x.format);
+    async setBarcodeFormatAccepted(
+        barcodeFormat: BarcodeFormat,
+        accepted: boolean
+    ) {
+        await Preferences.set({
+            key: barcodeFormat.toString(),
+            value: accepted.toString(),
+        });
     }
 
-    private async isBarcodeDocumentFormatAccepted(
-        barcodeDocumentFormat: BarcodeDocumentFormat,
-    ): Promise<boolean> {
-        const prefValue = (
-            await Preferences.get({ key: barcodeDocumentFormat.toString() })
-        ).value;
+    async getAcceptedBarcodeDocumentFormats(): Promise<BarcodeDocumentFormat[]> {
+        const filterIsEnabled = await this.isBarcodeDocumentFormatsFilterEnabled();
 
-        return prefValue !== 'false';
+        if (filterIsEnabled) {
+            return (await this.getBarcodeDocumentSettings())
+                .filter((x) => x.accepted)
+                .map((x) => x.format);
+        } else {
+            return [];
+        }
     }
 
-    async isBarcodeDocumentFormatsEnabled(): Promise<boolean> {
-        const prefValue = (
-            await Preferences.get({ key: ScanbotUtils.BARCODE_DOCUMENT_FORMATS_ENABLED_KEY })
-        ).value;
+    // Default is undefined (true). Only if explicitly is set to false, then it will be disabled.
+    private async isBarcodeDocumentFormatAccepted(barcodeDocumentFormat: BarcodeDocumentFormat): Promise<boolean> {
+        return (
+            (await Preferences.get({ key: barcodeDocumentFormat.toString() })).value !== 'false'
+        );
+    }
 
-        return prefValue === 'true';
+    async setBarcodeDocumentFormatAccepted(barcodeDocumentFormat: BarcodeDocumentFormat, accepted: boolean) {
+        await Preferences.set({
+            key: barcodeDocumentFormat.toString(),
+            value: accepted.toString(),
+        });
+    }
+
+    // Default is undefined (false). Only if explicitly is set to true, then it will be enabled.
+    async isBarcodeDocumentFormatsFilterEnabled(): Promise<boolean> {
+        return (
+            (await Preferences.get({ key: this.BARCODE_DOCUMENT_FORMATS_FILTER_ENABLED_KEY })).value === 'true'
+        );
+    }
+
+    async setBarcodeDocumentFormatsFilterEnabled(enabled: boolean) {
+        await Preferences.set({
+            key: this.BARCODE_DOCUMENT_FORMATS_FILTER_ENABLED_KEY,
+            value: enabled.toString(),
+        });
     }
 
     getMessageFromLicenseStatus(status: LicenseStatus): string {
@@ -372,5 +388,39 @@ export class ScanbotUtils {
             default:
                 return 'Unknown error';
         }
+    }
+
+    private extractGDRFields(document: GenericDocument): Field[] {
+        let allFields = document.fields;
+
+        document.children.forEach(child => {
+            allFields = allFields.concat(this.extractGDRFields(child));
+        });
+
+        return allFields;
+    }
+
+    transformGenericDocument(document?: GenericDocument, withoutConfidence = false): Array<ScanResultSectionData> {
+        if (!document) {
+            return [];
+        }
+
+        return this.extractGDRFields(document)
+            .map(field => {
+                let value = field.value?.text
+
+                if (value) {
+                    if (!withoutConfidence) {
+                        value += ` (confidence:${Math.round(field.value!.confidence * 100)}%)`
+                    }
+                } else {
+                    value = '/'
+                }
+
+                return {
+                    key: field.type.name,
+                    value: value,
+                } as ScanResultSectionData;
+            });
     }
 }

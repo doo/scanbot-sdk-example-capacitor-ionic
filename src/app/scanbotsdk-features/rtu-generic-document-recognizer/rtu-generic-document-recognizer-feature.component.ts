@@ -38,12 +38,11 @@ export class RtuGenericDocumentRecognizerFeature extends ScanbotSdkFeatureCompon
                 // User has canceled the scanning operation
             } else {
                 // Handle the extracted data
-                const documentResultAsJson = JSON.stringify(result);
+                const documentsResultAsJson = JSON.stringify(result.documents);
 
-                console.log(documentResultAsJson);
                 this.router.navigate([
                     '/generic-document-result-fields',
-                    documentResultAsJson,
+                    documentsResultAsJson
                 ]);
             }
         } catch (e: any) {

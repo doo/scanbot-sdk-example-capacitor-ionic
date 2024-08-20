@@ -41,7 +41,7 @@ export class ExtractPagesFromPdfFeature extends ScanbotSdkFeatureComponent {
                 // User has canceled the scanning operation
             } else if (result.pages) {
                 await this.preferencesUtils.savePages(result.pages);
-                this.router.navigate(['/image-results']);
+                this.router.navigate(['/page-results']);
             } else {
                 this.utils.showInfoAlert('No pages extracted');
             }

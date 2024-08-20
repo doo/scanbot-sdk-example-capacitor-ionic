@@ -56,7 +56,6 @@ export class RtuMedicalCertificateScannerFeature extends ScanbotSdkFeatureCompon
                 // Handle the extracted data
                 const medicalCertResultAsJson = JSON.stringify(result);
 
-                console.log(medicalCertResultAsJson);
                 this.router.navigate([
                     '/medical-certificate-result-fields',
                     medicalCertResultAsJson,

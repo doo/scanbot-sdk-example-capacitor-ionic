@@ -49,7 +49,7 @@ export class RtuDocumentScannerFeature extends ScanbotSdkFeatureComponent {
             } else {
                 // Handle the scanned pages from result
                 await this.preferencesUtils.savePages(documentResult.pages);
-                this.router.navigate(['/image-results']);
+                this.router.navigate(['/page-results']);
             }
         } catch (e: any) {
             this.utils.showErrorAlert(e.message);

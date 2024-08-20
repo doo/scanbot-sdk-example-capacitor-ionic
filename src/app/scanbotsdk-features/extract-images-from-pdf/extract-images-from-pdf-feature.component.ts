@@ -41,7 +41,10 @@ export class ExtractImagesFromPdfFeature extends ScanbotSdkFeatureComponent {
             if (result.status === 'CANCELED') {
                 // User has canceled the scanning operation
             } else if (result.imageFilesUrls) {
-                this.utils.showResultInfo(JSON.stringify(result.imageFilesUrls, null, 2));
+                this.router.navigate([
+                    '/image-results',
+                    JSON.stringify(result.imageFilesUrls),
+                ]);
             } else {
                 this.utils.showInfoAlert('No pages extracted');
             }
