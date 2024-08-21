@@ -13,7 +13,7 @@ import { ScanbotUtils } from 'src/app/utils/scanbot-utils';
 
 import { DocumentScannerConfiguration, Page, ScanbotBinarizationFilter, ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
 
-interface ImageResult {
+interface PageResult {
     page: Page;
     pagePreviewWebViewPath: string;
 }
@@ -32,20 +32,20 @@ export class PageResultsPage {
     private fileUtils = inject(FileUtils);
     private actionSheetCtrl = inject(ActionSheetController);
 
-    imageResults: ImageResult[] = [];
+    pageResults: PageResult[] = [];
 
     constructor() { }
 
     ionViewWillEnter() {
-        this.loadImageResults();
+        this.loadPageResults();
     }
 
-    private async loadImageResults() {
-        this.imageResults = [];
+    private async loadPageResults() {
+        this.pageResults = [];
 
         (await this.preferencesUtils.getAllPagesFromPrefs()).forEach((p) => {
             if (p.documentPreviewImageFileUri) {
-                this.imageResults.unshift({
+                this.pageResults.unshift({
                     page: p,
                     pagePreviewWebViewPath: Capacitor.convertFileSrc(
                         p.documentPreviewImageFileUri,
@@ -56,14 +56,14 @@ export class PageResultsPage {
     }
 
     private getImageResultsUris(): string[] {
-        return this.imageResults.map(
-            (img) =>
-                img.page.documentImageFileUri || img.page.originalImageFileUri,
+        return this.pageResults.map(
+            (result) =>
+                result.page.documentImageFileUri || result.page.originalImageFileUri,
         );
     }
 
     private isResultsListEmpty(warningMessage: string): boolean {
-        if (this.imageResults.length == 0) {
+        if (this.pageResults.length == 0) {
             this.utils.showWarningAlert(warningMessage);
             return true;
         } else {
@@ -102,7 +102,7 @@ export class PageResultsPage {
             } else {
                 // Handle the scanned pages from result
                 await this.preferencesUtils.savePages(documentResult.pages);
-                this.loadImageResults();
+                this.loadPageResults();
             }
         } catch (e: any) {
             this.utils.showErrorAlert(e.message);
@@ -112,7 +112,7 @@ export class PageResultsPage {
     async showDeleteAllResultsConfirmationDialog() {
         if (
             this.isResultsListEmpty(
-                'No images to delete. Please scan one or more documents first.',
+                'No pages to delete. Please scan one or more documents first.',
             )
         ) {
             return;
@@ -139,13 +139,13 @@ export class PageResultsPage {
     private async deleteAllResults() {
         await this.preferencesUtils.deleteAllPages();
         await ScanbotSDK.cleanup();
-        this.imageResults = [];
+        this.pageResults = [];
     }
 
     async saveResultsAs() {
         if (
             this.isResultsListEmpty(
-                'No images to save. Please scan one or more documents first.',
+                'No pages to save. Please scan one or more documents first.',
             )
         ) {
             return;

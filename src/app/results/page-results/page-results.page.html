@@ -17,9 +17,9 @@
 <ion-content [fullscreen]="true">
   <ion-grid>
     <ion-row class="ion-align-items-center">
-      <ion-col size="4" *ngFor="let imageResult of imageResults">
-        <ion-img [src]="imageResult.pagePreviewWebViewPath"
-          [routerLink]="'/page-details/' + imageResult.page.pageId"></ion-img>
+      <ion-col size="4" *ngFor="let pageResult of pageResults">
+        <ion-img [src]="pageResult.pagePreviewWebViewPath"
+          [routerLink]="'/page-details/' + pageResult.page.pageId"></ion-img>
       </ion-col>
     </ion-row>
   </ion-grid>
