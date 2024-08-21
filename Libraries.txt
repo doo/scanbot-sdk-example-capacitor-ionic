@@ -209,7 +209,7 @@ record keeping.)
  * are met:
  *
  * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer. 
+ *    notice, this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in
@@ -264,21 +264,21 @@ record keeping.)
  * This package is an SSL implementation written
  * by Eric Young (eay@cryptsoft.com).
  * The implementation was written so as to conform with Netscapes SSL.
- * 
+ *
  * This library is free for commercial and non-commercial use as long as
  * the following conditions are aheared to.  The following conditions
  * apply to all code found in this distribution, be it the RC4, RSA,
  * lhash, DES, etc., code; not just the SSL code.  The SSL documentation
  * included with this distribution is covered by the same copyright terms
  * except that the holder is Tim Hudson (tjh@cryptsoft.com).
- * 
+ *
  * Copyright remains Eric Young's, and as such any Copyright notices in
  * the code are not to be removed.
  * If this package is used in a product, Eric Young should be given attribution
  * as the author of the parts of the library used.
  * This can be in the form of a textual message at program startup or
  * in documentation (online or textual) provided with the package.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -293,10 +293,10 @@ record keeping.)
  *     Eric Young (eay@cryptsoft.com)"
  *    The word 'cryptographic' can be left out if the rouines from the library
  *    being used are not cryptographic related :-).
- * 4. If you include any Windows specific code (or a derivative thereof) from 
+ * 4. If you include any Windows specific code (or a derivative thereof) from
  *    the apps directory (application code) you must include an acknowledgement:
  *    "This product includes software written by Tim Hudson (tjh@cryptsoft.com)"
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY ERIC YOUNG ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -308,7 +308,7 @@ record keeping.)
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
- * 
+ *
  * The licence and distribution terms for any publically available version or
  * derivative of this code cannot be changed.  i.e. this code cannot simply be
  * copied and put under another distribution licence
@@ -962,7 +962,7 @@ JSON for Modern C++
 Version v3.11.2
 (https://github.com/nlohmann/json)
 
-MIT License 
+MIT License
 
 Copyright (c) 2013-2022 Niels Lohmann
 
@@ -1033,18 +1033,18 @@ Copyright (C) 2007-2009 Antony Dovgal
 
 This software is provided 'as-is', without any express or implied warranty.
 
-In no event will the authors be held liable for any damages arising from the 
+In no event will the authors be held liable for any damages arising from the
 use of this software.
 
-Permission is granted to anyone to use this software for any purpose,including 
-commercial applications, and to alter it and redistribute it freely, subject 
+Permission is granted to anyone to use this software for any purpose,including
+commercial applications, and to alter it and redistribute it freely, subject
 to the following restrictions:
 
- 1. The origin of this software must not be misrepresented; you must not claim 
-    that you wrote the original software. If you use this software in a 
-    product, an acknowledgment in the product documentation would be 
+ 1. The origin of this software must not be misrepresented; you must not claim
+    that you wrote the original software. If you use this software in a
+    product, an acknowledgment in the product documentation would be
     appreciated but is not required.
- 2. Altered source versions must be plainly marked as such, and must not be 
+ 2. Altered source versions must be plainly marked as such, and must not be
     misrepresented as being the original software.
  3. This notice may not be removed or altered from any source distribution.
 
@@ -1345,7 +1345,7 @@ Version 4.6.0
 Copyright © 1988-1997 Sam Leffler\
 Copyright © 1991-1997 Silicon Graphics, Inc.
 
-Permission to use, copy, modify, distribute, and sell this software and 
+Permission to use, copy, modify, distribute, and sell this software and
 its documentation for any purpose is hereby granted without fee, provided
 that (i) the above copyright notices and this permission notice appear in
 all copies of the software and related documentation, and (ii) the names of
@@ -1353,15 +1353,15 @@ Sam Leffler and Silicon Graphics may not be used in any advertising or
 publicity relating to the software without the specific, prior written
 permission of Sam Leffler and Silicon Graphics.
 
-THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
-EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
-WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND,
+EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY
+WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
 
 IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
 ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
 OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
-WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
-LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF
+LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 OF THIS SOFTWARE.
 
 
@@ -1674,7 +1674,7 @@ Version 1.1.0h
  * are met:
  *
  * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer. 
+ *    notice, this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in
@@ -1729,21 +1729,21 @@ Version 1.1.0h
  * This package is an SSL implementation written
  * by Eric Young (eay@cryptsoft.com).
  * The implementation was written so as to conform with Netscapes SSL.
- * 
+ *
  * This library is free for commercial and non-commercial use as long as
  * the following conditions are aheared to.  The following conditions
  * apply to all code found in this distribution, be it the RC4, RSA,
  * lhash, DES, etc., code; not just the SSL code.  The SSL documentation
  * included with this distribution is covered by the same copyright terms
  * except that the holder is Tim Hudson (tjh@cryptsoft.com).
- * 
+ *
  * Copyright remains Eric Young's, and as such any Copyright notices in
  * the code are not to be removed.
  * If this package is used in a product, Eric Young should be given attribution
  * as the author of the parts of the library used.
  * This can be in the form of a textual message at program startup or
  * in documentation (online or textual) provided with the package.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -1758,10 +1758,10 @@ Version 1.1.0h
  *     Eric Young (eay@cryptsoft.com)"
  *    The word 'cryptographic' can be left out if the rouines from the library
  *    being used are not cryptographic related :-).
- * 4. If you include any Windows specific code (or a derivative thereof) from 
+ * 4. If you include any Windows specific code (or a derivative thereof) from
  *    the apps directory (application code) you must include an acknowledgement:
  *    "This product includes software written by Tim Hudson (tjh@cryptsoft.com)"
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY ERIC YOUNG ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -1773,7 +1773,7 @@ Version 1.1.0h
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
- * 
+ *
  * The licence and distribution terms for any publically available version or
  * derivative of this code cannot be changed.  i.e. this code cannot simply be
  * copied and put under another distribution licence
@@ -1791,7 +1791,7 @@ Version v1.9.2
 
 The MIT License (MIT)
 
-Copyright (c) 2016 Gabi Melman.                                       
+Copyright (c) 2016 Gabi Melman.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -2760,7 +2760,7 @@ record keeping.)
  * are met:
  *
  * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer. 
+ *    notice, this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in
@@ -2815,21 +2815,21 @@ record keeping.)
  * This package is an SSL implementation written
  * by Eric Young (eay@cryptsoft.com).
  * The implementation was written so as to conform with Netscapes SSL.
- * 
+ *
  * This library is free for commercial and non-commercial use as long as
  * the following conditions are aheared to.  The following conditions
  * apply to all code found in this distribution, be it the RC4, RSA,
  * lhash, DES, etc., code; not just the SSL code.  The SSL documentation
  * included with this distribution is covered by the same copyright terms
  * except that the holder is Tim Hudson (tjh@cryptsoft.com).
- * 
+ *
  * Copyright remains Eric Young's, and as such any Copyright notices in
  * the code are not to be removed.
  * If this package is used in a product, Eric Young should be given attribution
  * as the author of the parts of the library used.
  * This can be in the form of a textual message at program startup or
  * in documentation (online or textual) provided with the package.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -2844,10 +2844,10 @@ record keeping.)
  *     Eric Young (eay@cryptsoft.com)"
  *    The word 'cryptographic' can be left out if the rouines from the library
  *    being used are not cryptographic related :-).
- * 4. If you include any Windows specific code (or a derivative thereof) from 
+ * 4. If you include any Windows specific code (or a derivative thereof) from
  *    the apps directory (application code) you must include an acknowledgement:
  *    "This product includes software written by Tim Hudson (tjh@cryptsoft.com)"
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY ERIC YOUNG ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -2859,7 +2859,7 @@ record keeping.)
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
- * 
+ *
  * The licence and distribution terms for any publically available version or
  * derivative of this code cannot be changed.  i.e. this code cannot simply be
  * copied and put under another distribution licence
@@ -3513,7 +3513,7 @@ JSON for Modern C++
 Version v3.11.2
 (https://github.com/nlohmann/json)
 
-MIT License 
+MIT License
 
 Copyright (c) 2013-2022 Niels Lohmann
 
@@ -3584,18 +3584,18 @@ Copyright (C) 2007-2009 Antony Dovgal
 
 This software is provided 'as-is', without any express or implied warranty.
 
-In no event will the authors be held liable for any damages arising from the 
+In no event will the authors be held liable for any damages arising from the
 use of this software.
 
-Permission is granted to anyone to use this software for any purpose,including 
-commercial applications, and to alter it and redistribute it freely, subject 
+Permission is granted to anyone to use this software for any purpose,including
+commercial applications, and to alter it and redistribute it freely, subject
 to the following restrictions:
 
- 1. The origin of this software must not be misrepresented; you must not claim 
-    that you wrote the original software. If you use this software in a 
-    product, an acknowledgment in the product documentation would be 
+ 1. The origin of this software must not be misrepresented; you must not claim
+    that you wrote the original software. If you use this software in a
+    product, an acknowledgment in the product documentation would be
     appreciated but is not required.
- 2. Altered source versions must be plainly marked as such, and must not be 
+ 2. Altered source versions must be plainly marked as such, and must not be
     misrepresented as being the original software.
  3. This notice may not be removed or altered from any source distribution.
 
@@ -3604,7 +3604,7 @@ to the following restrictions:
 
 libjpeg-turbo
 
-Version 2.1.2
+Version 2.1.5.1
 (https://github.com/libjpeg-turbo/libjpeg-turbo)
 
 libjpeg-turbo Licenses
@@ -3700,7 +3700,7 @@ best of our understanding.
 The Modified (3-clause) BSD License
 ===================================
 
-Copyright (C)2009-2021 D. R. Commander.  All Rights Reserved.<br>
+Copyright (C)2009-2023 D. R. Commander.  All Rights Reserved.<br>
 Copyright (C)2015 Viktor Szathmáry.  All Rights Reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -3745,7 +3745,7 @@ that were granted to the IJG for code derived from their software.
 
 libpng
 
-Version 1.6.36
+Version 1.6.40
 (https://github.com/glennrp/libpng)
 
 COPYRIGHT NOTICE, DISCLAIMER, and LICENSE
@@ -3754,8 +3754,8 @@ COPYRIGHT NOTICE, DISCLAIMER, and LICENSE
 PNG Reference Library License version 2
 ---------------------------------------
 
- * Copyright (c) 1995-2018 The PNG Reference Library Authors.
- * Copyright (c) 2018 Cosmin Truta.
+ * Copyright (c) 1995-2023 The PNG Reference Library Authors.
+ * Copyright (c) 2018-2023 Cosmin Truta.
  * Copyright (c) 2000-2002, 2004, 2006-2018 Glenn Randers-Pehrson.
  * Copyright (c) 1996-1997 Andreas Dilger.
  * Copyright (c) 1995-1996 Guy Eric Schalnat, Group 42, Inc.
@@ -3763,7 +3763,7 @@ PNG Reference Library License version 2
 The software is supplied "as is", without warranty of any kind,
 express or implied, including, without limitation, the warranties
 of merchantability, fitness for a particular purpose, title, and
-non-infringement.  In no even shall the Copyright owners, or
+non-infringement.  In no event shall the Copyright owners, or
 anyone distributing the software, be liable for any damages or
 other liability, whether in contract, tort or otherwise, arising
 from, out of, or in connection with the software, or the use or
@@ -3789,7 +3789,7 @@ subject to the following restrictions:
 PNG Reference Library License version 1 (for libpng 0.5 through 1.6.35)
 -----------------------------------------------------------------------
 
-libpng versions 1.0.7, July 1, 2000 through 1.6.35, July 15, 2018 are
+libpng versions 1.0.7, July 1, 2000, through 1.6.35, July 15, 2018 are
 Copyright (c) 2000-2002, 2004, 2006-2018 Glenn Randers-Pehrson, are
 derived from libpng-1.0.6, and are distributed according to the same
 disclaimer and license as libpng-1.0.6 with the following individuals
@@ -3888,13 +3888,15 @@ be appreciated.
 
 libtiff
 
-Version 4.2.0
+Version 4.6.0
 (https://libtiff.gitlab.io/libtiff/)
 
-Copyright (c) 1988-1997 Sam Leffler
-Copyright (c) 1991-1997 Silicon Graphics, Inc.
+# LibTIFF license
 
-Permission to use, copy, modify, distribute, and sell this software and 
+Copyright © 1988-1997 Sam Leffler\
+Copyright © 1991-1997 Silicon Graphics, Inc.
+
+Permission to use, copy, modify, distribute, and sell this software and
 its documentation for any purpose is hereby granted without fee, provided
 that (i) the above copyright notices and this permission notice appear in
 all copies of the software and related documentation, and (ii) the names of
@@ -3902,15 +3904,15 @@ Sam Leffler and Silicon Graphics may not be used in any advertising or
 publicity relating to the software without the specific, prior written
 permission of Sam Leffler and Silicon Graphics.
 
-THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
-EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
-WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND,
+EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY
+WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
 
 IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
 ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
 OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
-WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
-LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF
+LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 OF THIS SOFTWARE.
 
 
@@ -4223,7 +4225,7 @@ Version 1.1.1t
  * are met:
  *
  * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer. 
+ *    notice, this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in
@@ -4278,21 +4280,21 @@ Version 1.1.1t
  * This package is an SSL implementation written
  * by Eric Young (eay@cryptsoft.com).
  * The implementation was written so as to conform with Netscapes SSL.
- * 
+ *
  * This library is free for commercial and non-commercial use as long as
  * the following conditions are aheared to.  The following conditions
  * apply to all code found in this distribution, be it the RC4, RSA,
  * lhash, DES, etc., code; not just the SSL code.  The SSL documentation
  * included with this distribution is covered by the same copyright terms
  * except that the holder is Tim Hudson (tjh@cryptsoft.com).
- * 
+ *
  * Copyright remains Eric Young's, and as such any Copyright notices in
  * the code are not to be removed.
  * If this package is used in a product, Eric Young should be given attribution
  * as the author of the parts of the library used.
  * This can be in the form of a textual message at program startup or
  * in documentation (online or textual) provided with the package.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -4307,10 +4309,10 @@ Version 1.1.1t
  *     Eric Young (eay@cryptsoft.com)"
  *    The word 'cryptographic' can be left out if the rouines from the library
  *    being used are not cryptographic related :-).
- * 4. If you include any Windows specific code (or a derivative thereof) from 
+ * 4. If you include any Windows specific code (or a derivative thereof) from
  *    the apps directory (application code) you must include an acknowledgement:
  *    "This product includes software written by Tim Hudson (tjh@cryptsoft.com)"
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY ERIC YOUNG ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -4322,7 +4324,7 @@ Version 1.1.1t
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
- * 
+ *
  * The licence and distribution terms for any publically available version or
  * derivative of this code cannot be changed.  i.e. this code cannot simply be
  * copied and put under another distribution licence
@@ -4340,7 +4342,7 @@ Version v1.9.2
 
 The MIT License (MIT)
 
-Copyright (c) 2016 Gabi Melman.                                       
+Copyright (c) 2016 Gabi Melman.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -4987,6 +4989,37 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+zlib
+
+Version 1.3.1
+(https://github.com/madler/zlib)
+
+Copyright notice:
+
+ (C) 1995-2022 Jean-loup Gailly and Mark Adler
+
+  This software is provided 'as-is', without any express or implied
+  warranty.  In no event will the authors be held liable for any damages
+  arising from the use of this software.
+
+  Permission is granted to anyone to use this software for any purpose,
+  including commercial applications, and to alter it and redistribute it
+  freely, subject to the following restrictions:
+
+  1. The origin of this software must not be misrepresented; you must not
+     claim that you wrote the original software. If you use this software
+     in a product, an acknowledgment in the product documentation would be
+     appreciated but is not required.
+  2. Altered source versions must be plainly marked as such, and must not be
+     misrepresented as being the original software.
+  3. This notice may not be removed or altered from any source distribution.
+
+  Jean-loup Gailly        Mark Adler
+  jloup@gzip.org          madler@alumni.caltech.edu
 
 
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
