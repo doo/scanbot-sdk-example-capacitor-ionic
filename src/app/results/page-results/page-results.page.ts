@@ -252,8 +252,8 @@ export class PageResultsPage {
             const result = await ScanbotSDK.writeTIFF({
                 imageFileUris: this.getImageResultsUris(),
                 options: {
-                    binarizationFilter: binarized ? new ScanbotBinarizationFilter() : undefined, // "true" means create 1-bit binarized black and white TIFF
-                    dpi: 300, // optional DPI. default value is 200
+                    binarizationFilter: binarized ? new ScanbotBinarizationFilter() : undefined,
+                    dpi: 300,
                     compression: binarized ? 'CCITT_T6' : 'ADOBE_DEFLATE', // optional compression. see documentation!
                 },
             });

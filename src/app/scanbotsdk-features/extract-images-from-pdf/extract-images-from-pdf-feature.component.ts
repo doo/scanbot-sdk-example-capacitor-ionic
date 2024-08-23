@@ -46,7 +46,7 @@ export class ExtractImagesFromPdfFeature extends ScanbotSdkFeatureComponent {
                     JSON.stringify(result.imageFilesUrls),
                 ]);
             } else {
-                this.utils.showInfoAlert('No pages extracted');
+                this.utils.showInfoAlert('No images extracted');
             }
         } catch (e: any) {
             await this.utils.dismissLoader();

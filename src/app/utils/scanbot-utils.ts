@@ -262,7 +262,7 @@ export class ScanbotUtils {
             },
             {
                 title: 'Custom Binarization',
-                filter: new CustomBinarizationFilter()
+                filter: new CustomBinarizationFilter({ preset: 'PRESET_1' })
             },
             {
                 title: 'Color Document',
