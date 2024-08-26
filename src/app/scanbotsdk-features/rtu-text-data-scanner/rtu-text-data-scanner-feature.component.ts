@@ -49,15 +49,11 @@ export class RtuTextDataScannerFeature extends ScanbotSdkFeatureComponent {
         try {
             const textData = await ScanbotSDK.startTextDataScanner(configuration);
 
-            if (textData.status === 'CANCELED') {
-                // User has canceled the scanning operation
-            } else if (textData.result?.text) {
+            if (textData.status === 'OK') {
                 // Handle the extracted data
                 this.utils.showResultInfo(
                     `• Text: ${textData.result.text} <br />` +
                     `• Confidence: ${Math.round(textData.result.confidence * 100)}%`);
-            } else {
-                this.utils.showInfoAlert('No text data found');
             }
         } catch (e: any) {
             this.utils.showErrorAlert(e.message);

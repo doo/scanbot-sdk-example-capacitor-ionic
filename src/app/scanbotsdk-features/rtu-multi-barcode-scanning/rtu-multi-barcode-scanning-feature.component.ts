@@ -103,16 +103,12 @@ export class RtuMultiBarcodeScanningFeatureComponent extends ScanbotSdkFeatureCo
     try {
       const result = await startBarcodeScanner(config);
 
-      if (result.status === 'CANCELED') {
-        // User has canceled the scanning operation
-      } else if (result.items && result.items.length > 0) {
+      if (result.status === 'OK' && result.items.length > 0) {
         // Handle the scanned barcode from result
         this.router.navigate([
           '/barcode-result-fields',
           JSON.stringify(result),
         ]);
-      } else {
-        await this.utils.showInfoAlert('No barcode scanned');
       }
     } catch (error: any) {
       await this.utils.showErrorAlert(error.message);

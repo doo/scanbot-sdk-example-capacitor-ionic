@@ -50,9 +50,7 @@ export class RtuMedicalCertificateScannerFeature extends ScanbotSdkFeatureCompon
         try {
             const result = await ScanbotSDK.startMedicalCertificateRecognizer(configuration);
 
-            if (result.status === 'CANCELED') {
-                // User has canceled the scanning operation
-            } else {
+            if (result.status === 'OK') {
                 // Handle the extracted data
                 const medicalCertResultAsJson = JSON.stringify(result);
 

@@ -43,16 +43,12 @@ export class LegacyRtuBatchBarcodeScannerFeature extends ScanbotSdkFeatureCompon
         try {
             const result = await ScanbotSDK.startBatchBarcodeScanner(configuration);
 
-            if (result.status === 'CANCELED') {
-                // User has canceled the scanning operation
-            } else if (result.barcodes) {
+            if (result.barcodes && result.barcodes?.length > 0) {
                 // Handle the scanned barcode(s) from result
                 this.router.navigate([
                     '/legacy-barcode-result-fields',
                     JSON.stringify(result),
                 ]);
-            } else {
-                this.utils.showInfoAlert('No barcodes scanned');
             }
         } catch (e: any) {
             this.utils.showErrorAlert(e.message);

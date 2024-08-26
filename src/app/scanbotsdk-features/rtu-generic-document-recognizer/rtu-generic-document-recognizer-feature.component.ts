@@ -34,9 +34,7 @@ export class RtuGenericDocumentRecognizerFeature extends ScanbotSdkFeatureCompon
         try {
             const result = await ScanbotSDK.startGenericDocumentRecognizer(configuration);
 
-            if (result.status === 'CANCELED') {
-                // User has canceled the scanning operation
-            } else {
+            if (result.status === 'OK' && result.documents.length > 0) {
                 // Handle the extracted data
                 const documentsResultAsJson = JSON.stringify(result.documents);
 

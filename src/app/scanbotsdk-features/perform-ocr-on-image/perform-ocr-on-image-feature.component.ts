@@ -28,11 +28,11 @@ export class PerformOcrOnImageFeature extends ScanbotSdkFeatureComponent {
         }
 
         try {
-            const imageFileUris = await this.imageUtils.selectImagesFromLibrary()
+            const imageFileUri = await this.imageUtils.selectImageFromLibrary()
             await this.utils.showLoader();
 
             const result = await ScanbotSDK.performOCR({
-                imageFileUris: imageFileUris,
+                imageFileUris: [imageFileUri],
                 ocrConfiguration: {
                     engineMode: 'SCANBOT_OCR',
                 },

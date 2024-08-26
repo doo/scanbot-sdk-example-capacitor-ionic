@@ -97,9 +97,7 @@ export class PageResultsPage {
         try {
             const documentResult = await ScanbotSDK.startDocumentScanner(configuration);
 
-            if (documentResult.status === 'CANCELED') {
-                // User has canceled the scanning operation
-            } else {
+            if (documentResult.status === 'OK' && documentResult.pages.length > 0) {
                 // Handle the scanned pages from result
                 await this.preferencesUtils.savePages(documentResult.pages);
                 this.loadPageResults();

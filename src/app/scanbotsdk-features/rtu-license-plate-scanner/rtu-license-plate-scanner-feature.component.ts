@@ -44,9 +44,7 @@ export class RtuLicensePlateScannerFeature extends ScanbotSdkFeatureComponent {
         try {
             const result = await ScanbotSDK.startLicensePlateScanner(configuration);
 
-            if (result.status === 'CANCELED') {
-                // User has canceled the scanning operation
-            } else {
+            if (result.status === 'OK') {
                 // Handle the extracted data
                 this.utils.showResultInfo(
                     `• License plate: ${result.licensePlate} <br />` +

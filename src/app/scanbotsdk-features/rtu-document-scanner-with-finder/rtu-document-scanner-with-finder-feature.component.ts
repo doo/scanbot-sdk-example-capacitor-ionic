@@ -41,9 +41,7 @@ export class RtuDocumentScannerWithFinderFeature extends ScanbotSdkFeatureCompon
         try {
             const documentResult = await ScanbotSDK.startFinderDocumentScanner(configuration);
 
-            if (documentResult.status === 'CANCELED') {
-                // User has canceled the scanning operation
-            } else {
+            if (documentResult.status === 'OK' && documentResult.pages.length > 0) {
                 // Handle the scanned pages from result
                 await this.preferencesUtils.savePages(documentResult.pages);
                 this.router.navigate(['/page-results']);

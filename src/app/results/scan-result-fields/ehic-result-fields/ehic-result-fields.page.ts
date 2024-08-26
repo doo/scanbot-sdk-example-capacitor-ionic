@@ -48,7 +48,7 @@ export class EHICResultFieldsPage extends ScanResultFieldsPage {
             .map(field => {
                 let value = field.value
 
-                if (value) {
+                if (value !== '') {
                     value += ` (confidence:${Math.round(field.confidence * 100)}%)`
                 } else {
                     value = '/'

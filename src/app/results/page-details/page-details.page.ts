@@ -90,14 +90,10 @@ export class PageDetailsPage implements OnInit {
             });
 
             await this.utils.dismissLoader();
-            if (result.status === 'CANCELED') {
-                // User has canceled the scanning operation
-            } else if (result.page) {
+            if (result.status === 'OK') {
                 // Handle the modified page object from result
                 this.updateResultUI(result.page);
                 await this.preferencesUtils.updatePage(result.page);
-            } else {
-                this.utils.showErrorAlert('Something went wrong');
             }
         } catch (e: any) {
             await this.utils.dismissLoader();
