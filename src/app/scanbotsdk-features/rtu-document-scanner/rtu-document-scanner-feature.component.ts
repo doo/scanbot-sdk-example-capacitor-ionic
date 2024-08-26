@@ -44,12 +44,10 @@ export class RtuDocumentScannerFeature extends ScanbotSdkFeatureComponent {
         try {
             const documentResult = await ScanbotSDK.startDocumentScanner(configuration);
 
-            if (documentResult.status === 'CANCELED') {
-                // User has canceled the scanning operation
-            } else {
+            if (documentResult.status === 'OK' && documentResult.pages.length > 0) {
                 // Handle the scanned pages from result
                 await this.preferencesUtils.savePages(documentResult.pages);
-                this.router.navigate(['/image-results']);
+                this.router.navigate(['/page-results']);
             }
         } catch (e: any) {
             this.utils.showErrorAlert(e.message);

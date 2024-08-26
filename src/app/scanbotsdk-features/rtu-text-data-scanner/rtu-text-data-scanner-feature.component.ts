@@ -19,7 +19,7 @@ import { ScanbotSDK, TextDataScannerConfiguration } from 'capacitor-plugin-scanb
 export class RtuTextDataScannerFeature extends ScanbotSdkFeatureComponent {
     override feature: Feature = {
         id: FeatureId.TextDataScanner,
-        title: 'Start Text Data Scanner',
+        title: 'Scan Text Data',
     };
 
     override async featureClicked() {
@@ -47,15 +47,13 @@ export class RtuTextDataScannerFeature extends ScanbotSdkFeatureComponent {
         };
 
         try {
-            const result = await ScanbotSDK.startTextDataScanner(configuration);
+            const textData = await ScanbotSDK.startTextDataScanner(configuration);
 
-            if (result.status === 'CANCELED') {
-                // User has canceled the scanning operation
-            } else if (result.result?.text) {
+            if (textData.status === 'OK') {
                 // Handle the extracted data
-                this.utils.showResultInfo(JSON.stringify(result));
-            } else {
-                this.utils.showInfoAlert('No text data found');
+                this.utils.showResultInfo(
+                    `• Text: ${textData.result.text} <br />` +
+                    `• Confidence: ${Math.round(textData.result.confidence * 100)}%`);
             }
         } catch (e: any) {
             this.utils.showErrorAlert(e.message);

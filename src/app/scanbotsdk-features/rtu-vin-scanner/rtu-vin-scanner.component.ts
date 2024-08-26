@@ -19,7 +19,7 @@ import { ScanbotSDK, VinScannerConfiguration } from 'capacitor-plugin-scanbot-sd
 export class RtuVinScannerComponent extends ScanbotSdkFeatureComponent {
     override feature: Feature = {
         id: FeatureId.VINScanner,
-        title: 'Start VIN Scanner',
+        title: 'Scan VIN',
     };
 
     override async featureClicked() {
@@ -37,16 +37,12 @@ export class RtuVinScannerComponent extends ScanbotSdkFeatureComponent {
         try {
             const result = await ScanbotSDK.startVinScanner(configuration);
 
-            if (result.status === 'CANCELED') {
-                // User has canceled the scanning operation
-            } else {
+            if (result.status === 'OK') {
                 // Handle the extracted data
-                this.utils.showResultInfo([
-                    `- Raw Text: ${result.rawText}`, result.confidenceValue &&
-                    `- Confidence: ${(result.confidenceValue * 100).toFixed(0)}%`,
-                    `- Validation: ${result.validationSuccessful ? 'SUCCESSFUL' : 'NOT SUCCESSFUL'}`,
-                ].join('<br />')
-                );
+                this.utils.showResultInfo(
+                    `• Raw Text: ${result.rawText} <br />` +
+                    `• Confidence: ${Math.round(result.confidenceValue * 100)}% <br />` +
+                    `• Validation: ${result.validationSuccessful ? 'SUCCESSFUL' : 'NOT SUCCESSFUL'}`);
             }
         } catch (e: any) {
             this.utils.showErrorAlert(e.message);

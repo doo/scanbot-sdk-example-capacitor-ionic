@@ -18,7 +18,7 @@ import { HealthInsuranceCardScannerConfiguration, HealthInsuranceCardScannerResu
 export class RtuHealthInsuranceCardScannerFeature extends ScanbotSdkFeatureComponent {
     override feature = {
         id: FeatureId.ScanEHIC,
-        title: 'Scan Health Insurance Card',
+        title: 'Scan EHIC',
     };
 
     override async featureClicked() {
@@ -37,14 +37,14 @@ export class RtuHealthInsuranceCardScannerFeature extends ScanbotSdkFeatureCompo
         try {
             const result = await ScanbotSDK.startEHICScanner(configuration);
 
-            if (result.status === 'CANCELED') {
-                // User has canceled the scanning operation
-            } else {
+            if (result.status === 'OK') {
                 // Handle the extracted data fields
-                const fields = result.fields.map(
-                    (f) => `${f.type}: ${f.value} (${f.confidence.toFixed(2)})`,
-                );
-                this.utils.showResultInfo(fields.join('\n'));
+                const ehicResultAsJson = JSON.stringify(result);
+
+                this.router.navigate([
+                    '/ehic-result-fields',
+                    ehicResultAsJson,
+                ]);
             }
         } catch (e: any) {
             this.utils.showErrorAlert(e.message);

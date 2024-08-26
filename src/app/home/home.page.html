@@ -19,10 +19,9 @@
         <app-detect-document-on-page-feature />
         <app-detect-document-on-image-feature />
         <app-extract-pages-from-pdf-feature />
-        <app-extract-images-from-pdf-feature />
-        <ion-item [routerLink]="'/image-results'" [detail]="false">
+        <ion-item [routerLink]="'/page-results'" [detail]="false">
             <ion-label>
-                <p>View Image Results</p>
+                <p>View Page Results</p>
             </ion-label>
         </ion-item>
 
@@ -31,10 +30,11 @@
                 <h2>BARCODE DETECTOR</h2>
             </ion-label>
         </ion-item>
-        <app-rtu-barcode-scanner-feature />
-        <app-rtu-batch-barcode-scanner-feature />
+        <app-rtu-single-barcode-scanning-feature />
+        <app-rtu-multi-barcode-scanning-feature />
+        <app-rtu-multi-ar-barcode-scanning-feature />
+        <app-rtu-find-and-pick-barcode-scanning-feature />
         <app-detect-barcodes-on-image-feature />
-        <app-detect-barcodes-on-multiple-images-feature />
         <ion-item (click)='showBarcodeFormatsScreen()' [detail]="false">
             <ion-label>
                 <p>Barcode Formats</p>
@@ -48,6 +48,14 @@
 
         <ion-item lines="none" class="ion-margin-top">
             <ion-label>
+                <h2>LEGACY BARCODE DETECTOR</h2>
+            </ion-label>
+        </ion-item>
+        <app-legacy-rtu-barcode-scanner-feature />
+        <app-legacy-rtu-batch-barcode-scanner-feature />
+
+        <ion-item lines="none" class="ion-margin-top">
+            <ion-label>
                 <h2>DATA DETECTORS</h2>
             </ion-label>
         </ion-item>
@@ -56,11 +64,20 @@
         <app-rtu-generic-document-recognizer-feature />
         <app-rtu-check-recognizer-feature />
         <app-rtu-health-insurance-card-scanner-feature />
-        <app-rtu-license-plate-scanner-feature [feature]="featureScanLicensePlateMLBased" />
-        <app-rtu-license-plate-scanner-feature [feature]="featureScanLicensePlateClassic" />
+        <app-rtu-license-plate-scanner-feature />
         <app-rtu-vin-scanner />
         <app-rtu-text-data-scanner-feature />
+
+        <ion-item lines="none" class="ion-margin-top">
+            <ion-label>
+                <h2>DATA DETECTORS ON IMAGES</h2>
+            </ion-label>
+        </ion-item>
         <app-recognize-check-on-image-feature />
+        <app-recognize-mrz-on-image-feature />
+        <app-recognize-medical-certificate-on-image-feature />
+        <app-recognize-ehic-on-image-feature />
+        <app-recognize-generic-document-on-image-feature />
 
         <ion-item lines="none" class="ion-margin-top">
             <ion-label>
@@ -68,6 +85,9 @@
             </ion-label>
         </ion-item>
         <app-apply-filter-on-image-feature />
+        <app-analyze-document-quality-feature />
+        <app-extract-images-from-pdf-feature />
+        <app-perform-ocr-on-image-feature />
         <ion-item (click)='showLicenseInfo()'>
             <ion-label>
                 <p>View License Info</p>
