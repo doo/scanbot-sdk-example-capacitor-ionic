@@ -27,9 +27,13 @@ export class DetectDocumentOnImageFeature extends ScanbotSdkFeatureComponent {
             return;
         }
 
+        // Select image from the library
+        const imageFileUri = await this.imageUtils.selectImageFromLibrary();
+        if (!imageFileUri) {
+            return;
+        }
+
         try {
-            // Select image from the library
-            const imageFileUri = await this.imageUtils.selectImageFromLibrary();
             await this.utils.showLoader();
 
             const result = await ScanbotSDK.detectDocument({ imageFileUri: imageFileUri });

@@ -27,9 +27,13 @@ export class ApplyFilterOnImageFeature extends ScanbotSdkFeatureComponent {
             return;
         }
 
+        // Select image from the library
+        const imageFileUri = await this.imageUtils.selectImageFromLibrary();
+        if (!imageFileUri) {
+            return;
+        }
+
         try {
-            // Select image from the library
-            const imageFileUri = await this.imageUtils.selectImageFromLibrary();
             // Choose one of the available filters
             const imageFilter = await this.scanbotUtils.chooseFilter();
 

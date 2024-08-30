@@ -27,8 +27,13 @@ export class RecognizeMrzOnImageFeature extends ScanbotSdkFeatureComponent {
             return;
         }
 
+        // Select image from the library
+        const imageFileUri = await this.imageUtils.selectImageFromLibrary();
+        if (!imageFileUri) {
+            return;
+        }
+
         try {
-            const imageFileUri = await this.imageUtils.selectImageFromLibrary()
             await this.utils.showLoader();
 
             const result = await ScanbotSDK.recognizeMrz({
