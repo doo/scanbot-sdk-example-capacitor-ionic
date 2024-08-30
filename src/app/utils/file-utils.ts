@@ -11,28 +11,20 @@ export class FileUtils {
 
     constructor() { }
 
-    async selectPdfFile(): Promise<string> {
-        let pickFilesErrorMessage;
-
+    async selectPdfFile(): Promise<string | undefined> {
         try {
             const pdfFile = await FilePicker.pickFiles({
                 types: ['application/pdf'],
                 limit: 1,
                 readData: false,
             });
-            const pdfPath = pdfFile.files[0].path;
 
-            if (pdfPath) {
-                return pdfPath;
-            }
+            return pdfFile.files[0].path;
         } catch (e: any) {
-            pickFilesErrorMessage = e.message;
-        }
+            console.error(e.message);
 
-        throw new Error(
-            `No file picked${pickFilesErrorMessage ? ': ' + pickFilesErrorMessage : ''
-            }`,
-        );
+            return undefined;
+        }
     }
 
     async openPdfFile(fileURI?: string | undefined) {

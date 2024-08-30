@@ -27,10 +27,13 @@ export class DetectBarcodesOnImageFeature extends ScanbotSdkFeatureComponent {
             return;
         }
 
-        try {
-            // Select image from the library
-            const imageFileUri = await this.imageUtils.selectImageFromLibrary();
+        // Select image from the library
+        const imageFileUri = await this.imageUtils.selectImageFromLibrary();
+        if (!imageFileUri) {
+            return;
+        }
 
+        try {
             const args: DetectBarcodesOnImageArguments = {
                 imageFileUri: imageFileUri,
                 stripCheckDigits: true,

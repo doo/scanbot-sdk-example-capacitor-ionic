@@ -27,9 +27,13 @@ export class AnalyzeDocumentQualityFeature extends ScanbotSdkFeatureComponent {
             return;
         }
 
+        // Select image from the library
+        const imageFileUri = await this.imageUtils.selectImageFromLibrary();
+        if (!imageFileUri) {
+            return;
+        }
+
         try {
-            // Select image from the library
-            const imageFileUri = await this.imageUtils.selectImageFromLibrary();
             await this.utils.showLoader();
 
             const qualityResult = await ScanbotSDK.documentQualityAnalyzer({ imageFileUri: imageFileUri });

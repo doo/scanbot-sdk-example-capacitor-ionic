@@ -27,9 +27,13 @@ export class ExtractPagesFromPdfFeature extends ScanbotSdkFeatureComponent {
             return;
         }
 
+        // Select the PDF file from the library
+        const pdfFilePath = await this.fileUtils.selectPdfFile();
+        if (!pdfFilePath) {
+            return;
+        }
+
         try {
-            // Select the PDF file from the library
-            const pdfFilePath = await this.fileUtils.selectPdfFile();
             await this.utils.showLoader();
 
             const result = await ScanbotSDK.extractPagesFromPdf({
