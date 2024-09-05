@@ -4,7 +4,7 @@ import { Preferences } from '@capacitor/preferences';
 
 import { ImageFilterComponent } from '../image-filter/image-filter.component';
 
-import { BarcodeDocumentFormat, BarcodeFormat, BrightnessFilter, ColorDocumentFilter, ContrastFilter, CustomBinarizationFilter, Field, GenericDocument, ImageFilterType, LegacyFilter, LicenseStatus, ParametricFilter, ScanbotBinarizationFilter, WhiteBlackPointFilter, } from 'capacitor-plugin-scanbot-sdk';
+import { BarcodeDocumentFormat, BarcodeFormat, BrightnessFilter, ColorDocumentFilter, ContrastFilter, CustomBinarizationFilter, Field, GenericDocument, GrayscaleFilter, ImageFilterType, LegacyFilter, LicenseStatus, ParametricFilter, ScanbotBinarizationFilter, WhiteBlackPointFilter, } from 'capacitor-plugin-scanbot-sdk';
 import { ScanResultSectionData } from '../results/scan-result-fields/scan-result-fields.page';
 
 export interface Feature {
@@ -278,7 +278,7 @@ export class ScanbotUtils {
             },
             {
                 title: 'Grayscale',
-                filter: new ContrastFilter()
+                filter: new GrayscaleFilter()
             },
             {
                 title: 'White Black Point',
