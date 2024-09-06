@@ -3,9 +3,9 @@ import { ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
 async function initializeDisplayEncryptedImage() {
     try {
         // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
-        // if (!(await this.isLicenseValid())) {
-        //     return;
-        // }
+        if (!(await ScanbotSDK.getLicenseInfo()).isLicenseValid) {
+            return;
+        }
 
         // Use the low-res image file "documentPreviewImageFileUri" of a Page for the preview:
         const result = await ScanbotSDK.getImageData({
