@@ -2,24 +2,22 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { Capacitor } from "@capacitor/core";
 
-
-import { ScanResultFieldsPage } from '../scan-result-fields.page';
-import { ScanResultSection, ScanResultSectionList, SectionListComponent } from "../section-list/section-list.component";
-import { GenericDocumentUtils } from "../../../utils/gdr-utils";
+import { ScanResultFieldsPage, ScanResultSection } from '../scan-result-fields.page';
 
 import { CheckRecognizerResult } from 'capacitor-plugin-scanbot-sdk';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
     selector: 'app-check-result-fields',
     templateUrl: '../scan-result-fields.page.html',
     styleUrls: ['../scan-result-fields.page.scss'],
     standalone: true,
-    imports: [IonicModule, CommonModule, FormsModule, SectionListComponent],
+    imports: [IonicModule, CommonModule, FormsModule],
 })
 export class CheckResultFieldsPage extends ScanResultFieldsPage {
     override pageTitle: string = 'Check Result';
+
     private checkResult!: CheckRecognizerResult;
 
     constructor() {
@@ -34,37 +32,20 @@ export class CheckResultFieldsPage extends ScanResultFieldsPage {
         await super.ngOnInit();
     }
 
-    override loadResultFields(): ScanResultSectionList {
-        const commonSection: ScanResultSection = {
-            title: 'Check Result',
-            data: [
-                {
-                    key: 'Check Image',
-                    image: this.checkResult.imageFileUri && Capacitor.convertFileSrc(this.checkResult.imageFileUri),
-                },
-                {
-                    key: 'Recognition Status',
-                    value: this.checkResult.checkStatus,
-                },
-                {
-                    key: 'Check Type',
-                    value: this.checkResult.checkType,
-                },
-                {
-                    key: 'Recognition confidence',
-                    value: this.checkResult.check.confidence.toString(),
-                },
-            ]
-        };
-
-        const checkFieldsSection: ScanResultSection = {
-            title: this.checkResult.check.type.name,
-            data: GenericDocumentUtils.gdrFields(this.checkResult.check),
-        };
-
+    override loadResultFields(): Array<ScanResultSection> {
         return [
-            commonSection,
-            checkFieldsSection
+            {
+                image: this.checkResult.imageFileUri && Capacitor.convertFileSrc(this.checkResult.imageFileUri)
+            },
+            {
+                data: [
+                    { key: 'Recognition Status', value: this.checkResult.checkStatus }
+                ]
+            },
+            {
+                title: 'Check Document',
+                data: this.scanbotUtils.transformGenericDocument(this.checkResult.check, true)
+            }
         ];
     }
 }

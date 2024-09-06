@@ -16,7 +16,7 @@ import { MrzScannerResult, MrzScannerConfiguration, ScanbotSDK } from 'capacitor
     imports: [CommonModule, IonicModule, RouterLink],
 })
 export class RtuMrzScannerFeature extends ScanbotSdkFeatureComponent {
-    override feature = { id: FeatureId.ScanMRZ, title: 'Scan MRZ on ID Card' };
+    override feature = { id: FeatureId.ScanMRZ, title: 'Scan MRZ' };
 
     override async featureClicked() {
         // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
@@ -34,16 +34,13 @@ export class RtuMrzScannerFeature extends ScanbotSdkFeatureComponent {
         try {
             const result = await ScanbotSDK.startMrzScanner(configuration);
 
-            if (result.status === 'CANCELED') {
-                // User has canceled the scanning operation
-            } else {
+            if (result.status === 'OK') {
                 // Handle the extracted data
-                const checkResultAsJson = JSON.stringify(result);
+                const mrzResultAsJson = JSON.stringify(result);
 
-                console.log(checkResultAsJson);
                 this.router.navigate([
                     '/mrz-result-fields',
-                    checkResultAsJson,
+                    mrzResultAsJson,
                 ]);
             }
         } catch (e: any) {

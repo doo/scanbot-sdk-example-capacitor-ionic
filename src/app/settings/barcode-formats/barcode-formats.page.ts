@@ -31,9 +31,9 @@ export class BarcodeFormatsPage implements OnInit {
     }
 
     async barcodeSettingStateChanged(event: any, barcode: BarcodeSetting) {
-        await Preferences.set({
-            key: barcode.format.toString(),
-            value: event.target.checked.toString(),
-        });
+        await this.scanbotUtils.setBarcodeFormatAccepted(
+            barcode.format,
+            event.target.checked
+        );
     }
 }

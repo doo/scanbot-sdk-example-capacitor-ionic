@@ -3,9 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
-import { ScanResultSection, ScanResultSectionList, SectionListComponent } from "../section-list/section-list.component";
-import { ScanResultFieldsPage } from "../scan-result-fields.page";
-import { GenericDocumentUtils } from "../../../utils/gdr-utils";
+import { ScanResultFieldsPage, ScanResultSection, } from '../scan-result-fields.page';
 
 import { MrzScannerResult } from 'capacitor-plugin-scanbot-sdk';
 
@@ -14,10 +12,11 @@ import { MrzScannerResult } from 'capacitor-plugin-scanbot-sdk';
     templateUrl: '../scan-result-fields.page.html',
     styleUrls: ['../scan-result-fields.page.scss'],
     standalone: true,
-    imports: [IonicModule, CommonModule, FormsModule, SectionListComponent],
+    imports: [IonicModule, CommonModule, FormsModule],
 })
 export class MrzResultFieldsPage extends ScanResultFieldsPage {
     override pageTitle: string = 'MRZ Scanner Result';
+
     private mrzScannerResult!: MrzScannerResult;
 
     constructor() {
@@ -32,38 +31,21 @@ export class MrzResultFieldsPage extends ScanResultFieldsPage {
         await super.ngOnInit();
     }
 
-    override loadResultFields(): ScanResultSectionList {
-
-        const commonSection: ScanResultSection = {
-            title: 'MRZ Result',
-            data: [
-                GenericDocumentUtils.sectionValueItem('Document Type', this.mrzScannerResult.documentType),
-                GenericDocumentUtils.sectionValueItem('Raw MRZ String', this.mrzScannerResult.rawString),
-                GenericDocumentUtils.sectionValueItem(
-                    'Recognition Successful',
-                    this.mrzScannerResult.recognitionSuccessful ? 'YES' : 'NO',
-                ),
-                GenericDocumentUtils.sectionValueItem(
-                    'Check digits count',
-                    this.mrzScannerResult.checkDigitsCount.toString(),
-                ),
-                GenericDocumentUtils.sectionValueItem(
-                    'Valid check digits count',
-                    this.mrzScannerResult.validCheckDigitsCount.toString(),
-                ),
-                ...GenericDocumentUtils.gdrCommonFields(this.mrzScannerResult.mrz),
-            ]
-        };
-
-        const checkFieldsSection: ScanResultSection = {
-            title: 'MRZ Document',
-            data: GenericDocumentUtils.gdrFields(this.mrzScannerResult.mrz),
-        };
-
+    override loadResultFields(): Array<ScanResultSection> {
         return [
-            commonSection,
-            checkFieldsSection
+            {
+                data: [
+                    { key: 'Successful Recognition', value: this.mrzScannerResult.recognitionSuccessful ? 'YES' : 'NO' },
+                    { key: 'Document Type', value: this.mrzScannerResult.documentType },
+                    { key: 'Raw MRZ String', value: this.mrzScannerResult.rawString },
+                    { key: 'Check digits count', value: this.mrzScannerResult.checkDigitsCount.toString() },
+                    { key: 'Valid check digits count', value: this.mrzScannerResult.validCheckDigitsCount.toString() }
+                ]
+            },
+            {
+                title: 'MRZ Document',
+                data: this.scanbotUtils.transformGenericDocument(this.mrzScannerResult.mrz)
+            }
         ];
     }
-
 }

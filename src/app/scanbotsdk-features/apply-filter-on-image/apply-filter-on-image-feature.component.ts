@@ -18,7 +18,7 @@ import { ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
 export class ApplyFilterOnImageFeature extends ScanbotSdkFeatureComponent {
     override feature: Feature = {
         id: FeatureId.ApplyFilterOnImage,
-        title: 'Import Image and Apply Filter',
+        title: 'Apply Image Filter',
     };
 
     override async featureClicked() {
@@ -27,31 +27,34 @@ export class ApplyFilterOnImageFeature extends ScanbotSdkFeatureComponent {
             return;
         }
 
+        // Select image from the library
+        const imageFileUri = await this.imageUtils.selectImageFromLibrary();
+        if (!imageFileUri) {
+            return;
+        }
+
         try {
-            // Select image from the library
-            const imageFileUri = await this.imageUtils.selectImageFromLibrary();
             // Choose one of the available filters
             const imageFilter = await this.scanbotUtils.chooseFilter();
 
             if (imageFilter) {
                 await this.utils.showLoader();
 
-                const result = await ScanbotSDK.applyImageFilter({
+                const result = await ScanbotSDK.applyImageFilters({
                     imageFileUri: imageFileUri,
-                    filter: imageFilter,
+                    filters: [imageFilter],
                 });
                 const filteredImageUri: string = result.imageFileUri;
 
+                this.utils.dismissLoader();
+
                 if (filteredImageUri) {
-                    const page = await ScanbotSDK.createPage({ imageUri: filteredImageUri });
-                    const result = await ScanbotSDK.detectDocumentOnPage({ page: page });
-
-                    await this.preferencesUtils.savePage(result);
-                    this.utils.dismissLoader();
-
-                    this.router.navigate(['/image-results']);
+                    this.router.navigate([
+                        '/image-results',
+                        JSON.stringify([filteredImageUri]),
+                    ]);
                 } else {
-                    this.utils.dismissLoader();
+                    this.utils.showWarningAlert('Something went wrong')
                 }
             }
         } catch (e: any) {

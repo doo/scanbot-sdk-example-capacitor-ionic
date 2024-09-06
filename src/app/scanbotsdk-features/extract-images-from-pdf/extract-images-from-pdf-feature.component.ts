@@ -27,9 +27,13 @@ export class ExtractImagesFromPdfFeature extends ScanbotSdkFeatureComponent {
             return;
         }
 
+        // Select the PDF file from the library
+        const pdfFilePath = await this.fileUtils.selectPdfFile();
+        if (!pdfFilePath) {
+            return;
+        }
+
         try {
-            // Select the PDF file from the library
-            const pdfFilePath = await this.fileUtils.selectPdfFile();
             await this.utils.showLoader();
 
             const result = await ScanbotSDK.extractImagesFromPdf({
@@ -38,12 +42,13 @@ export class ExtractImagesFromPdfFeature extends ScanbotSdkFeatureComponent {
 
             this.utils.dismissLoader();
 
-            if (result.status === 'CANCELED') {
-                // User has canceled the scanning operation
-            } else if (result.imageFilesUrls) {
-                this.utils.showResultInfo(JSON.stringify(result.imageFilesUrls, null, 2));
+            if (result.imageFilesUrls.length > 0) {
+                this.router.navigate([
+                    '/image-results',
+                    JSON.stringify(result.imageFilesUrls),
+                ]);
             } else {
-                this.utils.showInfoAlert('No pages extracted');
+                this.utils.showInfoAlert('No images extracted');
             }
         } catch (e: any) {
             await this.utils.dismissLoader();

@@ -27,19 +27,22 @@ export class DetectDocumentOnImageFeature extends ScanbotSdkFeatureComponent {
             return;
         }
 
+        // Select image from the library
+        const imageFileUri = await this.imageUtils.selectImageFromLibrary();
+        if (!imageFileUri) {
+            return;
+        }
+
         try {
-            // Select image from the library
-            const imageFileUri = await this.imageUtils.selectImageFromLibrary();
             await this.utils.showLoader();
 
             const result = await ScanbotSDK.detectDocument({ imageFileUri: imageFileUri });
-            const qualityResult = await ScanbotSDK.documentQualityAnalyzer({ imageFileUri: imageFileUri });
 
             await this.utils.dismissLoader();
-            this.utils.showResultInfo(
-                `Detected Document result: ${JSON.stringify(result, null, 2)} <br \>` +
-                `Document Quality result: ${JSON.stringify(qualityResult, null, 2)}`,
-            );
+            this.router.navigate([
+                '/document-detection-fields',
+                JSON.stringify(result),
+            ]);
 
         } catch (e: any) {
             await this.utils.dismissLoader();

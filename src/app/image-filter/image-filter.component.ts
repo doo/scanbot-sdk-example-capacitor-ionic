@@ -20,6 +20,6 @@ export class ImageFilterComponent {
     constructor() { }
 
     dismiss(selectedFilter?: ImageFilter | undefined) {
-        this.modalCtrl.dismiss(selectedFilter?.type);
+        this.modalCtrl.dismiss(selectedFilter?.filter);
     }
 }

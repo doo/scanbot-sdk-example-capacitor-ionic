@@ -18,7 +18,7 @@ import { DetectBarcodesOnImageArguments, ScanbotSDK } from 'capacitor-plugin-sca
 export class DetectBarcodesOnImageFeature extends ScanbotSdkFeatureComponent {
     override feature = {
         id: FeatureId.DetectBarcodesOnStillImage,
-        title: 'Import Image & Detect Barcodes',
+        title: 'Detect Barcodes on Image',
     };
 
     override async featureClicked() {
@@ -27,18 +27,18 @@ export class DetectBarcodesOnImageFeature extends ScanbotSdkFeatureComponent {
             return;
         }
 
-        try {
-            // Select image from the library
-            const imageFileUri = await this.imageUtils.selectImageFromLibrary();
+        // Select image from the library
+        const imageFileUri = await this.imageUtils.selectImageFromLibrary();
+        if (!imageFileUri) {
+            return;
+        }
 
+        try {
             const args: DetectBarcodesOnImageArguments = {
                 imageFileUri: imageFileUri,
                 stripCheckDigits: true,
                 barcodeFormats: await this.scanbotUtils.getAcceptedBarcodeFormats(), // optional filter for specific barcode types
-                acceptedDocumentFormats:
-                    (await this.scanbotUtils.isBarcodeDocumentFormatsEnabled())
-                        ? await this.scanbotUtils.getAcceptedBarcodeDocumentFormats()
-                        : [], // optional filter for specific document types
+                acceptedDocumentFormats: await this.scanbotUtils.getAcceptedBarcodeDocumentFormats() // optional filter for specific document types
                 // see further args ...
             };
             await this.utils.showLoader();
@@ -48,7 +48,10 @@ export class DetectBarcodesOnImageFeature extends ScanbotSdkFeatureComponent {
             await this.utils.dismissLoader();
             if (result.barcodes.length > 0) {
                 // Handle the detected barcode(s) from result
-                this.utils.showResultInfo(JSON.stringify(result.barcodes));
+                this.router.navigate([
+                    '/legacy-barcode-result-fields',
+                    JSON.stringify(result),
+                ]);
             } else {
                 this.utils.showInfoAlert('No barcodes detected');
             }

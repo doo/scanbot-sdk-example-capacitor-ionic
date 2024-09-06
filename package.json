@@ -1,6 +1,6 @@
 {
   "name": "scanbot-example-sdk-capacitor",
-  "version": "4.3.0",
+  "version": "5.1.0",
   "author": "Scanbot SDK",
   "homepage": "https://scanbot.io",
   "scripts": {
@@ -36,7 +36,7 @@
     "@capacitor/status-bar": "^6.0.0",
     "@capawesome/capacitor-file-picker": "6.0.0",
     "@ionic/angular": "^7.0.0",
-    "capacitor-plugin-scanbot-sdk": "4.3.0",
+    "capacitor-plugin-scanbot-sdk": "5.1.0",
     "ionicons": "^7.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

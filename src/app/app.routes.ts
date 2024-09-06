@@ -6,21 +6,28 @@ export const routes: Routes = [
         loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
     },
     {
-        path: 'image-results',
+        path: 'page-results',
         loadComponent: () =>
-            import('./results/image-results/image-results.page').then(
-                (m) => m.ImageResultsPage,
+            import('./results/page-results/page-results.page').then(
+                (m) => m.PageResultsPage,
             ),
     },
     {
-        path: 'image-details/:pageId',
+        path: 'page-details/:pageId',
         loadComponent: () =>
-            import('./results/image-details/image-details.page').then(
-                (m) => m.ImageDetailsPage,
+            import('./results/page-details/page-details.page').then(
+                (m) => m.PageDetailsPage,
             ),
     },
     {
-        path: 'generic-document-result-fields/:result',
+        path: 'generic-document-result-fields/:documents',
+        loadComponent: () =>
+            import(
+                './results/scan-result-fields/generic-document-result-fields/generic-document-result-fields.page'
+            ).then((m) => m.GenericDocumentResultFieldsPage),
+    },
+    {
+        path: 'generic-document-result-fields/:documents/:imageFileUri',
         loadComponent: () =>
             import(
                 './results/scan-result-fields/generic-document-result-fields/generic-document-result-fields.page'
@@ -57,6 +64,26 @@ export const routes: Routes = [
     {
         path: 'mrz-result-fields/:result',
         loadComponent: () => import('./results/scan-result-fields/mrz-result-fields/mrz-result-fields.page').then(m => m.MrzResultFieldsPage)
+    },
+    {
+        path: 'document-detection-fields/:result',
+        loadComponent: () => import('./results/scan-result-fields/document-detection-fields/document-detection-fields.page').then(m => m.DocumentDetectionFieldsPage)
+    },
+    {
+        path: 'ehic-result-fields/:result',
+        loadComponent: () => import('./results/scan-result-fields/ehic-result-fields/ehic-result-fields.page').then(m => m.EHICResultFieldsPage)
+    },
+    {
+        path: 'barcode-result-fields/:result',
+        loadComponent: () => import('./results/scan-result-fields/barcode-result-fields/barcode-result-fields.page').then(m => m.BarcodeResultFieldsPage)
+    },
+    {
+        path: 'legacy-barcode-result-fields/:result',
+        loadComponent: () => import('./results/scan-result-fields/legacy-barcode-result-fields/legacy-barcode-result-fields.page').then(m => m.LegacyBarcodeResultFieldsPage)
+    },
+    {
+        path: 'image-results/:imageFileUris',
+        loadComponent: () => import('./results/image-results/image-results.page').then((m) => m.ImageResultsPage),
     },
     {
         path: '',

@@ -18,7 +18,7 @@ import { ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
 export class RecognizeCheckOnImageFeature extends ScanbotSdkFeatureComponent {
     override feature: Feature = {
         id: FeatureId.RecognizeCheckOnImage,
-        title: 'Import Image and Recognize Check',
+        title: 'Recognize Check on Image',
     };
 
     override async featureClicked() {
@@ -27,8 +27,13 @@ export class RecognizeCheckOnImageFeature extends ScanbotSdkFeatureComponent {
             return;
         }
 
+        // Select image from the library
+        const imageFileUri = await this.imageUtils.selectImageFromLibrary();
+        if (!imageFileUri) {
+            return;
+        }
+
         try {
-            const imageFileUri = await this.imageUtils.selectImageFromLibrary()
             await this.utils.showLoader();
 
             const result = await ScanbotSDK.recognizeCheck({
@@ -36,11 +41,10 @@ export class RecognizeCheckOnImageFeature extends ScanbotSdkFeatureComponent {
             });
 
             this.utils.dismissLoader();
-            if (result.status === "OK" ) {
+            if (result.status === "OK") {
                 // Handle the detected check(s) from result
                 const checkResultAsJson = JSON.stringify(result);
 
-                console.log(checkResultAsJson);
                 this.router.navigate([
                     '/check-result-fields',
                     checkResultAsJson,
