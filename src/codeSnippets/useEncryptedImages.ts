@@ -1,6 +1,6 @@
 import { ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
 
-async function initializedisplayEncryptedImage() {
+async function initializeDisplayEncryptedImage() {
     try {
         // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
         // if (!(await this.isLicenseValid())) {

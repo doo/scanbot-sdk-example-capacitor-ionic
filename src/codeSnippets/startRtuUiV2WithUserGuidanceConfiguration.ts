@@ -1,6 +1,6 @@
 import { BarcodeScannerConfiguration } from 'capacitor-plugin-scanbot-sdk/dist/esm/ui_v2';
 
-async function statRtuUiV2WithUserGuidanceConfiguration() {
+async function startRtuUiV2WithUserGuidanceConfiguration() {
   // Create the default configuration object.
   const config = new BarcodeScannerConfiguration();
 
