@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Document Result</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button [text]="" defaultHref="/"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-grid>
+        <ion-row class="ion-align-items-center">
+            <ion-col size="4" *ngFor="let pageDataResult of pageImagePreviews">
+                <ion-img [src]="pageDataResult.pagePreviewWebViewPath"></ion-img>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-tabs>
+        <ion-tab-bar slot="bottom">
+            <ion-tab-button (input)="onContinueScanning()">
+                Continue Scanning
+            </ion-tab-button>
+            <ion-tab-button (input)="onAddPage()">
+                Add Page
+            </ion-tab-button>
+            <ion-tab-button (input)="onExport()">
+                Export
+            </ion-tab-button>
+        </ion-tab-bar>
+    </ion-tabs>
+</ion-content>

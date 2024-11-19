@@ -13,6 +13,10 @@ export interface Feature {
 }
 
 export enum FeatureId {
+    SinglePageDocumentScanning,
+    SinglePageDocumentScanningWithFinder,
+    MultiPageDocumentScanning,
+    PickDocumentFromGallery,
     DocumentScanner,
     DetectDocumentFromPage,
     DetectDocumentFromImage,
