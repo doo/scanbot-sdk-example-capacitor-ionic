@@ -94,4 +94,8 @@ export const routes: Routes = [
     path: 'document-result',
     loadComponent: () => import('./results/document-result/document-result.page').then( m => m.DocumentResultPage)
   },
+  {
+    path: 'page-result',
+    loadComponent: () => import('./results/page-result/page-result.page').then( m => m.PageResultPage)
+  },
 ];
