@@ -23,29 +23,33 @@ export class RtuPickDocumentFromGalleryComponent extends ScanbotSdkFeatureCompon
 
 
     override async featureClicked(): Promise<void> {
-        this.router.navigate(['/document-result'])
-        // try {
-        //     // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
-        //     if (!(await this.isLicenseValid())) {
-        //         return;
-        //     }
-        //     // Select image from the library
-        //     const imageFileUri = await this.imageUtils.selectImageFromLibrary();
-        //     if (!imageFileUri) {
-        //         return;
-        //     }
-        //     /** Create a document object */
-        //     const documentResult = await ScanbotSDK.Document.createDocument({
-        //         imageFileUris: [imageFileUri],
-        //         documentDetection: true,
-        //     });
-        //
-        //     /** Add pages if status is OK */
-        //     if (documentResult.status === 'OK') {
-        //
-        //     }
-        // } catch (e: any) {
-        //     this.utils.showErrorAlert(e.message);
-        // }
+        try {
+            // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+            if (!(await this.isLicenseValid())) {
+                return;
+            }
+            await this.utils.showLoader();
+            // Select image from the library
+            const imageFileUri = await this.imageUtils.selectImageFromLibrary();
+            if (!imageFileUri) {
+                return;
+            }
+            /** Create a document object */
+            const documentResult = await ScanbotSDK.Document.createDocument({
+                imageFileUris: [imageFileUri],
+                documentDetection: true,
+            });
+
+            /** Add pages if status is OK */
+            if (documentResult.status === 'OK') {
+                this.router.navigate(['/document-result'], {
+                    queryParams: {documentID: documentResult.uuid}
+                })
+            }
+        } catch (e: any) {
+            this.utils.showErrorAlert(e.message);
+        } finally {
+            this.utils.dismissLoader()
+        }
     }
 }

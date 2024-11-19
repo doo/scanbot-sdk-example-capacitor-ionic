@@ -1,34 +1,18 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {
-    IonBackButton,
-    IonButtons,
-    IonCol,
-    IonContent,
-    IonGrid,
-    IonHeader,
-    IonIcon,
-    IonImg,
-    IonRow,
-    IonTabBar,
-    IonTabButton,
-    IonTabs,
-    IonTitle,
-    IonToolbar
-} from '@ionic/angular/standalone';
-import {ActivatedRoute, RouterLink} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {
     DocumentData,
     OCRConfiguration,
     PageData,
-    ScanbotBinarizationFilter, ScanbotDocument,
+    ScanbotBinarizationFilter,
     ScanbotSDK
 } from "capacitor-plugin-scanbot-sdk";
 import {ScanbotUtils} from "../../utils/scanbot-utils";
 import {CommonUtils} from "../../utils/common-utils";
 import {FileUtils} from "../../utils/file-utils";
-import {ActionSheetController} from "@ionic/angular";
+import {ActionSheetController, IonicModule, NavController} from "@ionic/angular";
 import {ImageUtils} from "../../utils/image-utils";
 import {DocumentScanningFlow, startDocumentScanner} from "capacitor-plugin-scanbot-sdk/ui_v2";
 import {Capacitor} from "@capacitor/core";
@@ -43,12 +27,14 @@ interface PageDataResult {
     templateUrl: './document-result.page.html',
     styleUrls: ['./document-result.page.scss'],
     standalone: true,
-    imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButtons, IonBackButton, IonTabs, IonTabBar, IonTabButton, IonIcon, IonGrid, IonRow, IonCol, IonImg, RouterLink,]
+    imports: [IonicModule, CommonModule, FormsModule, RouterLink,]
 })
 export class DocumentResultPage implements OnInit {
 
     document!: DocumentData
     pageImagePreviews: PageDataResult[] = []
+
+    private navController = inject(NavController);
     private scanbotUtils = inject(ScanbotUtils);
     private utils = inject(CommonUtils);
     private fileUtils = inject(FileUtils);
@@ -61,8 +47,32 @@ export class DocumentResultPage implements OnInit {
 
     ngOnInit() {
         this.activatedRoute.queryParams.subscribe(async params => {
-            const documentID = JSON.parse(decodeURIComponent(params['documentID']))
-            await this.loadDocument(documentID)
+            const documentID = params['documentID']
+            if (documentID) {
+                await this.loadDocument(documentID)
+            }
+        })
+    }
+
+    updateDocument(updatedDocument: DocumentData) {
+
+        this.document = updatedDocument;
+
+        this.pageImagePreviews = this.document.pages.map(page => ({
+                page: page,
+                pagePreviewWebViewPath: Capacitor.convertFileSrc(
+                    page.documentImageURI || page.originalImageURI,
+                )+ '?' + Date.now()
+            } as PageDataResult)
+        )
+    }
+
+    async onImageSelect(page: PageData) {
+        await this.navController.navigateForward('document-result/page-result', {
+            queryParams: {
+                documentID: this.document.uuid,
+                pageID: page.uuid
+            }
         })
     }
 
@@ -73,17 +83,13 @@ export class DocumentResultPage implements OnInit {
                 return;
             }
 
-            this.document = await ScanbotDocument.loadDocument({
+            const documentResult = await ScanbotSDK.Document.loadDocument({
                 documentID: id
             })
 
-            this.pageImagePreviews = this.document.pages.map(page => ({
-                    page: page,
-                    pagePreviewWebViewPath: Capacitor.convertFileSrc(
-                        page.documentImageURI || page.originalImageURI,
-                    )
-                } as PageDataResult)
-            )
+            if (documentResult.status === "OK") {
+                this.updateDocument(documentResult)
+            }
 
         } catch (e: any) {
             await this.utils.showErrorAlert(e.message);
@@ -104,13 +110,12 @@ export class DocumentResultPage implements OnInit {
             configuration.documentUuid = this.document.uuid
             configuration.cleanScanningSession = false;
 
-            const documentResult = await startDocumentScanner(configuration);
+            await startDocumentScanner(configuration);
             /**
-             * Handle the result if result status is OK
+             * Load the changes from disc
              */
-            if (documentResult.status === "OK") {
-                this.document = documentResult
-            }
+            await this.loadDocument(this.document.uuid)
+
         } catch (e: any) {
             await this.utils.showErrorAlert(e.message);
         }
@@ -129,7 +134,7 @@ export class DocumentResultPage implements OnInit {
                 return;
             }
             /** Add a page to the document */
-            const documentResult = await ScanbotDocument.addPage({
+            const documentResult = await ScanbotSDK.Document.addPage({
                 documentID: this.document.uuid,
                 imageFileUri,
                 documentDetection: true,
@@ -138,7 +143,7 @@ export class DocumentResultPage implements OnInit {
              * Handle the result
              */
             if (documentResult.status === "OK") {
-                this.document = documentResult
+                this.updateDocument(documentResult)
             }
         } catch (e: any) {
             await this.utils.showErrorAlert(e.message);
@@ -217,7 +222,7 @@ export class DocumentResultPage implements OnInit {
                 }
                 : undefined;
 
-            const result = await ScanbotDocument.createPDF({
+            const result = await ScanbotSDK.Document.createPDF({
                 documentID: this.document.uuid,
                 options: {
                     pageSize: 'A4',
@@ -246,7 +251,7 @@ export class DocumentResultPage implements OnInit {
             /**
              * Create a tiff file from the document
              */
-            const result = await ScanbotDocument.createTIFF({
+            const result = await ScanbotSDK.Document.createTIFF({
                 documentID: this.document.uuid,
                 options: {
                     binarizationFilter: binarized

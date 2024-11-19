@@ -91,7 +91,9 @@ export class RtuMultiPageScanningComponent extends ScanbotSdkFeatureComponent {
              * Handle the result if result status is OK
              */
             if (documentResult.status === 'OK') {
-
+                this.router.navigate(['/document-result'], {
+                    queryParams: {documentID: documentResult.uuid}
+                })
             }
         } catch (e: any) {
             this.utils.showErrorAlert(e.message);
