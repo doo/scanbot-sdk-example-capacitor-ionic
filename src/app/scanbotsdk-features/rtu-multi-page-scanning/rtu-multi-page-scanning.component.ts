@@ -1,21 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import {ScanbotSdkFeatureComponent} from "../scanbotsdk-feature.component";
-import {Feature, FeatureId} from "../../utils/scanbot-utils";
 import {
     DocumentScanningFlow,
     startDocumentScanner
-} from "../../../../../scanbot-sdk-capacitor-plugin/document-scanner/src/ui_v2";
-import {Colors} from "../../../theme/theme";
+} from "capacitor-plugin-scanbot-sdk/ui_v2";
+import { Colors } from "../../../theme/theme";
+import { Feature, FeatureId } from "../../utils/scanbot-utils";
+import { ScanbotSdkFeatureComponent } from "../scanbotsdk-feature.component";
 
 @Component({
   selector: 'app-rtu-multi-page-scanning',
   templateUrl: '../scanbotsdk-feature.component.html',
   styleUrls: ['../scanbotsdk-feature.component.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule, RouterLink],
+  imports: [CommonModule, IonicModule],
 })
 export class RtuMultiPageScanningComponent extends ScanbotSdkFeatureComponent {
 

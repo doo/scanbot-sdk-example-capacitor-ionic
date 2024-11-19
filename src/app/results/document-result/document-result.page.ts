@@ -22,7 +22,7 @@ import {
     DocumentData,
     OCRConfiguration,
     PageData,
-    ScanbotBinarizationFilter,
+    ScanbotBinarizationFilter, ScanbotDocument,
     ScanbotSDK
 } from "capacitor-plugin-scanbot-sdk";
 import {ScanbotUtils} from "../../utils/scanbot-utils";
@@ -73,7 +73,7 @@ export class DocumentResultPage implements OnInit {
                 return;
             }
 
-            this.document = await ScanbotSDK.Document.loadDocument({
+            this.document = await ScanbotDocument.loadDocument({
                 documentID: id
             })
 
@@ -129,7 +129,7 @@ export class DocumentResultPage implements OnInit {
                 return;
             }
             /** Add a page to the document */
-            const documentResult = await ScanbotSDK.Document.addPage({
+            const documentResult = await ScanbotDocument.addPage({
                 documentID: this.document.uuid,
                 imageFileUri,
                 documentDetection: true,
@@ -217,7 +217,7 @@ export class DocumentResultPage implements OnInit {
                 }
                 : undefined;
 
-            const result = await ScanbotSDK.Document.createPDF({
+            const result = await ScanbotDocument.createPDF({
                 documentID: this.document.uuid,
                 options: {
                     pageSize: 'A4',
@@ -246,7 +246,7 @@ export class DocumentResultPage implements OnInit {
             /**
              * Create a tiff file from the document
              */
-            const result = await ScanbotSDK.Document.createTIFF({
+            const result = await ScanbotDocument.createTIFF({
                 documentID: this.document.uuid,
                 options: {
                     binarizationFilter: binarized
