@@ -63,7 +63,6 @@ import {
 export class HomePage {
     private scanbotUtils = inject(ScanbotUtils);
     private utils = inject(CommonUtils);
-    private router = inject(Router);
 
     readonly currentYear = new Date().getFullYear();
 
@@ -88,15 +87,15 @@ export class HomePage {
         }
     }
 
-    async showBarcodeFormatsScreen() {
-        if (await this.isLicenseValid()) {
-            this.router.navigate(['/barcode-formats']);
-        }
-    }
-
-    async showBarcodeDocumentFormatsScreen() {
-        if (await this.isLicenseValid()) {
-            this.router.navigate(['/barcode-document-formats']);
+    async cleanup(){
+        try {
+            // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+            if (await this.isLicenseValid()) {
+                await ScanbotSDK.cleanup()
+                this.utils.showInfoAlert("Storage has been cleared !")
+            }
+        } catch (e: any) {
+            this.utils.showErrorAlert(e.message);
         }
     }
 

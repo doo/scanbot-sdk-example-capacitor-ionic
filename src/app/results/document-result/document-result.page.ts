@@ -67,7 +67,7 @@ export class DocumentResultPage implements OnInit {
         )
     }
 
-    async onImageSelect(page: PageData) {
+    async onPageSelect(page: PageData) {
         await this.navController.navigateForward('document-result/page-result', {
             queryParams: {
                 documentID: this.document.uuid,
@@ -83,6 +83,7 @@ export class DocumentResultPage implements OnInit {
                 return;
             }
 
+            /** Load the document from disc */
             const documentResult = await ScanbotSDK.Document.loadDocument({
                 documentID: id
             })
@@ -111,9 +112,8 @@ export class DocumentResultPage implements OnInit {
             configuration.cleanScanningSession = false;
 
             await startDocumentScanner(configuration);
-            /**
-             * Load the changes from disc
-             */
+
+            /** Load the changes from disc */
             await this.loadDocument(this.document.uuid)
 
         } catch (e: any) {

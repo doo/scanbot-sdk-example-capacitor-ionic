@@ -79,7 +79,7 @@ export class PageResultPage implements OnInit {
             if (!(await this.isLicenseValid())) {
                 return;
             }
-
+            /** Load the document from disc */
             const documentResult = await ScanbotSDK.Document.loadDocument({
                 documentID: documentID
             })
@@ -133,7 +133,7 @@ export class PageResultPage implements OnInit {
 
             if (pageFilter) {
                 await this.utils.showLoader();
-
+                /** Modify the page by applying the selected filter */
                 const documentResult = await ScanbotSDK.Document.modifyPage({
                     documentID: this.documentID,
                     pageID: this.page.uuid,
@@ -159,6 +159,7 @@ export class PageResultPage implements OnInit {
 
             await this.utils.showLoader();
 
+            /** Remove the page from storage */
             await ScanbotSDK.Document.removePage({
                 documentID: this.documentID,
                 pageID: this.page.uuid,

@@ -34,13 +34,14 @@ export class RtuPickDocumentFromGalleryComponent extends ScanbotSdkFeatureCompon
             if (!imageFileUri) {
                 return;
             }
+
             /** Create a document object */
             const documentResult = await ScanbotSDK.Document.createDocument({
                 imageFileUris: [imageFileUri],
                 documentDetection: true,
             });
 
-            /** Add pages if status is OK */
+            /** Handle result if status is OK */
             if (documentResult.status === 'OK') {
                 this.router.navigate(['/document-result'], {
                     queryParams: {documentID: documentResult.uuid}

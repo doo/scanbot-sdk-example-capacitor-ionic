@@ -84,7 +84,7 @@ export class RtuSinglePageScanningComponent extends ScanbotSdkFeatureComponent {
 
             const documentResult = await startDocumentScanner(configuration);
             /**
-             * Handle the result if result status is OK
+             * Handle the result if status is OK
              */
             if (documentResult.status === 'OK') {
                 this.router.navigate(['/document-result'], {
