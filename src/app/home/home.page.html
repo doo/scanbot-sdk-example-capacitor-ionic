@@ -8,7 +8,6 @@
 
 <ion-content [fullscreen]="true">
     <ion-list>
-
         <ion-item lines="none">
             <ion-label>
                 <h2>DOCUMENT SCANNER</h2>
@@ -18,50 +17,6 @@
         <app-rtu-single-page-scanning-with-finder />
         <app-rtu-multi-page-scanning />
         <app-rtu-pick-document-from-gallery />
-        <ion-item lines="none">
-            <ion-label>
-                <h2>LEGACY DOCUMENT SCANNER</h2>
-            </ion-label>
-        </ion-item>
-        <app-rtu-document-scanner-feature />
-        <app-rtu-document-scanner-with-finder-feature />
-        <app-detect-document-on-page-feature />
-        <app-detect-document-on-image-feature />
-        <app-extract-pages-from-pdf-feature />
-        <ion-item [routerLink]="'/page-results'" [detail]="false">
-            <ion-label>
-                <p>View Page Results</p>
-            </ion-label>
-        </ion-item>
-
-        <ion-item lines="none" class="ion-margin-top">
-            <ion-label>
-                <h2>BARCODE DETECTOR</h2>
-            </ion-label>
-        </ion-item>
-        <app-rtu-single-barcode-scanning-feature />
-        <app-rtu-multi-barcode-scanning-feature />
-        <app-rtu-multi-ar-barcode-scanning-feature />
-        <app-rtu-find-and-pick-barcode-scanning-feature />
-        <app-detect-barcodes-on-image-feature />
-        <ion-item (click)='showBarcodeFormatsScreen()' [detail]="false">
-            <ion-label>
-                <p>Barcode Formats</p>
-            </ion-label>
-        </ion-item>
-        <ion-item (click)='showBarcodeDocumentFormatsScreen()' [detail]="false">
-            <ion-label>
-                <p>Barcode Document Formats</p>
-            </ion-label>
-        </ion-item>
-
-        <ion-item lines="none" class="ion-margin-top">
-            <ion-label>
-                <h2>LEGACY BARCODE DETECTOR</h2>
-            </ion-label>
-        </ion-item>
-        <app-legacy-rtu-barcode-scanner-feature />
-        <app-legacy-rtu-batch-barcode-scanner-feature />
 
         <ion-item lines="none" class="ion-margin-top">
             <ion-label>
@@ -93,18 +48,16 @@
                 <h2>MISCELLANEOUS</h2>
             </ion-label>
         </ion-item>
-        <app-apply-filter-on-image-feature />
         <app-analyze-document-quality-feature />
-        <app-extract-images-from-pdf-feature />
         <app-perform-ocr-on-image-feature />
-        <ion-item (click)='showLicenseInfo()'>
-            <ion-label>
-                <p>View License Info</p>
-            </ion-label>
-        </ion-item>
         <ion-item (click)='showOCRConfigs()'>
             <ion-label>
                 <p>View OCR Configs</p>
+            </ion-label>
+        </ion-item>
+        <ion-item (click)='showLicenseInfo()'>
+            <ion-label>
+                <p>View License Info</p>
             </ion-label>
         </ion-item>
         <ion-item lines="none">

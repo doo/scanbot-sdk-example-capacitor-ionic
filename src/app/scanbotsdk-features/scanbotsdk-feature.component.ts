@@ -6,7 +6,6 @@ import { IonicModule } from '@ionic/angular';
 import { FileUtils } from '../utils/file-utils';
 import { CommonUtils } from '../utils/common-utils';
 import { ImageUtils } from '../utils/image-utils';
-import { PreferencesUtils } from '../utils/preferences-utils';
 import { Feature, ScanbotUtils } from '../utils/scanbot-utils';
 
 import { ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
@@ -24,7 +23,6 @@ export class ScanbotSdkFeatureComponent {
     scanbotUtils = inject(ScanbotUtils);
     utils = inject(CommonUtils);
     imageUtils = inject(ImageUtils);
-    preferencesUtils = inject(PreferencesUtils);
     fileUtils = inject(FileUtils);
     router = inject(Router);
 
