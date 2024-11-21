@@ -1,6 +1,6 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import {
     IonAlert,
     IonBackButton,
@@ -13,13 +13,13 @@ import {
     IonTitle,
     IonToolbar
 } from '@ionic/angular/standalone';
-import {ScanbotUtils} from "../../utils/scanbot-utils";
-import {CommonUtils} from "../../utils/common-utils";
-import {DocumentData, PageData, ScanbotSDK} from "capacitor-plugin-scanbot-sdk";
-import {CroppingConfiguration, startCroppingScreen} from "capacitor-plugin-scanbot-sdk/ui_v2";
-import {NavController} from "@ionic/angular";
-import {ActivatedRoute} from "@angular/router";
-import {Capacitor} from "@capacitor/core";
+import { ScanbotUtils } from "../../utils/scanbot-utils";
+import { CommonUtils } from "../../utils/common-utils";
+import { DocumentData, PageData, ScanbotSDK } from "capacitor-plugin-scanbot-sdk";
+import { CroppingConfiguration, startCroppingScreen } from "capacitor-plugin-scanbot-sdk/ui_v2";
+import { NavController } from "@ionic/angular";
+import { ActivatedRoute } from "@angular/router";
+import { Capacitor } from "@capacitor/core";
 
 @Component({
     selector: 'app-page-result',
@@ -55,25 +55,23 @@ export class PageResultPage implements OnInit {
     constructor() {
     }
 
-    ngOnInit() {
-        this.activatedRoute.queryParams.subscribe(async params => {
-            const documentID = params['documentID']
-            const pageID = params['pageID']
-            if (documentID) {
-                await this.loadDocument(documentID, pageID)
-            }
-        })
+    async ngOnInit() {
+        this.activatedRoute.paramMap.subscribe(async (params) => {
+            const documentID = params.get('documentID') as string;
+            const pageID = params.get('pageID') as string;
+            await this.loadDocument(documentID, pageID);
+        });
     }
 
-    updatePage(updatedDocument: DocumentData) {
+    private updatePage(updatedDocument: DocumentData) {
         this.documentID = updatedDocument.uuid
         this.page = updatedDocument.pages.find(p => p.uuid === this.page.uuid)!
         this.pagePreviewWebViewPath = Capacitor.convertFileSrc(
-            this.page.documentImagePreviewURI || this.page.originalImageURI,
-        ) + '?' + Date.now();
+            (this.page.documentImagePreviewURI || this.page.originalImageURI) + '?' + Date.now()
+        )
     }
 
-    async loadDocument(documentID: string, pageID: string) {
+    private async loadDocument(documentID: string, pageID: string) {
         try {
             // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
             if (!(await this.isLicenseValid())) {
@@ -84,14 +82,11 @@ export class PageResultPage implements OnInit {
                 documentID: documentID
             })
 
-            if (documentResult.status === "OK") {
-                this.documentID = documentResult.uuid
-                this.page = documentResult.pages.find(p => p.uuid === pageID)!
-                this.pagePreviewWebViewPath = Capacitor.convertFileSrc(
-                    this.page.documentImagePreviewURI || this.page.originalImageURI,
-                )
-            }
-
+            this.documentID = documentResult.uuid
+            this.page = documentResult.pages.find(p => p.uuid === pageID)!
+            this.pagePreviewWebViewPath = Capacitor.convertFileSrc(
+                this.page.documentImagePreviewURI || this.page.originalImageURI,
+            )
         } catch (e: any) {
             await this.utils.showErrorAlert(e.message);
         }
@@ -103,7 +98,6 @@ export class PageResultPage implements OnInit {
             if (!(await this.isLicenseValid())) {
                 return;
             }
-            await this.utils.showLoader();
             /**
              * Create the Cropping configuration object and
              * start the Cropping UI with the configuration, documentUUID and pageUUID
@@ -114,11 +108,12 @@ export class PageResultPage implements OnInit {
             });
 
             const documentResult = await startCroppingScreen(configuration)
-            this.updatePage(documentResult)
+
+            if (documentResult.status === "OK") {
+                this.updatePage(documentResult)
+            }
         } catch (e: any) {
             this.utils.showErrorAlert(e.message);
-        } finally {
-            await this.utils.dismissLoader();
         }
     }
 
@@ -142,7 +137,6 @@ export class PageResultPage implements OnInit {
 
                 this.updatePage(documentResult)
             }
-
         } catch (e: any) {
             await this.utils.showErrorAlert(e.message);
         } finally {
@@ -185,9 +179,7 @@ export class PageResultPage implements OnInit {
             return true;
         } else {
             // The license is not valid. We will return false and show the status
-            await this.utils.showWarningAlert(
-                this.scanbotUtils.getMessageFromLicenseStatus(licenseInfo.licenseStatus),
-            );
+            this.utils.showWarningAlert(licenseInfo.licenseStatusMessage ?? "Invalid License");
             return false;
         }
     }

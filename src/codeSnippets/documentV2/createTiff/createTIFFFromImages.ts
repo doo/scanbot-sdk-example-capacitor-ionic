@@ -1,5 +1,5 @@
-import {ImageUtils} from "../../../app/utils/image-utils";
-import {ScanbotSDK} from "capacitor-plugin-scanbot-sdk";
+import { ImageUtils } from "../../../app/utils/image-utils";
+import { ScanbotSDK } from "capacitor-plugin-scanbot-sdk";
 
 async function createTIFFFromImages() {
     try {
@@ -18,9 +18,7 @@ async function createTIFFFromImages() {
                 dpi: 300,
             },
         });
-        /** Handle the result if the status is 'OK' */
-        if (tiffCreationResult.status === 'OK') {
-        }
+        /** Handle the result */
     } catch (e: any) {
     }
 }

@@ -10,11 +10,11 @@ import { Feature, FeatureId } from "../../utils/scanbot-utils";
 import { ScanbotSdkFeatureComponent } from "../scanbotsdk-feature.component";
 
 @Component({
-  selector: 'app-rtu-multi-page-scanning',
-  templateUrl: '../scanbotsdk-feature.component.html',
-  styleUrls: ['../scanbotsdk-feature.component.scss'],
-  standalone: true,
-  imports: [CommonModule, IonicModule],
+    selector: 'app-rtu-multi-page-scanning',
+    templateUrl: '../scanbotsdk-feature.component.html',
+    styleUrls: ['../scanbotsdk-feature.component.scss'],
+    standalone: true,
+    imports: [CommonModule, IonicModule],
 })
 export class RtuMultiPageScanningComponent extends ScanbotSdkFeatureComponent {
 
@@ -91,9 +91,7 @@ export class RtuMultiPageScanningComponent extends ScanbotSdkFeatureComponent {
              * Handle the result if result status is OK
              */
             if (documentResult.status === 'OK') {
-                this.router.navigate(['/document-result'], {
-                    queryParams: {documentID: documentResult.uuid}
-                })
+                this.router.navigate(['/document-result', documentResult.uuid]);
             }
         } catch (e: any) {
             this.utils.showErrorAlert(e.message);

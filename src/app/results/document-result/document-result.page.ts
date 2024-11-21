@@ -1,7 +1,7 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {ActivatedRoute, Router, RouterLink} from "@angular/router";
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import {
     DocumentData,
     OCRConfiguration,
@@ -9,13 +9,12 @@ import {
     ScanbotBinarizationFilter,
     ScanbotSDK
 } from "capacitor-plugin-scanbot-sdk";
-import {ScanbotUtils} from "../../utils/scanbot-utils";
-import {CommonUtils} from "../../utils/common-utils";
-import {FileUtils} from "../../utils/file-utils";
-import {ActionSheetController, IonicModule, NavController} from "@ionic/angular";
-import {ImageUtils} from "../../utils/image-utils";
-import {DocumentScanningFlow, startDocumentScanner} from "capacitor-plugin-scanbot-sdk/ui_v2";
-import {Capacitor} from "@capacitor/core";
+import { CommonUtils } from "../../utils/common-utils";
+import { FileUtils } from "../../utils/file-utils";
+import { ActionSheetController, IonicModule, NavController } from "@ionic/angular";
+import { ImageUtils } from "../../utils/image-utils";
+import { DocumentScanningFlow, startDocumentScanner } from "capacitor-plugin-scanbot-sdk/ui_v2";
+import { Capacitor } from "@capacitor/core";
 
 interface PageDataResult {
     page: PageData;
@@ -35,7 +34,6 @@ export class DocumentResultPage implements OnInit {
     pageImagePreviews: PageDataResult[] = []
 
     private navController = inject(NavController);
-    private scanbotUtils = inject(ScanbotUtils);
     private utils = inject(CommonUtils);
     private fileUtils = inject(FileUtils);
     private actionSheetCtrl = inject(ActionSheetController);
@@ -45,38 +43,31 @@ export class DocumentResultPage implements OnInit {
     constructor() {
     }
 
-    ngOnInit() {
-        this.activatedRoute.queryParams.subscribe(async params => {
-            const documentID = params['documentID']
-            if (documentID) {
-                await this.loadDocument(documentID)
-            }
-        })
+    async ngOnInit() {
+        this.activatedRoute.paramMap.subscribe(async (params) => {
+            const documentID = params.get('documentID') as string;
+            await this.loadDocument(documentID);
+        });
     }
 
-    updateDocument(updatedDocument: DocumentData) {
+    private updateCurrentDocument(updatedDocument: DocumentData) {
 
         this.document = updatedDocument;
 
         this.pageImagePreviews = this.document.pages.map(page => ({
-                page: page,
-                pagePreviewWebViewPath: Capacitor.convertFileSrc(
-                    page.documentImageURI || page.originalImageURI,
-                )+ '?' + Date.now()
-            } as PageDataResult)
+            page: page,
+            pagePreviewWebViewPath: Capacitor.convertFileSrc(
+                (page.documentImagePreviewURI || page.originalImageURI) + '?' + Date.now()
+            )
+        } as PageDataResult)
         )
     }
 
     async onPageSelect(page: PageData) {
-        await this.navController.navigateForward('document-result/page-result', {
-            queryParams: {
-                documentID: this.document.uuid,
-                pageID: page.uuid
-            }
-        })
+        await this.navController.navigateForward(['/page-result', this.document.uuid, page.uuid]);
     }
 
-    async loadDocument(id: string) {
+    private async loadDocument(id: string) {
         try {
             // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
             if (!(await this.isLicenseValid())) {
@@ -88,10 +79,7 @@ export class DocumentResultPage implements OnInit {
                 documentID: id
             })
 
-            if (documentResult.status === "OK") {
-                this.updateDocument(documentResult)
-            }
-
+            this.updateCurrentDocument(documentResult)
         } catch (e: any) {
             await this.utils.showErrorAlert(e.message);
         }
@@ -113,9 +101,7 @@ export class DocumentResultPage implements OnInit {
 
             await startDocumentScanner(configuration);
 
-            /** Load the changes from disc */
-            await this.loadDocument(this.document.uuid)
-
+            this.loadDocument(this.document.uuid);
         } catch (e: any) {
             await this.utils.showErrorAlert(e.message);
         }
@@ -127,12 +113,15 @@ export class DocumentResultPage implements OnInit {
             if (!(await this.isLicenseValid())) {
                 return;
             }
-            await this.utils.showLoader();
+
             // Select image from the library
             const imageFileUri = await this.imageUtils.selectImageFromLibrary();
             if (!imageFileUri) {
                 return;
             }
+
+            await this.utils.showLoader();
+
             /** Add a page to the document */
             const documentResult = await ScanbotSDK.Document.addPage({
                 documentID: this.document.uuid,
@@ -142,9 +131,7 @@ export class DocumentResultPage implements OnInit {
             /**
              * Handle the result
              */
-            if (documentResult.status === "OK") {
-                this.updateDocument(documentResult)
-            }
+            this.updateCurrentDocument(documentResult)
         } catch (e: any) {
             await this.utils.showErrorAlert(e.message);
         } finally {
@@ -189,7 +176,7 @@ export class DocumentResultPage implements OnInit {
         await actionSheet.present();
     }
 
-    async isLicenseValid() {
+    private async isLicenseValid() {
         const licenseInfo = await ScanbotSDK.getLicenseInfo();
 
         if (licenseInfo.isLicenseValid
@@ -199,9 +186,7 @@ export class DocumentResultPage implements OnInit {
             return true;
         } else {
             // The license is not valid. We will return false and show the status
-            await this.utils.showWarningAlert(
-                this.scanbotUtils.getMessageFromLicenseStatus(licenseInfo.licenseStatus),
-            );
+            this.utils.showWarningAlert(licenseInfo.licenseStatusMessage ?? "Invalid License");
             return false;
         }
     }

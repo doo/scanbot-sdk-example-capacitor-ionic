@@ -1,5 +1,5 @@
-import {ScanbotSDK} from "capacitor-plugin-scanbot-sdk";
-import {ImageUtils} from "../../../app/utils/image-utils"
+import { ScanbotSDK } from "capacitor-plugin-scanbot-sdk";
+import { ImageUtils } from "../../../app/utils/image-utils"
 
 
 async function createPDFFromImages() {
@@ -23,9 +23,7 @@ async function createPDFFromImages() {
                 },
             },
         });
-        /** Handle the result if the status is 'OK' */
-        if (pdfCreationResult.status === 'OK') {
-        }
+        /** Handle the result */
     } catch (e: any) {
         console.error(e.message);
     }

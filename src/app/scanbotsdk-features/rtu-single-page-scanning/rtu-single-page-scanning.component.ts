@@ -1,10 +1,10 @@
-import {CommonModule} from '@angular/common';
-import {Component} from '@angular/core';
-import {RouterLink} from '@angular/router';
-import {IonicModule} from '@ionic/angular';
-import {Feature, FeatureId} from 'src/app/utils/scanbot-utils';
-import {ScanbotSdkFeatureComponent} from '../scanbotsdk-feature.component';
-import {Colors} from 'src/theme/theme';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+import { Feature, FeatureId } from 'src/app/utils/scanbot-utils';
+import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature.component';
+import { Colors } from 'src/theme/theme';
 
 import {
     DocumentScanningFlow,
@@ -87,9 +87,7 @@ export class RtuSinglePageScanningComponent extends ScanbotSdkFeatureComponent {
              * Handle the result if status is OK
              */
             if (documentResult.status === 'OK') {
-                this.router.navigate(['/document-result'], {
-                    queryParams: {documentID: documentResult.uuid}
-                })
+                this.router.navigate(['/document-result', documentResult.uuid]);
             }
         } catch (e: any) {
             this.utils.showErrorAlert(e.message);

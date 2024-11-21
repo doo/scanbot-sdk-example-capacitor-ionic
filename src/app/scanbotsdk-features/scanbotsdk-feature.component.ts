@@ -39,9 +39,7 @@ export class ScanbotSdkFeatureComponent {
             return true;
         } else {
             // The license is not valid. We will return false and show the status
-            this.utils.showWarningAlert(
-                this.scanbotUtils.getMessageFromLicenseStatus(licenseInfo.licenseStatus),
-            );
+            this.utils.showWarningAlert(licenseInfo.licenseStatusMessage ?? "Invalid License");
             return false;
         }
     }

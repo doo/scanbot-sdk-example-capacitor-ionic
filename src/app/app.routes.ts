@@ -42,16 +42,16 @@ export const routes: Routes = [
         loadComponent: () => import('./results/scan-result-fields/ehic-result-fields/ehic-result-fields.page').then(m => m.EHICResultFieldsPage)
     },
     {
+        path: 'document-result/:documentID',
+        loadComponent: () => import('./results/document-result/document-result.page').then(m => m.DocumentResultPage)
+    },
+    {
+        path: 'page-result/:documentID/:pageID',
+        loadComponent: () => import('./results/page-result/page-result.page').then(m => m.PageResultPage)
+    },
+    {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full',
     },
-  {
-    path: 'document-result',
-    loadComponent: () => import('./results/document-result/document-result.page').then( m => m.DocumentResultPage)
-  },
-  {
-    path: 'document-result/page-result',
-    loadComponent: () => import('./results/page-result/page-result.page').then( m => m.PageResultPage)
-  },
 ];

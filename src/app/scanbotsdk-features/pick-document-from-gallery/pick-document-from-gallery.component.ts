@@ -1,20 +1,20 @@
-import {Component} from '@angular/core';
-import {CommonModule} from "@angular/common";
-import {IonicModule} from "@ionic/angular";
-import {RouterLink} from "@angular/router";
-import {ScanbotSdkFeatureComponent} from "../scanbotsdk-feature.component";
-import {Feature, FeatureId} from "../../utils/scanbot-utils";
+import { Component } from '@angular/core';
+import { CommonModule } from "@angular/common";
+import { IonicModule } from "@ionic/angular";
+import { RouterLink } from "@angular/router";
+import { ScanbotSdkFeatureComponent } from "../scanbotsdk-feature.component";
+import { Feature, FeatureId } from "../../utils/scanbot-utils";
 
-import {ScanbotSDK} from 'capacitor-plugin-scanbot-sdk';
+import { ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
-    selector: 'app-rtu-pick-document-from-gallery',
+    selector: 'app-pick-document-from-gallery',
     templateUrl: '../scanbotsdk-feature.component.html',
     styleUrls: ['../scanbotsdk-feature.component.scss'],
     standalone: true,
     imports: [CommonModule, IonicModule, RouterLink],
 })
-export class RtuPickDocumentFromGalleryComponent extends ScanbotSdkFeatureComponent {
+export class PickDocumentFromGalleryComponent extends ScanbotSdkFeatureComponent {
 
     override feature: Feature = {
         id: FeatureId.PickDocumentFromGallery,
@@ -28,12 +28,14 @@ export class RtuPickDocumentFromGalleryComponent extends ScanbotSdkFeatureCompon
             if (!(await this.isLicenseValid())) {
                 return;
             }
-            await this.utils.showLoader();
+
             // Select image from the library
             const imageFileUri = await this.imageUtils.selectImageFromLibrary();
             if (!imageFileUri) {
                 return;
             }
+
+            await this.utils.showLoader();
 
             /** Create a document object */
             const documentResult = await ScanbotSDK.Document.createDocument({
@@ -42,11 +44,7 @@ export class RtuPickDocumentFromGalleryComponent extends ScanbotSdkFeatureCompon
             });
 
             /** Handle result if status is OK */
-            if (documentResult.status === 'OK') {
-                this.router.navigate(['/document-result'], {
-                    queryParams: {documentID: documentResult.uuid}
-                })
-            }
+            this.router.navigate(['/document-result', documentResult.uuid]);
         } catch (e: any) {
             this.utils.showErrorAlert(e.message);
         } finally {

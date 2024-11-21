@@ -1,5 +1,5 @@
-import {ImageUtils} from "../../../app/utils/image-utils";
-import {ScanbotSDK} from "capacitor-plugin-scanbot-sdk";
+import { ImageUtils } from "../../../app/utils/image-utils";
+import { ScanbotSDK } from "capacitor-plugin-scanbot-sdk";
 
 
 async function detectDocumentDetection() {
@@ -16,9 +16,7 @@ async function detectDocumentDetection() {
         const documentDetectionResult = await ScanbotSDK.detectDocument({
             imageFileUri: selectedImageResult,
         });
-        /** Handle the result if the status is 'OK' */
-        if (documentDetectionResult.status === 'OK') {
-        }
+        //** Handle the result */
     } catch (e: any) {
         console.error(e.message);
     }

@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { RtuPickDocumentFromGalleryComponent } from './rtu-pick-document-from-gallery.component';
+import { PickDocumentFromGalleryComponent } from './pick-document-from-gallery.component';
 
-describe('RtuPickDocumentFromGalleryComponent', () => {
-  let component: RtuPickDocumentFromGalleryComponent;
-  let fixture: ComponentFixture<RtuPickDocumentFromGalleryComponent>;
+describe('PickDocumentFromGalleryComponent', () => {
+  let component: PickDocumentFromGalleryComponent;
+  let fixture: ComponentFixture<PickDocumentFromGalleryComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ RtuPickDocumentFromGalleryComponent ],
+      declarations: [PickDocumentFromGalleryComponent],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(RtuPickDocumentFromGalleryComponent);
+    fixture = TestBed.createComponent(PickDocumentFromGalleryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

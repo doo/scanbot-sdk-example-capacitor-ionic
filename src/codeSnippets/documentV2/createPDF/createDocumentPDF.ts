@@ -1,4 +1,4 @@
-import {ScanbotSDK} from "capacitor-plugin-scanbot-sdk";
+import { ScanbotSDK } from "capacitor-plugin-scanbot-sdk";
 
 async function createDocumentPDF() {
     try {
@@ -17,9 +17,7 @@ async function createDocumentPDF() {
                 },
             },
         });
-        /** Handle the result if the status is 'OK' */
-        if (pdfUriResult.status === 'OK') {
-        }
+        /** Handle the result */
     } catch (e: any) {
         console.error(e.message);
     }

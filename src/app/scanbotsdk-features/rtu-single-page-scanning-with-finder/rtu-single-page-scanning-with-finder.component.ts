@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import {
-  AspectRatio,
-  DocumentScanningFlow,
-  startDocumentScanner
+    AspectRatio,
+    DocumentScanningFlow,
+    startDocumentScanner
 } from 'capacitor-plugin-scanbot-sdk/ui_v2';
 import { Feature, FeatureId } from 'src/app/utils/scanbot-utils';
 import { Colors } from 'src/theme/theme';
@@ -76,12 +76,10 @@ export class RtuSinglePageScanningComponentWithFinder extends ScanbotSdkFeatureC
              * Handle the result if  status is OK
              */
             if (documentResult.status === 'OK') {
-                this.router.navigate(['/document-result'], {
-                    queryParams: {documentID: documentResult.uuid}
-                })
+                this.router.navigate(['/document-result', documentResult.uuid]);
             }
         } catch (e: any) {
-          this.utils.showErrorAlert(e.message);
+            this.utils.showErrorAlert(e.message);
         }
     }
 }

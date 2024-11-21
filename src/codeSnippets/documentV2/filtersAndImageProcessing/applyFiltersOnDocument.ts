@@ -1,4 +1,4 @@
-import {ScanbotBinarizationFilter, ScanbotSDK} from "capacitor-plugin-scanbot-sdk";
+import { ScanbotBinarizationFilter, ScanbotSDK } from "capacitor-plugin-scanbot-sdk";
 
 async function applyFiltersAndRotateScannedPage() {
   try {
@@ -20,9 +20,7 @@ async function applyFiltersAndRotateScannedPage() {
         rotation: 'CLOCKWISE_90',
       },
     );
-    /** Handle the document if the status is 'OK' */
-    if (documentResultWithModifiedPage.status === 'OK') {
-    }
+    /** Handle the result */
   } catch (e: any) {
     console.error(e.message);
   }

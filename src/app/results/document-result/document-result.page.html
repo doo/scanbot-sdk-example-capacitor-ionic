@@ -11,20 +11,31 @@
     <ion-grid>
         <ion-row class="ion-align-items-center">
             <ion-col size="4" *ngFor="let pageDataResult of pageImagePreviews">
-                <ion-img (click)="onPageSelect(pageDataResult.page)" [src]="pageDataResult.pagePreviewWebViewPath"/>
+                <ion-img (click)="onPageSelect(pageDataResult.page)" [src]="pageDataResult.pagePreviewWebViewPath" />
             </ion-col>
         </ion-row>
     </ion-grid>
 
 </ion-content>
-<ion-tab-bar slot="bottom">
-    <ion-tab-button (click)="onContinueScanning()">
-        Continue Scanning
-    </ion-tab-button>
-    <ion-tab-button (click)="onAddPage()">
-        Add Page
-    </ion-tab-button>
-    <ion-tab-button (click)="onExport()">
-        Export
-    </ion-tab-button>
-</ion-tab-bar>
+
+<ion-footer>
+    <ion-toolbar>
+        <ion-row>
+            <ion-col>
+                <ion-button fill="clear" class="ion-text-wrap" (click)="onContinueScanning()">
+                    Continue Scanning
+                </ion-button>
+            </ion-col>
+            <ion-col>
+                <ion-button fill="clear" (click)="onAddPage()">
+                    Add Page
+                </ion-button>
+            </ion-col>
+            <ion-col>
+                <ion-button fill="clear" (click)="onExport()">
+                    Export
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-footer>

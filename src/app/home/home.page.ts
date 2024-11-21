@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { CommonUtils } from '../utils/common-utils';
@@ -26,9 +26,7 @@ import { ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
 import { RtuSinglePageScanningComponent } from '../scanbotsdk-features/rtu-single-page-scanning/rtu-single-page-scanning.component';
 import { RtuSinglePageScanningComponentWithFinder } from '../scanbotsdk-features/rtu-single-page-scanning-with-finder/rtu-single-page-scanning-with-finder.component';
 import { RtuMultiPageScanningComponent } from "../scanbotsdk-features/rtu-multi-page-scanning/rtu-multi-page-scanning.component";
-import {
-    RtuPickDocumentFromGalleryComponent
-} from "../scanbotsdk-features/rtu-pick-document-from-gallery/rtu-pick-document-from-gallery.component";
+import { PickDocumentFromGalleryComponent } from "../scanbotsdk-features/pick-document-from-gallery/pick-document-from-gallery.component";
 
 @Component({
     selector: 'app-home',
@@ -57,7 +55,7 @@ import {
         RtuSinglePageScanningComponent,
         RtuSinglePageScanningComponentWithFinder,
         RtuMultiPageScanningComponent,
-        RtuPickDocumentFromGalleryComponent
+        PickDocumentFromGalleryComponent
     ],
 })
 export class HomePage {
@@ -66,7 +64,7 @@ export class HomePage {
 
     readonly currentYear = new Date().getFullYear();
 
-    constructor() {}
+    constructor() { }
 
     async showLicenseInfo() {
         try {
@@ -87,7 +85,7 @@ export class HomePage {
         }
     }
 
-    async cleanup(){
+    async cleanup() {
         try {
             // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
             if (await this.isLicenseValid()) {
@@ -108,11 +106,7 @@ export class HomePage {
             return true;
         } else {
             // The license is not valid. We will return false and show the status
-            this.utils.showWarningAlert(
-                this.scanbotUtils.getMessageFromLicenseStatus(
-                    licenseInfo.licenseStatus
-                )
-            );
+            this.utils.showWarningAlert(licenseInfo.licenseStatusMessage ?? "Invalid License");
             return false;
         }
     }
