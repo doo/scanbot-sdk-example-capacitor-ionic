@@ -1,4 +1,4 @@
-import {ScanbotSDK} from "capacitor-plugin-scanbot-sdk";
+import { ScanbotSDK } from "capacitor-plugin-scanbot-sdk";
 
 async function createDocument() {
     /** Create a document with an uuid */
@@ -15,6 +15,16 @@ async function createDocumentWithPages(imageFileUris: string[]) {
     });
 }
 
+async function createDocumentFromPDF(pdfUri: string) {
+    /**
+     * Create a document with an uuid
+     * Extract images from the PDF file and add them as document pages
+     */
+    const document = ScanbotSDK.Document.createDocumentFromPDF({
+        pdfUri: pdfUri,
+    });
+}
+
 async function loadDocument(documentID: string) {
     /** Load a document from storage by ID */
     const document = await ScanbotSDK.Document.loadDocument({
@@ -24,7 +34,7 @@ async function loadDocument(documentID: string) {
 
 async function storedDocumentUUIDs() {
     /** Retrieve all the document ids from the storage */
-    const {documentIDs} = await ScanbotSDK.Document.storedDocumentIDs();
+    const documentIDs = await ScanbotSDK.Document.storedDocumentIDs();
 }
 
 async function reorderDocumentPages(documentID: string) {
@@ -52,6 +62,11 @@ async function deleteDocument(documentID: string) {
     await ScanbotSDK.Document.deleteDocument({
         documentID: documentID
     });
+}
+
+async function deleteAllDocuments(documentID: string) {
+    /** Delete all documents from storage along with the document's PDF and TIFF files */
+    await ScanbotSDK.Document.deleteAllDocuments();
 }
 
 async function cleanup() {

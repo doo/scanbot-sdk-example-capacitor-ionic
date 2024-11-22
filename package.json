@@ -13,7 +13,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "clean": "rm -r -f node_modules && cd ios/App && rm -r -f Pods && rm -f Podfile.lock"
+    "clean": "rm -f package-lock.json && rm -r -f www && cd ios/App && rm -r -f Pods && rm -f Podfile.lock && rm -r -f ../../node_modules"
   },
   "private": true,
   "dependencies": {
