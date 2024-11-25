@@ -1,4 +1,4 @@
-import { FileUtils } from "../../app/utils/file-utils"
+import { FileUtils } from "../../../app/utils/file-utils"
 import { ScanbotSDK } from "capacitor-plugin-scanbot-sdk";
 
 
