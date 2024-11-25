@@ -1,6 +1,6 @@
 {
   "name": "scanbot-example-sdk-capacitor",
-  "version": "5.1.0",
+  "version": "6.1.0",
   "author": "Scanbot SDK",
   "homepage": "https://scanbot.io",
   "scripts": {
@@ -13,7 +13,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "clean": "rm -r -f node_modules && cd ios/App && rm -r -f Pods && rm -f Podfile.lock"
+    "clean": "rm -f package-lock.json && rm -r -f www && cd ios/App && rm -r -f Pods && rm -f Podfile.lock && rm -r -f ../../node_modules"
   },
   "private": true,
   "dependencies": {
@@ -36,7 +36,7 @@
     "@capacitor/status-bar": "^6.0.0",
     "@capawesome/capacitor-file-picker": "6.0.0",
     "@ionic/angular": "^7.0.0",
-    "capacitor-plugin-scanbot-sdk": "5.1.0",
+    "capacitor-plugin-scanbot-sdk": "6.1.0-rc.1",
     "ionicons": "^7.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
@@ -58,7 +58,6 @@
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "5.3.0",
     "@typescript-eslint/parser": "5.3.0",
-    "eslint": "^7.26.0",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-jsdoc": "30.7.6",
     "eslint-plugin-prefer-arrow": "1.2.2",
