@@ -1,59 +1,6 @@
 {
-  "root": true,
-  "ignorePatterns": ["projects/**/*", "src/codeSnippets/**/*"],
-  "overrides": [
-    {
-      "files": ["*.ts"],
-      "parserOptions": {
-        "project": ["tsconfig.json"],
-        "createDefaultProgram": true
-      },
-      "extends": [
-        "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates"
-      ],
-      "rules": {
-        "@angular-eslint/component-class-suffix": [
-          "error",
-          {
-            "suffixes": ["Page", "Component"]
-          }
-        ],
-        "@angular-eslint/component-selector": [
-          "error",
-          {
-            "type": "element",
-            "prefix": "app",
-            "style": "kebab-case"
-          }
-        ],
-        "@angular-eslint/directive-selector": [
-          "error",
-          {
-            "type": "attribute",
-            "prefix": "app",
-            "style": "camelCase"
-          }
-        ],
-        "curly": [
-          "error"
-        ],
-        "brace-style": [
-          "error",
-          "1tbs",
-          {
-            "allowSingleLine": false
-          }
-        ],
-        "indent": ["error", 4],
-        "semi": ["error"],
-        "comma-dangle": ["error", "always-multiline"]
-      }
-    },
-    {
-      "files": ["*.html"],
-      "extends": ["plugin:@angular-eslint/template/recommended"],
-      "rules": {}
-    }
-  ]
+    "root": true,
+    "ignorePatterns": [
+        "projects/**/*"
+    ]
 }
