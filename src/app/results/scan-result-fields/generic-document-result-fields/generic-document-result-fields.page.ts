@@ -18,7 +18,7 @@ import { Capacitor } from '@capacitor/core';
 export class GenericDocumentResultFieldsPage extends ScanResultFieldsPage {
     override pageTitle: string = 'Generic Document Result';
 
-    private reognizedDocumentsResult!: [GenericDocument];
+    private recognizedDocumentsResult!: [GenericDocument];
     private imageResult!: string | null;
 
     constructor() {
@@ -26,7 +26,7 @@ export class GenericDocumentResultFieldsPage extends ScanResultFieldsPage {
     }
 
     override async ngOnInit() {
-        this.reognizedDocumentsResult = JSON.parse(
+        this.recognizedDocumentsResult = JSON.parse(
             this.activatedRoute.snapshot.paramMap.get('documents') as string,
         );
 
@@ -44,9 +44,9 @@ export class GenericDocumentResultFieldsPage extends ScanResultFieldsPage {
             });
         }
 
-        this.reognizedDocumentsResult.forEach((doc, index) => {
+        this.recognizedDocumentsResult.forEach((doc, index) => {
             results.push({
-                title: this.reognizedDocumentsResult.length > 1 ? `Document #${index + 1}` : undefined,
+                title: this.recognizedDocumentsResult.length > 1 ? `Document #${index + 1}` : undefined,
                 data: this.scanbotUtils.transformGenericDocument(doc)
             })
         });

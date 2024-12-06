@@ -6,7 +6,6 @@ import { IonicModule } from '@ionic/angular';
 import { FileUtils } from '../utils/file-utils';
 import { CommonUtils } from '../utils/common-utils';
 import { ImageUtils } from '../utils/image-utils';
-import { PreferencesUtils } from '../utils/preferences-utils';
 import { Feature, ScanbotUtils } from '../utils/scanbot-utils';
 
 import { ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
@@ -24,7 +23,6 @@ export class ScanbotSdkFeatureComponent {
     scanbotUtils = inject(ScanbotUtils);
     utils = inject(CommonUtils);
     imageUtils = inject(ImageUtils);
-    preferencesUtils = inject(PreferencesUtils);
     fileUtils = inject(FileUtils);
     router = inject(Router);
 
@@ -41,9 +39,7 @@ export class ScanbotSdkFeatureComponent {
             return true;
         } else {
             // The license is not valid. We will return false and show the status
-            this.utils.showWarningAlert(
-                this.scanbotUtils.getMessageFromLicenseStatus(licenseInfo.licenseStatus),
-            );
+            this.utils.showWarningAlert(licenseInfo.licenseStatusMessage ?? "Invalid License");
             return false;
         }
     }

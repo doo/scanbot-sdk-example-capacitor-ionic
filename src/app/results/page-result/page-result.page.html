@@ -1,0 +1,25 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Page</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button (click)="onBack()"></ion-back-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+            <ion-button (click)="crop()">
+                <ion-icon slot="icon-only" name="crop"></ion-icon>
+            </ion-button>
+            <ion-button (click)="applyFilter()">
+                <ion-icon slot="icon-only" name="color-filter"></ion-icon>
+            </ion-button>
+            <ion-button id="delete-alert">
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+            </ion-button>
+            <ion-alert trigger="delete-alert" header="Delete this result ?"
+                       [buttons]="removePageAlertButtons"></ion-alert>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-img [src]="pagePreviewWebViewPath" class="ion-padding"></ion-img>
+</ion-content>
