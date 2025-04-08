@@ -36,7 +36,7 @@
     "@capacitor/status-bar": "^6.0.0",
     "@capawesome/capacitor-file-picker": "6.0.0",
     "@ionic/angular": "^7.0.0",
-    "capacitor-plugin-scanbot-sdk": "6.1.2-beta.4",
+    "capacitor-plugin-scanbot-sdk": "6.1.2",
     "ionicons": "^7.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
