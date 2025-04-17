@@ -1,4 +1,4 @@
-import {DocumentScanningFlow, startDocumentScanner} from "capacitor-plugin-scanbot-sdk/ui_v2";
+import { DocumentScanningFlow, startDocumentScanner } from 'capacitor-plugin-scanbot-sdk/ui_v2';
 
 async function startScanning() {
   try {

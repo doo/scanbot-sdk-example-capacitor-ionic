@@ -1,4 +1,4 @@
-import {DocumentScanningFlow, startDocumentScanner} from "capacitor-plugin-scanbot-sdk/ui_v2";
+import { DocumentScanningFlow, startDocumentScanner } from 'capacitor-plugin-scanbot-sdk/ui_v2';
 
 async function startScanning() {
   try {
@@ -8,12 +8,9 @@ async function startScanning() {
     const localization = configuration.localization;
     /**  Configure the strings. */
     localization.cameraTopBarTitle = 'Localized cameraTopBarTitle';
-    localization.reviewScreenSubmitButtonTitle =
-      'Localized reviewScreenSubmitButtonTitle';
-    localization.cameraUserGuidanceNoDocumentFound =
-      'Localized cameraUserGuidanceNoDocumentFound';
-    localization.cameraUserGuidanceTooDark =
-      'Localized cameraUserGuidanceTooDark';
+    localization.reviewScreenSubmitButtonTitle = 'Localized reviewScreenSubmitButtonTitle';
+    localization.cameraUserGuidanceNoDocumentFound = 'Localized cameraUserGuidanceNoDocumentFound';
+    localization.cameraUserGuidanceTooDark = 'Localized cameraUserGuidanceTooDark';
     /** Start the Document Scanner UI */
     const documentResult = await startDocumentScanner(configuration);
     /** Handle the document if the status is 'OK' */

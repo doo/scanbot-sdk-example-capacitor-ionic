@@ -1,75 +1,86 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-title>
-            Capacitor Scanbot SDK
-        </ion-title>
-    </ion-toolbar>
+  <ion-toolbar>
+    <ion-title> Capacitor Scanbot SDK </ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <ion-list>
-        <ion-item lines="none">
-            <ion-label>
-                <h2>DOCUMENT SCANNER</h2>
-            </ion-label>
-        </ion-item>
-        <app-rtu-single-page-scanning />
-        <app-rtu-single-page-scanning-with-finder />
-        <app-rtu-multi-page-scanning />
-        <app-pick-document-from-gallery />
+  <ion-list>
+    <ion-item lines="none">
+      <ion-label>
+        <h2>DOCUMENT SCANNER</h2>
+      </ion-label>
+    </ion-item>
+    <app-rtu-single-page-scanning />
+    <app-rtu-single-page-scanning-with-finder />
+    <app-rtu-multi-page-scanning />
+    <app-create-document-from-image />
 
-        <ion-item lines="none" class="ion-margin-top">
-            <ion-label>
-                <h2>DATA DETECTORS</h2>
-            </ion-label>
-        </ion-item>
-        <app-rtu-mrz-scanner-feature />
-        <app-rtu-medical-certificate-scanner-feature />
-        <app-rtu-generic-document-recognizer-feature />
-        <app-rtu-check-recognizer-feature />
-        <app-rtu-health-insurance-card-scanner-feature />
-        <app-rtu-license-plate-scanner-feature />
-        <app-rtu-vin-scanner />
-        <app-rtu-text-data-scanner-feature />
+    <ion-item lines="none" class="ion-margin-top">
+      <ion-label>
+        <h2>DATA DETECTORS</h2>
+      </ion-label>
+    </ion-item>
+    <app-rtu-mrz-scanner />
+    <app-rtu-medical-certificate-scanner />
+    <app-rtu-check-scanner />
+    <app-rtu-vin-scanner />
+    <app-rtu-credit-card-scanner />
+    <app-rtu-text-pattern-scanner />
+    <app-rtu-document-data-extractor />
 
-        <ion-item lines="none" class="ion-margin-top">
-            <ion-label>
-                <h2>DATA DETECTORS ON IMAGES</h2>
-            </ion-label>
-        </ion-item>
-        <app-recognize-check-on-image-feature />
-        <app-recognize-mrz-on-image-feature />
-        <app-recognize-medical-certificate-on-image-feature />
-        <app-recognize-ehic-on-image-feature />
-        <app-recognize-generic-document-on-image-feature />
+    <ion-item lines="none" class="ion-margin-top">
+      <ion-label>
+        <h2>LEGACY DATA DETECTORS</h2>
+      </ion-label>
+    </ion-item>
+    <app-rtu-health-insurance-card-scanner />
 
-        <ion-item lines="none" class="ion-margin-top">
-            <ion-label>
-                <h2>MISCELLANEOUS</h2>
-            </ion-label>
-        </ion-item>
-        <app-analyze-document-quality-feature />
-        <app-perform-ocr-on-image-feature />
-        <ion-item (click)='showOCRConfigs()'>
-            <ion-label>
-                <p>View OCR Configs</p>
-            </ion-label>
-        </ion-item>
-        <ion-item (click)='showLicenseInfo()'>
-            <ion-label>
-                <p>View License Info</p>
-            </ion-label>
-        </ion-item>
-        <ion-item (click)='cleanup()'>
-            <ion-label>
-                <p>Clear storage</p>
-            </ion-label>
-        </ion-item>
-        <ion-item lines="none">
-            <a href="https://scanbot.io" class="scanbotSDK">Learn More About Scanbot SDK</a>
-        </ion-item>
-        <ion-item lines="none">
-            <p class="footerNote">Copyright {{ currentYear }} Scanbot SDK GmbH. All rights reserved.</p>
-        </ion-item>
-    </ion-list>
+    <ion-item lines="none" class="ion-margin-top">
+      <ion-label>
+        <h2>DATA DETECTORS ON IMAGES</h2>
+      </ion-label>
+    </ion-item>
+    <app-recognize-check-on-image />
+    <app-recognize-mrz-on-image />
+    <app-recognize-medical-certificate-on-image />
+    <app-recognize-credit-card-on-image />
+    <app-extract-document-data-from-image />
+
+    <ion-item lines="none" class="ion-margin-top">
+      <ion-label>
+        <h2>LEGACY DATA DETECTORS ON IMAGES</h2>
+      </ion-label>
+    </ion-item>
+    <app-recognize-ehic-on-image />
+
+    <ion-item lines="none" class="ion-margin-top">
+      <ion-label>
+        <h2>MISCELLANEOUS</h2>
+      </ion-label>
+    </ion-item>
+    <app-analyze-document-quality />
+    <app-perform-ocr-on-image />
+    <ion-item (click)="showOCRConfigs()">
+      <ion-label>
+        <p>View OCR Configs</p>
+      </ion-label>
+    </ion-item>
+    <ion-item (click)="showLicenseInfo()">
+      <ion-label>
+        <p>View License Info</p>
+      </ion-label>
+    </ion-item>
+    <ion-item (click)="cleanup()">
+      <ion-label>
+        <p>Clear storage</p>
+      </ion-label>
+    </ion-item>
+    <ion-item lines="none">
+      <a href="https://scanbot.io" class="scanbotSDK">Learn More About Scanbot SDK</a>
+    </ion-item>
+    <ion-item lines="none">
+      <p class="footerNote">Copyright {{ currentYear }} Scanbot SDK GmbH. All rights reserved.</p>
+    </ion-item>
+  </ion-list>
 </ion-content>
