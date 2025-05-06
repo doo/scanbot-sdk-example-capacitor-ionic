@@ -1,0 +1,18 @@
+ion-img.mainImage {
+  width: 100%;
+  align-content: center;
+  height: 250px;
+  padding: 5px;
+}
+
+ion-img.dataImage {
+  width: 50px;
+  align-content: center;
+  height: 50px;
+  padding: 15px;
+}
+
+.section-header {
+  color: #ffffff;
+  --background: var(--ion-color-scanbot-red);
+}
