@@ -37,7 +37,7 @@ export class RtuVinScannerComponent extends ScanbotSdkFeatureComponent {
       /**
        * Handle the result if result status is OK
        */
-      if (result.status === 'OK' && result.data) {
+      if (result.status === 'OK') {
         this.utils.showResultInfo(
           `• Raw Text: ${result.data.textResult.rawText} <br />` +
             `• Confidence: ${Math.round(result.data.textResult.confidence * 100)}% <br />` +

@@ -75,7 +75,9 @@ export class DocumentResultPage implements OnInit {
       }
 
       /** Load the document from disc */
-      const documentResult = await ScanbotSDK.Document.loadDocument(id);
+      const documentResult = await ScanbotSDK.Document.loadDocument({
+        documentID: id,
+      });
 
       this.updateCurrentDocument(documentResult);
     } catch (e: any) {

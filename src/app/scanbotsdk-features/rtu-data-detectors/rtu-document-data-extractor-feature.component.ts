@@ -42,7 +42,7 @@ export class RtuDocumentDataExtractorFeature extends ScanbotSdkFeatureComponent 
         /**
          * Handle the result if result status is OK
          */
-        if (result.status === 'OK' && result.data) {
+        if (result.status === 'OK') {
           /**
            * Always serialize the extracted documents before stringifying, and use the serialized result.
            *

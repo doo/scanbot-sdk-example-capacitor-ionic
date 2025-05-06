@@ -37,7 +37,7 @@ export class RtuHealthInsuranceCardScannerFeature extends ScanbotSdkFeatureCompo
       /**
        * Handle the result if result status is OK
        */
-      if (result.status === 'OK' && result.data && result.data.fields.length > 0) {
+      if (result.status === 'OK' && result.data.fields.length > 0) {
         // Always serialize the result fields before stringifying, and use the serialized result.
         const serializedFields = result.data.fields.map((field) => field.serialize());
 

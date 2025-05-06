@@ -54,7 +54,7 @@ export class RtuMrzScannerFeature extends ScanbotSdkFeatureComponent {
       /**
        * Handle the result if result status is OK
        */
-      if (result.status === 'OK' && result.data?.mrzDocument) {
+      if (result.status === 'OK' && result.data.mrzDocument) {
         // Always serialize the MRZ document before stringifying, and use the serialized result.
         const serializedMrzDocument = await result.data.mrzDocument.serialize();
 

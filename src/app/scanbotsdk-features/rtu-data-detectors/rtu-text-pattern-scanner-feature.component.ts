@@ -45,7 +45,7 @@ export class RtuTextPatternScannerFeature extends ScanbotSdkFeatureComponent {
       /**
        * Handle the result if result status is OK
        */
-      if (result.status === 'OK' && result.data) {
+      if (result.status === 'OK') {
         this.utils.showResultInfo(
           `• Text: ${result.data.rawText} <br />` +
             `• Confidence: ${Math.round(result.data.confidence * 100)}%`,

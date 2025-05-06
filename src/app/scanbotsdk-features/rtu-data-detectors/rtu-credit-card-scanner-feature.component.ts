@@ -51,7 +51,7 @@ export class RtuCreditCardScannerFeature extends ScanbotSdkFeatureComponent {
       /**
        * Handle the result if result status is OK
        */
-      if (result.status === 'OK' && result.data?.creditCard) {
+      if (result.status === 'OK' && result.data.creditCard) {
         // Always serialize the credit card before stringifying, and use the serialized result.
         const serializedCreditCard = await result.data.creditCard.serialize();
 

@@ -56,7 +56,7 @@ export class RtuMedicalCertificateScannerFeature extends ScanbotSdkFeatureCompon
         /**
          * Handle the result if result status is OK
          */
-        if (result.status === 'OK' && result.data) {
+        if (result.status === 'OK') {
           /**
            * Always serialize the medical certificate result before stringifying, and use the serialized result.
            *

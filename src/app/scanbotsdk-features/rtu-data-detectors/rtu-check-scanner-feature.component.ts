@@ -42,7 +42,7 @@ export class RtuCheckScannerFeature extends ScanbotSdkFeatureComponent {
         /**
          * Handle the result if result status is OK
          */
-        if (result.status === 'OK' && result.data?.check) {
+        if (result.status === 'OK' && result.data.check) {
           /**
            * Always serialize the result before stringifying, and use the serialized result.
            *

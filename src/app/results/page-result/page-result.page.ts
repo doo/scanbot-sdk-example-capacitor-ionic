@@ -95,7 +95,9 @@ export class PageResultPage implements OnInit {
         return;
       }
       /** Load the document from disc */
-      const documentResult = await ScanbotSDK.Document.loadDocument(documentID);
+      const documentResult = await ScanbotSDK.Document.loadDocument({
+        documentID: documentID,
+      });
 
       this.documentID = documentResult.uuid;
       this.page = documentResult.pages.find((p) => p.uuid === pageID)!;
@@ -124,7 +126,7 @@ export class PageResultPage implements OnInit {
 
       const documentResult = await startCroppingScreen(configuration);
 
-      if (documentResult.status === 'OK' && documentResult.data) {
+      if (documentResult.status === 'OK') {
         this.updatePage(documentResult.data);
       }
     } catch (e: any) {
