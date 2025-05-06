@@ -17,8 +17,6 @@ async function applyFiltersOnImages() {
     ]);
     /** Rotate the page counterclockwise by 90 degrees */
     const rotatedImage = await ScanbotSDK.rotateImage(imageWithFilters.imageFileUri, 90);
-
-    return rotatedImage.imageFileUri;
   } catch (e: any) {
     console.error(e.message);
   }
