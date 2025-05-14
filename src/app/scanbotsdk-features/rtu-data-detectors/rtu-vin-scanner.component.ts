@@ -35,7 +35,7 @@ export class RtuVinScannerComponent extends ScanbotSdkFeatureComponent {
       const result = await ScanbotSDK.startVinScanner(configuration);
 
       /**
-       * Handle the result if result status is OK
+       * Handle the result if the result status is OK
        */
       if (result.status === 'OK') {
         this.utils.showResultInfo(

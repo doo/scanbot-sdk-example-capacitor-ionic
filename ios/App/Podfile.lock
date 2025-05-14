@@ -12,14 +12,16 @@ PODS:
     - Capacitor
   - CapacitorPluginScanbotSdk (7.0.0-rc.1):
     - Capacitor
-    - ScanbotSDKNativeWrapper/ALL (= 7.0.0.0-alpha.5)
+    - ScanbotSDKNativeWrapper (= 7.0.0.0-alpha.6)
   - CapacitorStatusBar (7.0.1):
     - Capacitor
   - CapawesomeCapacitorFilePicker (7.0.1):
     - Capacitor
-  - ScanbotSDK/ALL (7.0.0)
-  - ScanbotSDKNativeWrapper/ALL (7.0.0.0-alpha.5):
-    - ScanbotSDK/ALL (= 7.0.0)
+  - ScanbotSDK (7.0.0):
+    - ScanbotSDK/NONE (= 7.0.0)
+  - ScanbotSDK/NONE (7.0.0)
+  - ScanbotSDKNativeWrapper (7.0.0.0-alpha.6):
+    - ScanbotSDK (= 7.0.0)
 
 DEPENDENCIES:
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
@@ -64,11 +66,11 @@ SPEC CHECKSUMS:
   CapacitorCommunityFileOpener: 97362898506cf0a4194639f6fc05276af607191c
   CapacitorCordova: 5967b9ba03915ef1d585469d6e31f31dc49be96f
   CapacitorFilesystem: e6261c410436f54908c11f94336c5b58286b1db0
-  CapacitorPluginScanbotSdk: 2169e522398bfc80262a0998912d8d0982923389
+  CapacitorPluginScanbotSdk: 05eef87b28a55963617557e136d31efd3e4cd372
   CapacitorStatusBar: 6e7af040d8fc4dd655999819625cae9c2d74c36f
   CapawesomeCapacitorFilePicker: 640114d8fd427375fe0e826ffc1ca54d91c2d611
   ScanbotSDK: 1d230603094ae5f6d3783b06df2ed9e7daf24608
-  ScanbotSDKNativeWrapper: 7532a2e5b67e8d8cffb72cf7dfcb3f3ed94c3a90
+  ScanbotSDKNativeWrapper: b90d9f6e9a6fcaf193d7f88147c9ee4a630c4221
 
 PODFILE CHECKSUM: aa909a328226ff0279fd469a14f50a126136af2d
 

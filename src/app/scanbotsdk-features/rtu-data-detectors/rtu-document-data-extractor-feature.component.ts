@@ -29,7 +29,7 @@ export class RtuDocumentDataExtractorFeature extends ScanbotSdkFeatureComponent 
     }
 
     try {
-      const configiration: DocumentDataExtractorScreenConfiguration = {
+      const configuration: DocumentDataExtractorScreenConfiguration = {
         finderLineColor: '#ff0000',
       };
 
@@ -37,10 +37,10 @@ export class RtuDocumentDataExtractorFeature extends ScanbotSdkFeatureComponent 
 
       // An autorelease pool is required only because the result object contains image references.
       await autorelease(async () => {
-        const result = await ScanbotSDK.startDocumentDataExtractor(configiration);
+        const result = await ScanbotSDK.startDocumentDataExtractor(configuration);
 
         /**
-         * Handle the result if result status is OK
+         * Handle the result if the result status is OK
          */
         if (result.status === 'OK') {
           /**

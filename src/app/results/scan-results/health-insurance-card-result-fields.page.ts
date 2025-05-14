@@ -35,15 +35,13 @@ export class EhicResultFieldsPage extends ScanResultFieldsPage {
   }
 
   override loadResultFields(): Array<ScanResultSection> {
-    let results: Array<ScanResultSection> = [];
-
-    results.push({
-      data: this.fields.map((field) => ({
-        key: field.type,
-        value: `${field.value} (confidence:${Math.round(field.confidence * 100)}%)`,
-      })),
-    });
-
-    return results;
+    return [
+      {
+        data: this.fields.map((field) => ({
+          key: field.type,
+          value: `${field.value} (confidence:${Math.round(field.confidence * 100)}%)`,
+        })),
+      },
+    ];
   }
 }

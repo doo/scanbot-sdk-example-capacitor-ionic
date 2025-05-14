@@ -41,9 +41,7 @@ export class AnalyzeDocumentQualityFeature extends ScanbotSdkFeatureComponent {
 
       await this.utils.dismissLoader();
 
-      /**
-       * Handle the result if document found.
-       */
+      // Handle the result if a document is found.
       if (result.documentFound) {
         this.utils.showResultInfo(`Document Quality for selected image: ${result.quality}`);
       } else {

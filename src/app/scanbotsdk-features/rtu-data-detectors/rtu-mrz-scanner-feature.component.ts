@@ -27,32 +27,32 @@ export class RtuMrzScannerFeature extends ScanbotSdkFeatureComponent {
     }
 
     try {
-      const configiration = new MrzScannerScreenConfiguration();
+      const configuration = new MrzScannerScreenConfiguration();
 
       // Set colors
-      configiration.palette.sbColorPrimary = Colors.scanbotRed;
-      configiration.palette.sbColorOnPrimary = '#ffffff';
+      configuration.palette.sbColorPrimary = Colors.scanbotRed;
+      configuration.palette.sbColorOnPrimary = '#ffffff';
 
       // Add a top guidance title
-      configiration.topUserGuidance.title = new StyledText({
+      configuration.topUserGuidance.title = new StyledText({
         text: 'Scan MRZ',
         color: Colors.scanbotRed,
         useShadow: true,
       });
 
       // Modify the action bar
-      configiration.actionBar.flipCameraButton.visible = false;
-      configiration.actionBar.flashButton.activeForegroundColor = Colors.scanbotRed;
+      configuration.actionBar.flipCameraButton.visible = false;
+      configuration.actionBar.flashButton.activeForegroundColor = Colors.scanbotRed;
 
       // Configure the scanner
-      configiration.scannerConfiguration.incompleteResultHandling = 'ACCEPT';
+      configuration.scannerConfiguration.incompleteResultHandling = 'ACCEPT';
 
       // Configure other parameters as needed.
 
-      const result = await startMRZScanner(configiration);
+      const result = await startMRZScanner(configuration);
 
       /**
-       * Handle the result if result status is OK
+       * Handle the result if the result status is OK
        */
       if (result.status === 'OK' && result.data.mrzDocument) {
         // Always serialize the MRZ document before stringifying, and use the serialized result.

@@ -64,7 +64,7 @@ export class ExtractDocumentDataFromImageFeature extends ScanbotSdkFeatureCompon
         ],
       });
 
-      const configiration = new DocumentDataExtractorConfiguration({
+      const configuration = new DocumentDataExtractorConfiguration({
         configurations: [commonConfig],
       });
 
@@ -72,12 +72,12 @@ export class ExtractDocumentDataFromImageFeature extends ScanbotSdkFeatureCompon
 
       // An autorelease pool is required only because the result object can contains image references.
       await autorelease(async () => {
-        const result = await ScanbotSDK.documentDataExtractor(imageFileUri, configiration);
+        const result = await ScanbotSDK.documentDataExtractor(imageFileUri, configuration);
 
         this.utils.dismissLoader();
 
         /**
-         * Handle the result if document is found
+         * Handle the result if a document is found
          */
         if (result.document) {
           /**

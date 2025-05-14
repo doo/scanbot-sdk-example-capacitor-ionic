@@ -42,9 +42,7 @@ export class PerformOcrOnImageFeature extends ScanbotSdkFeatureComponent {
 
       this.utils.dismissLoader();
 
-      /**
-       * Handle the results if there are any recognized pages.
-       */
+      // Handle the results if there are any recognized pages.
       if (result.pages.length > 0) {
         this.utils.showResultInfo(result.plainText);
       } else {

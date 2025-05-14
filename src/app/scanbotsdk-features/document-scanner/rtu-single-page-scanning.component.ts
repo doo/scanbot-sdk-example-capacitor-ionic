@@ -35,7 +35,7 @@ export class RtuSinglePageScanningComponent extends ScanbotSdkFeatureComponent {
        * start the document scanner with the configuration
        */
       const configuration = new DocumentScanningFlow();
-      // Disable the multiple page behavior
+      // Disable the multiple-page behavior
       configuration.outputSettings.pagesScanLimit = 1;
       // Enable/Disable the review screen.
       configuration.screens.review.enabled = false;
@@ -55,7 +55,7 @@ export class RtuSinglePageScanningComponent extends ScanbotSdkFeatureComponent {
       configuration.screens.camera.captureFeedback.snapFeedbackMode =
         new PageSnapCheckMarkAnimation({});
 
-      // Hide the auto snapping enable/disable button
+      // Hide the auto-snapping enable/disable button
       configuration.screens.camera.bottomBar.autoSnappingModeButton.visible = false;
       configuration.screens.camera.bottomBar.manualSnappingModeButton.visible = false;
       configuration.screens.camera.bottomBar.importButton.title.visible = true;
@@ -75,7 +75,7 @@ export class RtuSinglePageScanningComponent extends ScanbotSdkFeatureComponent {
 
       const documentResult = await startDocumentScanner(configuration);
       /**
-       * Handle the result if status is OK
+       * Handle the result if the result status is OK
        */
       if (documentResult.status === 'OK') {
         this.router.navigate(['/document-result', documentResult.data.uuid]);

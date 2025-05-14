@@ -27,29 +27,29 @@ export class RtuCreditCardScannerFeature extends ScanbotSdkFeatureComponent {
     }
 
     try {
-      const configiration = new CreditCardScannerScreenConfiguration();
+      const configuration = new CreditCardScannerScreenConfiguration();
 
       // Set colors
-      configiration.palette.sbColorPrimary = Colors.scanbotRed;
-      configiration.palette.sbColorOnPrimary = '#ffffff';
+      configuration.palette.sbColorPrimary = Colors.scanbotRed;
+      configuration.palette.sbColorOnPrimary = '#ffffff';
 
       // Add a top guidance title
-      configiration.topUserGuidance.title = new StyledText({
+      configuration.topUserGuidance.title = new StyledText({
         text: 'Scan Credit Card',
         color: Colors.scanbotRed,
         useShadow: true,
       });
 
       // Modify the action bar
-      configiration.actionBar.flipCameraButton.visible = false;
-      configiration.actionBar.flashButton.activeForegroundColor = Colors.scanbotRed;
+      configuration.actionBar.flipCameraButton.visible = false;
+      configuration.actionBar.flashButton.activeForegroundColor = Colors.scanbotRed;
 
       // Configure other parameters as needed.
 
-      const result = await startCreditCardScanner(configiration);
+      const result = await startCreditCardScanner(configuration);
 
       /**
-       * Handle the result if result status is OK
+       * Handle the result if the result status is OK
        */
       if (result.status === 'OK' && result.data.creditCard) {
         // Always serialize the credit card before stringifying, and use the serialized result.

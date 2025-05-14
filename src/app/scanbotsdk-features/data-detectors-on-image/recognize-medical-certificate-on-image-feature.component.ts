@@ -33,12 +33,12 @@ export class RecognizeMedicalCertificateOnImageFeature extends ScanbotSdkFeature
     try {
       await this.utils.showLoader();
 
-      const configiration = new MedicalCertificateScanningParameters();
-      configiration.recognizePatientInfoBox = true;
+      const configuration = new MedicalCertificateScanningParameters();
+      configuration.recognizePatientInfoBox = true;
 
       // Configure other parameters as needed.
 
-      const result = await ScanbotSDK.recognizeMedicalCertificate(imageFileUri, configiration);
+      const result = await ScanbotSDK.recognizeMedicalCertificate(imageFileUri, configuration);
 
       this.utils.dismissLoader();
 

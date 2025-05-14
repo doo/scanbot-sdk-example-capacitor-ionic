@@ -27,7 +27,7 @@ export class RtuCheckScannerFeature extends ScanbotSdkFeatureComponent {
     }
 
     try {
-      const configiration: CheckScannerScreenConfiguration = {
+      const configuration: CheckScannerScreenConfiguration = {
         // Customize colors, text resources, behavior, etc..
         enableCameraButtonTitle: 'Enable Camera',
         orientationLockMode: 'PORTRAIT',
@@ -37,10 +37,10 @@ export class RtuCheckScannerFeature extends ScanbotSdkFeatureComponent {
 
       // An autorelease pool is required only because the result object contains image references.
       await autorelease(async () => {
-        const result = await ScanbotSDK.startCheckScanner(configiration);
+        const result = await ScanbotSDK.startCheckScanner(configuration);
 
         /**
-         * Handle the result if result status is OK
+         * Handle the result if the result status is OK
          */
         if (result.status === 'OK' && result.data.check) {
           /**

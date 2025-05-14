@@ -24,7 +24,7 @@ export class RtuHealthInsuranceCardScannerFeature extends ScanbotSdkFeatureCompo
     }
 
     try {
-      const configiration: HealthInsuranceCardScannerConfiguration = {
+      const configuration: HealthInsuranceCardScannerConfiguration = {
         // Customize colors, text resources, behavior, etc..
         finderLineColor: '#ff0000',
         finderTextHint: 'Please hold your phone over the back of your Health Insurance Card.',
@@ -32,10 +32,10 @@ export class RtuHealthInsuranceCardScannerFeature extends ScanbotSdkFeatureCompo
         // see further configs ...
       };
 
-      const result = await ScanbotSDK.startEHICScanner(configiration);
+      const result = await ScanbotSDK.startEHICScanner(configuration);
 
       /**
-       * Handle the result if result status is OK
+       * Handle the result if the result status is OK
        */
       if (result.status === 'OK' && result.data.fields.length > 0) {
         // Always serialize the result fields before stringifying, and use the serialized result.

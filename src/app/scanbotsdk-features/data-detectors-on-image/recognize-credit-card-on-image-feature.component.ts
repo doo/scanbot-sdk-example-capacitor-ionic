@@ -37,17 +37,17 @@ export class RecognizeCreditCardOnImageFeature extends ScanbotSdkFeatureComponen
     try {
       await this.utils.showLoader();
 
-      const configiration = new CreditCardScannerConfiguration();
-      configiration.requireCardholderName = true;
+      const configuration = new CreditCardScannerConfiguration();
+      configuration.requireCardholderName = true;
 
       // Configure other parameters as needed.
 
-      const result = await ScanbotSDK.recognizeCreditCard(imageFileUri, configiration);
+      const result = await ScanbotSDK.recognizeCreditCard(imageFileUri, configuration);
 
       this.utils.dismissLoader();
 
       /**
-       * Handle the result if credit card is found
+       * Handle the result if a credit card is found
        */
       if (result.creditCard) {
         // Always serialize the credit card before stringifying, and use the serialized result.

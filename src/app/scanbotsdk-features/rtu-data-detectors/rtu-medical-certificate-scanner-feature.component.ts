@@ -30,7 +30,7 @@ export class RtuMedicalCertificateScannerFeature extends ScanbotSdkFeatureCompon
     }
 
     try {
-      const configiration: MedicalCertificateScannerConfiguration = {
+      const configuration: MedicalCertificateScannerConfiguration = {
         // Customize colors, text resources, behavior, etc..
         topBarBackgroundColor: Colors.scanbotRed,
         userGuidanceStrings: {
@@ -49,12 +49,12 @@ export class RtuMedicalCertificateScannerFeature extends ScanbotSdkFeatureCompon
         // see further configs...
       };
 
-      // An autorelease pool is required only because the result object contains image references.
+      // An autorelease pool is required because the result object contains image references.
       await autorelease(async () => {
-        const result = await ScanbotSDK.startMedicalCertificateScanner(configiration);
+        const result = await ScanbotSDK.startMedicalCertificateScanner(configuration);
 
         /**
-         * Handle the result if result status is OK
+         * Handle the result if the result status is OK
          */
         if (result.status === 'OK') {
           /**

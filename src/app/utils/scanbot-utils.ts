@@ -84,13 +84,7 @@ export class ScanbotUtils {
   }
 
   private extractGDRFields(document: GenericDocument): Field[] {
-    let allFields = document.fields;
-
-    document.children.forEach((child) => {
-      allFields = allFields.concat(this.extractGDRFields(child));
-    });
-
-    return allFields;
+    return [...document.fields, ...document.children.map(this.extractGDRFields).flat()];
   }
 
   transformGenericDocument(

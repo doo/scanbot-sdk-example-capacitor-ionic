@@ -234,17 +234,17 @@ export class DocumentResultPage implements OnInit {
       }
       await this.utils.showLoader();
 
-      const tiffConfiguation = new TiffGeneratorParameters();
-      tiffConfiguation.binarizationFilter = binarized ? new ScanbotBinarizationFilter() : null;
-      tiffConfiguation.dpi = 300;
-      tiffConfiguation.compression = binarized ? 'CCITT_T6' : 'ADOBE_DEFLATE'; // optional compression
+      const tiffConfiguration = new TiffGeneratorParameters();
+      tiffConfiguration.binarizationFilter = binarized ? new ScanbotBinarizationFilter() : null;
+      tiffConfiguration.dpi = 300;
+      tiffConfiguration.compression = binarized ? 'CCITT_T6' : 'ADOBE_DEFLATE'; // optional compression
 
       /**
        * Create a tiff file from the document
        */
       const result = await ScanbotSDK.Document.createTIFF({
         documentID: this.document.uuid,
-        configuration: tiffConfiguation,
+        configuration: tiffConfiguration,
       });
       /**
        * Handle the result by displaying an action sheet

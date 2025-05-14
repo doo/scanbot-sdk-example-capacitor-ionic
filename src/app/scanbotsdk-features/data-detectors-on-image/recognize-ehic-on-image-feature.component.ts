@@ -36,17 +36,17 @@ export class RecognizeEhicOnImageFeature extends ScanbotSdkFeatureComponent {
     try {
       await this.utils.showLoader();
 
-      const configiration = new EuropeanHealthInsuranceCardRecognizerConfiguration();
-      configiration.maxExpirationYear = 2100;
+      const configuration = new EuropeanHealthInsuranceCardRecognizerConfiguration();
+      configuration.maxExpirationYear = 2100;
 
       // Configure other parameters as needed.
 
-      const result = await ScanbotSDK.recognizeEHIC(imageFileUri, configiration);
+      const result = await ScanbotSDK.recognizeEHIC(imageFileUri, configuration);
 
       this.utils.dismissLoader();
 
       /**
-       * Handle the result if some files are found
+       * Handle the result if some fields are found
        */
       if (result.fields.length > 0) {
         // Always serialize the result fields before stringifying, and use the serialized result.

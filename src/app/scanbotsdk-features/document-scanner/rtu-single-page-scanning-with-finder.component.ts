@@ -29,7 +29,7 @@ export class RtuSinglePageScanningComponentWithFinder extends ScanbotSdkFeatureC
        * start the document scanner with the configuration
        */
       const configuration = new DocumentScanningFlow();
-      // Disable the multiple page behavior
+      // Disable the multiple-page behavior
       configuration.outputSettings.pagesScanLimit = 1;
 
       // Enable view finder
@@ -45,7 +45,7 @@ export class RtuSinglePageScanningComponentWithFinder extends ScanbotSdkFeatureC
       // Enable/Disable Auto Snapping behavior
       configuration.screens.camera.cameraConfiguration.autoSnappingEnabled = true;
 
-      // Hide the auto snapping enable/disable button
+      // Hide the auto-snapping enable/disable button
       configuration.screens.camera.bottomBar.autoSnappingModeButton.visible = false;
       configuration.screens.camera.bottomBar.manualSnappingModeButton.visible = false;
 
@@ -62,7 +62,7 @@ export class RtuSinglePageScanningComponentWithFinder extends ScanbotSdkFeatureC
 
       const documentResult = await startDocumentScanner(configuration);
       /**
-       * Handle the result if  status is OK
+       * Handle the result if the result status is OK
        */
       if (documentResult.status === 'OK') {
         this.router.navigate(['/document-result', documentResult.data.uuid]);

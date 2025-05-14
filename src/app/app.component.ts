@@ -55,22 +55,22 @@ export class AppComponent implements OnInit {
   }
 
   private async initScanbotSdk() {
-    const configiration: ScanbotSdkConfiguration = {
+    const configuration: ScanbotSdkConfiguration = {
       licenseKey: this.licenseKey,
       loggingEnabled: !environment.production,
       storageImageFormat: 'JPG', // Format of stored images
       storageImageQuality: 80, // Quality of stored images
       // storageBaseDirectory: (await this.storageBaseDirectoryUri).uri, // Custom storage path
-      documentScannerEngineMode: 'ML', // The engine used to detect documents, // IN CHANGELOG
+      documentScannerEngineMode: 'ML', // The engine used to detect documents,
       fileEncryptionMode: AppComponent.FILE_ENCRYPTION_ENABLED ? 'AES256' : undefined,
       fileEncryptionPassword: AppComponent.FILE_ENCRYPTION_ENABLED
-        ? 'SomeSecretPa$$w0rdForFileEncryptio'
+        ? 'SomeSecretPa$$w0rdForFileEncryption'
         : undefined,
       // see further config parameters
     };
 
     try {
-      const result = await ScanbotSDK.initializeSDK(configiration);
+      const result = await ScanbotSDK.initializeSDK(configuration);
       console.log(result);
     } catch (error: any) {
       console.error(error);

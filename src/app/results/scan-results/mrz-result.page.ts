@@ -35,16 +35,9 @@ export class MrzResultPage extends ScanResultFieldsPage {
   }
 
   override loadResultFields(): Array<ScanResultSection> {
-    let results: Array<ScanResultSection> = [];
-
-    results.push({
-      data: [{ key: 'Raw MRZ', value: this.rawMRZ }],
-    });
-
-    results.push({
-      data: this.scanbotUtils.transformGenericDocument(this.mrzDocument),
-    });
-
-    return results;
+    return [
+      { data: [{ key: 'Raw MRZ', value: this.rawMRZ }] },
+      { data: this.scanbotUtils.transformGenericDocument(this.mrzDocument) },
+    ];
   }
 }

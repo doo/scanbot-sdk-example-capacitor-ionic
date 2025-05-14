@@ -33,17 +33,17 @@ export class RecognizeCheckOnImageFeature extends ScanbotSdkFeatureComponent {
     try {
       await this.utils.showLoader();
 
-      const configiration = new CheckScannerConfiguration();
-      configiration.documentDetectionMode = 'DISABLED';
+      const configuration = new CheckScannerConfiguration();
+      configuration.documentDetectionMode = 'DISABLED';
 
       // Configure other parameters as needed.
 
-      const result = await ScanbotSDK.recognizeCheck(imageFileUri, configiration);
+      const result = await ScanbotSDK.recognizeCheck(imageFileUri, configuration);
 
       this.utils.dismissLoader();
 
       /**
-       * Handle the result if check is found
+       * Handle the result if a check is found
        */
       if (result.check) {
         // Always serialize the result before stringifying, and use the serialized result.

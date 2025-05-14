@@ -29,7 +29,7 @@ export class RtuMultiPageScanningComponent extends ScanbotSdkFeatureComponent {
        * start the document scanner with the configuration
        */
       const configuration = new DocumentScanningFlow();
-      // Enable the multiple page behavior
+      // Enable the multiple-page behavior
       configuration.outputSettings.pagesScanLimit = 0;
 
       // Enable/Disable Auto Snapping behavior
@@ -53,7 +53,7 @@ export class RtuMultiPageScanningComponent extends ScanbotSdkFeatureComponent {
       // Enable/Disable the review screen.
       configuration.screens.review.enabled = true;
 
-      // Configure bottom bar (further properties like title, icon and  background can also be set for these buttons)
+      // Configure the bottom bar (further properties like title, icon and background can also be set for these buttons)
       configuration.screens.review.bottomBar.addButton.visible = true;
       configuration.screens.review.bottomBar.retakeButton.visible = true;
       configuration.screens.review.bottomBar.cropButton.visible = true;
@@ -77,7 +77,7 @@ export class RtuMultiPageScanningComponent extends ScanbotSdkFeatureComponent {
 
       const documentResult = await startDocumentScanner(configuration);
       /**
-       * Handle the result if result status is OK
+       * Handle the result if the result status is OK
        */
       if (documentResult.status === 'OK') {
         this.router.navigate(['/document-result', documentResult.data.uuid]);

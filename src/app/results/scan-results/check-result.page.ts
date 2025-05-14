@@ -27,8 +27,6 @@ export class CheckResultPage extends ScanResultFieldsPage {
       this.activatedRoute.snapshot.paramMap.get('checkResult') as string,
     );
 
-    console.log(serializedCheckResult);
-
     /**
      * Because we serialized the result image as a reference, we need to use an autorelease pool again.
      * Having the image as a reference allows us to choose whether to encode it (as base64 buffer), extract information, or save it to a file path.
@@ -43,17 +41,14 @@ export class CheckResultPage extends ScanResultFieldsPage {
   }
 
   override loadResultFields(): Array<ScanResultSection> {
-    let results: Array<ScanResultSection> = [];
-
-    results.push({
-      image: this.checkResult.croppedImage?.buffer,
-      data: [{ key: 'Status', value: this.checkResult.status }],
-    });
-
-    results.push({
-      data: this.scanbotUtils.transformGenericDocument(this.checkResult.check!, true),
-    });
-
-    return results;
+    return [
+      {
+        image: this.checkResult.croppedImage?.buffer,
+        data: [{ key: 'Status', value: this.checkResult.status }],
+      },
+      {
+        data: this.scanbotUtils.transformGenericDocument(this.checkResult.check!, true),
+      },
+    ];
   }
 }

@@ -38,7 +38,7 @@ export class CreateDocumentFromGalleryComponent extends ScanbotSdkFeatureCompone
         documentDetection: true,
       });
 
-      /** Handle result if status is OK */
+      /** Handle the result if the result status is OK */
       this.router.navigate(['/document-result', documentResult.uuid]);
     } catch (e: any) {
       this.utils.showErrorAlert(e.message);

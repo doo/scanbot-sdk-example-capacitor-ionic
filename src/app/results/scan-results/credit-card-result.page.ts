@@ -35,17 +35,14 @@ export class CreditCardResultPage extends ScanResultFieldsPage {
   }
 
   override loadResultFields(): Array<ScanResultSection> {
-    let results: Array<ScanResultSection> = [];
-
-    results.push({
-      image: this.creditCard.crop?.buffer,
-      data: [{ key: 'Status', value: this.scanningStatus }],
-    });
-
-    results.push({
-      data: this.scanbotUtils.transformGenericDocument(this.creditCard),
-    });
-
-    return results;
+    return [
+      {
+        image: this.creditCard.crop?.buffer,
+        data: [{ key: 'Status', value: this.scanningStatus }],
+      },
+      {
+        data: this.scanbotUtils.transformGenericDocument(this.creditCard),
+      },
+    ];
   }
 }

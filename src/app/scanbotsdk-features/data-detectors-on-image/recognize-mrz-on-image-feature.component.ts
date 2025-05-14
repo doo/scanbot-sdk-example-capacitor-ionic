@@ -33,12 +33,12 @@ export class RecognizeMrzOnImageFeature extends ScanbotSdkFeatureComponent {
     try {
       await this.utils.showLoader();
 
-      const configiration = new MrzScannerConfiguration();
-      configiration.incompleteResultHandling = 'REJECT';
+      const configuration = new MrzScannerConfiguration();
+      configuration.incompleteResultHandling = 'REJECT';
 
       // Configure other parameters as needed.
 
-      const result = await ScanbotSDK.recognizeMrz(imageFileUri, configiration);
+      const result = await ScanbotSDK.recognizeMrz(imageFileUri, configuration);
 
       this.utils.dismissLoader();
 

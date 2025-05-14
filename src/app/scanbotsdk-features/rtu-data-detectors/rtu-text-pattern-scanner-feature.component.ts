@@ -26,24 +26,24 @@ export class RtuTextPatternScannerFeature extends ScanbotSdkFeatureComponent {
     }
 
     try {
-      const configiration = new TextPatternScannerScreenConfiguration();
+      const configuration = new TextPatternScannerScreenConfiguration();
 
       // Set colors
-      configiration.palette.sbColorPrimary = Colors.scanbotRed;
-      configiration.palette.sbColorOnPrimary = '#ffffff';
+      configuration.palette.sbColorPrimary = Colors.scanbotRed;
+      configuration.palette.sbColorOnPrimary = '#ffffff';
 
       // Modify the action bar
-      configiration.actionBar.flipCameraButton.visible = false;
-      configiration.actionBar.flashButton.activeForegroundColor = Colors.scanbotRed;
+      configuration.actionBar.flipCameraButton.visible = false;
+      configuration.actionBar.flashButton.activeForegroundColor = Colors.scanbotRed;
 
-      configiration.scannerConfiguration.minimumNumberOfRequiredFramesWithEqualScanningResult = 3;
+      configuration.scannerConfiguration.minimumNumberOfRequiredFramesWithEqualScanningResult = 3;
 
       // Configure other parameters as needed.
 
-      const result = await startTextPatternScanner(configiration);
+      const result = await startTextPatternScanner(configuration);
 
       /**
-       * Handle the result if result status is OK
+       * Handle the result if the result status is OK
        */
       if (result.status === 'OK') {
         this.utils.showResultInfo(
