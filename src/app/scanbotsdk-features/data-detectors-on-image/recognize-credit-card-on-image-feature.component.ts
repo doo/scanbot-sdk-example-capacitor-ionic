@@ -1,0 +1,69 @@
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
+
+import { Feature } from 'src/app/utils/scanbot-utils';
+import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature-component/scanbotsdk-feature.component';
+
+import {
+  CreditCardScannerConfiguration,
+  ScanbotSDK,
+  ToJsonConfiguration,
+} from 'capacitor-plugin-scanbot-sdk';
+
+@Component({
+  selector: 'app-recognize-credit-card-on-image',
+  templateUrl: '../scanbotsdk-feature-component/scanbotsdk-feature.component.html',
+  styleUrls: ['../scanbotsdk-feature-component/scanbotsdk-feature.component.scss'],
+  imports: [CommonModule, IonicModule],
+})
+export class RecognizeCreditCardOnImageFeature extends ScanbotSdkFeatureComponent {
+  override feature: Feature = {
+    title: 'Recognize Credit Card on Image',
+  };
+
+  override async featureClicked() {
+    // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+    if (!(await this.isLicenseValid())) {
+      return;
+    }
+
+    // Select image from the library
+    const imageFileUri = await this.imageUtils.selectImageFromLibrary();
+    if (!imageFileUri) {
+      return;
+    }
+
+    try {
+      await this.utils.showLoader();
+
+      const configuration = new CreditCardScannerConfiguration();
+      configuration.requireCardholderName = true;
+
+      // Configure other parameters as needed.
+
+      const result = await ScanbotSDK.recognizeCreditCard(imageFileUri, configuration);
+
+      this.utils.dismissLoader();
+
+      /**
+       * Handle the result if a credit card is found
+       */
+      if (result.creditCard) {
+        // Always serialize the credit card before stringifying, and use the serialized result.
+        const serializedDocument = await result.creditCard.serialize();
+
+        this.router.navigate([
+          '/credit-card-result',
+          result.scanningStatus,
+          JSON.stringify(serializedDocument),
+        ]);
+      } else {
+        this.utils.showInfoAlert('No Credit Card found');
+      }
+    } catch (e: any) {
+      await this.utils.dismissLoader();
+      this.utils.showErrorAlert(e.message);
+    }
+  }
+}

@@ -1,15 +1,11 @@
-import {CroppingConfiguration, Page, ScanbotSDK} from "capacitor-plugin-scanbot-sdk";
-
+import { CroppingConfiguration, Page, ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
 
 async function croppingScreen(page: Page) {
-    const configuration: CroppingConfiguration = {
-        doneButtonTitle: 'Apply',
-        topBarBackgroundColor: '#ffffff',
-        bottomBarBackgroundColor: '#ffffff',
-    };
+  const configuration: CroppingConfiguration = {
+    doneButtonTitle: 'Apply',
+    topBarBackgroundColor: '#ffffff',
+    bottomBarBackgroundColor: '#ffffff',
+  };
 
-    const pageResult = await ScanbotSDK.startCroppingScreen({
-        page: page,
-        configuration: configuration,
-    });
+  const pageResult = await ScanbotSDK.startCroppingScreen(page, configuration);
 }

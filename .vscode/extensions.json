@@ -1,3 +1,5 @@
 {
-    "recommendations": ["ionic.ionic", "rohit-gohri.format-code-action"]
+    "recommendations": [
+      "ionic.ionic"
+    ]
 }
