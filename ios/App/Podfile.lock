@@ -12,7 +12,7 @@ PODS:
     - Capacitor
   - CapacitorPluginScanbotSdk (7.0.0-rc.1):
     - Capacitor
-    - ScanbotSDKNativeWrapper (= 7.0.0.0-alpha.6)
+    - ScanbotSDKNativeWrapper (= 7.0.0.0)
   - CapacitorStatusBar (7.0.1):
     - Capacitor
   - CapawesomeCapacitorFilePicker (7.0.1):
@@ -20,7 +20,7 @@ PODS:
   - ScanbotSDK (7.0.0):
     - ScanbotSDK/NONE (= 7.0.0)
   - ScanbotSDK/NONE (7.0.0)
-  - ScanbotSDKNativeWrapper (7.0.0.0-alpha.6):
+  - ScanbotSDKNativeWrapper (7.0.0.0):
     - ScanbotSDK (= 7.0.0)
 
 DEPENDENCIES:
@@ -60,18 +60,18 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capawesome/capacitor-file-picker"
 
 SPEC CHECKSUMS:
-  Capacitor: 03bc7cbdde6a629a8b910a9d7d78c3cc7ed09ea7
-  CapacitorApp: febecbb9582cb353aed037e18ec765141f880fe9
-  CapacitorCamera: 6e73f1fc6c629a672658705a02409b60854bc0f1
-  CapacitorCommunityFileOpener: 97362898506cf0a4194639f6fc05276af607191c
+  Capacitor: 106e7a4205f4618d582b886a975657c61179138d
+  CapacitorApp: d63334c052278caf5d81585d80b21905c6f93f39
+  CapacitorCamera: eb8687d8687fed853598ec9460d94bcd5e16babe
+  CapacitorCommunityFileOpener: 9611c9d1595de7b50571717d443bb718a304b5eb
   CapacitorCordova: 5967b9ba03915ef1d585469d6e31f31dc49be96f
-  CapacitorFilesystem: e6261c410436f54908c11f94336c5b58286b1db0
-  CapacitorPluginScanbotSdk: 05eef87b28a55963617557e136d31efd3e4cd372
-  CapacitorStatusBar: 6e7af040d8fc4dd655999819625cae9c2d74c36f
-  CapawesomeCapacitorFilePicker: 640114d8fd427375fe0e826ffc1ca54d91c2d611
+  CapacitorFilesystem: 307f97c27a265edf8396a1c9c235592fd8572fe3
+  CapacitorPluginScanbotSdk: d95240fe10ee477bcfca782abe12812533578d4e
+  CapacitorStatusBar: 275cbf2f4dfc00388f519ef80c7ec22edda342c9
+  CapawesomeCapacitorFilePicker: 6673764afb8768eba0197876e222adc19fd4c120
   ScanbotSDK: 1d230603094ae5f6d3783b06df2ed9e7daf24608
-  ScanbotSDKNativeWrapper: b90d9f6e9a6fcaf193d7f88147c9ee4a630c4221
+  ScanbotSDKNativeWrapper: 550e60e8b2acbb79c6de76a8503d04be24ebf7ee
 
 PODFILE CHECKSUM: aa909a328226ff0279fd469a14f50a126136af2d
 
-COCOAPODS: 1.16.2
+COCOAPODS: 1.14.3
