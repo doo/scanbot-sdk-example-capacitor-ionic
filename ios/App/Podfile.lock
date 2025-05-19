@@ -1,27 +1,27 @@
 PODS:
-  - Capacitor (6.2.0):
+  - Capacitor (7.2.0):
     - CapacitorCordova
-  - CapacitorApp (6.0.2):
+  - CapacitorApp (7.0.1):
     - Capacitor
-  - CapacitorCamera (6.1.2):
+  - CapacitorCamera (7.0.1):
     - Capacitor
-  - CapacitorCommunityFileOpener (6.0.1):
+  - CapacitorCommunityFileOpener (7.0.1):
     - Capacitor
-  - CapacitorCordova (6.2.0)
-  - CapacitorFilesystem (6.0.2):
+  - CapacitorCordova (7.2.0)
+  - CapacitorFilesystem (7.0.1):
     - Capacitor
-  - CapacitorPluginScanbotSdk (6.1.2):
+  - CapacitorPluginScanbotSdk (7.0.0-rc.1):
     - Capacitor
-    - ScanbotSDKNativeWrapper/ALL (= 6.1.2.0)
-  - CapacitorPreferences (6.0.3):
+    - ScanbotSDKNativeWrapper (= 7.0.0.0)
+  - CapacitorStatusBar (7.0.1):
     - Capacitor
-  - CapacitorStatusBar (6.0.2):
+  - CapawesomeCapacitorFilePicker (7.0.1):
     - Capacitor
-  - CapawesomeCapacitorFilePicker (6.0.0):
-    - Capacitor
-  - ScanbotSDK/ALL (6.1.2-RC3)
-  - ScanbotSDKNativeWrapper/ALL (6.1.2.0):
-    - ScanbotSDK/ALL (= 6.1.2-RC3)
+  - ScanbotSDK (7.0.0):
+    - ScanbotSDK/NONE (= 7.0.0)
+  - ScanbotSDK/NONE (7.0.0)
+  - ScanbotSDKNativeWrapper (7.0.0.0):
+    - ScanbotSDK (= 7.0.0)
 
 DEPENDENCIES:
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
@@ -31,7 +31,6 @@ DEPENDENCIES:
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorFilesystem (from `../../node_modules/@capacitor/filesystem`)"
   - CapacitorPluginScanbotSdk (from `../../node_modules/capacitor-plugin-scanbot-sdk`)
-  - "CapacitorPreferences (from `../../node_modules/@capacitor/preferences`)"
   - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
   - "CapawesomeCapacitorFilePicker (from `../../node_modules/@capawesome/capacitor-file-picker`)"
 
@@ -55,27 +54,24 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/filesystem"
   CapacitorPluginScanbotSdk:
     :path: "../../node_modules/capacitor-plugin-scanbot-sdk"
-  CapacitorPreferences:
-    :path: "../../node_modules/@capacitor/preferences"
   CapacitorStatusBar:
     :path: "../../node_modules/@capacitor/status-bar"
   CapawesomeCapacitorFilePicker:
     :path: "../../node_modules/@capawesome/capacitor-file-picker"
 
 SPEC CHECKSUMS:
-  Capacitor: 1f3c7b9802d958cd8c4eb63895fff85dff2e1eea
-  CapacitorApp: 2a8c3a0b0814322e5e6e15fe595f02c3808f0f8b
-  CapacitorCamera: 9052bd3f464f135ba983feccd8ac1266272f0549
-  CapacitorCommunityFileOpener: f383451eef66633c7d80e8d247fcfd35032b99d0
-  CapacitorCordova: b33e7f4aa4ed105dd43283acdd940964374a87d9
-  CapacitorFilesystem: c832a3f6d4870c3872688e782ae8e33665e6ecbf
-  CapacitorPluginScanbotSdk: 51e4c1985991e81f8631ee4302f562cb478cb5bd
-  CapacitorPreferences: 9f9935bce493977183511362131a93f7b260191a
-  CapacitorStatusBar: 3b9ac7d0684770522c532d1158a1434512ab1477
-  CapawesomeCapacitorFilePicker: 983e8d272d200897cf1c12cf9a62439fa2fb2c35
-  ScanbotSDK: 9a22fc97fdf8a916c6dd6661ccfbdbb0829d8b04
-  ScanbotSDKNativeWrapper: aaad85d7f1eba35fbb06475b852b739ee8f0a4e0
+  Capacitor: 106e7a4205f4618d582b886a975657c61179138d
+  CapacitorApp: d63334c052278caf5d81585d80b21905c6f93f39
+  CapacitorCamera: eb8687d8687fed853598ec9460d94bcd5e16babe
+  CapacitorCommunityFileOpener: 9611c9d1595de7b50571717d443bb718a304b5eb
+  CapacitorCordova: 5967b9ba03915ef1d585469d6e31f31dc49be96f
+  CapacitorFilesystem: 307f97c27a265edf8396a1c9c235592fd8572fe3
+  CapacitorPluginScanbotSdk: d95240fe10ee477bcfca782abe12812533578d4e
+  CapacitorStatusBar: 275cbf2f4dfc00388f519ef80c7ec22edda342c9
+  CapawesomeCapacitorFilePicker: 6673764afb8768eba0197876e222adc19fd4c120
+  ScanbotSDK: 1d230603094ae5f6d3783b06df2ed9e7daf24608
+  ScanbotSDKNativeWrapper: 550e60e8b2acbb79c6de76a8503d04be24ebf7ee
 
-PODFILE CHECKSUM: 1c0b01bf953f77e825473bc5646fb2763258c470
+PODFILE CHECKSUM: aa909a328226ff0279fd469a14f50a126136af2d
 
 COCOAPODS: 1.14.3
