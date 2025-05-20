@@ -3,7 +3,9 @@ import { PdfConfiguration, ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
 async function createDocumentPDF() {
   try {
     /** Load a document from storage or create a new one */
-    const document = await ScanbotSDK.Document.loadDocument('SOME_STORED_DOCUMENT_ID');
+    const document = await ScanbotSDK.Document.loadDocument({
+      documentID: 'SOME_STORED_DOCUMENT_ID',
+    });
 
     const pdfConfiguration = new PdfConfiguration();
     pdfConfiguration.pageSize = 'A4';

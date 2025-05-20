@@ -7,5 +7,8 @@ async function croppingScreen(page: Page) {
     bottomBarBackgroundColor: '#ffffff',
   };
 
-  const pageResult = await ScanbotSDK.startCroppingScreen(page, configuration);
+  const pageResult = await ScanbotSDK.startCroppingScreen({
+    page: page,
+    configuration: configuration,
+  });
 }

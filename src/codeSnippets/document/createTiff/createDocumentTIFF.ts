@@ -3,7 +3,9 @@ import { ScanbotSDK, TiffGeneratorParameters } from 'capacitor-plugin-scanbot-sd
 async function createDocumentTIFF() {
   try {
     /** Load a document from storage or create a new one */
-    const document = await ScanbotSDK.Document.loadDocument('SOME_STORED_DOCUMENT_ID');
+    const document = await ScanbotSDK.Document.loadDocument({
+      documentID: 'SOME_STORED_DOCUMENT_ID',
+    });
 
     const tiffConfig = new TiffGeneratorParameters();
     tiffConfig.dpi = 300;

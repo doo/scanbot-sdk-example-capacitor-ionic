@@ -20,12 +20,12 @@ async function createDocumentFromPDF(pdfUri: string) {
    * Create a document with an uuid
    * Extract images from the PDF file and add them as document pages
    */
-  const document = ScanbotSDK.Document.createDocumentFromPDF(pdfUri);
+  const document = ScanbotSDK.Document.createDocumentFromPDF({ pdfUri: pdfUri });
 }
 
 async function loadDocument(documentID: string) {
   /** Load a document from storage by ID */
-  const document = await ScanbotSDK.Document.loadDocument(documentID);
+  const document = await ScanbotSDK.Document.loadDocument({ documentID: documentID });
 }
 
 async function storedDocumentUUIDs() {
@@ -35,7 +35,7 @@ async function storedDocumentUUIDs() {
 
 async function reorderDocumentPages(documentID: string) {
   /** Load a document from storage by ID */
-  const document = await ScanbotSDK.Document.loadDocument(documentID);
+  const document = await ScanbotSDK.Document.loadDocument({ documentID: documentID });
   /** Swap the first and last page of the document */
   const documentWithReorderedPages = await ScanbotSDK.Document.movePage({
     documentID: document.uuid,
@@ -46,12 +46,14 @@ async function reorderDocumentPages(documentID: string) {
 
 async function removeAllPagesFromDocument(documentID: string) {
   /** Remove all the pages from a document */
-  const documentWithRemovedPages = await ScanbotSDK.Document.removeAllPages(documentID);
+  const documentWithRemovedPages = await ScanbotSDK.Document.removeAllPages({
+    documentID: documentID,
+  });
 }
 
 async function deleteDocument(documentID: string) {
   /** Delete a document from storage along with the document's PDF and TIFF files */
-  await ScanbotSDK.Document.deleteDocument(documentID);
+  await ScanbotSDK.Document.deleteDocument({ documentID: documentID });
 }
 
 async function deleteAllDocuments() {

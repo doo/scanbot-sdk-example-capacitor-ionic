@@ -12,7 +12,9 @@ async function detectDocumentDetection() {
       return;
     }
     /** Detect the document */
-    const documentDetectionResult = await ScanbotSDK.detectDocument(selectedImageResult);
+    const documentDetectionResult = await ScanbotSDK.detectDocument({
+      imageFileUri: selectedImageResult,
+    });
     //** Handle the result */
   } catch (e: any) {
     console.error(e.message);

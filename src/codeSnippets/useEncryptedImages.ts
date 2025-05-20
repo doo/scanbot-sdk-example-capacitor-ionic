@@ -8,7 +8,7 @@ async function initializeDisplayEncryptedImage() {
     }
 
     // Use the low-res image file "documentPreviewImageFileUri" of a Page for the preview:
-    const result = await ScanbotSDK.getImageData('{imageFileUri}');
+    const result = await ScanbotSDK.getImageData({ imageFileUri: '{imageFileUri}' });
 
     const decryptedImageDataAsBase64 = result.base64ImageData;
 

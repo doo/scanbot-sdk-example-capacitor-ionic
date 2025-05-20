@@ -12,11 +12,15 @@ async function applyFiltersOnImages() {
       return;
     }
     /** Apply ScanbotBinarizationFilter to the image */
-    const imageWithFilters = await ScanbotSDK.applyImageFilters(selectedImageResult, [
-      new ScanbotBinarizationFilter(),
-    ]);
+    const imageWithFilters = await ScanbotSDK.applyImageFilters({
+      imageFileUri: selectedImageResult,
+      filters: [new ScanbotBinarizationFilter()],
+    });
     /** Rotate the page counterclockwise by 90 degrees */
-    const rotatedImage = await ScanbotSDK.rotateImage(imageWithFilters.imageFileUri, 90);
+    const rotatedImage = await ScanbotSDK.rotateImage({
+      imageFileUri: imageWithFilters.imageFileUri,
+      degrees: 90,
+    });
   } catch (e: any) {
     console.error(e.message);
   }

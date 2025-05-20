@@ -3,7 +3,9 @@ import { ScanbotBinarizationFilter, ScanbotSDK } from 'capacitor-plugin-scanbot-
 async function applyFiltersAndRotateScannedPage() {
   try {
     /** Load a document from storage or create a new one */
-    const document = await ScanbotSDK.Document.loadDocument('SOME_STORED_DOCUMENT_ID');
+    const document = await ScanbotSDK.Document.loadDocument({
+      documentID: 'SOME_STORED_DOCUMENT_ID',
+    });
     /** Get the first page of the document */
     const page = document.pages[0];
     /**
