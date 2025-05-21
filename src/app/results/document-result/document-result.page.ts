@@ -17,10 +17,11 @@ import { DocumentScanningFlow, startDocumentScanner } from 'capacitor-plugin-sca
 import { CommonUtils } from '../../utils/common-utils';
 import { FileUtils } from '../../utils/file-utils';
 import { ImageUtils } from '../../utils/image-utils';
+import { ScanbotUtils } from 'src/app/utils/scanbot-utils';
 
 interface PageDataResult {
   page: PageData;
-  pagePreviewWebViewPath: string;
+  pagePreview: string;
 }
 
 @Component({
@@ -35,6 +36,7 @@ export class DocumentResultPage implements OnInit {
 
   private navController = inject(NavController);
   private utils = inject(CommonUtils);
+  private scanbotUtils = inject(ScanbotUtils);
   private fileUtils = inject(FileUtils);
   private actionSheetCtrl = inject(ActionSheetController);
   private imageUtils = inject(ImageUtils);
@@ -49,17 +51,17 @@ export class DocumentResultPage implements OnInit {
     });
   }
 
-  private updateCurrentDocument(updatedDocument: DocumentData) {
+  private async updateCurrentDocument(updatedDocument: DocumentData) {
     this.document = updatedDocument;
 
-    this.pageImagePreviews = this.document.pages.map(
-      (page) =>
-        ({
-          page: page,
-          pagePreviewWebViewPath: Capacitor.convertFileSrc(
-            (page.documentImagePreviewURI || page.originalImageURI) + '?' + Date.now(),
-          ),
-        }) as PageDataResult,
+    this.pageImagePreviews = await Promise.all(
+      this.document.pages.map(
+        async (page) =>
+          ({
+            page: page,
+            pagePreview: await this.scanbotUtils.getPageDataPreview(page),
+          }) as PageDataResult,
+      ),
     );
   }
 
@@ -79,7 +81,7 @@ export class DocumentResultPage implements OnInit {
         documentID: id,
       });
 
-      this.updateCurrentDocument(documentResult);
+      await this.updateCurrentDocument(documentResult);
     } catch (e: any) {
       await this.utils.showErrorAlert(e.message);
     }
@@ -131,7 +133,7 @@ export class DocumentResultPage implements OnInit {
       /**
        * Handle the result
        */
-      this.updateCurrentDocument(documentResult);
+      await this.updateCurrentDocument(documentResult);
     } catch (e: any) {
       await this.utils.showErrorAlert(e.message);
     } finally {

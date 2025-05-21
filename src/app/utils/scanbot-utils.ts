@@ -1,7 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { ModalController } from '@ionic/angular/standalone';
+import { Capacitor } from '@capacitor/core';
 
+import { AppComponent } from '../app.component';
 import { ImageFilterComponent } from '../image-filter/image-filter.component';
+import { ScanResultSectionData } from '../results/scan-results/scan-result-page/scan-result.page';
 
 import {
   BrightnessFilter,
@@ -12,11 +15,12 @@ import {
   GenericDocument,
   GrayscaleFilter,
   LegacyFilter,
+  PageData,
   ParametricFilter,
   ScanbotBinarizationFilter,
+  ScanbotSDK,
   WhiteBlackPointFilter,
 } from 'capacitor-plugin-scanbot-sdk';
-import { ScanResultSectionData } from '../results/scan-results/scan-result-page/scan-result.page';
 
 export interface Feature {
   title: string;
@@ -112,5 +116,33 @@ export class ScanbotUtils {
         value: value,
       } as ScanResultSectionData;
     });
+  }
+
+  async getPageDataPreview(pageToPreview: PageData): Promise<string> {
+    if (AppComponent.FILE_ENCRYPTION_ENABLED) {
+      return `data:image/jpeg;base64,${await this.decryptImageUrl(pageToPreview.documentImagePreviewURI || pageToPreview.originalImageURI)}`;
+    } else {
+      return Capacitor.convertFileSrc(
+        (pageToPreview.documentImagePreviewURI || pageToPreview.originalImageURI) +
+          '?' +
+          Date.now(),
+      );
+    }
+  }
+
+  private async decryptImageUrl(encryptedUrl: string): Promise<string> {
+    let imageAsBase64 = '';
+
+    try {
+      imageAsBase64 = (
+        await ScanbotSDK.getImageData({
+          imageFileUri: encryptedUrl,
+        })
+      ).base64ImageData;
+    } catch (error: any) {
+      console.error(error.message);
+    }
+
+    return imageAsBase64;
   }
 }
