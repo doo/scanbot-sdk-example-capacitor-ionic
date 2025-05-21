@@ -46,7 +46,7 @@ import { CroppingConfiguration, startCroppingScreen } from 'capacitor-plugin-sca
   ],
 })
 export class PageResultPage implements OnInit {
-  pagePreviewWebViewPath!: string;
+  pagePreview!: string;
   page!: PageData;
   documentID!: string;
   removePageAlertButtons = [
@@ -80,12 +80,10 @@ export class PageResultPage implements OnInit {
     });
   }
 
-  private updatePage(updatedDocument: DocumentData) {
+  private async updatePage(updatedDocument: DocumentData) {
     this.documentID = updatedDocument.uuid;
     this.page = updatedDocument.pages.find((p) => p.uuid === this.page.uuid)!;
-    this.pagePreviewWebViewPath = Capacitor.convertFileSrc(
-      (this.page.documentImagePreviewURI || this.page.originalImageURI) + '?' + Date.now(),
-    );
+    this.pagePreview = await this.scanbotUtils.getPageDataPreview(this.page);
   }
 
   private async loadDocument(documentID: string, pageID: string) {
@@ -101,9 +99,7 @@ export class PageResultPage implements OnInit {
 
       this.documentID = documentResult.uuid;
       this.page = documentResult.pages.find((p) => p.uuid === pageID)!;
-      this.pagePreviewWebViewPath = Capacitor.convertFileSrc(
-        (this.page.documentImagePreviewURI || this.page.originalImageURI) + '?' + Date.now(),
-      );
+      this.pagePreview = await this.scanbotUtils.getPageDataPreview(this.page);
     } catch (e: any) {
       await this.utils.showErrorAlert(e.message);
     }
@@ -127,7 +123,7 @@ export class PageResultPage implements OnInit {
       const documentResult = await startCroppingScreen(configuration);
 
       if (documentResult.status === 'OK') {
-        this.updatePage(documentResult.data);
+        await this.updatePage(documentResult.data);
       }
     } catch (e: any) {
       this.utils.showErrorAlert(e.message);
@@ -152,7 +148,7 @@ export class PageResultPage implements OnInit {
           filters: [pageFilter],
         });
 
-        this.updatePage(documentResult);
+        await this.updatePage(documentResult);
       }
     } catch (e: any) {
       await this.utils.showErrorAlert(e.message);

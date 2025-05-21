@@ -11,10 +11,7 @@
   <ion-grid>
     <ion-row class="ion-align-items-center">
       <ion-col size="4" *ngFor="let pageDataResult of pageImagePreviews">
-        <ion-img
-          (click)="onPageSelect(pageDataResult.page)"
-          [src]="pageDataResult.pagePreviewWebViewPath"
-        />
+        <ion-img (click)="onPageSelect(pageDataResult.page)" [src]="pageDataResult.pagePreview" />
       </ion-col>
     </ion-row>
   </ion-grid>
