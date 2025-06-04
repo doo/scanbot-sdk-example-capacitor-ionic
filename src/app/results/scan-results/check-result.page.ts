@@ -46,9 +46,7 @@ export class CheckResultPage extends ScanResultFieldsPage {
         image: this.checkResult.croppedImage?.buffer,
         data: [{ key: 'Status', value: this.checkResult.status }],
       },
-      {
-        data: this.scanbotUtils.transformGenericDocument(this.checkResult.check!, true),
-      },
+      ...this.scanbotUtils.transformGenericDocument(this.checkResult.check!),
     ];
   }
 }

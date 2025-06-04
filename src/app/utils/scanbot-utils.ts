@@ -4,14 +4,16 @@ import { Capacitor } from '@capacitor/core';
 
 import { AppComponent } from '../app.component';
 import { ImageFilterComponent } from '../image-filter/image-filter.component';
-import { ScanResultSectionData } from '../results/scan-results/scan-result-page/scan-result.page';
+import {
+  ScanResultSection,
+  ScanResultSectionData,
+} from '../results/scan-results/scan-result-page/scan-result.page';
 
 import {
   BrightnessFilter,
   ColorDocumentFilter,
   ContrastFilter,
   CustomBinarizationFilter,
-  Field,
   GenericDocument,
   GrayscaleFilter,
   LegacyFilter,
@@ -87,34 +89,56 @@ export class ScanbotUtils {
     return (await filterModal.onDidDismiss()).data;
   }
 
-  private extractGDRFields(document: GenericDocument): Field[] {
-    return [...document.fields, ...document.children.map(this.extractGDRFields).flat()];
-  }
-
-  transformGenericDocument(
-    document?: GenericDocument,
-    withoutConfidence = false,
-  ): Array<ScanResultSectionData> {
+  traverseGenericDocument(document: GenericDocument | null): Array<GenericDocument> {
     if (!document) {
       return [];
     }
 
-    return this.extractGDRFields(document).map((field) => {
-      let value = field.value?.text;
+    let documents: GenericDocument[] = [document];
 
-      if (value) {
-        if (!withoutConfidence) {
-          value += ` (confidence:${Math.round(field.value!.confidence * 100)}%)`;
-        }
-      } else {
-        value = '/';
-      }
+    if (document.children.length > 0) {
+      document.children.forEach((child: GenericDocument) => {
+        documents = documents.concat(this.traverseGenericDocument(child));
+      });
+    }
 
+    return documents;
+  }
+
+  transformGenericDocument(
+    document: GenericDocument | null,
+    options?: {
+      includeConfidence?: boolean;
+      includeHeader?: boolean;
+      includeImage?: boolean;
+    },
+  ): Array<ScanResultSection> {
+    if (!document) {
+      return [];
+    }
+
+    return this.traverseGenericDocument(document).map((item) => {
       return {
-        image: field?.image?.buffer,
-        key: field.type.name,
-        value: value,
-      } as ScanResultSectionData;
+        header: options?.includeHeader ? item.type.name : undefined,
+        image: options?.includeImage ? item.crop?.buffer : undefined,
+        data: item.fields.map((field) => {
+          let value = field.value?.text;
+
+          if (value) {
+            if (options?.includeConfidence) {
+              value += ` (confidence:${Math.round(field.value!.confidence * 100)}%)`;
+            }
+          } else {
+            value = '/';
+          }
+
+          return {
+            image: field?.image?.buffer,
+            key: field.type.name,
+            value: value,
+          } as ScanResultSectionData;
+        }),
+      };
     });
   }
 

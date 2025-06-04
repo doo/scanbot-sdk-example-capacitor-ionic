@@ -40,9 +40,7 @@ export class CreditCardResultPage extends ScanResultFieldsPage {
         image: this.creditCard.crop?.buffer,
         data: [{ key: 'Status', value: this.scanningStatus }],
       },
-      {
-        data: this.scanbotUtils.transformGenericDocument(this.creditCard),
-      },
+      ...this.scanbotUtils.transformGenericDocument(this.creditCard),
     ];
   }
 }

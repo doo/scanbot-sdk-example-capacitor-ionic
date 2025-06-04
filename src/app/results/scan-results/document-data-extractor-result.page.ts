@@ -36,17 +36,14 @@ export class DocumentDataExtractorResultPage extends ScanResultFieldsPage {
   override loadResultFields(): Array<ScanResultSection> {
     let results: Array<ScanResultSection> = [];
 
-    this.extractedDocuments.forEach((item) => {
-      results.push({
-        header: item.document?.type?.name,
-        image: item.croppedImage?.buffer,
-        data: [{ key: 'Extraction Status', value: item.status }],
-      });
-
-      if (item.document != null) {
-        results.push({
-          data: this.scanbotUtils.transformGenericDocument(item.document),
-        });
+    this.extractedDocuments.forEach((documentResult) => {
+      if (documentResult.document != null) {
+        results = results.concat(
+          this.scanbotUtils.transformGenericDocument(documentResult.document, {
+            includeConfidence: true,
+            includeHeader: true,
+          }),
+        );
       }
     });
 
