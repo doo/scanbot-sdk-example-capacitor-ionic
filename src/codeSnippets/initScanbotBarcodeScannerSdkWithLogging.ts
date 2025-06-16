@@ -1,15 +1,15 @@
-import { ScanbotSDK, ScanbotSdkConfiguration } from "capacitor-plugin-scanbot-sdk";
+import { ScanbotSDK, ScanbotSdkConfiguration } from 'capacitor-plugin-scanbot-sdk';
 
 async function initScanbotDocumentScannerSdkWithLogging() {
-    const config: ScanbotSdkConfiguration = {
-        licenseKey: '',
-        loggingEnabled: true,
-    };
+  const configiration: ScanbotSdkConfiguration = {
+    licenseKey: '',
+    loggingEnabled: true,
+  };
 
-    try {
-        const initResult = await ScanbotSDK.initializeSDK(config);
-        console.log(initResult.result);
-    } catch (error: any) {
-        console.error(error);
-    }
+  try {
+    const initResult = await ScanbotSDK.initializeSDK(configiration);
+    console.log(initResult);
+  } catch (error: any) {
+    console.error(error);
+  }
 }

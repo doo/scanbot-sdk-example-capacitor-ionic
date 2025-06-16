@@ -1,41 +1,36 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-title>Document Result</ion-title>
-        <ion-buttons slot="start">
-            <ion-back-button [text]="" defaultHref="/"></ion-back-button>
-        </ion-buttons>
-    </ion-toolbar>
+  <ion-toolbar>
+    <ion-title>Document Result</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button [text]="" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <ion-grid>
-        <ion-row class="ion-align-items-center">
-            <ion-col size="4" *ngFor="let pageDataResult of pageImagePreviews">
-                <ion-img (click)="onPageSelect(pageDataResult.page)" [src]="pageDataResult.pagePreviewWebViewPath" />
-            </ion-col>
-        </ion-row>
-    </ion-grid>
-
+  <ion-grid>
+    <ion-row class="ion-align-items-center">
+      <ion-col size="4" *ngFor="let pageDataResult of pageImagePreviews">
+        <ion-img (click)="onPageSelect(pageDataResult.page)" [src]="pageDataResult.pagePreview" />
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
 
 <ion-footer>
-    <ion-toolbar>
-        <ion-row>
-            <ion-col>
-                <ion-button fill="clear" class="ion-text-wrap" (click)="onContinueScanning()">
-                    Continue Scanning
-                </ion-button>
-            </ion-col>
-            <ion-col>
-                <ion-button fill="clear" (click)="onAddPage()">
-                    Add Page
-                </ion-button>
-            </ion-col>
-            <ion-col>
-                <ion-button fill="clear" (click)="onExport()">
-                    Export
-                </ion-button>
-            </ion-col>
-        </ion-row>
-    </ion-toolbar>
+  <ion-toolbar>
+    <ion-row>
+      <ion-col>
+        <ion-button fill="clear" class="ion-text-wrap" (click)="onContinueScanning()">
+          Continue Scanning
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button fill="clear" (click)="onAddPage()"> Add Page </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button fill="clear" (click)="onExport()"> Export </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
 </ion-footer>

@@ -21,15 +21,16 @@ With our Ready-To-Use UI (RTU UI) components, you can integrate the Scanbot SDK 
 
 ### Requirements
 
-* NodeJS 18+ & npm
-* [Capacitor CLI](https://www.npmjs.com/package/@capacitor/cli) 6+
+* NodeJS 20+ & npm
+* [Capacitor CLI](https://www.npmjs.com/package/@capacitor/cli) 7+
 * For Android apps:
-	* Android Studio Jellyfish | 2023.1.1+
-	* Android SDK (API Level 22+), Platforms and Developer Tools
+	* Android Studio 2024.2.1+
+	* Android SDK (API Level 23+), Platforms and Developer Tools
 	* Android Gradle Plugin 8.4.0+ or Kotlin Plugin applied
+
 * For iOS apps:
-	* iOS 13+
-	* macOS with Xcode 15+
+	* iOS 14+
+	* macOS with Xcode 16+
 	* Xcode Command Line Tools
 	* Homebrew
 	* Cocoapods

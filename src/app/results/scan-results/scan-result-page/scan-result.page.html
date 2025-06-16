@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ pageTitle }}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button [text]="getBackButtonText()" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-item-group *ngFor="let section of sectionListData">
+    <ion-item class="section-header" *ngIf="section.header !== undefined" lines="full">
+      <h4>{{section.header}}</h4>
+    </ion-item>
+    <ion-item *ngIf="section.image !== undefined" lines="full">
+      <ion-img class="mainImage" [src]="`data:image/jpeg;base64,${section.image}`" />
+    </ion-item>
+    <ion-item *ngFor="let data of section.data">
+      <ion-img
+        *ngIf="data.image !== undefined"
+        class="dataImage"
+        [src]="`data:image/jpeg;base64,${data.image}`"
+      />
+      <ion-col class="ion-no-padding">
+        <p style="font-weight: bold">{{data.key}}</p>
+        <p style="white-space: pre-line">{{data.value}}</p>
+      </ion-col>
+    </ion-item>
+  </ion-item-group>
+</ion-content>

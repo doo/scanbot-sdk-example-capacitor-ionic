@@ -1,6 +1,5 @@
-import { FileUtils } from "../../../app/utils/file-utils"
-import { ScanbotSDK } from "capacitor-plugin-scanbot-sdk";
-
+import { ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
+import { FileUtils } from '../../../app/utils/file-utils';
 
 async function extractImagesFromPDF() {
   try {
