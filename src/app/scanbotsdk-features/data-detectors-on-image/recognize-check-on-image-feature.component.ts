@@ -5,11 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { Feature } from 'src/app/utils/scanbot-utils';
 import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature-component/scanbotsdk-feature.component';
 
-import {
-  CheckDocumentModelRootType,
-  CheckScannerConfiguration,
-  ScanbotSDK,
-} from 'capacitor-plugin-scanbot-sdk';
+import { CheckScannerConfiguration, ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
   selector: 'app-recognize-check-on-image',
@@ -41,23 +37,19 @@ export class RecognizeCheckOnImageFeature extends ScanbotSdkFeatureComponent {
       configuration.documentDetectionMode = 'DISABLED';
 
       /**
-       * Filter which check standards to recognize by setting the acceptedCheckStandards.
+       * Filter check standards to recognize by setting the acceptedCheckStandards.
+       * configuration.acceptedCheckStandards = ['USA', 'CAN'];
+       * Configure other parameters as needed.
        */
-      // configuration.acceptedCheckStandards = ['USA', 'CAN'];
-
-      // Configure other parameters as needed.
 
       const result = await ScanbotSDK.recognizeCheck(imageFileUri, configuration);
-
       this.utils.dismissLoader();
-
       /**
        * Handle the result if a check is found
        */
       if (result.check) {
         // Always serialize the result before stringifying, and use the serialized result.
         const serializedCheck = await result.check.serialize();
-
         this.router.navigate(['/check-result', result.status, JSON.stringify(serializedCheck)]);
       } else {
         this.utils.showInfoAlert('No Check found.');

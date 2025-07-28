@@ -41,14 +41,14 @@ export class ExtractDocumentDataFromImageFeature extends ScanbotSdkFeatureCompon
 
     try {
       await this.utils.showLoader();
-
       const commonConfig = new DocumentDataExtractorCommonConfiguration();
 
       /**
        * Accept only specific document types by setting acceptedDocumentTypes.
+       * commonConfig.acceptedDocumentTypes = [DeIdCardFrontDocumentType, DeIdCardBackDocumentType, DeResidencePermitFrontDocumentType, DeResidencePermitBackDocumentType];
        */
-      // commonConfig.acceptedDocumentTypes = [DeIdCardFrontDocumentType, DeIdCardBackDocumentType, DeResidencePermitFrontDocumentType, DeResidencePermitBackDocumentType];
 
+      /** Add MRZ FallbackConfiguration */
       const mrzFallbackConfiguration = new MrzFallbackConfiguration();
       mrzFallbackConfiguration.acceptedMRZTypes = ['ID_CARD', 'PASSPORT'];
 
@@ -56,10 +56,7 @@ export class ExtractDocumentDataFromImageFeature extends ScanbotSdkFeatureCompon
         configurations: [commonConfig, mrzFallbackConfiguration],
       });
 
-      // Configure other parameters as needed.
-
       const result = await ScanbotSDK.documentDataExtractor(imageFileUri, configuration);
-
       this.utils.dismissLoader();
 
       /**
