@@ -1,9 +1,9 @@
 import {
+  CheckIntroCustomImage,
   CheckScannerScreenConfiguration,
   startCheckScanner,
   StyledText,
 } from 'capacitor-plugin-scanbot-sdk/ui_v2';
-import { CheckIntroCustomImage } from 'capacitor-plugin-scanbot-sdk/dist/esm/ui_v2/check/CheckScannerIntroScreenConfiguration';
 
 async function startScanning() {
   try {
@@ -16,7 +16,7 @@ async function startScanning() {
     /** Configure the title for the intro screen. */
     introductionConfiguration.title = new StyledText({
       color: '#000000',
-      text: 'Document Data Extractor',
+      text: 'Check Scanner',
     });
     /** Configure the image for the introduction screen. */
     introductionConfiguration.image = new CheckIntroCustomImage({
