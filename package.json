@@ -7,7 +7,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --configuration development && cd ios/App && pod install --repo-update",
+    "build": "ng build --configuration development",
     "sync": "npx cap sync",
     "android": "npx cap run android",
     "ios": "npx cap run ios",

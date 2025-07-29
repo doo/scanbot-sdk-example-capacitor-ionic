@@ -25,13 +25,6 @@ export const routes: Routes = [
       import('./results/scan-results/credit-card-result.page').then((m) => m.CreditCardResultPage),
   },
   {
-    path: 'health-insurance-card-result-fields/:fields',
-    loadComponent: () =>
-      import('./results/scan-results/health-insurance-card-result-fields.page').then(
-        (m) => m.EhicResultFieldsPage,
-      ),
-  },
-  {
     path: 'medical-certificate-result/:medicalCert',
     loadComponent: () =>
       import('./results/scan-results/medical-certificate-result.page').then(
