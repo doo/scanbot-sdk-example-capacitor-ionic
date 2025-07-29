@@ -15,7 +15,7 @@ export type ScanResultSectionData = {
 
 export type ScanResultSection = {
   header?: string;
-  image?: string;
+  image?: string | null;
   data?: Array<ScanResultSectionData>;
 };
 

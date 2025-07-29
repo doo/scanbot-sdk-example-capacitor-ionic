@@ -2,14 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 
-import { Colors } from 'src/theme/theme';
 import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature-component/scanbotsdk-feature.component';
 
+import { autorelease } from 'capacitor-plugin-scanbot-sdk';
+
 import {
-  autorelease,
   CheckScannerScreenConfiguration,
-  ScanbotSDK,
-} from 'capacitor-plugin-scanbot-sdk';
+  startCheckScanner,
+} from 'capacitor-plugin-scanbot-sdk/ui_v2';
 
 @Component({
   selector: 'app-rtu-check-scanner',
@@ -27,31 +27,43 @@ export class RtuCheckScannerFeature extends ScanbotSdkFeatureComponent {
     }
 
     try {
-      const configuration: CheckScannerScreenConfiguration = {
-        // Customize colors, text resources, behavior, etc..
-        enableCameraButtonTitle: 'Enable Camera',
-        orientationLockMode: 'PORTRAIT',
-        topBarBackgroundColor: Colors.scanbotRed,
-        // see further configs ...
-      };
+      const configuration = new CheckScannerScreenConfiguration();
+      configuration.captureHighResolutionImage = true;
+
+      // Configure other parameters as needed.
 
       // An autorelease pool is required only because the result object contains image references.
       await autorelease(async () => {
-        const result = await ScanbotSDK.startCheckScanner(configuration);
+        const result = await startCheckScanner(configuration);
 
         /**
          * Handle the result if the result status is OK
          */
         if (result.status === 'OK' && result.data.check) {
           /**
-           * Always serialize the result before stringifying, and use the serialized result.
-           *
-           * By default, when we serialize, images are serialized as references.
+           * Always serialize the result check before stringifying, and use the serialized result.
+           */
+          const serializedCheck = await result.data.check.serialize();
+
+          /**
+           * Serialize the cropped image as reference.
            * When we have images as references, we need to ensure their proper release using an autorelease pool.
            */
-          const serializedResult = await result.data.serialize();
-
-          this.router.navigate(['/check-result', JSON.stringify(serializedResult)]);
+          if (result.data.croppedImage) {
+            await result.data.croppedImage.serialize('REFERENCE');
+            this.router.navigate([
+              '/check-result',
+              result.data.recognitionStatus,
+              JSON.stringify(serializedCheck),
+              result.data.croppedImage.uniqueId,
+            ]);
+          } else {
+            this.router.navigate([
+              '/check-result',
+              result.data.recognitionStatus,
+              JSON.stringify(serializedCheck),
+            ]);
+          }
         }
       });
     } catch (e: any) {

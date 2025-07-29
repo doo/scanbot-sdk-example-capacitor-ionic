@@ -12,12 +12,12 @@
     <ion-item class="section-header" *ngIf="section.header !== undefined" lines="full">
       <h4>{{section.header}}</h4>
     </ion-item>
-    <ion-item *ngIf="section.image !== undefined" lines="full">
+    <ion-item *ngIf="section.image" lines="full">
       <ion-img class="mainImage" [src]="`data:image/jpeg;base64,${section.image}`" />
     </ion-item>
     <ion-item *ngFor="let data of section.data">
       <ion-img
-        *ngIf="data.image !== undefined"
+        *ngIf="data.image"
         class="dataImage"
         [src]="`data:image/jpeg;base64,${data.image}`"
       />
