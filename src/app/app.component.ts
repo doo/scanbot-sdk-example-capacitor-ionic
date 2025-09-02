@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Directory, Filesystem } from '@capacitor/filesystem';
-import { StatusBar, Style } from '@capacitor/status-bar';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { environment } from 'src/environments/environment';
-
-import { Colors } from 'src/theme/theme';
 
 import { ScanbotSDK, ScanbotSdkConfiguration } from 'capacitor-plugin-scanbot-sdk';
 
@@ -44,11 +41,7 @@ export class AppComponent implements OnInit {
 
   public static readonly FILE_ENCRYPTION_ENABLED: boolean = false;
 
-  constructor() {
-    StatusBar.setStyle({ style: Style.Dark });
-    StatusBar.setBackgroundColor({ color: Colors.scanbotRed });
-    StatusBar.setOverlaysWebView({ overlay: false });
-  }
+  constructor() {}
 
   ngOnInit(): void {
     this.initScanbotSdk();
