@@ -6,7 +6,14 @@ export const routes: Routes = [
     loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
   },
   {
-    path: 'document-data-extractor-result/:documents',
+    path: 'document-data-extractor-result/:status/:document/:image',
+    loadComponent: () =>
+      import('./results/scan-results/document-data-extractor-result.page').then(
+        (m) => m.DocumentDataExtractorResultPage,
+      ),
+  },
+  {
+    path: 'document-data-extractor-result/:status/:document',
     loadComponent: () =>
       import('./results/scan-results/document-data-extractor-result.page').then(
         (m) => m.DocumentDataExtractorResultPage,
@@ -16,13 +23,6 @@ export const routes: Routes = [
     path: 'credit-card-result/:status/:creditCard',
     loadComponent: () =>
       import('./results/scan-results/credit-card-result.page').then((m) => m.CreditCardResultPage),
-  },
-  {
-    path: 'health-insurance-card-result-fields/:fields',
-    loadComponent: () =>
-      import('./results/scan-results/health-insurance-card-result-fields.page').then(
-        (m) => m.EhicResultFieldsPage,
-      ),
   },
   {
     path: 'medical-certificate-result/:medicalCert',
@@ -37,7 +37,12 @@ export const routes: Routes = [
       import('./results/scan-results/mrz-result.page').then((m) => m.MrzResultPage),
   },
   {
-    path: 'check-result/:checkResult',
+    path: 'check-result/:status/:check/:imageRefId',
+    loadComponent: () =>
+      import('./results/scan-results/check-result.page').then((m) => m.CheckResultPage),
+  },
+  {
+    path: 'check-result/:status/:check',
     loadComponent: () =>
       import('./results/scan-results/check-result.page').then((m) => m.CheckResultPage),
   },

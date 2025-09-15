@@ -15,7 +15,7 @@ The Scanbot SDK is a set of high-level APIs that lets you integrate document sca
 
 With our Ready-To-Use UI (RTU UI) components, you can integrate the Scanbot SDK into your app in less than an hour.
 
-💡 For more details about the Scanbot Document Scanner SDK and Data Capture Modules, please check out our [documentation.](https://docs.scanbot.io/document-scanner-sdk/capacitor/introduction/?utm_source=github.com&utm_medium=referral&utm_campaign=dev_sites) 
+💡 For more details about the Scanbot Document Scanner SDK and Data Capture Modules, please check out our [documentation.](https://docs.scanbot.io/capacitor/document-scanner-sdk/introduction/?utm_source=github.com&utm_medium=referral&utm_campaign=dev_sites)
 
 ## How to run this example app?
 
@@ -37,7 +37,7 @@ With our Ready-To-Use UI (RTU UI) components, you can integrate the Scanbot SDK 
 
 Please check the full [requirements for Capacitor](https://capacitorjs.com/docs/getting-started/environment-setup).
 
->💡 For a full overview of our SDK's requirements, please refer to our [documentation](https://docs.scanbot.io/document-scanner-sdk/capacitor/introduction/#requirements).
+>💡 For a full overview of our SDK's requirements, please refer to our [documentation](https://docs.scanbot.io/capacitor/document-scanner-sdk/introduction/?utm_source=github.com&utm_medium=referral&utm_campaign=dev_sites#requirements).
 
 ### Install
 
@@ -119,7 +119,7 @@ Through this feature, our SDK offers document detection and data capture capabil
 
 ### Free integration support
 
-Need help integrating or testing our Document Scanner SDK? We offer [free developer support](https://docs.scanbot.io/support/?utm_source=github.com&utm_medium=referral&utm_campaign=dev_sites) via Slack, MS Teams, or email.
+Need help integrating or testing our Document Scanner SDK? We offer [free developer support](https://docs.scanbot.io/support/?utm_source=github.com&utm_medium=referral&utm_campaign=dev_sites) via Slack, MS Teams, or email.
 
 As a customer, you also get access to a dedicated support Slack or Microsoft Teams channel to talk directly to your Customer Success Manager and our engineers.
 
@@ -127,11 +127,11 @@ As a customer, you also get access to a dedicated support Slack or Microsoft Tea
 
 The Scanbot SDK examples will run for one minute per session without a license. After that, all functionalities and UI components will stop working.
 
-To try the Scanbot Capacitor SDK without the one-minute limit, you can request a free, no-strings-attached [7-day](https://scanbot.io/trial/?utm_source=github.com&utm_medium=referral&utm_campaign=dev_sites) trial license for your example project.
+To try the Scanbot Capacitor SDK without the one-minute limit, you can request a free, no-strings-attached [7-day](https://docs.scanbot.io/trial/?utm_source=github.com&utm_medium=referral&utm_campaign=dev_sites) trial license for your example project.
 
 Alternatively, check out our [demo apps](https://scanbot.io/demo-apps/?utm_source=github.com&utm_medium=referral&utm_campaign=dev_sites) to test the SDK.
 
-Our pricing model is simple: Unlimited scanning for a flat annual license fee, full support included. There are no tiers, usage charges, or extra fees. [Contact](https://scanbot.io/contact-sales/?utm_source=github.com&utm_medium=referral&utm_campaign=dev_sites) our team to receive your quote and a paid license.
+Our pricing model is simple: Unlimited scanning for a flat annual license fee, full support included. There are no tiers, usage charges, or extra fees. [Contact](https://scanbot.io/contact-sales/?utm_source=github.com&utm_medium=referral&utm_campaign=dev_sites) our team to receive your quote and a paid license.
 
 ### Other supported platforms
 

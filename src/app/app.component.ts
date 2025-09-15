@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Directory, Filesystem } from '@capacitor/filesystem';
-import { StatusBar, Style } from '@capacitor/status-bar';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { environment } from 'src/environments/environment';
-
-import { Colors } from 'src/theme/theme';
 
 import { ScanbotSDK, ScanbotSdkConfiguration } from 'capacitor-plugin-scanbot-sdk';
 
@@ -19,7 +16,7 @@ export class AppComponent implements OnInit {
    * Please note: The Scanbot SDK will run without a license key for one minute per session!
    * After the trial period has expired, all SDK functions and UI components will stop working.
    * You can get a free "no-strings-attached" trial license.
-   * Please submit the trial license form (https://scanbot.io/trial/) on our website using
+   * Please submit the trial license form (https://docs.scanbot.io/trial/) on our website using
    * the app identifier "io.scanbot.example.sdk.capacitor" of this example app
    * or of your app (see capacitor.config.ts).
    */
@@ -31,7 +28,7 @@ export class AppComponent implements OnInit {
    * However, for demo purposes we overwrite the "storageBaseDirectory" of the Scanbot SDK by a custom storage directory.
    *
    * For more details about the storage system of the Scanbot SDK Capacitor Module please see our docs:
-   * - https://docs.scanbot.io/document-scanner-sdk/capacitor/introduction/
+   * - https://docs.scanbot.io/capacitor/document-scanner-sdk/introduction/
    *
    * For more details about the file system on Android and iOS we also recommend to check out:
    * - https://developer.android.com/training/data-storage
@@ -44,11 +41,7 @@ export class AppComponent implements OnInit {
 
   public static readonly FILE_ENCRYPTION_ENABLED: boolean = false;
 
-  constructor() {
-    StatusBar.setStyle({ style: Style.Dark });
-    StatusBar.setBackgroundColor({ color: Colors.scanbotRed });
-    StatusBar.setOverlaysWebView({ overlay: false });
-  }
+  constructor() {}
 
   ngOnInit(): void {
     this.initScanbotSdk();

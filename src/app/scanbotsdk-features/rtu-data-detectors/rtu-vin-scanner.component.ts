@@ -2,11 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 
-import { Colors } from '../../../theme/theme';
 import { Feature } from '../../utils/scanbot-utils';
 import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature-component/scanbotsdk-feature.component';
 
-import { ScanbotSDK, VinScannerConfiguration } from 'capacitor-plugin-scanbot-sdk';
+import { startVINScanner, VinScannerScreenConfiguration } from 'capacitor-plugin-scanbot-sdk/ui_v2';
 
 @Component({
   selector: 'app-rtu-vin-scanner',
@@ -26,13 +25,12 @@ export class RtuVinScannerComponent extends ScanbotSdkFeatureComponent {
     }
 
     try {
-      const configuration: VinScannerConfiguration = {
-        topBarBackgroundColor: Colors.scanbotRed,
-        finderLineColor: Colors.scanbotRed,
-        // Other UI configs...
-      };
+      const configuration = new VinScannerScreenConfiguration();
+      configuration.confirmationAlertDialogEnabled = false;
 
-      const result = await ScanbotSDK.startVinScanner(configuration);
+      // Configure other parameters as needed.
+
+      const result = await startVINScanner(configuration);
 
       /**
        * Handle the result if the result status is OK

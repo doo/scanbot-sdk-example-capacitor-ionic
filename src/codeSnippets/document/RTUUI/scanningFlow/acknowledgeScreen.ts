@@ -31,8 +31,7 @@ async function startScanning() {
      */
     configuration.screens.camera.acknowledgement.bottomBar.acceptWhenNotOkButton.visible = false;
     /** Hide the titles of the buttons. */
-    configuration.screens.camera.acknowledgement.bottomBar.acceptWhenNotOkButton.title.visible =
-      false;
+    configuration.screens.camera.acknowledgement.bottomBar.acceptWhenNotOkButton.title.visible = false;
     configuration.screens.camera.acknowledgement.bottomBar.acceptWhenOkButton.title.visible = false;
     configuration.screens.camera.acknowledgement.bottomBar.retakeButton.title.visible = false;
     /** Configure the acknowledgment screen's hint message which is shown if the least acceptable quality is not met. */

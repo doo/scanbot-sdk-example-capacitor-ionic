@@ -5,7 +5,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { ScanResultFieldsPage, ScanResultSection } from './scan-result-page/scan-result.page';
 
-import { DocumentDataExtractionResult } from 'capacitor-plugin-scanbot-sdk';
+import { GenericDocument } from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
   selector: 'app-document-data-extractor-result',
@@ -16,37 +16,37 @@ import { DocumentDataExtractionResult } from 'capacitor-plugin-scanbot-sdk';
 export class DocumentDataExtractorResultPage extends ScanResultFieldsPage {
   override pageTitle: string = 'Document Data Result';
 
-  private extractedDocuments!: DocumentDataExtractionResult[];
+  private status!: string;
+  private extractedDocument!: GenericDocument;
+  private croppedImage?: string | null;
 
   constructor() {
     super();
   }
 
   override async ngOnInit() {
-    const serializedDocuments: any[] = JSON.parse(
-      this.activatedRoute.snapshot.paramMap.get('documents') as string,
+    this.status = this.activatedRoute.snapshot.paramMap.get('status') as string;
+
+    const serializedDocument = JSON.parse(
+      this.activatedRoute.snapshot.paramMap.get('document') as string,
     );
-    this.extractedDocuments = serializedDocuments.map(
-      (item) => new DocumentDataExtractionResult(item),
-    );
+    this.extractedDocument = new GenericDocument(serializedDocument);
+
+    this.croppedImage = this.activatedRoute.snapshot.paramMap.get('image');
 
     super.ngOnInit();
   }
 
   override loadResultFields(): Array<ScanResultSection> {
-    let results: Array<ScanResultSection> = [];
-
-    this.extractedDocuments.forEach((documentResult) => {
-      if (documentResult.document != null) {
-        results = results.concat(
-          this.scanbotUtils.transformGenericDocument(documentResult.document, {
-            includeConfidence: true,
-            includeHeader: true,
-          }),
-        );
-      }
-    });
-
-    return results;
+    return [
+      {
+        image: this.croppedImage,
+        data: [{ key: 'Status', value: this.status }],
+      },
+      ...this.scanbotUtils.transformGenericDocument(this.extractedDocument, {
+        includeConfidence: true,
+        includeHeader: true,
+      }),
+    ];
   }
 }
