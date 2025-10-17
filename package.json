@@ -1,6 +1,6 @@
 {
   "name": "scanbot-example-sdk-capacitor",
-  "version": "7.1.0",
+  "version": "7.1.1",
   "author": "Scanbot SDK",
   "homepage": "https://scanbot.io",
   "description": "Scanbot SDK Example App for Capacitor with Angular",
@@ -35,7 +35,7 @@
     "@capacitor/status-bar": "7.0.2",
     "@capawesome/capacitor-file-picker": "7.0.1",
     "@ionic/angular": "^8.0.0",
-    "capacitor-plugin-scanbot-sdk": "7.1.0",
+    "capacitor-plugin-scanbot-sdk": "7.1.1-rc.1",
     "ionicons": "^7.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
