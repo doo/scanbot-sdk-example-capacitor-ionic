@@ -65,7 +65,7 @@ export class HomePage {
 
   async showOCRConfigs() {
     try {
-      // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+      // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
       if (await this.isLicenseValid()) {
         this.utils.showOCRConfigs(await ScanbotSDK.getOcrConfigs());
       }
@@ -76,7 +76,7 @@ export class HomePage {
 
   async cleanup() {
     try {
-      // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+      // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
       if (await this.isLicenseValid()) {
         await ScanbotSDK.cleanupStorage();
         this.utils.showInfoAlert('Storage has been cleared !');

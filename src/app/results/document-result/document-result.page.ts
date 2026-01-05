@@ -3,6 +3,12 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ActionSheetController, IonicModule, NavController } from '@ionic/angular';
+
+import { CommonUtils } from '../../utils/common-utils';
+import { FileUtils } from '../../utils/file-utils';
+import { ImageUtils } from '../../utils/image-utils';
+import { ScanbotUtils } from 'src/app/utils/scanbot-utils';
+
 import {
   AddPageOptions,
   DocumentData,
@@ -17,10 +23,6 @@ import {
   ScanbotTiffGenerator,
   TiffGeneratorParameters,
 } from 'capacitor-plugin-scanbot-sdk';
-import { CommonUtils } from '../../utils/common-utils';
-import { FileUtils } from '../../utils/file-utils';
-import { ImageUtils } from '../../utils/image-utils';
-import { ScanbotUtils } from 'src/app/utils/scanbot-utils';
 
 interface PageDataResult {
   page: PageData;
@@ -60,7 +62,7 @@ export class DocumentResultPage implements OnInit {
 
   async onContinueScanning() {
     try {
-      // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+      // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
       if (!(await this.isLicenseValid())) {
         return;
       }
@@ -82,12 +84,12 @@ export class DocumentResultPage implements OnInit {
 
   async onAddPage() {
     try {
-      // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+      // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
       if (!(await this.isLicenseValid())) {
         return;
       }
 
-      // Select image from the library
+      // Select an image from the library
       const imageFileUri = await this.imageUtils.selectImageFromLibrary();
       if (!imageFileUri) {
         return;
@@ -151,7 +153,7 @@ export class DocumentResultPage implements OnInit {
 
   async onSavePDF(sandwichedPDF: boolean = false) {
     try {
-      // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+      // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
       if (!(await this.isLicenseValid())) {
         return;
       }
@@ -187,7 +189,7 @@ export class DocumentResultPage implements OnInit {
 
   async onSaveTiff(binarized: boolean) {
     try {
-      // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+      // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
       if (!(await this.isLicenseValid())) {
         return;
       }
@@ -232,7 +234,7 @@ export class DocumentResultPage implements OnInit {
 
   private async loadDocument(id: string) {
     try {
-      // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+      // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
       if (!(await this.isLicenseValid())) {
         return;
       }

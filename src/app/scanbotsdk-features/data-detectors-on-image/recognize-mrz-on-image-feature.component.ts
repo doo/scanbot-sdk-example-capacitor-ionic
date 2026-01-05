@@ -19,12 +19,12 @@ export class RecognizeMrzOnImageFeature extends ScanbotSdkFeatureComponent {
   };
 
   override async featureClicked() {
-    // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+    // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
     if (!(await this.isLicenseValid())) {
       return;
     }
 
-    // Select image from the library
+    // Select an image from the library
     const imageFileUri = await this.imageUtils.selectImageFromLibrary();
     if (!imageFileUri) {
       return;

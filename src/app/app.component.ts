@@ -61,8 +61,7 @@ export class AppComponent implements OnInit {
     });
 
     try {
-      const result = await ScanbotSDK.initialize(configuration);
-      console.log(result);
+      console.log(await ScanbotSDK.initialize(configuration));
     } catch (error: any) {
       console.error(error);
     }

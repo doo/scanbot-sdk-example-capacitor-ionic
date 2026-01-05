@@ -15,7 +15,6 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/angular/standalone';
-
 import { addIcons } from 'ionicons';
 import { colorFilter, crop, trash } from 'ionicons/icons';
 
@@ -87,7 +86,7 @@ export class PageResultPage implements OnInit {
 
   async crop() {
     try {
-      // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+      // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
       if (!(await this.isLicenseValid())) {
         return;
       }
@@ -112,7 +111,7 @@ export class PageResultPage implements OnInit {
 
   async applyFilter() {
     try {
-      // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+      // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
       if (!(await this.isLicenseValid())) {
         return;
       }
@@ -141,7 +140,7 @@ export class PageResultPage implements OnInit {
 
   async removePage() {
     try {
-      // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+      // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
       if (!(await this.isLicenseValid())) {
         return;
       }
@@ -173,7 +172,7 @@ export class PageResultPage implements OnInit {
 
   private async loadDocument(documentID: string, pageID: string) {
     try {
-      // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+      // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
       if (!(await this.isLicenseValid())) {
         return;
       }

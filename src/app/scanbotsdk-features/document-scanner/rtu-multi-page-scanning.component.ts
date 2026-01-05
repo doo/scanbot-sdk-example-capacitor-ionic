@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
+
 import { Colors } from '../../../theme/theme';
 import { Feature } from '../../utils/scanbot-utils';
-
 import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature-component/scanbotsdk-feature.component';
+
 import { DocumentScanningFlow, ScanbotDocument } from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
@@ -20,7 +21,7 @@ export class RtuMultiPageScanningComponent extends ScanbotSdkFeatureComponent {
 
   override async featureClicked(): Promise<void> {
     try {
-      // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+      // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
       if (!(await this.isLicenseValid())) {
         return;
       }

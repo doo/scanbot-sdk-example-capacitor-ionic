@@ -4,6 +4,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { Colors } from 'src/theme/theme';
 import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature-component/scanbotsdk-feature.component';
+
 import {
   MrzScannerScreenConfiguration,
   ScanbotMrz,
@@ -20,7 +21,7 @@ export class RtuMrzScannerFeature extends ScanbotSdkFeatureComponent {
   override feature = { title: 'Scan MRZ' };
 
   override async featureClicked() {
-    // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+    // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
     if (!(await this.isLicenseValid())) {
       return;
     }

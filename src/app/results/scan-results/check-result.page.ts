@@ -2,7 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+
 import { ScanResultFieldsPage, ScanResultSection } from './scan-result-page/scan-result.page';
+
 import { autorelease, GenericDocument, ImageRef } from 'capacitor-plugin-scanbot-sdk';
 
 @Component({

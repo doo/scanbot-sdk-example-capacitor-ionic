@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
+
 import { Colors } from 'src/theme/theme';
 import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature-component/scanbotsdk-feature.component';
+
 import {
   ScanbotTextPattern,
   TextPatternScannerScreenConfiguration,
@@ -18,7 +20,7 @@ export class RtuTextPatternScannerFeature extends ScanbotSdkFeatureComponent {
   override feature = { title: 'Scan Text Pattern' };
 
   override async featureClicked() {
-    // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+    // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
     if (!(await this.isLicenseValid())) {
       return;
     }
@@ -34,6 +36,7 @@ export class RtuTextPatternScannerFeature extends ScanbotSdkFeatureComponent {
       configuration.actionBar.flipCameraButton.visible = false;
       configuration.actionBar.flashButton.activeForegroundColor = Colors.scanbotRed;
 
+      // Configure the scanner
       configuration.scannerConfiguration.minimumNumberOfRequiredFramesWithEqualScanningResult = 3;
 
       // Configure other parameters as needed.
