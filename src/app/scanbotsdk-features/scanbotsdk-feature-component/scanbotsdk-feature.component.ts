@@ -33,7 +33,7 @@ export class ScanbotSdkFeatureComponent {
     try {
       const result = await ScanbotSDK.getLicenseInfo();
 
-      if (result.isLicenseValid) {
+      if (result.isValid) {
         // Scanbot SDK License is valid and all features can be accessed.
         // E.g., launch the Document Scanner
         return true;

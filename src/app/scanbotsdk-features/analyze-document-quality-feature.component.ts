@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-
 import { ScanbotSdkFeatureComponent } from './scanbotsdk-feature-component/scanbotsdk-feature.component';
-
-import { DocumentQualityAnalyzerConfiguration, ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
+import {
+  DocumentQualityAnalyzerConfiguration,
+  ScanbotDocument,
+} from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
   selector: 'app-analyze-document-quality',
@@ -37,7 +38,10 @@ export class AnalyzeDocumentQualityFeature extends ScanbotSdkFeatureComponent {
 
       // Configure other parameters as needed.
 
-      const result = await ScanbotSDK.documentQualityAnalyzer(imageFileUri, configuration);
+      const result = await ScanbotDocument.analyzeQualityOnImage({
+        image: imageFileUri,
+        configuration,
+      });
 
       await this.utils.dismissLoader();
 

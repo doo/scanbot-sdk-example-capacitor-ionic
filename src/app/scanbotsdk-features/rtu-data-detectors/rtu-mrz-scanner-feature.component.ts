@@ -4,12 +4,11 @@ import { IonicModule } from '@ionic/angular';
 
 import { Colors } from 'src/theme/theme';
 import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature-component/scanbotsdk-feature.component';
-
 import {
   MrzScannerScreenConfiguration,
-  startMRZScanner,
+  ScanbotMrz,
   StyledText,
-} from 'capacitor-plugin-scanbot-sdk/ui_v2';
+} from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
   selector: 'app-rtu-mrz-scanner',
@@ -49,7 +48,7 @@ export class RtuMrzScannerFeature extends ScanbotSdkFeatureComponent {
 
       // Configure other parameters as needed.
 
-      const result = await startMRZScanner(configuration);
+      const result = await ScanbotMrz.startScanner(configuration);
 
       /**
        * Handle the result if the result status is OK

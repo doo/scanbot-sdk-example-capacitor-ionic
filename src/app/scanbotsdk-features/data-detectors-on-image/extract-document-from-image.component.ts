@@ -8,12 +8,8 @@ import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature-component/scan
 import {
   DocumentDataExtractorCommonConfiguration,
   DocumentDataExtractorConfiguration,
-  DeIdCardFrontDocumentType,
-  DeIdCardBackDocumentType,
-  DeResidencePermitBackDocumentType,
-  DeResidencePermitFrontDocumentType,
   MrzFallbackConfiguration,
-  ScanbotSDK,
+  ScanbotDocumentDataExtractor,
 } from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
@@ -56,7 +52,10 @@ export class ExtractDocumentDataFromImageFeature extends ScanbotSdkFeatureCompon
         configurations: [commonConfig, mrzFallbackConfiguration],
       });
 
-      const result = await ScanbotSDK.documentDataExtractor(imageFileUri, configuration);
+      const result = await ScanbotDocumentDataExtractor.extractFromImage({
+        image: imageFileUri,
+        configuration,
+      });
       this.utils.dismissLoader();
 
       /**

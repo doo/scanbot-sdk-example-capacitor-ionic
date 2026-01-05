@@ -1,11 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-
 import { Feature } from 'src/app/utils/scanbot-utils';
 import { ScanbotSdkFeatureComponent } from './scanbotsdk-feature-component/scanbotsdk-feature.component';
-
-import { ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
+import { ScanbotOcrEngine } from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
   selector: 'app-perform-ocr-on-image',
@@ -33,9 +31,9 @@ export class PerformOcrOnImageFeature extends ScanbotSdkFeatureComponent {
     try {
       await this.utils.showLoader();
 
-      const result = await ScanbotSDK.performOCR({
-        imageFileUris: [imageFileUri],
-        ocrConfiguration: {
+      const result = await ScanbotOcrEngine.recognizeOnImages({
+        images: [imageFileUri],
+        configuration: {
           engineMode: 'SCANBOT_OCR',
         },
       });
@@ -44,7 +42,7 @@ export class PerformOcrOnImageFeature extends ScanbotSdkFeatureComponent {
 
       // Handle the results if there are any recognized pages.
       if (result.pages.length > 0) {
-        this.utils.showResultInfo(result.plainText);
+        this.utils.showResultInfo(result.recognizedText);
       } else {
         this.utils.showWarningAlert('Recognition returned no results.');
       }

@@ -5,7 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { Feature } from 'src/app/utils/scanbot-utils';
 import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature-component/scanbotsdk-feature.component';
 
-import { CheckScannerConfiguration, ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
+import { CheckScannerConfiguration, ScanbotCheck } from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
   selector: 'app-recognize-check-on-image',
@@ -42,7 +42,10 @@ export class RecognizeCheckOnImageFeature extends ScanbotSdkFeatureComponent {
        * Configure other parameters as needed.
        */
 
-      const result = await ScanbotSDK.recognizeCheck(imageFileUri, configuration);
+      const result = await ScanbotCheck.scanFromImage({
+        image: imageFileUri,
+        configuration,
+      });
       this.utils.dismissLoader();
       /**
        * Handle the result if a check is found

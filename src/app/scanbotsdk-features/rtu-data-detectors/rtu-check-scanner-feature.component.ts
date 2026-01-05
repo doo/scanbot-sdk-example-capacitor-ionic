@@ -1,15 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-
 import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature-component/scanbotsdk-feature.component';
-
-import { autorelease } from 'capacitor-plugin-scanbot-sdk';
-
 import {
+  autorelease,
   CheckScannerScreenConfiguration,
-  startCheckScanner,
-} from 'capacitor-plugin-scanbot-sdk/ui_v2';
+  ScanbotCheck,
+} from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
   selector: 'app-rtu-check-scanner',
@@ -34,7 +31,7 @@ export class RtuCheckScannerFeature extends ScanbotSdkFeatureComponent {
 
       // An autorelease pool is required only because the result object contains image references.
       await autorelease(async () => {
-        const result = await startCheckScanner(configuration);
+        const result = await ScanbotCheck.startScanner(configuration);
 
         /**
          * Handle the result if the result status is OK

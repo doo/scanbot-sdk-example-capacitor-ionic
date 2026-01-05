@@ -1,8 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Capacitor } from '@capacitor/core';
 import { AlertController, AlertOptions, LoadingController } from '@ionic/angular';
-
-import { LicenseInfoResult, OCRConfigsResult } from 'capacitor-plugin-scanbot-sdk';
+import { LicenseInfo, OcrConfigsResult } from 'capacitor-plugin-scanbot-sdk';
 
 @Injectable({
   providedIn: 'root',
@@ -47,11 +46,11 @@ export class CommonUtils {
     });
   }
 
-  async showLicenseInfo(info: LicenseInfoResult) {
+  async showLicenseInfo(info: LicenseInfo) {
     const formattedText =
-      `• The license is ${info.isLicenseValid ? 'VALID' : 'NOT VALID'}` +
-      `<br />• Expiration Date: ${info.licenseExpirationDate ? new Date(info.licenseExpirationDate).toDateString() : 'N/A'}` +
-      `<br />• Status: ${info.licenseStatus}`;
+      `• The license is ${info.isValid ? 'VALID' : 'NOT VALID'}` +
+      `<br />• Expiration Date: ${info.expirationDateString}` +
+      `<br />• Status: ${info.licenseStatusMessage}`;
 
     await this.showAlert({
       header: 'License',
@@ -60,7 +59,7 @@ export class CommonUtils {
     });
   }
 
-  async showOCRConfigs(info: OCRConfigsResult) {
+  async showOCRConfigs(info: OcrConfigsResult) {
     await this.showAlert({
       header: 'OCR',
       message:
@@ -71,7 +70,7 @@ export class CommonUtils {
   }
 
   async showLoader(message?: string | undefined) {
-    (
+    await (
       await this.loadingController.create({
         message: message !== undefined ? message : 'Please wait ...',
       })

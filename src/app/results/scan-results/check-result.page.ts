@@ -2,9 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-
 import { ScanResultFieldsPage, ScanResultSection } from './scan-result-page/scan-result.page';
-
 import { autorelease, GenericDocument, ImageRef } from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
@@ -40,7 +38,7 @@ export class CheckResultPage extends ScanResultFieldsPage {
     const imageRefId = this.activatedRoute.snapshot.paramMap.get('imageRefId');
     if (imageRefId) {
       await autorelease(async () => {
-        this.croppedImage = await ImageRef.From({
+        this.croppedImage = await ImageRef.from({
           uniqueId: imageRefId,
         }).encodeImage();
       });

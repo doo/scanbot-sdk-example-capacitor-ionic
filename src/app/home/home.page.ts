@@ -1,9 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-
 import { ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
-
 import { CommonUtils } from '../utils/common-utils';
 import { ScanbotUtils } from '../utils/scanbot-utils';
 
@@ -11,7 +9,6 @@ import { AnalyzeDocumentQualityFeature } from '../scanbotsdk-features/analyze-do
 import { ExtractDocumentDataFromImageFeature } from '../scanbotsdk-features/data-detectors-on-image/extract-document-from-image.component';
 import { RecognizeCheckOnImageFeature } from '../scanbotsdk-features/data-detectors-on-image/recognize-check-on-image-feature.component';
 import { RecognizeCreditCardOnImageFeature } from '../scanbotsdk-features/data-detectors-on-image/recognize-credit-card-on-image-feature.component';
-import { RecognizeMedicalCertificateOnImageFeature } from '../scanbotsdk-features/data-detectors-on-image/recognize-medical-certificate-on-image-feature.component';
 import { RecognizeMrzOnImageFeature } from '../scanbotsdk-features/data-detectors-on-image/recognize-mrz-on-image-feature.component';
 import { CreateDocumentFromGalleryComponent } from '../scanbotsdk-features/document-scanner/create-document-from-image.component';
 import { RtuMultiPageScanningComponent } from '../scanbotsdk-features/document-scanner/rtu-multi-page-scanning.component';
@@ -21,7 +18,6 @@ import { PerformOcrOnImageFeature } from '../scanbotsdk-features/perform-ocr-on-
 import { RtuCheckScannerFeature } from '../scanbotsdk-features/rtu-data-detectors/rtu-check-scanner-feature.component';
 import { RtuCreditCardScannerFeature } from '../scanbotsdk-features/rtu-data-detectors/rtu-credit-card-scanner-feature.component';
 import { RtuDocumentDataExtractorFeature } from '../scanbotsdk-features/rtu-data-detectors/rtu-document-data-extractor-feature.component';
-import { RtuMedicalCertificateScannerFeature } from '../scanbotsdk-features/rtu-data-detectors/rtu-medical-certificate-scanner-feature.component';
 import { RtuMrzScannerFeature } from '../scanbotsdk-features/rtu-data-detectors/rtu-mrz-scanner-feature.component';
 import { RtuTextPatternScannerFeature } from '../scanbotsdk-features/rtu-data-detectors/rtu-text-pattern-scanner-feature.component';
 import { RtuVinScannerComponent } from '../scanbotsdk-features/rtu-data-detectors/rtu-vin-scanner.component';
@@ -39,7 +35,6 @@ import { RtuVinScannerComponent } from '../scanbotsdk-features/rtu-data-detector
     RtuMultiPageScanningComponent,
     CreateDocumentFromGalleryComponent,
     RtuMrzScannerFeature,
-    RtuMedicalCertificateScannerFeature,
     RtuCheckScannerFeature,
     RtuVinScannerComponent,
     RtuCreditCardScannerFeature,
@@ -47,7 +42,6 @@ import { RtuVinScannerComponent } from '../scanbotsdk-features/rtu-data-detector
     RtuDocumentDataExtractorFeature,
     RecognizeCheckOnImageFeature,
     RecognizeMrzOnImageFeature,
-    RecognizeMedicalCertificateOnImageFeature,
     RecognizeCreditCardOnImageFeature,
     ExtractDocumentDataFromImageFeature,
     AnalyzeDocumentQualityFeature,
@@ -55,10 +49,9 @@ import { RtuVinScannerComponent } from '../scanbotsdk-features/rtu-data-detector
   ],
 })
 export class HomePage {
+  readonly currentYear = new Date().getFullYear();
   private scanbotUtils = inject(ScanbotUtils);
   private utils = inject(CommonUtils);
-
-  readonly currentYear = new Date().getFullYear();
 
   constructor() {}
 
@@ -74,7 +67,7 @@ export class HomePage {
     try {
       // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
       if (await this.isLicenseValid()) {
-        this.utils.showOCRConfigs(await ScanbotSDK.getOCRConfigs());
+        this.utils.showOCRConfigs(await ScanbotSDK.getOcrConfigs());
       }
     } catch (e: any) {
       this.utils.showErrorAlert(e.message);
@@ -85,7 +78,7 @@ export class HomePage {
     try {
       // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
       if (await this.isLicenseValid()) {
-        await ScanbotSDK.cleanup();
+        await ScanbotSDK.cleanupStorage();
         this.utils.showInfoAlert('Storage has been cleared !');
       }
     } catch (e: any) {
@@ -96,7 +89,7 @@ export class HomePage {
   private async isLicenseValid(): Promise<boolean> {
     const licenseInfo = await ScanbotSDK.getLicenseInfo();
 
-    if (licenseInfo.isLicenseValid) {
+    if (licenseInfo.isValid) {
       // We have a valid (trial) license and can call other Scanbot SDK methods.
       // E.g. launch the Document Scanner
       return true;

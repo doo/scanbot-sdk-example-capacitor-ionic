@@ -1,11 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-
 import { Feature } from '../../utils/scanbot-utils';
 import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature-component/scanbotsdk-feature.component';
-
-import { startVINScanner, VinScannerScreenConfiguration } from 'capacitor-plugin-scanbot-sdk/ui_v2';
+import { ScanbotVin, VinScannerScreenConfiguration } from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
   selector: 'app-rtu-vin-scanner',
@@ -30,7 +28,7 @@ export class RtuVinScannerComponent extends ScanbotSdkFeatureComponent {
 
       // Configure other parameters as needed.
 
-      const result = await startVINScanner(configuration);
+      const result = await ScanbotVin.startScanner(configuration);
 
       /**
        * Handle the result if the result status is OK

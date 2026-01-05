@@ -5,7 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { Feature } from 'src/app/utils/scanbot-utils';
 import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature-component/scanbotsdk-feature.component';
 
-import { MrzScannerConfiguration, ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
+import { MrzScannerConfiguration, ScanbotMrz } from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
   selector: 'app-recognize-mrz-on-image',
@@ -38,7 +38,10 @@ export class RecognizeMrzOnImageFeature extends ScanbotSdkFeatureComponent {
 
       // Configure other parameters as needed.
 
-      const result = await ScanbotSDK.recognizeMrz(imageFileUri, configuration);
+      const result = await ScanbotMrz.scanFromImage({
+        image: imageFileUri,
+        configuration,
+      });
 
       this.utils.dismissLoader();
 

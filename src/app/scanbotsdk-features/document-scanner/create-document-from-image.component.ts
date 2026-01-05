@@ -4,7 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { Feature } from '../../utils/scanbot-utils';
 import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature-component/scanbotsdk-feature.component';
 
-import { ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
+import { CreateDocumentOptions, ScanbotDocument } from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
   selector: 'app-create-document-from-image',
@@ -33,9 +33,11 @@ export class CreateDocumentFromGalleryComponent extends ScanbotSdkFeatureCompone
       await this.utils.showLoader();
 
       /** Create a document object */
-      const documentResult = await ScanbotSDK.Document.createDocument({
-        imageFileUris: [imageFileUri],
-        documentDetection: true,
+      let documentResult = await ScanbotDocument.createDocumentFromImages({
+        images: [imageFileUri],
+        options: new CreateDocumentOptions({
+          documentDetection: true,
+        }),
       });
 
       /** Handle the result if the result status is OK */

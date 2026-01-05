@@ -1,14 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-
 import { Colors } from 'src/theme/theme';
 import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature-component/scanbotsdk-feature.component';
-
 import {
+  ScanbotTextPattern,
   TextPatternScannerScreenConfiguration,
-  startTextPatternScanner,
-} from 'capacitor-plugin-scanbot-sdk/ui_v2';
+} from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
   selector: 'app-rtu-text-pattern-scanner',
@@ -40,7 +38,7 @@ export class RtuTextPatternScannerFeature extends ScanbotSdkFeatureComponent {
 
       // Configure other parameters as needed.
 
-      const result = await startTextPatternScanner(configuration);
+      const result = await ScanbotTextPattern.startScanner(configuration);
 
       /**
        * Handle the result if the result status is OK

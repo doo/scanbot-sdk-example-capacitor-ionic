@@ -3,7 +3,7 @@ import { Directory, Filesystem } from '@capacitor/filesystem';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { environment } from 'src/environments/environment';
 
-import { ScanbotSDK, ScanbotSdkConfiguration } from 'capacitor-plugin-scanbot-sdk';
+import { ScanbotSDK, SdkConfiguration } from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +11,7 @@ import { ScanbotSDK, ScanbotSdkConfiguration } from 'capacitor-plugin-scanbot-sd
   imports: [IonApp, IonRouterOutlet],
 })
 export class AppComponent implements OnInit {
+  public static readonly FILE_ENCRYPTION_ENABLED: boolean = false;
   /*
    * TODO add the license key here.
    * Please note: The Scanbot SDK will run without a license key for one minute per session!
@@ -39,8 +40,6 @@ export class AppComponent implements OnInit {
     directory: Directory.External,
   });
 
-  public static readonly FILE_ENCRYPTION_ENABLED: boolean = false;
-
   constructor() {}
 
   ngOnInit(): void {
@@ -48,22 +47,21 @@ export class AppComponent implements OnInit {
   }
 
   private async initScanbotSdk() {
-    const configuration: ScanbotSdkConfiguration = {
+    const configuration = new SdkConfiguration({
       licenseKey: this.licenseKey,
       loggingEnabled: !environment.production,
       storageImageFormat: 'JPG', // Format of stored images
       storageImageQuality: 80, // Quality of stored images
       // storageBaseDirectory: (await this.storageBaseDirectoryUri).uri, // Custom storage path
-      documentScannerEngineMode: 'ML', // The engine used to detect documents,
       fileEncryptionMode: AppComponent.FILE_ENCRYPTION_ENABLED ? 'AES256' : undefined,
       fileEncryptionPassword: AppComponent.FILE_ENCRYPTION_ENABLED
         ? 'SomeSecretPa$$w0rdForFileEncryption'
         : undefined,
       // see further config parameters
-    };
+    });
 
     try {
-      const result = await ScanbotSDK.initializeSDK(configuration);
+      const result = await ScanbotSDK.initialize(configuration);
       console.log(result);
     } catch (error: any) {
       console.error(error);

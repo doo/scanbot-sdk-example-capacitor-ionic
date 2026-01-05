@@ -25,13 +25,6 @@ export const routes: Routes = [
       import('./results/scan-results/credit-card-result.page').then((m) => m.CreditCardResultPage),
   },
   {
-    path: 'medical-certificate-result/:medicalCert',
-    loadComponent: () =>
-      import('./results/scan-results/medical-certificate-result.page').then(
-        (m) => m.MedicalCertificateResultPage,
-      ),
-  },
-  {
     path: 'mrz-result/:rawMRZ/:mrzDocument',
     loadComponent: () =>
       import('./results/scan-results/mrz-result.page').then((m) => m.MrzResultPage),

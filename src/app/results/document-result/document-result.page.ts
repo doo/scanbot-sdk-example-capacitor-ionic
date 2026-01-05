@@ -2,18 +2,21 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Capacitor } from '@capacitor/core';
 import { ActionSheetController, IonicModule, NavController } from '@ionic/angular';
 import {
+  AddPageOptions,
   DocumentData,
-  OCRConfiguration,
+  DocumentScanningFlow,
+  OcrConfiguration,
   PageData,
   PdfConfiguration,
   ScanbotBinarizationFilter,
+  ScanbotDocument,
+  ScanbotPdfGenerator,
   ScanbotSDK,
+  ScanbotTiffGenerator,
   TiffGeneratorParameters,
 } from 'capacitor-plugin-scanbot-sdk';
-import { DocumentScanningFlow, startDocumentScanner } from 'capacitor-plugin-scanbot-sdk/ui_v2';
 import { CommonUtils } from '../../utils/common-utils';
 import { FileUtils } from '../../utils/file-utils';
 import { ImageUtils } from '../../utils/image-utils';
@@ -51,40 +54,8 @@ export class DocumentResultPage implements OnInit {
     });
   }
 
-  private async updateCurrentDocument(updatedDocument: DocumentData) {
-    this.document = updatedDocument;
-
-    this.pageImagePreviews = await Promise.all(
-      this.document.pages.map(
-        async (page) =>
-          ({
-            page: page,
-            pagePreview: await this.scanbotUtils.getPageDataPreview(page),
-          }) as PageDataResult,
-      ),
-    );
-  }
-
   async onPageSelect(page: PageData) {
     await this.navController.navigateForward(['/page-result', this.document.uuid, page.uuid]);
-  }
-
-  private async loadDocument(id: string) {
-    try {
-      // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
-      if (!(await this.isLicenseValid())) {
-        return;
-      }
-
-      /** Load the document from disc */
-      const documentResult = await ScanbotSDK.Document.loadDocument({
-        documentID: id,
-      });
-
-      await this.updateCurrentDocument(documentResult);
-    } catch (e: any) {
-      await this.utils.showErrorAlert(e.message);
-    }
   }
 
   async onContinueScanning() {
@@ -101,7 +72,7 @@ export class DocumentResultPage implements OnInit {
       configuration.documentUuid = this.document.uuid;
       configuration.cleanScanningSession = false;
 
-      await startDocumentScanner(configuration);
+      await ScanbotDocument.startScanner(configuration);
 
       this.loadDocument(this.document.uuid);
     } catch (e: any) {
@@ -125,10 +96,10 @@ export class DocumentResultPage implements OnInit {
       await this.utils.showLoader();
 
       /** Add a page to the document */
-      const documentResult = await ScanbotSDK.Document.addPage({
+      const documentResult = await ScanbotDocument.addPages({
         documentID: this.document.uuid,
-        imageFileUri,
-        documentDetection: true,
+        images: [imageFileUri],
+        options: new AddPageOptions({ documentDetection: true }),
       });
       /**
        * Handle the result
@@ -178,20 +149,6 @@ export class DocumentResultPage implements OnInit {
     await actionSheet.present();
   }
 
-  private async isLicenseValid() {
-    const licenseInfo = await ScanbotSDK.getLicenseInfo();
-
-    if (licenseInfo.isLicenseValid) {
-      // We have a valid (trial) license and can call other Scanbot SDK methods.
-      // E.g. launch the Document Scanner
-      return true;
-    } else {
-      // The license is not valid. We will return false and show the status
-      this.utils.showWarningAlert(licenseInfo.licenseStatusMessage ?? 'Invalid License');
-      return false;
-    }
-  }
-
   async onSavePDF(sandwichedPDF: boolean = false) {
     try {
       // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
@@ -200,7 +157,7 @@ export class DocumentResultPage implements OnInit {
       }
       await this.utils.showLoader();
 
-      const ocrConfiguration: OCRConfiguration | undefined = sandwichedPDF
+      const ocrConfiguration: OcrConfiguration | undefined = sandwichedPDF
         ? {
             engineMode: 'SCANBOT_OCR',
           }
@@ -212,7 +169,7 @@ export class DocumentResultPage implements OnInit {
       /**
        * Create a PDF with the provided option
        */
-      const result = await ScanbotSDK.Document.createPDF({
+      const pdfFileUri = await ScanbotPdfGenerator.generateFromDocument({
         documentID: this.document.uuid,
         pdfConfiguration: pdfConfiguration,
         ocrConfiguration: ocrConfiguration,
@@ -220,7 +177,7 @@ export class DocumentResultPage implements OnInit {
       /**
        * Handle the result by displaying an action sheet
        */
-      await this.fileUtils.openPdfFile(result.pdfFileUri);
+      await this.fileUtils.openPdfFile(pdfFileUri);
     } catch (e: any) {
       await this.utils.showErrorAlert(e.message);
     } finally {
@@ -244,18 +201,62 @@ export class DocumentResultPage implements OnInit {
       /**
        * Create a tiff file from the document
        */
-      const result = await ScanbotSDK.Document.createTIFF({
+      const tiffFileUri = await ScanbotTiffGenerator.generateFromDocument({
         documentID: this.document.uuid,
         configuration: tiffConfiguration,
       });
       /**
        * Handle the result by displaying an action sheet
        */
-      await this.fileUtils.openPdfFile(result.tiffFileUri);
+      await this.fileUtils.openPdfFile(tiffFileUri);
     } catch (e: any) {
       await this.utils.showErrorAlert(e.message);
     } finally {
       await this.utils.dismissLoader();
+    }
+  }
+
+  private async updateCurrentDocument(updatedDocument: DocumentData) {
+    this.document = updatedDocument;
+
+    this.pageImagePreviews = await Promise.all(
+      this.document.pages.map(
+        async (page) =>
+          ({
+            page: page,
+            pagePreview: await this.scanbotUtils.getPageDataPreview(page),
+          }) as PageDataResult,
+      ),
+    );
+  }
+
+  private async loadDocument(id: string) {
+    try {
+      // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+      if (!(await this.isLicenseValid())) {
+        return;
+      }
+
+      /** Load the document from disc */
+      const documentResult = await ScanbotSDK.Document.loadDocument(id);
+
+      await this.updateCurrentDocument(documentResult);
+    } catch (e: any) {
+      await this.utils.showErrorAlert(e.message);
+    }
+  }
+
+  private async isLicenseValid() {
+    const licenseInfo = await ScanbotSDK.getLicenseInfo();
+
+    if (licenseInfo.isValid) {
+      // We have a valid (trial) license and can call other Scanbot SDK methods.
+      // E.g. launch the Document Scanner
+      return true;
+    } else {
+      // The license is not valid. We will return false and show the status
+      this.utils.showWarningAlert(licenseInfo.licenseStatusMessage ?? 'Invalid License');
+      return false;
     }
   }
 }
