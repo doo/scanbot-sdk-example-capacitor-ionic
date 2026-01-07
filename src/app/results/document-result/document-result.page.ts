@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -33,7 +33,7 @@ interface PageDataResult {
   selector: 'app-document-result',
   templateUrl: './document-result.page.html',
   styleUrls: ['./document-result.page.scss'],
-  imports: [IonicModule, CommonModule, FormsModule],
+  imports: [IonicModule, FormsModule],
 })
 export class DocumentResultPage implements OnInit {
   document!: DocumentData;

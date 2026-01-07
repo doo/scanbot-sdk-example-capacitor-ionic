@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
@@ -14,7 +14,7 @@ import { ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
   selector: 'app-scanbotsdk',
   templateUrl: './scanbotsdk-feature.component.html',
   styleUrls: ['./scanbotsdk-feature.component.scss'],
-  imports: [CommonModule, IonicModule],
+  imports: [IonicModule],
 })
 export class ScanbotSdkFeatureComponent {
   @Input() feature!: Feature;
