@@ -1,22 +1,24 @@
 PODS:
-  - Capacitor (7.2.0):
+  - Capacitor (8.0.0):
     - CapacitorCordova
-  - CapacitorApp (7.0.1):
+  - CapacitorApp (8.0.0):
     - Capacitor
-  - CapacitorCamera (7.0.1):
+  - CapacitorCamera (8.0.0):
     - Capacitor
   - CapacitorCommunityFileOpener (7.0.1):
     - Capacitor
-  - CapacitorCordova (7.2.0)
-  - CapacitorFilesystem (7.0.1):
+  - CapacitorCordova (8.0.0)
+  - CapacitorFilesystem (8.0.0):
     - Capacitor
+    - IONFilesystemLib (~> 1.0.1)
   - CapacitorPluginScanbotSdk (8.0.0-beta.1):
     - Capacitor
     - ScanbotSDKNativeWrapper (= 8.0.0.1)
-  - CapacitorStatusBar (7.0.2):
+  - CapacitorStatusBar (8.0.0):
     - Capacitor
   - CapawesomeCapacitorFilePicker (7.0.1):
     - Capacitor
+  - IONFilesystemLib (1.0.1)
   - ScanbotSDK (8.0.0-RC10):
     - ScanbotSDK/NONE (= 8.0.0-RC10)
   - ScanbotSDK/NONE (8.0.0-RC10)
@@ -36,6 +38,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - IONFilesystemLib
     - ScanbotSDK
     - ScanbotSDKNativeWrapper
 
@@ -60,18 +63,19 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capawesome/capacitor-file-picker"
 
 SPEC CHECKSUMS:
-  Capacitor: 106e7a4205f4618d582b886a975657c61179138d
-  CapacitorApp: d63334c052278caf5d81585d80b21905c6f93f39
-  CapacitorCamera: eb8687d8687fed853598ec9460d94bcd5e16babe
+  Capacitor: 79e40e5e76f852965dce30406c65253fa154e24a
+  CapacitorApp: cfa0120a1f3a6f69d4d37d3041782aa5c5167d0b
+  CapacitorCamera: 05ac5bd4499ed4b8cf5358d1b4a874b385de7b4d
   CapacitorCommunityFileOpener: 9611c9d1595de7b50571717d443bb718a304b5eb
-  CapacitorCordova: 5967b9ba03915ef1d585469d6e31f31dc49be96f
-  CapacitorFilesystem: 307f97c27a265edf8396a1c9c235592fd8572fe3
+  CapacitorCordova: 5dc3912d25ef770a3fe0f431bb65c9fbfa2e92f9
+  CapacitorFilesystem: 608bca984a5b6b2cba85a2972ea22974a37659d8
   CapacitorPluginScanbotSdk: edf59a1a7de75fdfcb62955c78eeae7ee1ed2b18
-  CapacitorStatusBar: 5526833b87fa9c96a2a90c1322bb1f663c04505f
+  CapacitorStatusBar: c6fa2d404083e41d145ea56698707a6986d4428b
   CapawesomeCapacitorFilePicker: 6673764afb8768eba0197876e222adc19fd4c120
+  IONFilesystemLib: 89258b8e3e85465da93127d25d7ce37f977e8a6f
   ScanbotSDK: 2405b795325e53b2ec52203a129519800280b211
   ScanbotSDKNativeWrapper: 419091b6a8f10f018c4dc243b98f1fb50ad8e5c9
 
-PODFILE CHECKSUM: aa909a328226ff0279fd469a14f50a126136af2d
+PODFILE CHECKSUM: a08afb9254933e0858671afe9f32b9eb074d2e41
 
 COCOAPODS: 1.14.3
