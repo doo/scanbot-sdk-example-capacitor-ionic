@@ -1,8 +1,8 @@
 import {
   DocumentScanningFlow,
   PageSnapFunnelAnimation,
-  startDocumentScanner,
-} from 'capacitor-plugin-scanbot-sdk/ui_v2';
+  ScanbotDocument,
+} from 'capacitor-plugin-scanbot-sdk';
 
 async function documentScanner() {
   const configuration = new DocumentScanningFlow();
@@ -47,5 +47,5 @@ async function documentScanner() {
   // Equivalent to multiPageEnabled: false
   configuration.outputSettings.pagesScanLimit = 1;
 
-  const documentData = await startDocumentScanner(configuration);
+  const documentData = await ScanbotDocument.startScanner(configuration);
 }

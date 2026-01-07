@@ -59,7 +59,7 @@ export class PageResultPage implements OnInit {
       role: 'cancel',
     },
     {
-      text: 'Remove page?',
+      text: 'Remove page',
       role: 'destructive',
       handler: () => {
         this.removePage();
