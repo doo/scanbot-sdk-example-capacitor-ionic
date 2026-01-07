@@ -11,9 +11,9 @@
   <ion-grid>
     <ion-row class="ion-align-items-center">
       @for (pageDataResult of pageImagePreviews; track pageDataResult) {
-        <ion-col size="4">
-          <ion-img (click)="onPageSelect(pageDataResult.page)" [src]="pageDataResult.pagePreview" />
-        </ion-col>
+      <ion-col size="4">
+        <ion-img (click)="onPageSelect(pageDataResult.page)" [src]="pageDataResult.pagePreview" />
+      </ion-col>
       }
     </ion-row>
   </ion-grid>

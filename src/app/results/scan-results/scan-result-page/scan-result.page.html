@@ -9,31 +9,26 @@
 
 <ion-content [fullscreen]="true">
   @for (section of sectionListData; track section) {
-    <ion-item-group>
-      @if (section.header !== undefined) {
-        <ion-item class="section-header" lines="full">
-          <h4>{{section.header}}</h4>
-        </ion-item>
+  <ion-item-group>
+    @if (section.header !== undefined) {
+    <ion-item class="section-header" lines="full">
+      <h4>{{section.header}}</h4>
+    </ion-item>
+    } @if (section.image) {
+    <ion-item lines="full">
+      <ion-img class="mainImage" [src]="`data:image/jpeg;base64,${section.image}`" />
+    </ion-item>
+    } @for (data of section.data; track data) {
+    <ion-item>
+      @if (data.image) {
+      <ion-img class="dataImage" [src]="`data:image/jpeg;base64,${data.image}`" />
       }
-      @if (section.image) {
-        <ion-item lines="full">
-          <ion-img class="mainImage" [src]="`data:image/jpeg;base64,${section.image}`" />
-        </ion-item>
-      }
-      @for (data of section.data; track data) {
-        <ion-item>
-          @if (data.image) {
-            <ion-img
-              class="dataImage"
-              [src]="`data:image/jpeg;base64,${data.image}`"
-              />
-          }
-          <ion-col class="ion-no-padding">
-            <p style="font-weight: bold">{{data.key}}</p>
-            <p style="white-space: pre-line">{{data.value}}</p>
-          </ion-col>
-        </ion-item>
-      }
-    </ion-item-group>
+      <ion-col class="ion-no-padding">
+        <p style="font-weight: bold">{{data.key}}</p>
+        <p style="white-space: pre-line">{{data.value}}</p>
+      </ion-col>
+    </ion-item>
+    }
+  </ion-item-group>
   }
 </ion-content>

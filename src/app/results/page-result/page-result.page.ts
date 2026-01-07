@@ -1,4 +1,3 @@
-
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -45,8 +44,8 @@ import { ModifyPageOptions } from 'capacitor-plugin-scanbot-sdk/dist/esm/types/b
     IonButton,
     IonIcon,
     IonAlert,
-    IonImg
-],
+    IonImg,
+  ],
 })
 export class PageResultPage implements OnInit {
   pagePreview!: string;

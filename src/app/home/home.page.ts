@@ -1,9 +1,7 @@
-
 import { Component, inject } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
 import { CommonUtils } from '../utils/common-utils';
-import { ScanbotUtils } from '../utils/scanbot-utils';
 
 import { AnalyzeDocumentQualityFeature } from '../scanbotsdk-features/analyze-document-quality-feature.component';
 import { ExtractDocumentDataFromImageFeature } from '../scanbotsdk-features/data-detectors-on-image/extract-document-from-image.component';
@@ -44,12 +42,11 @@ import { RtuVinScannerComponent } from '../scanbotsdk-features/rtu-data-detector
     RecognizeCreditCardOnImageFeature,
     ExtractDocumentDataFromImageFeature,
     AnalyzeDocumentQualityFeature,
-    PerformOcrOnImageFeature
-],
+    PerformOcrOnImageFeature,
+  ],
 })
 export class HomePage {
   readonly currentYear = new Date().getFullYear();
-  private scanbotUtils = inject(ScanbotUtils);
   private utils = inject(CommonUtils);
 
   constructor() {}

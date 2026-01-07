@@ -18,11 +18,8 @@
     "importHelpers": true,
     "target": "es2022",
     "module": "es2020",
-    "lib": [
-      "es2019",
-      "dom"
-    ],
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "skipLibCheck": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
