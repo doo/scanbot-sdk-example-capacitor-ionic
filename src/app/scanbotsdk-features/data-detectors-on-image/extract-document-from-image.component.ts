@@ -59,7 +59,7 @@ export class ExtractDocumentDataFromImageFeature extends ScanbotSdkFeatureCompon
 
       const result = await ScanbotDocumentDataExtractor.extractFromImage({
         image: imageFileUri,
-        configuration,
+        configuration: configuration,
       });
       this.utils.dismissLoader();
 

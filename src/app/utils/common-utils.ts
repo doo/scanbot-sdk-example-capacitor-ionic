@@ -50,7 +50,7 @@ export class CommonUtils {
     const formattedText =
       `• The license is ${info.isValid ? 'VALID' : 'NOT VALID'}` +
       `<br />• Expiration Date: ${info.expirationDateString}` +
-      `<br />• Status: ${info.licenseStatusMessage}`;
+      `<br />• Status: ${info.status}`;
 
     await this.showAlert({
       header: 'License',

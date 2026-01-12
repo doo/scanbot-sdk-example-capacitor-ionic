@@ -63,9 +63,9 @@ export class RtuSinglePageScanningComponent extends ScanbotSdkFeatureComponent {
       configuration.screens.camera.bottomBar.torchOnButton.title.visible = true;
       configuration.screens.camera.bottomBar.torchOffButton.title.visible = true;
 
-      // Set colors
-      configuration.palette.sbColorPrimary = Colors.scanbotRed;
-      configuration.palette.sbColorOnPrimary = '#ffffff';
+      // // Set colors
+      configuration.palette.sbColorPrimary = '#FFC8193C';
+      configuration.palette.sbColorOnPrimary = '#fff000ff';
 
       // Configure the hint texts for different scenarios
       configuration.screens.camera.userGuidance.statesTitles.tooDark =

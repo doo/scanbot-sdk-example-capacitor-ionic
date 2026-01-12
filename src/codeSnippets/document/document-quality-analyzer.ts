@@ -19,7 +19,7 @@ async function documentQualityAnalyzer() {
     configuration.maxImageSize = 2100;
     /** Configure params as needed **/
 
-    /** Detect the quality of the document on image **/
+    /** Analyze the quality of the document on image **/
     const quality = await ScanbotDocument.analyzeQualityOnImage({
       image: selectedImageResult,
       configuration: configuration,

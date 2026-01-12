@@ -42,7 +42,7 @@ export class AnalyzeDocumentQualityFeature extends ScanbotSdkFeatureComponent {
 
       const result = await ScanbotDocument.analyzeQualityOnImage({
         image: imageFileUri,
-        configuration,
+        configuration: configuration,
       });
 
       await this.utils.dismissLoader();

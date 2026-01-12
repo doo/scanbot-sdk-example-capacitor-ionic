@@ -19,6 +19,7 @@ async function extractImagesFromPdf() {
       pdfFileUri: fileUrl,
       options: new PdfExtractorOptions(),
     });
+    /** Handle the result */
   } catch (e: any) {
     console.error(e.message);
   }
