@@ -5,7 +5,12 @@ import { IonicModule } from '@ionic/angular';
 import { Feature } from 'src/app/utils/scanbot-utils';
 import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature-component/scanbotsdk-feature.component';
 
-import { MrzScannerConfiguration, ScanbotMrz } from 'capacitor-plugin-scanbot-sdk';
+import {
+  autorelease,
+  ImageRef,
+  MrzScannerConfiguration,
+  ScanbotMrz,
+} from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
   selector: 'app-recognize-mrz-on-image',
@@ -35,27 +40,38 @@ export class RecognizeMrzOnImageFeature extends ScanbotSdkFeatureComponent {
 
       const configuration = new MrzScannerConfiguration();
       configuration.incompleteResultHandling = 'REJECT';
-
       // Configure other parameters as needed.
 
-      const result = await ScanbotMrz.scanFromImage({
-        image: imageFileUri,
-        configuration,
-      });
-
-      this.utils.dismissLoader();
-
       /**
-       * Handle the result if a document is found
+       * Note: ImageRef is used as an input here just to showcase its usage.
+       * Passing the image file URI directly to ScanbotMrz.scanFromImage() will work the same way.
+       * The autorelease pool is only necessary when working with ImageRef to manage native resources.
        */
-      if (result.document) {
-        // Always serialize the MRZ document before stringifying, and use the serialized result.
-        const serializedDocument = await result.document.serialize();
+      await autorelease(async () => {
+        const imageRef = await ImageRef.fromImageFileUri(imageFileUri);
+        if (!imageRef) {
+          return;
+        }
 
-        this.router.navigate(['/mrz-result', result.rawMRZ, JSON.stringify(serializedDocument)]);
-      } else {
-        this.utils.showInfoAlert('No MRZ found.');
-      }
+        const result = await ScanbotMrz.scanFromImage({
+          image: imageRef,
+          configuration,
+        });
+
+        this.utils.dismissLoader();
+
+        /**
+         * Handle the result if a document is found
+         */
+        if (result.document) {
+          // Always serialize the MRZ document before stringifying, and use the serialized result.
+          const serializedDocument = await result.document.serialize();
+
+          this.router.navigate(['/mrz-result', result.rawMRZ, JSON.stringify(serializedDocument)]);
+        } else {
+          this.utils.showInfoAlert('No MRZ found.');
+        }
+      });
     } catch (e: any) {
       await this.utils.dismissLoader();
       this.utils.showErrorAlert(e.message);
