@@ -53,9 +53,8 @@ export class ExtractDocumentDataFromImageFeature extends ScanbotSdkFeatureCompon
       const mrzFallbackConfiguration = new MrzFallbackConfiguration();
       mrzFallbackConfiguration.acceptedMRZTypes = ['ID_CARD', 'PASSPORT'];
 
-      const configuration = new DocumentDataExtractorConfiguration({
-        configurations: [commonConfig, mrzFallbackConfiguration],
-      });
+      const configuration = new DocumentDataExtractorConfiguration();
+      configuration.configurations = [commonConfig, mrzFallbackConfiguration];
 
       const result = await ScanbotDocumentDataExtractor.extractFromImage({
         image: imageFileUri,

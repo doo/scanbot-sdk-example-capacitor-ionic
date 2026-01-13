@@ -1,8 +1,4 @@
-import {
-  DocumentScannerConfiguration,
-  ScanbotDocument,
-  ScanbotSDK,
-} from 'capacitor-plugin-scanbot-sdk';
+import { DocumentScannerConfiguration, ScanbotDocument } from 'capacitor-plugin-scanbot-sdk';
 import { ImageUtils } from '../../../app/utils/image-utils';
 
 async function detectDocumentDetection() {

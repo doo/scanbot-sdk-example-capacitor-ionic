@@ -119,12 +119,13 @@ export class PageResultPage implements OnInit {
       if (pageFilter) {
         await this.utils.showLoader();
         /** Modify the page by applying the selected filter */
+        const options = new ModifyPageOptions();
+        options.filters = [pageFilter];
+
         const documentResult = await ScanbotDocument.modifyPage({
           documentID: this.documentID,
           pageID: this.page.uuid,
-          options: new ModifyPageOptions({
-            filters: [pageFilter],
-          }),
+          options: options,
         });
 
         await this.updatePage(documentResult);

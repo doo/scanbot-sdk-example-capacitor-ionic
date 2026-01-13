@@ -53,12 +53,13 @@ export class AppComponent implements OnInit {
       storageImageFormat: 'JPG', // Format of stored images
       storageImageQuality: 80, // Quality of stored images
       // storageBaseDirectory: (await this.storageBaseDirectoryUri).uri, // Custom storage path
-      fileEncryptionMode: AppComponent.FILE_ENCRYPTION_ENABLED ? 'AES256' : undefined,
-      fileEncryptionPassword: AppComponent.FILE_ENCRYPTION_ENABLED
-        ? 'SomeSecretPa$$w0rdForFileEncryption'
-        : undefined,
       // see further config parameters
     });
+
+    if (AppComponent.FILE_ENCRYPTION_ENABLED) {
+      configuration.fileEncryptionMode = 'AES256';
+      configuration.fileEncryptionPassword = 'SomeSecretPa$$w0rdForFileEncryption';
+    }
 
     try {
       console.log(await ScanbotSDK.initialize(configuration));

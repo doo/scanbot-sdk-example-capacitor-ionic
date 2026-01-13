@@ -97,10 +97,13 @@ export class DocumentResultPage implements OnInit {
       await this.utils.showLoader();
 
       /** Add a page to the document */
+      const options = new AddPageOptions();
+      options.documentDetection = true;
+
       const documentResult = await ScanbotDocument.addPages({
         documentID: this.document.uuid,
         images: [imageFileUri],
-        options: new AddPageOptions({ documentDetection: true }),
+        options: options,
       });
       /**
        * Handle the result

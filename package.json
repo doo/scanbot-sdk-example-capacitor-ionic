@@ -1,6 +1,6 @@
 {
   "name": "scanbot-example-sdk-capacitor",
-  "version": "7.1.1",
+  "version": "8.0.0",
   "author": "Scanbot SDK",
   "homepage": "https://scanbot.io",
   "description": "Scanbot SDK Example App for Capacitor with Angular",
@@ -13,6 +13,7 @@
     "ios": "npx cap run ios",
     "install-pods": "cd ios/App && pod install --repo-update",
     "watch": "ng build --watch --configuration development",
+    "tscheck": "tsc --noEmit",
     "format": "prettier --write \"src/**/*.{ts,html,scss,json}\"",
     "clean": "rm -r -f node_modules && rm -f package-lock.json && rm -r -f www && cd ios/App && rm -r -f Pods && rm -f Podfile.lock"
   },

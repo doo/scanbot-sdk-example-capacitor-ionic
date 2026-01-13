@@ -4,9 +4,6 @@ const config: CapacitorConfig = {
   appId: 'io.scanbot.example.sdk.capacitor',
   appName: 'Capacitor Scanbot SDK Example',
   webDir: 'www',
-  android: {
-    adjustMarginsForEdgeToEdge: 'auto'
-  },
   plugins: {
     StatusBar: {
       style: "DARK",

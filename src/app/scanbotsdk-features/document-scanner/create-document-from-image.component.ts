@@ -34,11 +34,12 @@ export class CreateDocumentFromGalleryComponent extends ScanbotSdkFeatureCompone
       await this.utils.showLoader();
 
       /** Create a document object */
+      const options = new CreateDocumentOptions();
+      options.documentDetection = true;
+
       let documentResult = await ScanbotDocument.createDocumentFromImages({
         images: [imageFileUri],
-        options: new CreateDocumentOptions({
-          documentDetection: true,
-        }),
+        options: options,
       });
 
       /** Handle the result if the result status is OK */
