@@ -57,11 +57,11 @@
     "node": ">=20"
   },
   "browserslist": [
-    "Chrome >=79",
-    "ChromeAndroid >=79",
-    "Firefox >=70",
-    "Edge >=79",
-    "Safari >=14",
-    "iOS >=14"
+    "Chrome >=111",
+    "ChromeAndroid >=111",
+    "Firefox >=112",
+    "Edge >=111",
+    "Safari >=16.4",
+    "iOS >=16.4"
   ]
 }
