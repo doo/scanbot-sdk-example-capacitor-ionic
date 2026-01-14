@@ -1,5 +1,5 @@
 PODS:
-  - Capacitor (8.0.0):
+  - Capacitor (8.0.1):
     - CapacitorCordova
   - CapacitorApp (8.0.0):
     - Capacitor
@@ -7,23 +7,23 @@ PODS:
     - Capacitor
   - CapacitorCommunityFileOpener (7.0.1):
     - Capacitor
-  - CapacitorCordova (8.0.0)
+  - CapacitorCordova (8.0.1)
   - CapacitorFilesystem (8.0.0):
     - Capacitor
     - IONFilesystemLib (~> 1.0.1)
-  - CapacitorPluginScanbotSdk (8.0.0-beta.1):
+  - CapacitorPluginScanbotSdk (8.0.0-rc.1):
     - Capacitor
-    - ScanbotSDKNativeWrapper (= 8.0.0.1)
+    - ScanbotSDKNativeWrapper (= 8.0.0.2)
   - CapacitorStatusBar (8.0.0):
     - Capacitor
   - CapawesomeCapacitorFilePicker (7.0.1):
     - Capacitor
   - IONFilesystemLib (1.0.1)
-  - ScanbotSDK (8.0.0-RC10):
-    - ScanbotSDK/NONE (= 8.0.0-RC10)
-  - ScanbotSDK/NONE (8.0.0-RC10)
-  - ScanbotSDKNativeWrapper (8.0.0.1):
-    - ScanbotSDK (= 8.0.0-RC10)
+  - ScanbotSDK (8.0.0):
+    - ScanbotSDK/NONE (= 8.0.0)
+  - ScanbotSDK/NONE (8.0.0)
+  - ScanbotSDKNativeWrapper (8.0.0.2):
+    - ScanbotSDK (= 8.0.0)
 
 DEPENDENCIES:
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
@@ -63,18 +63,18 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capawesome/capacitor-file-picker"
 
 SPEC CHECKSUMS:
-  Capacitor: 79e40e5e76f852965dce30406c65253fa154e24a
+  Capacitor: 2d8b1a05870ddb600b0e1e32b83fcf0890c244e1
   CapacitorApp: cfa0120a1f3a6f69d4d37d3041782aa5c5167d0b
   CapacitorCamera: 05ac5bd4499ed4b8cf5358d1b4a874b385de7b4d
   CapacitorCommunityFileOpener: 9611c9d1595de7b50571717d443bb718a304b5eb
-  CapacitorCordova: 5dc3912d25ef770a3fe0f431bb65c9fbfa2e92f9
+  CapacitorCordova: 0d65b9bb74e995dcecb9463f34f1af2aba6f955c
   CapacitorFilesystem: 608bca984a5b6b2cba85a2972ea22974a37659d8
-  CapacitorPluginScanbotSdk: edf59a1a7de75fdfcb62955c78eeae7ee1ed2b18
+  CapacitorPluginScanbotSdk: eb7522a311b16f1e5ce86cdcf7b887ece7295c07
   CapacitorStatusBar: c6fa2d404083e41d145ea56698707a6986d4428b
   CapawesomeCapacitorFilePicker: 6673764afb8768eba0197876e222adc19fd4c120
   IONFilesystemLib: 89258b8e3e85465da93127d25d7ce37f977e8a6f
-  ScanbotSDK: 2405b795325e53b2ec52203a129519800280b211
-  ScanbotSDKNativeWrapper: 419091b6a8f10f018c4dc243b98f1fb50ad8e5c9
+  ScanbotSDK: 0eab3458cb2d65ee13ff30a401864c508bef4a67
+  ScanbotSDKNativeWrapper: a86c8bac8f0f2c743413d41244547f6588120cc4
 
 PODFILE CHECKSUM: a08afb9254933e0858671afe9f32b9eb074d2e41
 
