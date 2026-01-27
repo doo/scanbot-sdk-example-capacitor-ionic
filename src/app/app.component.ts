@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
    */
   readonly storageBaseDirectoryUri = Filesystem.getUri({
     path: 'my-custom-storage',
-    directory: Directory.External,
+    directory: Directory.Data,
   });
 
   constructor() {}
