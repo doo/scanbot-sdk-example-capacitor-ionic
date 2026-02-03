@@ -1,9 +1,9 @@
 import { CroppingConfiguration, ScanbotDocument } from 'capacitor-plugin-scanbot-sdk';
 
-async function croppingScreen(documentID: string, pageID: string) {
+async function croppingScreen(documentUuid: string, pageUuid: string) {
   const configuration = new CroppingConfiguration({
-    documentUuid: documentID,
-    pageUuid: pageID,
+    documentUuid: documentUuid,
+    pageUuid: pageUuid,
   });
   // Equivalent to topBarBackgroundColor & bottomBarBackgroundColor: '#ffffff'
   configuration.palette.sbColorPrimary = '#ffffff';

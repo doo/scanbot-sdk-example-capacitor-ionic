@@ -40,12 +40,12 @@ export const routes: Routes = [
       import('./results/scan-results/check-result.page').then((m) => m.CheckResultPage),
   },
   {
-    path: 'document-result/:documentID',
+    path: 'document-result/:documentUuid',
     loadComponent: () =>
       import('./results/document-result/document-result.page').then((m) => m.DocumentResultPage),
   },
   {
-    path: 'page-result/:documentID/:pageID',
+    path: 'page-result/:documentUuid/:pageUuid',
     loadComponent: () =>
       import('./results/page-result/page-result.page').then((m) => m.PageResultPage),
   },

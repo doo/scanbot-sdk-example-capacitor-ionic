@@ -50,8 +50,8 @@ export class DocumentResultPage implements OnInit {
 
   async ngOnInit() {
     this.activatedRoute.paramMap.subscribe(async (params) => {
-      const documentID = params.get('documentID') as string;
-      await this.loadDocument(documentID);
+      const documentUuid = params.get('documentUuid') as string;
+      await this.loadDocument(documentUuid);
     });
   }
 
@@ -101,7 +101,7 @@ export class DocumentResultPage implements OnInit {
       options.documentDetection = true;
 
       const documentResult = await ScanbotDocument.addPages({
-        documentID: this.document.uuid,
+        documentUuid: this.document.uuid,
         images: [imageFileUri],
         options: options,
       });
@@ -174,7 +174,7 @@ export class DocumentResultPage implements OnInit {
        * Create a PDF with the provided option
        */
       const pdfFileUri = await ScanbotPdfGenerator.generateFromDocument({
-        documentID: this.document.uuid,
+        documentUuid: this.document.uuid,
         pdfConfiguration: pdfConfiguration,
         ocrConfiguration: ocrConfiguration,
       });
@@ -197,17 +197,19 @@ export class DocumentResultPage implements OnInit {
       }
       await this.utils.showLoader();
 
-      const tiffConfiguration = new TiffGeneratorParameters();
-      tiffConfiguration.binarizationFilter = binarized ? new ScanbotBinarizationFilter() : null;
-      tiffConfiguration.dpi = 300;
-      tiffConfiguration.compression = binarized ? 'CCITT_T6' : 'ADOBE_DEFLATE'; // optional compression
+      const tiffGeneratorParameters = new TiffGeneratorParameters();
+      tiffGeneratorParameters.binarizationFilter = binarized
+        ? new ScanbotBinarizationFilter()
+        : null;
+      tiffGeneratorParameters.dpi = 300;
+      tiffGeneratorParameters.compression = binarized ? 'CCITT_T6' : 'ADOBE_DEFLATE'; // optional compression
 
       /**
        * Create a tiff file from the document
        */
       const tiffFileUri = await ScanbotTiffGenerator.generateFromDocument({
-        documentID: this.document.uuid,
-        configuration: tiffConfiguration,
+        documentUuid: this.document.uuid,
+        tiffGeneratorParameters: tiffGeneratorParameters,
       });
       /**
        * Handle the result by displaying an action sheet

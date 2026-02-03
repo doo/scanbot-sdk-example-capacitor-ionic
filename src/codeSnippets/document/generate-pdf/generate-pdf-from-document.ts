@@ -15,7 +15,7 @@ async function generatePdfFromDocument() {
 
     /** Create a PDF file with the provided options */
     const pdfUriResult = await ScanbotPdfGenerator.generateFromDocument({
-      documentID: document.uuid,
+      documentUuid: document.uuid,
       pdfConfiguration: pdfConfiguration,
       ocrConfiguration: {
         engineMode: 'SCANBOT_OCR',

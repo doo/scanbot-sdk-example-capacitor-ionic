@@ -19,8 +19,8 @@ async function applyFiltersAndRotateScannedPage() {
     options.rotation = 'CLOCKWISE_90';
 
     const documentResultWithModifiedPage = await ScanbotDocument.modifyPage({
-      documentID: document.uuid,
-      pageID: page.uuid,
+      documentUuid: document.uuid,
+      pageUuid: page.uuid,
       options: options,
     });
     /** Handle the result */

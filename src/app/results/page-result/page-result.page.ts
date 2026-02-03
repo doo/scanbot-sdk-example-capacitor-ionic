@@ -50,7 +50,7 @@ import { ModifyPageOptions } from 'capacitor-plugin-scanbot-sdk/dist/esm/types/b
 export class PageResultPage implements OnInit {
   pagePreview!: string;
   page!: PageData;
-  documentID!: string;
+  documentUuid!: string;
   removePageAlertButtons = [
     {
       text: 'Cancel',
@@ -76,9 +76,9 @@ export class PageResultPage implements OnInit {
 
   async ngOnInit() {
     this.activatedRoute.paramMap.subscribe(async (params) => {
-      const documentID = params.get('documentID') as string;
-      const pageID = params.get('pageID') as string;
-      await this.loadDocument(documentID, pageID);
+      const documentUuid = params.get('documentUuid') as string;
+      const pageUuid = params.get('pageUuid') as string;
+      await this.loadDocument(documentUuid, pageUuid);
     });
   }
 
@@ -93,7 +93,7 @@ export class PageResultPage implements OnInit {
        * start the Cropping UI with the configuration, documentUUID and pageUUID
        */
       const configuration = new CroppingConfiguration({
-        documentUuid: this.documentID,
+        documentUuid: this.documentUuid,
         pageUuid: this.page.uuid,
       });
 
@@ -123,8 +123,8 @@ export class PageResultPage implements OnInit {
         options.filters = [pageFilter];
 
         const documentResult = await ScanbotDocument.modifyPage({
-          documentID: this.documentID,
-          pageID: this.page.uuid,
+          documentUuid: this.documentUuid,
+          pageUuid: this.page.uuid,
           options: options,
         });
 
@@ -148,8 +148,8 @@ export class PageResultPage implements OnInit {
 
       /** Remove the page from storage */
       await ScanbotDocument.removePages({
-        documentID: this.documentID,
-        pageIDs: [this.page.uuid],
+        documentUuid: this.documentUuid,
+        pageUuids: [this.page.uuid],
       });
       this.navController.back();
     } catch (e: any) {
@@ -164,22 +164,22 @@ export class PageResultPage implements OnInit {
   }
 
   private async updatePage(updatedDocument: DocumentData) {
-    this.documentID = updatedDocument.uuid;
+    this.documentUuid = updatedDocument.uuid;
     this.page = updatedDocument.pages.find((p) => p.uuid === this.page.uuid)!;
     this.pagePreview = await this.scanbotUtils.getPageDataPreview(this.page);
   }
 
-  private async loadDocument(documentID: string, pageID: string) {
+  private async loadDocument(documentUuid: string, pageUuid: string) {
     try {
       // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
       if (!(await this.isLicenseValid())) {
         return;
       }
       /** Load the document from disc */
-      const documentResult = await ScanbotDocument.loadDocument(documentID);
+      const documentResult = await ScanbotDocument.loadDocument(documentUuid);
 
-      this.documentID = documentResult.uuid;
-      this.page = documentResult.pages.find((p) => p.uuid === pageID)!;
+      this.documentUuid = documentResult.uuid;
+      this.page = documentResult.pages.find((p) => p.uuid === pageUuid)!;
       this.pagePreview = await this.scanbotUtils.getPageDataPreview(this.page);
     } catch (e: any) {
       await this.utils.showErrorAlert(e.message);

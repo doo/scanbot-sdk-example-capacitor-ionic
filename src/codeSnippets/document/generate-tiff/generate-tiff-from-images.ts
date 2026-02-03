@@ -12,14 +12,14 @@ async function generateTiffFromImages() {
       return;
     }
 
-    const tiffConfig = new TiffGeneratorParameters();
-    tiffConfig.dpi = 300;
+    const tiffGeneratorParameters = new TiffGeneratorParameters();
+    tiffGeneratorParameters.dpi = 300;
     /** Configure params as needed **/
 
     /** Create a TIFF file with the provided options */
     const tiffCreationResult = await ScanbotTiffGenerator.generateFromImages({
       images: [selectedImageResult],
-      configuration: tiffConfig,
+      tiffGeneratorParameters: tiffGeneratorParameters,
     });
     /** Handle the result */
   } catch (e: any) {}
