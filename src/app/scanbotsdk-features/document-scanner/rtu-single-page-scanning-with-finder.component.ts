@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { AspectRatio } from 'capacitor-plugin-scanbot-sdk';
-import { DocumentScanningFlow, startDocumentScanner } from 'capacitor-plugin-scanbot-sdk/ui_v2';
+
 import { Feature } from 'src/app/utils/scanbot-utils';
 import { Colors } from 'src/theme/theme';
 import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature-component/scanbotsdk-feature.component';
+
+import { AspectRatio, DocumentScanningFlow, ScanbotDocument } from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
   selector: 'app-rtu-single-page-scanning-with-finder',
@@ -20,7 +21,7 @@ export class RtuSinglePageScanningComponentWithFinder extends ScanbotSdkFeatureC
 
   override async featureClicked(): Promise<void> {
     try {
-      // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+      // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
       if (!(await this.isLicenseValid())) {
         return;
       }
@@ -60,7 +61,7 @@ export class RtuSinglePageScanningComponentWithFinder extends ScanbotSdkFeatureC
       configuration.screens.camera.userGuidance.statesTitles.noDocumentFound =
         'Could not detect a document';
 
-      const documentResult = await startDocumentScanner(configuration);
+      const documentResult = await ScanbotDocument.startScanner(configuration);
       /**
        * Handle the result if the result status is OK
        */

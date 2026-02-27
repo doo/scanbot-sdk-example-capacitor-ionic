@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, Input, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
@@ -14,7 +13,7 @@ import { ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
   selector: 'app-scanbotsdk',
   templateUrl: './scanbotsdk-feature.component.html',
   styleUrls: ['./scanbotsdk-feature.component.scss'],
-  imports: [CommonModule, IonicModule],
+  imports: [IonicModule],
 })
 export class ScanbotSdkFeatureComponent {
   @Input() feature!: Feature;
@@ -33,7 +32,7 @@ export class ScanbotSdkFeatureComponent {
     try {
       const result = await ScanbotSDK.getLicenseInfo();
 
-      if (result.isLicenseValid) {
+      if (result.isValid) {
         // Scanbot SDK License is valid and all features can be accessed.
         // E.g., launch the Document Scanner
         return true;

@@ -1,10 +1,10 @@
-import { AspectRatio } from 'capacitor-plugin-scanbot-sdk';
 import {
+  AspectRatio,
   DocumentScanningFlow,
   NoButtonMode,
   PageSnapFunnelAnimation,
-  startDocumentScanner,
-} from 'capacitor-plugin-scanbot-sdk/ui_v2';
+  ScanbotDocument,
+} from 'capacitor-plugin-scanbot-sdk';
 
 async function finderDocumentScanner() {
   const configuration = new DocumentScanningFlow();
@@ -32,5 +32,5 @@ async function finderDocumentScanner() {
   configuration.screens.review.enabled = false;
   configuration.outputSettings.pagesScanLimit = 1;
 
-  const documentData = await startDocumentScanner(configuration);
+  const documentData = await ScanbotDocument.startScanner(configuration);
 }

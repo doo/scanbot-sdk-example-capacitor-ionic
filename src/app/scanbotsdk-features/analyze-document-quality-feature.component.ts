@@ -4,7 +4,10 @@ import { IonicModule } from '@ionic/angular';
 
 import { ScanbotSdkFeatureComponent } from './scanbotsdk-feature-component/scanbotsdk-feature.component';
 
-import { DocumentQualityAnalyzerConfiguration, ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
+import {
+  DocumentQualityAnalyzerConfiguration,
+  ScanbotDocument,
+} from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
   selector: 'app-analyze-document-quality',
@@ -18,12 +21,12 @@ export class AnalyzeDocumentQualityFeature extends ScanbotSdkFeatureComponent {
   };
 
   override async featureClicked() {
-    // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+    // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
     if (!(await this.isLicenseValid())) {
       return;
     }
 
-    // Select image from the library
+    // Select an image from the library
     const imageFileUri = await this.imageUtils.selectImageFromLibrary();
     if (!imageFileUri) {
       return;
@@ -37,7 +40,10 @@ export class AnalyzeDocumentQualityFeature extends ScanbotSdkFeatureComponent {
 
       // Configure other parameters as needed.
 
-      const result = await ScanbotSDK.documentQualityAnalyzer(imageFileUri, configuration);
+      const result = await ScanbotDocument.analyzeQualityOnImage({
+        image: imageFileUri,
+        configuration: configuration,
+      });
 
       await this.utils.dismissLoader();
 

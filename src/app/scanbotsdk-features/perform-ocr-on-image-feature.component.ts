@@ -5,7 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { Feature } from 'src/app/utils/scanbot-utils';
 import { ScanbotSdkFeatureComponent } from './scanbotsdk-feature-component/scanbotsdk-feature.component';
 
-import { ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
+import { autorelease, ImageRef, ScanbotOcrEngine } from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
   selector: 'app-perform-ocr-on-image',
@@ -19,12 +19,12 @@ export class PerformOcrOnImageFeature extends ScanbotSdkFeatureComponent {
   };
 
   override async featureClicked() {
-    // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+    // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
     if (!(await this.isLicenseValid())) {
       return;
     }
 
-    // Select image from the library
+    // Select an image from the library
     const imageFileUri = await this.imageUtils.selectImageFromLibrary();
     if (!imageFileUri) {
       return;
@@ -33,21 +33,33 @@ export class PerformOcrOnImageFeature extends ScanbotSdkFeatureComponent {
     try {
       await this.utils.showLoader();
 
-      const result = await ScanbotSDK.performOCR({
-        imageFileUris: [imageFileUri],
-        ocrConfiguration: {
-          engineMode: 'SCANBOT_OCR',
-        },
+      /**
+       * Note: ImageRef is used as an input here just to showcase its usage.
+       * Passing the image file URI directly to ScanbotOcrEngine.recognizeOnImages will work the same way.
+       * The autorelease pool is only necessary when working with ImageRef to manage native resources.
+       */
+      await autorelease(async () => {
+        const imageRef = await ImageRef.fromImageFileUri(imageFileUri);
+        if (!imageRef) {
+          return;
+        }
+
+        const result = await ScanbotOcrEngine.recognizeOnImages({
+          images: [imageRef],
+          configuration: {
+            engineMode: 'SCANBOT_OCR',
+          },
+        });
+
+        this.utils.dismissLoader();
+
+        // Handle the results if there are any recognized pages.
+        if (result.pages.length > 0) {
+          this.utils.showResultInfo(result.recognizedText);
+        } else {
+          this.utils.showWarningAlert('Recognition returned no results.');
+        }
       });
-
-      this.utils.dismissLoader();
-
-      // Handle the results if there are any recognized pages.
-      if (result.pages.length > 0) {
-        this.utils.showResultInfo(result.plainText);
-      } else {
-        this.utils.showWarningAlert('Recognition returned no results.');
-      }
     } catch (e: any) {
       await this.utils.dismissLoader();
       this.utils.showErrorAlert(e.message);

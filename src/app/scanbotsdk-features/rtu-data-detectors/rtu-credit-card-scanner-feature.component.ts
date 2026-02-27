@@ -7,9 +7,9 @@ import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature-component/scan
 
 import {
   CreditCardScannerScreenConfiguration,
-  startCreditCardScanner,
+  ScanbotCreditCard,
   StyledText,
-} from 'capacitor-plugin-scanbot-sdk/ui_v2';
+} from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
   selector: 'app-rtu-credit-card-scanner',
@@ -21,7 +21,7 @@ export class RtuCreditCardScannerFeature extends ScanbotSdkFeatureComponent {
   override feature = { title: 'Scan Credit Card' };
 
   override async featureClicked() {
-    // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+    // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
     if (!(await this.isLicenseValid())) {
       return;
     }
@@ -46,7 +46,7 @@ export class RtuCreditCardScannerFeature extends ScanbotSdkFeatureComponent {
 
       // Configure other parameters as needed.
 
-      const result = await startCreditCardScanner(configuration);
+      const result = await ScanbotCreditCard.startScanner(configuration);
 
       /**
        * Handle the result if the result status is OK

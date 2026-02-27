@@ -40,7 +40,7 @@ export class CheckResultPage extends ScanResultFieldsPage {
     const imageRefId = this.activatedRoute.snapshot.paramMap.get('imageRefId');
     if (imageRefId) {
       await autorelease(async () => {
-        this.croppedImage = await ImageRef.From({
+        this.croppedImage = await ImageRef.from({
           uniqueId: imageRefId,
         }).encodeImage();
       });

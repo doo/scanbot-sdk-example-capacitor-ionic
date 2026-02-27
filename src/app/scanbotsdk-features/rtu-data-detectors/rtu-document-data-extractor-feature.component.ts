@@ -4,12 +4,12 @@ import { IonicModule } from '@ionic/angular';
 
 import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature-component/scanbotsdk-feature.component';
 
-import { autorelease, ToJsonConfiguration } from 'capacitor-plugin-scanbot-sdk';
-
 import {
+  autorelease,
   DocumentDataExtractorScreenConfiguration,
-  startDocumentDataExtractor,
-} from 'capacitor-plugin-scanbot-sdk/ui_v2';
+  ScanbotDocumentDataExtractor,
+  ToJsonConfiguration,
+} from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
   selector: 'app-rtu-document-data-extractor',
@@ -23,7 +23,7 @@ export class RtuDocumentDataExtractorFeature extends ScanbotSdkFeatureComponent 
   };
 
   override async featureClicked() {
-    // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+    // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
     if (!(await this.isLicenseValid())) {
       return;
     }
@@ -37,8 +37,7 @@ export class RtuDocumentDataExtractorFeature extends ScanbotSdkFeatureComponent 
 
       // An autorelease pool is required only because the result object contains image references.
       await autorelease(async () => {
-        const result = await startDocumentDataExtractor(configuration);
-
+        const result = await ScanbotDocumentDataExtractor.startExtractorScreen(configuration);
         /**
          * Handle the result if the result status is OK
          */

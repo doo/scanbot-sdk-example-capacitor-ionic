@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -23,7 +22,7 @@ export type ScanResultSection = {
   selector: 'app-scan-result',
   templateUrl: './scan-result.page.html',
   styleUrls: ['./scan-result.page.scss'],
-  imports: [IonicModule, CommonModule, FormsModule],
+  imports: [IonicModule, FormsModule],
 })
 export class ScanResultFieldsPage implements OnInit {
   pageTitle: string = 'Scan Result';

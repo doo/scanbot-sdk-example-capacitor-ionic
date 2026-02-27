@@ -1,7 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { ModalController } from '@ionic/angular/standalone';
 import { Capacitor } from '@capacitor/core';
-
 import { AppComponent } from '../app.component';
 import { ImageFilterComponent } from '../image-filter/image-filter.component';
 import {
@@ -20,7 +19,7 @@ import {
   PageData,
   ParametricFilter,
   ScanbotBinarizationFilter,
-  ScanbotSDK,
+  ScanbotImageProcessor,
   WhiteBlackPointFilter,
 } from 'capacitor-plugin-scanbot-sdk';
 
@@ -155,18 +154,6 @@ export class ScanbotUtils {
   }
 
   private async decryptImageUrl(encryptedUrl: string): Promise<string> {
-    let imageAsBase64 = '';
-
-    try {
-      imageAsBase64 = (
-        await ScanbotSDK.getImageData({
-          imageFileUri: encryptedUrl,
-        })
-      ).base64ImageData;
-    } catch (error: any) {
-      console.error(error.message);
-    }
-
-    return imageAsBase64;
+    return ScanbotImageProcessor.readImageData(encryptedUrl);
   }
 }

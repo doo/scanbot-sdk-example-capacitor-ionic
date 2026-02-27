@@ -5,11 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { Feature } from 'src/app/utils/scanbot-utils';
 import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature-component/scanbotsdk-feature.component';
 
-import {
-  CreditCardScannerConfiguration,
-  ScanbotSDK,
-  ToJsonConfiguration,
-} from 'capacitor-plugin-scanbot-sdk';
+import { CreditCardScannerConfiguration, ScanbotCreditCard } from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
   selector: 'app-recognize-credit-card-on-image',
@@ -23,12 +19,12 @@ export class RecognizeCreditCardOnImageFeature extends ScanbotSdkFeatureComponen
   };
 
   override async featureClicked() {
-    // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+    // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
     if (!(await this.isLicenseValid())) {
       return;
     }
 
-    // Select image from the library
+    // Select an image from the library
     const imageFileUri = await this.imageUtils.selectImageFromLibrary();
     if (!imageFileUri) {
       return;
@@ -42,7 +38,10 @@ export class RecognizeCreditCardOnImageFeature extends ScanbotSdkFeatureComponen
 
       // Configure other parameters as needed.
 
-      const result = await ScanbotSDK.recognizeCreditCard(imageFileUri, configuration);
+      const result = await ScanbotCreditCard.scanFromImage({
+        image: imageFileUri,
+        configuration,
+      });
 
       this.utils.dismissLoader();
 

@@ -7,9 +7,9 @@ import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature-component/scan
 
 import {
   MrzScannerScreenConfiguration,
-  startMRZScanner,
+  ScanbotMrz,
   StyledText,
-} from 'capacitor-plugin-scanbot-sdk/ui_v2';
+} from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
   selector: 'app-rtu-mrz-scanner',
@@ -21,7 +21,7 @@ export class RtuMrzScannerFeature extends ScanbotSdkFeatureComponent {
   override feature = { title: 'Scan MRZ' };
 
   override async featureClicked() {
-    // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+    // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
     if (!(await this.isLicenseValid())) {
       return;
     }
@@ -49,7 +49,7 @@ export class RtuMrzScannerFeature extends ScanbotSdkFeatureComponent {
 
       // Configure other parameters as needed.
 
-      const result = await startMRZScanner(configuration);
+      const result = await ScanbotMrz.startScanner(configuration);
 
       /**
        * Handle the result if the result status is OK

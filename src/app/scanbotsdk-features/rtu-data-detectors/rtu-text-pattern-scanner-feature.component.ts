@@ -6,9 +6,9 @@ import { Colors } from 'src/theme/theme';
 import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature-component/scanbotsdk-feature.component';
 
 import {
+  ScanbotTextPattern,
   TextPatternScannerScreenConfiguration,
-  startTextPatternScanner,
-} from 'capacitor-plugin-scanbot-sdk/ui_v2';
+} from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
   selector: 'app-rtu-text-pattern-scanner',
@@ -20,7 +20,7 @@ export class RtuTextPatternScannerFeature extends ScanbotSdkFeatureComponent {
   override feature = { title: 'Scan Text Pattern' };
 
   override async featureClicked() {
-    // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+    // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
     if (!(await this.isLicenseValid())) {
       return;
     }
@@ -36,11 +36,12 @@ export class RtuTextPatternScannerFeature extends ScanbotSdkFeatureComponent {
       configuration.actionBar.flipCameraButton.visible = false;
       configuration.actionBar.flashButton.activeForegroundColor = Colors.scanbotRed;
 
+      // Configure the scanner
       configuration.scannerConfiguration.minimumNumberOfRequiredFramesWithEqualScanningResult = 3;
 
       // Configure other parameters as needed.
 
-      const result = await startTextPatternScanner(configuration);
+      const result = await ScanbotTextPattern.startScanner(configuration);
 
       /**
        * Handle the result if the result status is OK

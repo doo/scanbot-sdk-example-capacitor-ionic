@@ -8,12 +8,8 @@ import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature-component/scan
 import {
   DocumentDataExtractorCommonConfiguration,
   DocumentDataExtractorConfiguration,
-  DeIdCardFrontDocumentType,
-  DeIdCardBackDocumentType,
-  DeResidencePermitBackDocumentType,
-  DeResidencePermitFrontDocumentType,
   MrzFallbackConfiguration,
-  ScanbotSDK,
+  ScanbotDocumentDataExtractor,
 } from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
@@ -28,12 +24,12 @@ export class ExtractDocumentDataFromImageFeature extends ScanbotSdkFeatureCompon
   };
 
   override async featureClicked() {
-    // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+    // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
     if (!(await this.isLicenseValid())) {
       return;
     }
 
-    // Select image from the library
+    // Select an image from the library
     const imageFileUri = await this.imageUtils.selectImageFromLibrary();
     if (!imageFileUri) {
       return;
@@ -45,18 +41,25 @@ export class ExtractDocumentDataFromImageFeature extends ScanbotSdkFeatureCompon
 
       /**
        * Accept only specific document types by setting acceptedDocumentTypes.
-       * commonConfig.acceptedDocumentTypes = [DeIdCardFrontDocumentType, DeIdCardBackDocumentType, DeResidencePermitFrontDocumentType, DeResidencePermitBackDocumentType];
+       *       commonConfig.acceptedDocumentTypes = [
+       *         DeIdCardFront.DOCUMENT_TYPE,
+       *         DeIdCardBack.DOCUMENT_TYPE,
+       *         DeResidencePermitFront.DOCUMENT_TYPE,
+       *         DeResidencePermitBack.DOCUMENT_TYPE,
+       *       ];
        */
 
       /** Add MRZ FallbackConfiguration */
       const mrzFallbackConfiguration = new MrzFallbackConfiguration();
       mrzFallbackConfiguration.acceptedMRZTypes = ['ID_CARD', 'PASSPORT'];
 
-      const configuration = new DocumentDataExtractorConfiguration({
-        configurations: [commonConfig, mrzFallbackConfiguration],
-      });
+      const configuration = new DocumentDataExtractorConfiguration();
+      configuration.configurations = [commonConfig, mrzFallbackConfiguration];
 
-      const result = await ScanbotSDK.documentDataExtractor(imageFileUri, configuration);
+      const result = await ScanbotDocumentDataExtractor.extractFromImage({
+        image: imageFileUri,
+        configuration: configuration,
+      });
       this.utils.dismissLoader();
 
       /**

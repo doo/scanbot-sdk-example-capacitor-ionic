@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { DocumentScanningFlow, startDocumentScanner } from 'capacitor-plugin-scanbot-sdk/ui_v2';
+
 import { Colors } from '../../../theme/theme';
 import { Feature } from '../../utils/scanbot-utils';
-
 import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature-component/scanbotsdk-feature.component';
+
+import { DocumentScanningFlow, ScanbotDocument } from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
   selector: 'app-rtu-multi-page-scanning',
@@ -20,7 +21,7 @@ export class RtuMultiPageScanningComponent extends ScanbotSdkFeatureComponent {
 
   override async featureClicked(): Promise<void> {
     try {
-      // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+      // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
       if (!(await this.isLicenseValid())) {
         return;
       }
@@ -75,7 +76,7 @@ export class RtuMultiPageScanningComponent extends ScanbotSdkFeatureComponent {
       configuration.screens.cropping.bottomBar.rotateButton.visible = true;
       configuration.screens.cropping.bottomBar.detectButton.visible = true;
 
-      const documentResult = await startDocumentScanner(configuration);
+      const documentResult = await ScanbotDocument.startScanner(configuration);
       /**
        * Handle the result if the result status is OK
        */

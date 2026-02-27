@@ -1,27 +1,29 @@
 PODS:
-  - Capacitor (7.2.0):
+  - Capacitor (8.0.2):
     - CapacitorCordova
-  - CapacitorApp (7.0.1):
+  - CapacitorApp (8.0.0):
     - Capacitor
-  - CapacitorCamera (7.0.1):
+  - CapacitorCamera (8.0.0):
     - Capacitor
   - CapacitorCommunityFileOpener (7.0.1):
     - Capacitor
-  - CapacitorCordova (7.2.0)
-  - CapacitorFilesystem (7.0.1):
+  - CapacitorCordova (8.0.2)
+  - CapacitorFilesystem (8.1.0):
     - Capacitor
-  - CapacitorPluginScanbotSdk (7.1.1):
+    - IONFilesystemLib (~> 1.1.0)
+  - CapacitorPluginScanbotSdk (8.0.0):
     - Capacitor
-    - ScanbotSDKNativeWrapper (= 7.1.4.0)
-  - CapacitorStatusBar (7.0.2):
+    - ScanbotSDKNativeWrapper (= 8.0.4.1)
+  - CapacitorStatusBar (8.0.0):
     - Capacitor
   - CapawesomeCapacitorFilePicker (7.0.1):
     - Capacitor
-  - ScanbotSDK (7.1.4):
-    - ScanbotSDK/NONE (= 7.1.4)
-  - ScanbotSDK/NONE (7.1.4)
-  - ScanbotSDKNativeWrapper (7.1.4.0):
-    - ScanbotSDK (= 7.1.4)
+  - IONFilesystemLib (1.1.0)
+  - ScanbotSDK (8.0.4):
+    - ScanbotSDK/NONE (= 8.0.4)
+  - ScanbotSDK/NONE (8.0.4)
+  - ScanbotSDKNativeWrapper (8.0.4.1):
+    - ScanbotSDK (= 8.0.4)
 
 DEPENDENCIES:
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
@@ -36,6 +38,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - IONFilesystemLib
     - ScanbotSDK
     - ScanbotSDKNativeWrapper
 
@@ -60,18 +63,19 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capawesome/capacitor-file-picker"
 
 SPEC CHECKSUMS:
-  Capacitor: 106e7a4205f4618d582b886a975657c61179138d
-  CapacitorApp: d63334c052278caf5d81585d80b21905c6f93f39
-  CapacitorCamera: eb8687d8687fed853598ec9460d94bcd5e16babe
+  Capacitor: cfc1ce4a70dbc19fdc4e66e17808937088029752
+  CapacitorApp: cfa0120a1f3a6f69d4d37d3041782aa5c5167d0b
+  CapacitorCamera: 05ac5bd4499ed4b8cf5358d1b4a874b385de7b4d
   CapacitorCommunityFileOpener: 9611c9d1595de7b50571717d443bb718a304b5eb
-  CapacitorCordova: 5967b9ba03915ef1d585469d6e31f31dc49be96f
-  CapacitorFilesystem: 307f97c27a265edf8396a1c9c235592fd8572fe3
-  CapacitorPluginScanbotSdk: 21bef27af203ccaf0b489c22ce1129c418ae0425
-  CapacitorStatusBar: 5526833b87fa9c96a2a90c1322bb1f663c04505f
+  CapacitorCordova: 921bdb690ebe82421b24fce45552fd3dea2ae43a
+  CapacitorFilesystem: 57c128a5ea9875aa7bb54eb7431e63d7721bedd4
+  CapacitorPluginScanbotSdk: f4afeec68173937c0c6546f45b5c201a5ed9b083
+  CapacitorStatusBar: c6fa2d404083e41d145ea56698707a6986d4428b
   CapawesomeCapacitorFilePicker: 6673764afb8768eba0197876e222adc19fd4c120
-  ScanbotSDK: 8fa0da4759e7da6be77e1bc6eea8f60eb5651b28
-  ScanbotSDKNativeWrapper: 29e6d42aece7cef0a3cde93cc60c493b0a524139
+  IONFilesystemLib: 50b9a0f3052a9b40b9bedb43f328a8fe222f9f87
+  ScanbotSDK: 0766cf20be136ef1e4e3056ef81b64671bba6e13
+  ScanbotSDKNativeWrapper: d3b41da93016fd2e1d1ccb0af46d1ba8a8e44e96
 
-PODFILE CHECKSUM: aa909a328226ff0279fd469a14f50a126136af2d
+PODFILE CHECKSUM: a08afb9254933e0858671afe9f32b9eb074d2e41
 
 COCOAPODS: 1.14.3

@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
+
 import { Feature } from '../../utils/scanbot-utils';
 import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature-component/scanbotsdk-feature.component';
 
-import { ScanbotSDK } from 'capacitor-plugin-scanbot-sdk';
+import { CreateDocumentOptions, ScanbotDocument } from 'capacitor-plugin-scanbot-sdk';
 
 @Component({
   selector: 'app-create-document-from-image',
@@ -19,12 +20,12 @@ export class CreateDocumentFromGalleryComponent extends ScanbotSdkFeatureCompone
 
   override async featureClicked(): Promise<void> {
     try {
-      // Always make sure you have a valid license on runtime via ScanbotSDK.getLicenseInfo()
+      // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
       if (!(await this.isLicenseValid())) {
         return;
       }
 
-      // Select image from the library
+      // Select an image from the library
       const imageFileUri = await this.imageUtils.selectImageFromLibrary();
       if (!imageFileUri) {
         return;
@@ -33,12 +34,15 @@ export class CreateDocumentFromGalleryComponent extends ScanbotSdkFeatureCompone
       await this.utils.showLoader();
 
       /** Create a document object */
-      const documentResult = await ScanbotSDK.Document.createDocument({
-        imageFileUris: [imageFileUri],
-        documentDetection: true,
+      const options = new CreateDocumentOptions();
+      options.documentDetection = true;
+
+      let documentResult = await ScanbotDocument.createDocumentFromImages({
+        images: [imageFileUri],
+        options: options,
       });
 
-      /** Handle the result if the result status is OK */
+      /** Handle the result */
       this.router.navigate(['/document-result', documentResult.uuid]);
     } catch (e: any) {
       this.utils.showErrorAlert(e.message);

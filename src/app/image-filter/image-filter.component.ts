@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { IonicModule, ModalController } from '@ionic/angular';
 
@@ -8,7 +7,7 @@ import { ImageFilter, ScanbotUtils } from '../utils/scanbot-utils';
   selector: 'app-image-filter',
   templateUrl: './image-filter.component.html',
 
-  imports: [CommonModule, IonicModule],
+  imports: [IonicModule],
 })
 export class ImageFilterComponent {
   private scanbotUtils = inject(ScanbotUtils);
