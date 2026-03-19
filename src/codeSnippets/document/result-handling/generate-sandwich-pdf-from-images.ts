@@ -1,19 +1,20 @@
-import { selectImagesFromLibrary } from '../../../../../../ReactNative/scanbot-sdk-example-react-native/src/utils';
-import { PdfConfiguration, ScanbotPdfGenerator } from 'react-native-scanbot-sdk';
+import { PdfConfiguration, ScanbotPdfGenerator } from 'capacitor-plugin-scanbot-sdk';
+import { ImageUtils } from '../../../app/utils/image-utils';
 
 async function createSearchablePDFFromImages() {
   try {
     /**
-     * Select images from the Image Library
-     * Return early if no images are selected or there is an issue with selecting images
+     * Select an image from the Image Library
+     * Return early if no image is selected or there is an issue with selecting an image
      **/
-    const selectedImagesResult = await selectImagesFromLibrary();
-    if (!selectedImagesResult) {
+    const selectedImageResult = await new ImageUtils().selectImageFromLibrary();
+    if (!selectedImageResult) {
       return;
     }
+
     /** Create a PDF file with the provided options */
     const pdfCreationResult = await ScanbotPdfGenerator.generateFromImages({
-      images: selectedImagesResult,
+      images: [selectedImageResult],
       pdfConfiguration: new PdfConfiguration({
         pageSize: 'A4',
         pageDirection: 'PORTRAIT',
