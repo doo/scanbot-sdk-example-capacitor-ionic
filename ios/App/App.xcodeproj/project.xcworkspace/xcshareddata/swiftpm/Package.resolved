@@ -1,0 +1,33 @@
+{
+  "originHash" : "f9bda84e7fa2e7e343c49ca364e499c1fb71968244152c3426a508b93d44fe07",
+  "pins" : [
+    {
+      "identity" : "capacitor-swift-pm",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ionic-team/capacitor-swift-pm.git",
+      "state" : {
+        "revision" : "13a39179b3df796f3bb2e70c47ccdd92593f34d2",
+        "version" : "8.0.2"
+      }
+    },
+    {
+      "identity" : "ion-ios-filesystem",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ionic-team/ion-ios-filesystem.git",
+      "state" : {
+        "revision" : "0d81e26e828ff9582807e2339112cedf2e0fab85",
+        "version" : "1.1.2"
+      }
+    },
+    {
+      "identity" : "scanbot-sdk-native-wrapper-spm",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/doo/scanbot-sdk-native-wrapper-spm.git",
+      "state" : {
+        "revision" : "3f166fd5a22e7a857e5cfdb42ee47512c5c4efcf",
+        "version" : "8.0.41"
+      }
+    }
+  ],
+  "version" : 3
+}
