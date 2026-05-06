@@ -1,0 +1,59 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.preview-grid,
+.preview-row,
+.preview-col,
+.state-col {
+  min-height: 100%;
+}
+
+.preview-col,
+.state-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 16px;
+}
+
+.preview-grid {
+  padding: 12px;
+}
+
+.image-result-content {
+}
+
+.image-result-content::part(scroll) {
+  height: 100%;
+}
+
+.result-image {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.result-image.is-loading {
+  opacity: 0;
+}
+
+.state-title,
+.state-subtitle {
+  display: block;
+}
+
+.state-title {
+  margin-top: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.state-subtitle {
+  margin-top: 8px;
+  font-size: 0.95rem;
+}

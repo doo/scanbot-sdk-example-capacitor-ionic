@@ -19,6 +19,7 @@ import { RtuDocumentDataExtractorFeature } from '../scanbotsdk-features/rtu-data
 import { RtuMrzScannerFeature } from '../scanbotsdk-features/rtu-data-detectors/rtu-mrz-scanner-feature.component';
 import { RtuTextPatternScannerFeature } from '../scanbotsdk-features/rtu-data-detectors/rtu-text-pattern-scanner-feature.component';
 import { RtuVinScannerComponent } from '../scanbotsdk-features/rtu-data-detectors/rtu-vin-scanner.component';
+import { DocumentStraightenerFeatureComponent } from '../scanbotsdk-features/document-straightener-feature.component';
 
 @Component({
   selector: 'app-home',
@@ -43,6 +44,7 @@ import { RtuVinScannerComponent } from '../scanbotsdk-features/rtu-data-detector
     ExtractDocumentDataFromImageFeature,
     AnalyzeDocumentQualityFeature,
     PerformOcrOnImageFeature,
+    DocumentStraightenerFeatureComponent,
   ],
 })
 export class HomePage {
