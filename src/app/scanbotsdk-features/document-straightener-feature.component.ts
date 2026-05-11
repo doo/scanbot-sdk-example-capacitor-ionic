@@ -54,17 +54,19 @@ export class DocumentStraightenerFeatureComponent extends ScanbotSdkFeatureCompo
 
         const result = await ScanbotDocumentEnhancer.straightenImage({
           image: imageFileUri,
-          straighteningParameters: new DocumentStraighteningParameters(),
+          straighteningParameters: straighteningParameters,
         });
 
-        if (result.straightenedImage) {
-          const straightenedImage = await result.straightenedImage.encodeImage();
-          this.router.navigate(['/image-result', straightenedImage]);
-        } else {
-          this.utils.showErrorAlert(
-            'Straightening failed. The result does not contain a straightened image.',
-          );
+        if (!result.straightenedImage) {
+          throw Error('Straightening failed. The result does not contain a straightened image.');
         }
+
+        const straightenedImage = await result.straightenedImage.encodeImage();
+        if (!straightenedImage) {
+          throw Error('Encoding failed.');
+        }
+
+        this.router.navigate(['/image-result', straightenedImage]);
       });
     } catch (e: any) {
       this.utils.showErrorAlert(e.message);

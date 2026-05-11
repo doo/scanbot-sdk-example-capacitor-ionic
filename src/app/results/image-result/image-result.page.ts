@@ -39,7 +39,7 @@ import {
 })
 export class ImageResultPage implements OnInit {
   imageSrc: string | null = null;
-  isLoading = false;
+  isLoading = true;
   hasError = false;
 
   private activatedRoute = inject(ActivatedRoute);
@@ -73,12 +73,6 @@ export class ImageResultPage implements OnInit {
       return null;
     }
 
-    const sanitizedBase64 = encodedImageBuffer.replace(/\s+/g, '');
-
-    if (!sanitizedBase64) {
-      return null;
-    }
-
-    return `data:image/jpeg;base64,${sanitizedBase64}`;
+    return `data:image/jpeg;base64,${encodedImageBuffer}`;
   }
 }

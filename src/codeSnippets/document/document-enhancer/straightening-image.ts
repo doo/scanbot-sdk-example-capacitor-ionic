@@ -40,7 +40,7 @@ async function straighteningDocument() {
       ];
       const result = await ScanbotDocumentEnhancer.straightenImage({
         image: selectedImageResult,
-        straighteningParameters: new DocumentStraighteningParameters(),
+        straighteningParameters: straighteningParameters,
       });
 
       /** Process the result as needed **/

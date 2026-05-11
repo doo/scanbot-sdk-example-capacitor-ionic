@@ -10,28 +10,30 @@
 <ion-content class="image-result-content">
   <ion-grid class="preview-grid">
     <ion-row class="preview-row ion-justify-content-center ion-align-items-center">
+      @if (isLoading) {
+        <ion-col size="12" class="state-col ion-text-center">
+          <ion-spinner name="crescent"></ion-spinner>
+          <ion-text color="light" class="state-title">Loading image preview…</ion-text>
+        </ion-col>
+      }
+      @if (hasError) {
+        <ion-col size="12" class="state-col ion-text-center">
+          <ion-text color="danger" class="state-title">Image preview unavailable</ion-text>
+          <ion-text color="medium" class="state-subtitle">
+            The provided result is empty or could not be decoded as an image.
+          </ion-text>
+        </ion-col>
+      }
       @if (imageSrc && !hasError) {
-      <ion-col size="12" class="preview-col ion-text-center">
-        <ion-img
-          class="result-image"
-          [class.is-loading]="isLoading"
-          [src]="imageSrc"
-          (ionImgDidLoad)="onImageLoad()"
-          (ionError)="onImageError()"
-        />
-      </ion-col>
-      } @if (isLoading) {
-      <ion-col *ngIf="isLoading" size="12" class="state-col ion-text-center">
-        <ion-spinner name="crescent"></ion-spinner>
-        <ion-text color="light" class="state-title">Loading image preview…</ion-text>
-      </ion-col>
-      } @if (hasError) {
-      <ion-col size="12" class="state-col ion-text-center">
-        <ion-text color="danger" class="state-title">Image preview unavailable</ion-text>
-        <ion-text color="medium" class="state-subtitle">
-          The provided result is empty or could not be decoded as an image.
-        </ion-text>
-      </ion-col>
+        <ion-col size="12" class="preview-col ion-text-center">
+          <ion-img
+            class="result-image"
+            [class.is-loading]="isLoading"
+            [src]="imageSrc"
+            (ionImgDidLoad)="onImageLoad()"
+            (ionError)="onImageError()"
+          />
+        </ion-col>
       }
     </ion-row>
   </ion-grid>
