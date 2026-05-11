@@ -48,7 +48,12 @@ export class ImageResultPage implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((params) => {
-      this.updateImageSource(params.get('encodedImageBuffer'));
+      const encodedImageBuffer = params.get('encodedImageBuffer');
+      if (encodedImageBuffer) {
+        this.imageSrc = `data:image/jpeg;base64,${encodedImageBuffer}`;
+      } else {
+        this.onImageError();
+      }
     });
   }
 
@@ -60,19 +65,5 @@ export class ImageResultPage implements OnInit {
   onImageError() {
     this.isLoading = false;
     this.hasError = true;
-  }
-
-  private updateImageSource(encodedImageBuffer: string | null) {
-    this.imageSrc = this.normalizeImageSource(encodedImageBuffer);
-    this.hasError = !this.imageSrc;
-    this.isLoading = !!this.imageSrc;
-  }
-
-  private normalizeImageSource(encodedImageBuffer: string | null): string | null {
-    if (!encodedImageBuffer) {
-      return null;
-    }
-
-    return `data:image/jpeg;base64,${encodedImageBuffer}`;
   }
 }
