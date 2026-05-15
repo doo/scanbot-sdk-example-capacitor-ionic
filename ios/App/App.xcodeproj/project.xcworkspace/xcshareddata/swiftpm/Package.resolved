@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/doo/scanbot-sdk-native-wrapper-spm.git",
       "state" : {
-        "revision" : "81b28b5af911087b101b280c3523df4981910e3d",
-        "version" : "9.0.0"
+        "revision" : "c39c73b46488313302abbf37e3b4a888f9427680",
+        "version" : "9.0.1"
       }
     }
   ],
