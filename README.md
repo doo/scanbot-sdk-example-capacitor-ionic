@@ -140,6 +140,7 @@ Besides Capacitor, the Scanbot SDK is also available on:
 * [.NET MAUI](https://github.com/doo/scanbot-sdk-maui-example)
 * [JavaScript](https://github.com/doo/scanbot-sdk-example-web)
 * [React Native](https://github.com/doo/scanbot-sdk-example-react-native)
-* [Xamarin](https://github.com/doo/scanbot-sdk-example-xamarin) & [Xamarin.Forms](https://github.com/doo/scanbot-sdk-example-xamarin-forms)
-
-Our Barcode Scanner SDK additionally also supports [Compose Multiplatform / KMP](https://github.com/doo/scanbot-barcode-scanner-sdk-example-kmp), [UWP](https://github.com/doo/scanbot-barcode-scanner-sdk-example-windows) (Windows), and [Linux](https://github.com/doo/scanbot-sdk-example-linux).
+* [Kotlin Multiplatform](https://github.com/doo/scanbot-barcode-scanner-sdk-example-kmp)
+* [Xamarin](https://github.com/doo/scanbot-sdk-example-xamarin) 
+* [Xamarin.Forms](https://github.com/doo/scanbot-sdk-example-xamarin-forms)
+* [Linux](https://github.com/doo/scanbot-sdk-example-linux)
