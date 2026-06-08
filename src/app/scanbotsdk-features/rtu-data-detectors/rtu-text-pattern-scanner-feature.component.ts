@@ -6,6 +6,7 @@ import { Colors } from 'src/theme/theme';
 import { ScanbotSdkFeatureComponent } from '../scanbotsdk-feature-component/scanbotsdk-feature.component';
 
 import {
+  PatternContentValidator,
   ScanbotTextPattern,
   TextPatternScannerScreenConfiguration,
 } from 'capacitor-plugin-scanbot-sdk';
@@ -38,6 +39,13 @@ export class RtuTextPatternScannerFeature extends ScanbotSdkFeatureComponent {
 
       // Configure the scanner
       configuration.scannerConfiguration.minimumNumberOfRequiredFramesWithEqualScanningResult = 3;
+
+      // Add a pattern validator to only scan text that passes the validation
+      configuration.scannerConfiguration.validator = new PatternContentValidator({
+        pattern: '^[aA-zZ]*',
+        patternGrammar: 'REGEX',
+        matchSubstring: true,
+      });
 
       // Configure other parameters as needed.
 
