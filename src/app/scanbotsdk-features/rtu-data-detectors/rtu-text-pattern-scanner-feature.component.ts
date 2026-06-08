@@ -42,7 +42,7 @@ export class RtuTextPatternScannerFeature extends ScanbotSdkFeatureComponent {
 
       // Add a pattern validator to only scan text that passes the validation
       configuration.scannerConfiguration.validator = new PatternContentValidator({
-        pattern: '^[aA-zZ]*',
+        pattern: '^[A-Za-z]+$',
         patternGrammar: 'REGEX',
         matchSubstring: true,
       });
