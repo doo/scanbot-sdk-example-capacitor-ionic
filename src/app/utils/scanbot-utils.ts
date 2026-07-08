@@ -11,6 +11,7 @@ import {
 import {
   BrightnessFilter,
   ColorDocumentFilter,
+  ColorDocumentShadowRemovalFilter,
   ContrastFilter,
   CustomBinarizationFilter,
   GenericDocument,
@@ -32,6 +33,8 @@ export interface ImageFilter {
   filter: ParametricFilter;
 }
 
+type ParametricFilterType = ParametricFilter['_type'];
+
 @Injectable({
   providedIn: 'root',
 })
@@ -40,41 +43,47 @@ export class ScanbotUtils {
 
   constructor() {}
 
+  filters: Record<ParametricFilterType, ImageFilter> = {
+    BrightnessFilter: {
+      title: 'Brightness',
+      filter: new BrightnessFilter({ brightness: 0.2 }),
+    },
+    ColorDocumentFilter: {
+      title: 'Color Document',
+      filter: new ColorDocumentFilter(),
+    },
+    ColorDocumentShadowRemovalFilter: {
+      title: 'Color Document Shadow Removal',
+      filter: new ColorDocumentShadowRemovalFilter(),
+    },
+    ContrastFilter: {
+      title: 'Contrast',
+      filter: new ContrastFilter({ contrast: 2 }),
+    },
+    CustomBinarizationFilter: {
+      title: 'Custom Binarization',
+      filter: new CustomBinarizationFilter({ preset: 'PRESET_1' }),
+    },
+    GrayscaleFilter: {
+      title: 'Grayscale',
+      filter: new GrayscaleFilter(),
+    },
+    LegacyFilter: {
+      title: 'Legacy',
+      filter: new LegacyFilter(),
+    },
+    ScanbotBinarizationFilter: {
+      title: 'Scanbot Binarization',
+      filter: new ScanbotBinarizationFilter(),
+    },
+    WhiteBlackPointFilter: {
+      title: 'White Black Point',
+      filter: new WhiteBlackPointFilter({ blackPoint: 0.2, whitePoint: 0.8 }),
+    },
+  };
+
   getImageFilters(): ImageFilter[] {
-    return [
-      {
-        title: 'Scanbot Binarization',
-        filter: new ScanbotBinarizationFilter(),
-      },
-      {
-        title: 'Custom Binarization',
-        filter: new CustomBinarizationFilter({ preset: 'PRESET_1' }),
-      },
-      {
-        title: 'Color Document',
-        filter: new ColorDocumentFilter(),
-      },
-      {
-        title: 'Brightness',
-        filter: new BrightnessFilter({ brightness: 0.2 }),
-      },
-      {
-        title: 'Contrast',
-        filter: new ContrastFilter({ contrast: 2 }),
-      },
-      {
-        title: 'Grayscale',
-        filter: new GrayscaleFilter(),
-      },
-      {
-        title: 'White Black Point',
-        filter: new WhiteBlackPointFilter({ blackPoint: 0.2, whitePoint: 0.8 }),
-      },
-      {
-        title: 'Legacy',
-        filter: new LegacyFilter(),
-      },
-    ];
+    return Object.keys(this.filters).map((key) => this.filters[key as ParametricFilterType]);
   }
 
   async chooseFilter(): Promise<ParametricFilter | undefined> {

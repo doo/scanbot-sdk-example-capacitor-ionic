@@ -50,6 +50,11 @@ export const routes: Routes = [
       import('./results/page-result/page-result.page').then((m) => m.PageResultPage),
   },
   {
+    path: 'image-result/:encodedImageBuffer',
+    loadComponent: () =>
+      import('./results/image-result/image-result.page').then((m) => m.ImageResultPage),
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',

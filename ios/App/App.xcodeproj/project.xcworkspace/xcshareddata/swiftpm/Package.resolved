@@ -1,0 +1,42 @@
+{
+  "originHash" : "3e8a8ac07955ea523b728dbe7c53f2b605ed3fc9d15a96c9c5a0992e6440b590",
+  "pins" : [
+    {
+      "identity" : "capacitor-swift-pm",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ionic-team/capacitor-swift-pm.git",
+      "state" : {
+        "revision" : "f1a8fadf1437c23b825c818fb6509c9dbbae2f61",
+        "version" : "8.3.1"
+      }
+    },
+    {
+      "identity" : "ion-ios-camera",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ionic-team/ion-ios-camera.git",
+      "state" : {
+        "revision" : "2cd4f06b0ece21b6458e23357280c51f94bfceb8",
+        "version" : "1.0.4"
+      }
+    },
+    {
+      "identity" : "ion-ios-filesystem",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ionic-team/ion-ios-filesystem.git",
+      "state" : {
+        "revision" : "0d81e26e828ff9582807e2339112cedf2e0fab85",
+        "version" : "1.1.2"
+      }
+    },
+    {
+      "identity" : "scanbot-sdk-native-wrapper-spm",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/doo/scanbot-sdk-native-wrapper-spm.git",
+      "state" : {
+        "revision" : "abfdbfd171791656b50ceb3b3f4c0c1c15ee1d0f",
+        "version" : "9.0.10"
+      }
+    }
+  ],
+  "version" : 3
+}

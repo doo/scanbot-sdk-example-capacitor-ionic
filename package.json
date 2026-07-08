@@ -1,6 +1,6 @@
 {
   "name": "scanbot-example-sdk-capacitor",
-  "version": "8.0.0",
+  "version": "9.0.0",
   "author": "Scanbot SDK",
   "homepage": "https://scanbot.io",
   "description": "Scanbot SDK Example App for Capacitor with Angular",
@@ -11,11 +11,10 @@
     "sync": "npx cap sync",
     "android": "npx cap run android",
     "ios": "npx cap run ios",
-    "install-pods": "cd ios/App && pod install --repo-update",
     "watch": "ng build --watch --configuration development",
     "tscheck": "tsc --noEmit",
     "format": "prettier --write \"src/**/*.{ts,html,scss,json}\"",
-    "clean": "rm -r -f node_modules && rm -f package-lock.json && rm -r -f www && cd ios/App && rm -r -f Pods && rm -f Podfile.lock"
+    "clean": "rm -r -f node_modules && rm -f package-lock.json && rm -r -f www"
   },
   "private": true,
   "dependencies": {
@@ -27,7 +26,7 @@
     "@angular/platform-browser": "^21.0.6",
     "@angular/platform-browser-dynamic": "^21.0.6",
     "@angular/router": "^21.0.6",
-    "@capacitor-community/file-opener": "7.0.1",
+    "@capacitor-community/file-opener": "8.0.0",
     "@capacitor/android": "^8.0.0",
     "@capacitor/app": "^8.0.0",
     "@capacitor/camera": "^8.0.0",
@@ -35,10 +34,10 @@
     "@capacitor/filesystem": "^8.0.0",
     "@capacitor/ios": "^8.0.0",
     "@capacitor/status-bar": "^8.0.0",
-    "@capawesome/capacitor-file-picker": "7.0.1",
+    "@capawesome/capacitor-file-picker": "8.0.2",
     "@ionic/angular": "^8.0.0",
-    "capacitor-plugin-scanbot-sdk": "8.0.0",
-    "ionicons": "^7.0.0",
+    "capacitor-plugin-scanbot-sdk": "9.0.0",
+    "ionicons": "8.0.13",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

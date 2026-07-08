@@ -21,19 +21,19 @@ With our Ready-To-Use UI (RTU UI) components, you can integrate the Scanbot SDK 
 
 ### Requirements
 
-* NodeJS 20+ & npm
-* [Capacitor CLI](https://www.npmjs.com/package/@capacitor/cli) 7+
+* NodeJS 22+ & npm
+* [Capacitor CLI](https://www.npmjs.com/package/@capacitor/cli) 8
 * For Android apps:
-	* Android Studio 2024.2.1+
-	* Android SDK (API Level 23+), Platforms and Developer Tools
-	* Android Gradle Plugin 8.4.0+ or Kotlin Plugin applied
+  * Android Studio 2025.2.1+
+  * Android SDK (API Level 24+), Platforms and Developer Tools
+  * Android Gradle Plugin 8.9.1+
 
 * For iOS apps:
-	* iOS 14+
-	* macOS with Xcode 16+
-	* Xcode Command Line Tools
-	* Homebrew
-	* Cocoapods
+  * iOS 15+
+  * macOS with Xcode 26.0+
+  * Xcode Command Line Tools
+  * Homebrew
+  * Cocoapods
 
 Please check the full [requirements for Capacitor](https://capacitorjs.com/docs/getting-started/environment-setup).
 
@@ -70,7 +70,7 @@ npm run ios
 
 You can read more about the Capacitor CLI commands at this [link](https://capacitorjs.com/docs/cli).
 
-If you want to develop without Capacitor CLI commands, you can use [VS Code](https://code.visualstudio.com/) together with the [Ionic VS Code Extension](https://marketplace.visualstudio.com/items?itemName=ionic.ionic). Read more about this [here](https://capacitorjs.com/docs/vscode/getting-started).
+If you want to develop without Capacitor CLI commands, you can use [VS Code](https://code.visualstudio.com/) together with the [Ionic VS Code Extension](https://marketplace.visualstudio.com/items?itemName=ionic.ionic). Read more about this [here](https://capacitorjs.com/docs/getting-started/vscode-extension).
 
 ## Overview of the Scanbot SDK
 
@@ -140,6 +140,7 @@ Besides Capacitor, the Scanbot SDK is also available on:
 * [.NET MAUI](https://github.com/doo/scanbot-sdk-maui-example)
 * [JavaScript](https://github.com/doo/scanbot-sdk-example-web)
 * [React Native](https://github.com/doo/scanbot-sdk-example-react-native)
-* [Xamarin](https://github.com/doo/scanbot-sdk-example-xamarin) & [Xamarin.Forms](https://github.com/doo/scanbot-sdk-example-xamarin-forms)
-
-Our Barcode Scanner SDK additionally also supports [Compose Multiplatform / KMP](https://github.com/doo/scanbot-barcode-scanner-sdk-example-kmp), [UWP](https://github.com/doo/scanbot-barcode-scanner-sdk-example-windows) (Windows), and [Linux](https://github.com/doo/scanbot-sdk-example-linux).
+* [Kotlin Multiplatform](https://github.com/doo/scanbot-barcode-scanner-sdk-example-kmp)
+* [Xamarin](https://github.com/doo/scanbot-sdk-example-xamarin) 
+* [Xamarin.Forms](https://github.com/doo/scanbot-sdk-example-xamarin-forms)
+* [Linux](https://github.com/doo/scanbot-sdk-example-linux)
