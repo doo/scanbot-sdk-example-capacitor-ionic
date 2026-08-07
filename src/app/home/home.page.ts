@@ -20,6 +20,7 @@ import { RtuMrzScannerFeature } from '../scanbotsdk-features/rtu-data-detectors/
 import { RtuTextPatternScannerFeature } from '../scanbotsdk-features/rtu-data-detectors/rtu-text-pattern-scanner-feature.component';
 import { RtuVinScannerComponent } from '../scanbotsdk-features/rtu-data-detectors/rtu-vin-scanner.component';
 import { DocumentStraightenerFeatureComponent } from '../scanbotsdk-features/document-straightener-feature.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -50,6 +51,7 @@ import { DocumentStraightenerFeatureComponent } from '../scanbotsdk-features/doc
 export class HomePage {
   readonly currentYear = new Date().getFullYear();
   private utils = inject(CommonUtils);
+  private router = inject(Router);
 
   constructor() {}
 
@@ -82,6 +84,10 @@ export class HomePage {
     } catch (e: any) {
       this.utils.showErrorAlert(e.message);
     }
+  }
+
+  navigateToDocumentCustomUIPage() {
+    this.router.navigate(['/document-custom-ui']);
   }
 
   private async isLicenseValid(): Promise<boolean> {

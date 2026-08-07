@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Document Custom UI</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="document-view">
+  </div>
+  <ion-text class="overlay-text" color="light">
+    <h3>{{ frameDetectionResult }}</h3>
+  </ion-text>
+  <div class="overlay-actions">
+    <div>
+      <ion-button class="overlay-action-button" fill="clear" (click)="onFinderToggle()" aria-label="Toggle Finder">
+        <ion-icon name="barcode-outline"></ion-icon>
+      </ion-button>
+      <ion-button class="overlay-action-button" fill="clear" (click)="onFlashEnabled()" aria-label="Toggle Flash">
+        <ion-icon name="flashlight-outline"></ion-icon>
+      </ion-button>
+      <ion-button class="overlay-action-button" fill="clear" (click)="onPolygonToggle()" aria-label="Toggle Polygon">
+        <ion-icon name="copy-outline"></ion-icon>
+      </ion-button>
+    </div>
+    <div>
+      <ion-button class="snap-button" fill="clear" (click)="onSnap()" aria-label="Snap Document">
+        <ion-icon name="scan-outline"></ion-icon>
+      </ion-button>
+    </div>
+  </div>
+</ion-content>
