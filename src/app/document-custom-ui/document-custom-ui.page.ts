@@ -9,7 +9,9 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
+  IonBackButton,
   IonButton,
+  IonButtons,
   IonContent,
   IonHeader,
   IonIcon,
@@ -57,6 +59,8 @@ import {
     IonButton,
     IonIcon,
     IonText,
+    IonButtons,
+    IonBackButton,
   ],
 })
 export class DocumentCustomUiPage implements OnInit {
@@ -84,6 +88,10 @@ export class DocumentCustomUiPage implements OnInit {
     });
 
     if (Capacitor.isPluginAvailable('ScanbotCustomUI')) {
+      /*
+       *  `afterNextRender` runs once after the next paint, so the component attaches when layout bounds are ready.
+       *  The app can attach via other lifecycle hooks or custom events if that timing fits better.
+       */
       afterNextRender(async () => {
         this.documentCustomUI.attachScannerAtFrame(
           { ...this.extractRect() },
@@ -112,10 +120,35 @@ export class DocumentCustomUiPage implements OnInit {
               alert(error);
             },
           },
+          {
+            finderConfiguration: {
+              finderLineWidth: 4.0,
+              finderLineColor: '#ff00ff',
+              finderOverlayColor: '#000000',
+              finderInset: new EdgeInsets({ top: 16.0, left: 16.0, bottom: 16.0, right: 16.0 }),
+              finderMinimumPadding: 0,
+              finderAspectRatio: new AspectRatio({ width: 1, height: 1.4 }),
+            },
+            polygonConfiguration: {
+              polygonBackgroundColor: '#ff0000',
+              polygonBackgroundColorOK: '#ff00ff',
+              polygonColor: '#ffffff',
+              polygonColorOK: '#ffffff',
+              polygonLineWidth: 3.0,
+              polygonCornerRadius: 8.0,
+              polygonAutoSnapProgressColor: '#00ff00',
+              polygonAutoSnapProgressLineWidth: 6.0,
+              polygonAutoSnapProgressEnabled: true,
+            },
+          },
         );
         this.currentPosition = this.extractRect();
       });
 
+      /*
+       *  `afterEveryRender` runs after each paint, so the component can react to frame changes.
+       *  The app can update through resize observers, route events, or other mechanisms instead.
+       */
       afterEveryRender(() => {
         const current = this.extractRect();
         if (this.hasMoved(current, this.currentPosition)) {
@@ -136,12 +169,6 @@ export class DocumentCustomUiPage implements OnInit {
     this.finderEnabled = !this.finderEnabled;
     const finderConfiguration: CustomUIFinderConfiguration = {
       viewFinderEnabled: this.finderEnabled,
-      finderLineWidth: 4.0,
-      finderLineColor: '#ff00ff',
-      finderOverlayColor: '#000000',
-      finderInset: new EdgeInsets({ top: 16.0, left: 16.0, bottom: 16.0, right: 16.0 }),
-      finderMinimumPadding: 0,
-      finderAspectRatio: new AspectRatio({ width: 1, height: 1.4 }),
     };
 
     this.documentCustomUI.configuration.setFinderConfiguration(finderConfiguration);
@@ -159,15 +186,6 @@ export class DocumentCustomUiPage implements OnInit {
 
     const polygonConfiguration: DocumentCustomUIPolygonConfiguration = {
       polygonEnabled: this.polygonEnabled,
-      polygonBackgroundColor: '#ff0000',
-      polygonBackgroundColorOK: '#ff00ff',
-      polygonColor: '#ffffff',
-      polygonColorOK: '#ffffff',
-      polygonLineWidth: 3.0,
-      polygonCornerRadius: 8.0,
-      polygonAutoSnapProgressColor: '#00ff00',
-      polygonAutoSnapProgressLineWidth: 6.0,
-      polygonAutoSnapProgressEnabled: true,
     };
 
     this.documentCustomUI.configuration.setPolygonConfiguration(polygonConfiguration);
@@ -177,6 +195,8 @@ export class DocumentCustomUiPage implements OnInit {
     this.documentCustomUI.snapDocument();
   }
 
+  // Helpers
+  // Utility for extracting the div's frame
   private extractRect(): ScannerViewFrame {
     const div = document.getElementById('document-view');
     if (!div) {
