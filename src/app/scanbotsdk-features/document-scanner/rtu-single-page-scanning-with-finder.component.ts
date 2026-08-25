@@ -47,8 +47,8 @@ export class RtuSinglePageScanningComponentWithFinder extends ScanbotSdkFeatureC
       configuration.screens.camera.cameraConfiguration.autoSnappingEnabled = true;
 
       // Hide the auto-snapping enable/disable button
-      configuration.screens.camera.bottomBar.autoSnappingModeButton.visible = false;
-      configuration.screens.camera.bottomBar.manualSnappingModeButton.visible = false;
+      configuration.screens.camera.toolBar.autoSnappingModeButton.visible = false;
+      configuration.screens.camera.toolBar.manualSnappingModeButton.visible = false;
 
       // Set colors
       configuration.palette.sbColorPrimary = Colors.scanbotRed;

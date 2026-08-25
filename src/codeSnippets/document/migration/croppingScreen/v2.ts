@@ -1,7 +1,7 @@
-import { CroppingConfiguration, ScanbotDocument } from 'capacitor-plugin-scanbot-sdk';
+import { CroppingStandaloneConfiguration, ScanbotDocument } from 'capacitor-plugin-scanbot-sdk';
 
 async function croppingScreen(documentUuid: string, pageUuid: string) {
-  const configuration = new CroppingConfiguration({
+  const configuration = new CroppingStandaloneConfiguration({
     documentUuid: documentUuid,
     pageUuid: pageUuid,
   });

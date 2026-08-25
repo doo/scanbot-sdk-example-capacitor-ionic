@@ -1,4 +1,4 @@
-import { CroppingConfiguration, ScanbotDocument } from 'capacitor-plugin-scanbot-sdk';
+import { CroppingStandaloneConfiguration, ScanbotDocument } from 'capacitor-plugin-scanbot-sdk';
 import { ImageUtils } from '../../../app/utils/image-utils';
 
 async function startDocumentDetectionWithCroppingScreen() {
@@ -16,12 +16,12 @@ async function startDocumentDetectionWithCroppingScreen() {
       images: [selectedImageResult],
     });
     /** Create a new configuration with the document and the document's first page. */
-    const configuration = new CroppingConfiguration({
+    const configuration = new CroppingStandaloneConfiguration({
       documentUuid: document.uuid,
       pageUuid: document.pages[0].uuid,
     });
     /* Customize the configuration. */
-    configuration.cropping.bottomBar.rotateButton.visible = false;
+    configuration.cropping.toolBar.rotateButton.visible = false;
     configuration.appearance.topBarBackgroundColor = '#c8193c';
     configuration.cropping.topBarConfirmButton.foreground.color = '#ffffff';
     configuration.localization.croppingTopBarCancelButtonTitle = 'Cancel';

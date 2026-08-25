@@ -57,11 +57,11 @@ export class RtuSinglePageScanningComponent extends ScanbotSdkFeatureComponent {
         new PageSnapCheckMarkAnimation({});
 
       // Hide the auto-snapping enable/disable button
-      configuration.screens.camera.bottomBar.autoSnappingModeButton.visible = false;
-      configuration.screens.camera.bottomBar.manualSnappingModeButton.visible = false;
-      configuration.screens.camera.bottomBar.importButton.title.visible = true;
-      configuration.screens.camera.bottomBar.torchOnButton.title.visible = true;
-      configuration.screens.camera.bottomBar.torchOffButton.title.visible = true;
+      configuration.screens.camera.toolBar.autoSnappingModeButton.visible = false;
+      configuration.screens.camera.toolBar.manualSnappingModeButton.visible = false;
+      configuration.screens.camera.toolBar.importButton.title.visible = true;
+      configuration.screens.camera.toolBar.torchOnButton.title.visible = true;
+      configuration.screens.camera.toolBar.torchOffButton.title.visible = true;
 
       // Set colors
       configuration.palette.sbColorPrimary = Colors.scanbotRed;
