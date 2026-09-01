@@ -21,6 +21,7 @@ import { RtuTextPatternScannerFeature } from '../scanbotsdk-features/rtu-data-de
 import { RtuVinScannerComponent } from '../scanbotsdk-features/rtu-data-detectors/rtu-vin-scanner.component';
 import { DocumentStraightenerFeatureComponent } from '../scanbotsdk-features/document-straightener-feature.component';
 import { Router } from '@angular/router';
+import { RtuDocumentCleanupFeatureComponent } from '../scanbotsdk-features/document-scanner/rtu-document-cleanup-feature.component';
 
 @Component({
   selector: 'app-home',
@@ -46,6 +47,7 @@ import { Router } from '@angular/router';
     AnalyzeDocumentQualityFeature,
     PerformOcrOnImageFeature,
     DocumentStraightenerFeatureComponent,
+    RtuDocumentCleanupFeatureComponent,
   ],
 })
 export class HomePage {
