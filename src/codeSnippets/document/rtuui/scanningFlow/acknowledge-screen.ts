@@ -20,13 +20,13 @@ async function startScanning() {
      * You can also configure the buttons in the tool bar of the acknowledgment screen.
      * e.g To force the user to retake, if the captured document is not OK.
      */
-    acknowledgementScreenConfig.toolBar.retakeButton.visible = false;
+    acknowledgementScreenConfig.toolbar.retakeButton.visible = false;
     /** Hide the titles of the buttons. */
-    acknowledgementScreenConfig.toolBar.acceptWhenAcceptableButton.title.visible = false;
-    acknowledgementScreenConfig.toolBar.proceedAnywayButton.unacceptableQuality.title.visible = false;
-    acknowledgementScreenConfig.toolBar.proceedAnywayButton.documentNotFound.title.visible = false;
-    acknowledgementScreenConfig.toolBar.proceedAnywayButton.uncertainQuality.title.visible = false;
-    acknowledgementScreenConfig.toolBar.retakeButton.title.visible = false;
+    acknowledgementScreenConfig.toolbar.acceptWhenAcceptableButton.title.visible = false;
+    acknowledgementScreenConfig.toolbar.proceedAnywayButton.unacceptableQuality.title.visible = false;
+    acknowledgementScreenConfig.toolbar.proceedAnywayButton.documentNotFound.title.visible = false;
+    acknowledgementScreenConfig.toolbar.proceedAnywayButton.uncertainQuality.title.visible = false;
+    acknowledgementScreenConfig.toolbar.retakeButton.title.visible = false;
     /** Configure the acknowledgment screen's hint message which is shown. */
     acknowledgementScreenConfig.documentNotFoundWarning.title.text = 'No document found';
     acknowledgementScreenConfig.unacceptableQualityWarning.title.text =
