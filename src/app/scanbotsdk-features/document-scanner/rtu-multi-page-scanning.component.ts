@@ -62,8 +62,6 @@ export class RtuMultiPageScanningComponent extends ScanbotSdkFeatureComponent {
       configuration.screens.review.toolbar.deleteButton.barButton.visible = true;
 
       // Configure `more` popup on review screen
-      // TODO: CHECK
-      // configuration.screens.review.morePopup.reorderPages.icon.visible = true;
       configuration.screens.review.morePopup.deleteAll.icon.visible = true;
       configuration.screens.review.morePopup.deleteAll.title.text = 'Delete all pages';
 
@@ -76,6 +74,13 @@ export class RtuMultiPageScanningComponent extends ScanbotSdkFeatureComponent {
       configuration.screens.cropping.toolbar.resetButton.visible = true;
       configuration.screens.cropping.toolbar.rotateButton.visible = true;
       configuration.screens.cropping.toolbar.detectButton.visible = true;
+
+      // Configure cleanup screen
+      configuration.screens.review.toolbar.documentCleanupButton.barButton.visible = true;
+      configuration.screens.cleanup.engineConfiguration.keepText = true;
+      configuration.screens.cleanup.discardChangesAlertDialog.title.text = 'Discard changes?';
+      configuration.screens.cleanup.discardChangesAlertDialog.subtitle.text =
+        'Are you sure you want to discard the changes?';
 
       const documentResult = await ScanbotDocument.startScanner(configuration);
       /**
