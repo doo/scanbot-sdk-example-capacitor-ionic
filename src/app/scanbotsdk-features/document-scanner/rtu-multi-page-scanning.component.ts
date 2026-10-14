@@ -37,8 +37,8 @@ export class RtuMultiPageScanningComponent extends ScanbotSdkFeatureComponent {
       configuration.screens.camera.cameraConfiguration.autoSnappingEnabled = true;
 
       // Hide/Reveal the auto snapping enable/disable button
-      configuration.screens.camera.bottomBar.autoSnappingModeButton.visible = true;
-      configuration.screens.camera.bottomBar.manualSnappingModeButton.visible = true;
+      configuration.screens.camera.toolbar.autoSnappingModeButton.visible = true;
+      configuration.screens.camera.toolbar.manualSnappingModeButton.visible = true;
 
       // Set colors
       configuration.palette.sbColorPrimary = Colors.scanbotRed;
@@ -54,15 +54,14 @@ export class RtuMultiPageScanningComponent extends ScanbotSdkFeatureComponent {
       // Enable/Disable the review screen.
       configuration.screens.review.enabled = true;
 
-      // Configure the bottom bar (further properties like title, icon and background can also be set for these buttons)
-      configuration.screens.review.bottomBar.addButton.visible = true;
-      configuration.screens.review.bottomBar.retakeButton.visible = true;
-      configuration.screens.review.bottomBar.cropButton.visible = true;
-      configuration.screens.review.bottomBar.rotateButton.visible = true;
-      configuration.screens.review.bottomBar.deleteButton.visible = true;
+      // Configure the toolbar (further properties like title, icon and background can also be set for these buttons)
+      configuration.screens.review.toolbar.addButton.barButton.visible = true;
+      configuration.screens.review.toolbar.retakeButton.barButton.visible = true;
+      configuration.screens.review.toolbar.cropButton.barButton.visible = true;
+      configuration.screens.review.toolbar.rotateButton.barButton.visible = true;
+      configuration.screens.review.toolbar.deleteButton.barButton.visible = true;
 
       // Configure `more` popup on review screen
-      configuration.screens.review.morePopup.reorderPages.icon.visible = true;
       configuration.screens.review.morePopup.deleteAll.icon.visible = true;
       configuration.screens.review.morePopup.deleteAll.title.text = 'Delete all pages';
 
@@ -72,9 +71,16 @@ export class RtuMultiPageScanningComponent extends ScanbotSdkFeatureComponent {
 
       // Configure cropping screen
       configuration.screens.cropping.topBarTitle.text = 'Cropping Screen';
-      configuration.screens.cropping.bottomBar.resetButton.visible = true;
-      configuration.screens.cropping.bottomBar.rotateButton.visible = true;
-      configuration.screens.cropping.bottomBar.detectButton.visible = true;
+      configuration.screens.cropping.toolbar.resetButton.visible = true;
+      configuration.screens.cropping.toolbar.rotateButton.visible = true;
+      configuration.screens.cropping.toolbar.detectButton.visible = true;
+
+      // Configure cleanup screen
+      configuration.screens.review.toolbar.documentCleanupButton.barButton.visible = true;
+      configuration.screens.cleanup.engineConfiguration.keepText = true;
+      configuration.screens.cleanup.discardChangesAlertDialog.title.text = 'Discard changes?';
+      configuration.screens.cleanup.discardChangesAlertDialog.subtitle.text =
+        'Are you sure you want to discard the changes?';
 
       const documentResult = await ScanbotDocument.startScanner(configuration);
       /**

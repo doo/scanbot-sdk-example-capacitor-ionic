@@ -55,6 +55,11 @@ export const routes: Routes = [
       import('./results/image-result/image-result.page').then((m) => m.ImageResultPage),
   },
   {
+    path: 'document-custom-ui',
+    loadComponent: () =>
+      import('./document-custom-ui/document-custom-ui.page').then((m) => m.DocumentCustomUiPage),
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',

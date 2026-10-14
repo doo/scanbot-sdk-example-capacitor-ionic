@@ -43,24 +43,24 @@ async function startScanning() {
     cameraScreenConfig.userGuidance.statesTitles.captureManual =
       'The document is ready to be captured';
     /**
-     * Configure the bottom bar and the bottom bar buttons.
-     * Set the background color of the bottom bar.
+     * Configure the tool bar and the tool bar buttons.
+     * Set the background color of the tool bar.
      */
-    configuration.appearance.bottomBarBackgroundColor = '#C8193C';
+    configuration.appearance.toolbarBackgroundColor = '#C8193C';
     /** Import button is used to import image from the gallery. */
-    cameraScreenConfig.bottomBar.importButton.visible = true;
-    cameraScreenConfig.bottomBar.importButton.title.visible = true;
-    cameraScreenConfig.bottomBar.importButton.title.text = 'Import';
+    cameraScreenConfig.toolbar.importButton.visible = true;
+    cameraScreenConfig.toolbar.importButton.title.visible = true;
+    cameraScreenConfig.toolbar.importButton.title.text = 'Import';
     /** Configure the auto/manual snap button. */
-    cameraScreenConfig.bottomBar.autoSnappingModeButton.title.visible = true;
-    cameraScreenConfig.bottomBar.autoSnappingModeButton.title.text = 'Auto';
-    cameraScreenConfig.bottomBar.manualSnappingModeButton.title.visible = true;
-    cameraScreenConfig.bottomBar.manualSnappingModeButton.title.text = 'Manual';
+    cameraScreenConfig.toolbar.autoSnappingModeButton.title.visible = true;
+    cameraScreenConfig.toolbar.autoSnappingModeButton.title.text = 'Auto';
+    cameraScreenConfig.toolbar.manualSnappingModeButton.title.visible = true;
+    cameraScreenConfig.toolbar.manualSnappingModeButton.title.text = 'Manual';
     /** Configure the torch off/on button. */
-    cameraScreenConfig.bottomBar.torchOnButton.title.visible = true;
-    cameraScreenConfig.bottomBar.torchOnButton.title.text = 'On';
-    cameraScreenConfig.bottomBar.torchOffButton.title.visible = true;
-    cameraScreenConfig.bottomBar.torchOffButton.title.text = 'Off';
+    cameraScreenConfig.toolbar.torchOnButton.title.visible = true;
+    cameraScreenConfig.toolbar.torchOnButton.title.text = 'On';
+    cameraScreenConfig.toolbar.torchOffButton.title.visible = true;
+    cameraScreenConfig.toolbar.torchOffButton.title.text = 'Off';
     /** Configure the camera blink behavior when an image is captured. */
     cameraScreenConfig.captureFeedback.cameraBlinkEnabled = true;
     /**
