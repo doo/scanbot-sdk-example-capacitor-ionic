@@ -21,10 +21,10 @@ async function finderDocumentScanner() {
   viewFinder.visible = true;
   viewFinder.aspectRatio = new AspectRatio({ width: 3, height: 4 });
 
-  const bottomBar = cameraScreenConfiguration.bottomBar;
-  bottomBar.previewButton = new NoButtonMode({});
-  bottomBar.autoSnappingModeButton.visible = false;
-  bottomBar.importButton.visible = false;
+  const toolbar = cameraScreenConfiguration.toolbar;
+  toolbar.previewButton = new NoButtonMode({});
+  toolbar.autoSnappingModeButton.visible = false;
+  toolbar.importButton.visible = false;
 
   cameraScreenConfiguration.acknowledgement.acknowledgementMode = 'NONE';
   cameraScreenConfiguration.captureFeedback.snapFeedbackMode = new PageSnapFunnelAnimation();

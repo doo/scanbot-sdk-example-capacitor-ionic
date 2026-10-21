@@ -21,7 +21,7 @@ import { CommonUtils } from '../../utils/common-utils';
 import { ScanbotUtils } from '../../utils/scanbot-utils';
 
 import {
-  CroppingConfiguration,
+  CroppingStandaloneConfiguration,
   DocumentData,
   PageData,
   ScanbotDocument,
@@ -92,7 +92,7 @@ export class PageResultPage implements OnInit {
        * Create the Cropping configuration object and
        * start the Cropping UI with the configuration, documentUUID and pageUUID
        */
-      const configuration = new CroppingConfiguration({
+      const configuration = new CroppingStandaloneConfiguration({
         documentUuid: this.documentUuid,
         pageUuid: this.page.uuid,
       });
