@@ -1,0 +1,69 @@
+ion-content {
+  --background: transparent;
+}
+
+#document-view {
+  background: transparent;
+  display: flex;
+  flex: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.overlay-actions {
+  position: absolute;
+  left: 50%;
+  bottom: 6.5rem;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  z-index: 2;
+}
+
+.overlay-action-button {
+  --background: rgb(128 128 128 / 0.65);
+  --background-hover: rgba(128, 128, 128, 0.96);
+  --background-activated: rgba(110, 110, 110, 1);
+  --color: #fff;
+  --border-radius: 9999px;
+  --padding-start: 0;
+  --padding-end: 0;
+  width: 3.25rem;
+  height: 3.25rem;
+  min-width: 3.25rem;
+  min-height: 3.25rem;
+}
+
+.overlay-action-button ion-icon {
+  font-size: 1.35rem;
+}
+
+.overlay-text {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 2;
+  color: red;
+  font-size: var(--font-size);
+}
+
+.snap-button {
+  --background: rgb(214 0 0);
+  --background-hover: rgba(255, 0, 0, 0.96);
+  --background-activated: rgba(214, 0, 0, 0.75);
+  --color: #fff;
+  --border-radius: 9999px;
+  --padding-start: 0;
+  --padding-end: 0;
+  width: 3.25rem;
+  height: 3.25rem;
+  min-width: 3.25rem;
+  min-height: 3.25rem;
+}
