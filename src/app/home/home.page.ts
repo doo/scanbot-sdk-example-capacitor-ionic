@@ -65,17 +65,6 @@ export class HomePage {
     }
   }
 
-  async showOCRConfigs() {
-    try {
-      // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
-      if (await this.isLicenseValid()) {
-        this.utils.showOCRConfigs(await ScanbotSDK.getOcrConfigs());
-      }
-    } catch (e: any) {
-      this.utils.showErrorAlert(e.message);
-    }
-  }
-
   async cleanup() {
     try {
       // Always make sure you have a valid license at runtime via ScanbotSDK.getLicenseInfo()
